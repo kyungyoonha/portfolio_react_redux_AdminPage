@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Card = styled.div`
-    height: 400px;
+    height: 600px;
 `;
 
 const CardContainer = ({ children }) => {
