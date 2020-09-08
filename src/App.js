@@ -13,25 +13,27 @@ import Layout from "./containers/Layout";
 
 const App = () => {
     return (
-        <Router history={history}>
-            <Switch>
-                {routes.map((route, idx) => (
-                    <Route
-                        key={idx}
-                        path={route.path}
-                        exact={route.exact}
-                        title={route.title}
-                        render={(props) => (
-                            <Layout>
-                                <route.component {...props} />
-                            </Layout>
-                        )}
-                    />
-                ))}
-                <Route path="signup" title="회원가입" component={Signup} />
-                <Route path="login" title="로그인" component={Login} />
-            </Switch>
-        </Router>
+        <div className="app">
+            <Router history={history}>
+                <Switch>
+                    {routes.map((route, idx) => (
+                        <Route
+                            key={idx}
+                            path={route.path}
+                            exact={route.exact}
+                            title={route.title}
+                            render={(props) => (
+                                <Layout>
+                                    <route.component {...props} />
+                                </Layout>
+                            )}
+                        />
+                    ))}
+                    <Route path="signup" title="회원가입" component={Signup} />
+                    <Route path="login" title="로그인" component={Login} />
+                </Switch>
+            </Router>
+        </div>
     );
 };
 

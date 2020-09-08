@@ -4,11 +4,9 @@ import styled from "styled-components";
 // containers
 import Sidebar from "./Sidebar";
 import Header from "./Header";
-import Content from "./Content";
 
 const Container = styled.div`
-    height: 100vh;
-    overflow: hidden;
+    background: #ebedef;
 `;
 
 const BodyContainer = styled.div`
@@ -23,7 +21,7 @@ const Home = ({ children }) => {
             <Header />
             <BodyContainer>
                 <Sidebar />
-                <Content>{children}</Content>
+                {children}
             </BodyContainer>
         </Container>
     );

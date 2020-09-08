@@ -4,6 +4,7 @@ import App from "./App";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import reducers from "./redux/reducers";
+import "bootstrap/dist/css/bootstrap.css";
 
 const store = createStore(reducers);
 

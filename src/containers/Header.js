@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
 
 const TitleContainer = styled.div`
     display: flex;
@@ -14,14 +13,14 @@ const TitleContainer = styled.div`
     font-weight: bold;
 `;
 
-const TitleRight = styled.div`
-    font-size: 1rem;
-    font-weight: normal;
-    & li {
-        float: left;
-        margin-right: 15px;
-    }
-`;
+// const TitleRight = styled.div`
+//     font-size: 1rem;
+//     font-weight: normal;
+//     & li {
+//         float: left;
+//         margin-right: 15px;
+//     }
+// `;
 
 const Breadcrumb = styled.div`
     padding: 0 30px;
@@ -39,17 +38,17 @@ const Header = () => {
         <div>
             <TitleContainer>
                 TRIPSODA
-                <TitleRight>
+                {/* <TitleRight>
                     <ul>
                         <li>로그인</li>
                         <li>회원가입</li>
                     </ul>
-                </TitleRight>
+                </TitleRight> */}
             </TitleContainer>
             <Breadcrumb>
                 Home
                 <span>
-                    <i class="fas fa-chevron-right"></i>
+                    <i className="fas fa-chevron-right"></i>
                 </span>
             </Breadcrumb>
         </div>
