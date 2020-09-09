@@ -6,16 +6,18 @@ import Sidebar from "./Sidebar";
 import Header from "./Header";
 
 const Container = styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background: #ebedef;
 `;
 
 const BodyContainer = styled.div`
     display: flex;
-    height: 100%;
-    align-items: stretch;
+    flex: 1;
 `;
 
-const Home = ({ children }) => {
+const Layout = ({ children }) => {
     return (
         <Container>
             <Header />
@@ -27,4 +29,4 @@ const Home = ({ children }) => {
     );
 };
 
-export default Home;
+export default Layout;

@@ -5,6 +5,7 @@ import ChartsRegion from "../components/ChartsRegion";
 import GoogleMap from "../components/GoogleMap";
 import ChartsWeeklyReservation from "../components/ChartsWeeklyReservation";
 import ChartsMonthlyReservation from "../components/ChartsMonthlyReservation";
+import BoardCS from "../components/BoardCS";
 
 const Container = styled.div`
     background: #eeeeee;
@@ -40,6 +41,16 @@ const Dashboard = () => {
                     <ChartsWeeklyReservation />
                 </div>
             </CardContainer>
+            <div className="col-md-12">
+                <div className="card" style={{ height: "500px" }}>
+                    <div className="card-header bg-white">
+                        문의 및 신고 게시판 현황
+                    </div>
+                    <div className="card-body bg-white">
+                        <BoardCS />
+                    </div>
+                </div>
+            </div>
         </Container>
     );
 };

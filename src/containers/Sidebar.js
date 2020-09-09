@@ -71,18 +71,21 @@ const Sidebar = () => {
                     <br />※ 이메일: <span>{user.email}</span>
                 </div>
             </User>
-            {routes.map((route) => (
-                <LinkElem
-                    key={route.path}
-                    to={route.path}
-                    activeClassName="active"
-                >
-                    <NavItem>
-                        <i className={`fas fa-${route.icon}`}></i>
-                        {route.title}
-                    </NavItem>
-                </LinkElem>
-            ))}
+            {routes.map(
+                (route) =>
+                    route.icon && (
+                        <LinkElem
+                            key={route.path}
+                            to={route.path}
+                            activeClassName="active"
+                        >
+                            <NavItem>
+                                <i className={`fas fa-${route.icon}`}></i>
+                                {route.title}
+                            </NavItem>
+                        </LinkElem>
+                    )
+            )}
         </Container>
     );
 };

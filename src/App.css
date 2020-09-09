@@ -1,7 +1,6 @@
 * { padding: 0; margin: 0; text-decoration: none; list-style: none; font-family: "Noto Sans KR", sans-serif; font-weight: 400; }
 a:link { text-decoration: none !important; }
-body, html { height: 100%; width: 100%; }
-
+.app { height: 100vh; width: 100%; overflow-y: scroll; }
 
 .no-Gutter.row,
 .no-Gutter.container,
