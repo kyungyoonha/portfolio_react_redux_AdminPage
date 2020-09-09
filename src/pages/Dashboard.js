@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import CardContainer from "../components/common/CardContainer";
 import ChartsRegion from "../components/ChartsRegion";
+import GoogleMap from "../components/GoogleMap";
 import ChartsWeeklyReservation from "../components/ChartsWeeklyReservation";
 import ChartsMonthlyReservation from "../components/ChartsMonthlyReservation";
 
@@ -16,7 +17,9 @@ const Dashboard = () => {
         <Container className="row no-Gutter">
             <CardContainer>
                 <div className="card-header bg-white">지역별 예약현황</div>
-                <div className="card-body bg-white">Content</div>
+                <div className="card-body bg-white">
+                    <GoogleMap />
+                </div>
                 {/* <div className="card-footer bg-white">Footer</div> */}
             </CardContainer>
             <CardContainer>
