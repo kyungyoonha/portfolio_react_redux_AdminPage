@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import CardContainer from "../common/CardContainer";
 
 const Container = styled.div`
     position: relative;
@@ -14,7 +15,9 @@ const mapStyles = {
     height: "100%",
 };
 
-const GoogleMap = ({ google }) => {
+const DisplayMap = GoogleApiWrapper({
+    apiKey: process.env.REACT_APP_API_KEY,
+})(({ google }) => {
     const [markers, setMarkers] = useState([]);
 
     const addMarker = async (e, aug, geoData) => {
@@ -55,8 +58,16 @@ const GoogleMap = ({ google }) => {
             </Map>
         </Container>
     );
-};
+});
 
-export default GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_API_KEY,
-})(GoogleMap);
+const DashBoardGoogleMap = () => {
+    return (
+        <CardContainer>
+            <div className="card-header bg-white">주간 예약건</div>
+            <div className="card-body bg-white">
+                <DisplayMap />
+            </div>
+        </CardContainer>
+    );
+};
+export default DashBoardGoogleMap;
