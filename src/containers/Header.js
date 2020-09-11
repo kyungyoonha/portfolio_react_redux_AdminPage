@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Breadcrumb from "../components/Breadcrum";
 
 const TitleContainer = styled.div`
     display: flex;
@@ -22,17 +23,6 @@ const TitleContainer = styled.div`
 //     }
 // `;
 
-const Breadcrumb = styled.div`
-    padding: 0 30px;
-    height: 50px;
-    line-height: 50px;
-    background: white;
-    border-bottom: 1px solid #d8dbe0;
-    & > span {
-        margin: 0 15px;
-    }
-`;
-
 const Header = () => {
     return (
         <div>
@@ -45,12 +35,7 @@ const Header = () => {
                     </ul>
                 </TitleRight> */}
             </TitleContainer>
-            <Breadcrumb>
-                Home
-                <span>
-                    <i className="fas fa-chevron-right"></i>
-                </span>
-            </Breadcrumb>
+            <Breadcrumb />
         </div>
     );
 };

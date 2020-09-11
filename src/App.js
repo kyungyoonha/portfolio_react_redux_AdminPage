@@ -1,5 +1,5 @@
 import React from "react";
-import { Router, Route, Switch } from "react-router-dom";
+import { Redirect, Router, Route, Switch } from "react-router-dom";
 import history from "./history";
 import "./App.css";
 import routes from "./routes";
@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 
 // container
 import Layout from "./containers/Layout";
+import PageNotFound from "./pages/PageNotFound";
 
 const App = () => {
     return (
@@ -29,8 +30,10 @@ const App = () => {
                             )}
                         />
                     ))}
+                    <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
                     <Route path="signup" title="회원가입" component={Signup} />
                     <Route path="login" title="로그인" component={Login} />
+                    <Route component={PageNotFound} />
                 </Switch>
             </Router>
         </div>

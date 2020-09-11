@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import history from "../../history";
 
-import UserNav from "./MemberNav";
+import MemberNav from "./MemberNav";
 import MemberTableTop from "./MemberTableTop";
-// import UserTable from "./MemberTable";
 
 const headerObj = {
     user: [
@@ -57,6 +57,7 @@ const ButtonContainer = styled.div`
 
 const MemberTable = ({ match }) => {
     const id = match.url.split("/")[2];
+
     const header = headerObj[id];
     const [data, setData] = useState([]);
 
@@ -108,6 +109,10 @@ const MemberTable = ({ match }) => {
         }));
     };
 
+    const onClickInsertButton = () => {
+        history.push(`/member/${id}/insert`);
+    };
+
     return (
         <Container className="card">
             <div className="card-header bg-white">
@@ -115,7 +120,7 @@ const MemberTable = ({ match }) => {
                 회원 정보
             </div>
             <div className="card-body bg-white">
-                <UserNav />
+                <MemberNav />
                 <div>
                     <MemberTableTop
                         handleCountryCtg={handleCountryCtg}
@@ -155,7 +160,11 @@ const MemberTable = ({ match }) => {
                     <button type="button" className="btn btn-outline-secondary">
                         삭제하기
                     </button>
-                    <button type="button" className="btn btn-outline-secondary">
+                    <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={onClickInsertButton}
+                    >
                         추가하기
                     </button>
                 </ButtonContainer>

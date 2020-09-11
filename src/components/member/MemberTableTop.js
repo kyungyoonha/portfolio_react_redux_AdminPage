@@ -7,8 +7,16 @@ const MemberTableTop = ({
 }) => {
     const [input, setInput] = useState("");
 
-    const onChange = (e) => {
+    const onChangeInput = (e) => {
         setInput(e.target.value);
+    };
+
+    const onChangePageSize = (e) => {
+        handlePageSize(e.target.value);
+    };
+
+    const onChangeCountryCtg = (e) => {
+        handleCountryCtg(e.target.value);
     };
 
     const onClick = () => {
@@ -28,21 +36,27 @@ const MemberTableTop = ({
             <div className=" float-left" style={{ width: "250px" }}>
                 <select
                     className="custom-select"
-                    id="validationCustom04"
                     required
+                    onChange={onChangeCountryCtg}
                 >
-                    <option value="">국적별 분류</option>
-                    <option value="1">...</option>
+                    <option value="KOREA">대한민국</option>
+                    <option value="THAILAND">태국</option>
+                    <option value="VIETNAM">베트남</option>
+                    <option value="EGYPT">이집트</option>
+                    <option value="MYANMAR">미안마</option>
                 </select>
             </div>
             <div className=" float-left ml-3" style={{ width: "150px" }}>
                 <select
                     className="custom-select"
-                    id="validationCustom04"
                     required
+                    onChange={onChangePageSize}
                 >
-                    <option value="">8건 노출</option>
-                    <option value="1">...</option>
+                    <option value="10">10건 노출</option>
+                    <option value="15">15건 노출</option>
+                    <option value="20">20건 노출</option>
+                    <option value="30">30건 노출</option>
+                    <option value="50">50건 노출</option>
                 </select>
             </div>
             <div>
@@ -54,12 +68,12 @@ const MemberTableTop = ({
                         type="text"
                         className="form-control"
                         placeholder="Search"
-                        onChange={onChange}
+                        onChange={onChangeInput}
                         onKeyPress={onKeyPress}
                         value={input}
                     />
                     <div className="input-group-prepend" onClick={onClick}>
-                        <span className="input-group-text" id="basic-addon1">
+                        <span className="input-group-text">
                             <i className="fas fa-search"></i>
                         </span>
                     </div>
