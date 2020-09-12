@@ -1,0 +1,17 @@
+{
+    "country": [
+        {
+            "value": "KOREA",
+            "title": "국내",
+            "city": [
+                { "value": "seoul", "title": "서울" },
+                { "value": "kyunggi", "title": "경기" },
+                { "value": "kangwon", "title": "강원" }
+            ]
+        },
+        { "value": "THAILAND", "title": "태국" },
+        { "value": "VIETNAM", "title": "베트남" },
+        { "value": "EGYPT", "title": "이집트" },
+        { "value": "MYANMAR", "title": "미안마" }
+    ]
+}
