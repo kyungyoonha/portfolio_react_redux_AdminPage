@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import axios from "axios";
-import CardContainer from "../common/CardContainer";
 
 const apiUrl = "http://localhost:3000/json/chartsRegion.json";
-const DashboardChartsRegion = () => {
+const ChartsRegion = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -20,7 +19,7 @@ const DashboardChartsRegion = () => {
     }, []);
 
     return (
-        <CardContainer>
+        <React.Fragment>
             <div className="card-header bg-white">지역별 그래프</div>
             <div className="card-body bg-white">
                 <ResponsivePie
@@ -140,8 +139,8 @@ const DashboardChartsRegion = () => {
                     ]}
                 />
             </div>
-        </CardContainer>
+        </React.Fragment>
     );
 };
 
-export default DashboardChartsRegion;
+export default ChartsRegion;

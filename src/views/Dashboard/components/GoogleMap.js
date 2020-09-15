@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-import CardContainer from "../common/CardContainer";
 
 const Container = styled.div`
     position: relative;
@@ -60,14 +59,14 @@ const DisplayMap = GoogleApiWrapper({
     );
 });
 
-const DashBoardGoogleMap = () => {
+const GoogleMap = () => {
     return (
-        <CardContainer>
+        <React.Fragment>
             <div className="card-header bg-white">주간 예약건</div>
             <div className="card-body bg-white">
                 <DisplayMap />
             </div>
-        </CardContainer>
+        </React.Fragment>
     );
 };
-export default DashBoardGoogleMap;
+export default GoogleMap;

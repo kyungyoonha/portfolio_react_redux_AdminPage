@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Breadcrumb from "../components/Breadcrum";
+import Breadcrumb from "./Breadcrum";
 
 const TitleContainer = styled.div`
     display: flex;

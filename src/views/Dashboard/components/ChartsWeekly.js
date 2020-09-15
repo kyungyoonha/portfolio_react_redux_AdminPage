@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import axios from "axios";
-import CardContainer from "../common/CardContainer";
 
-const apiUrl = "http://localhost:3000/json/chartsMonthlyReservation.json";
-const DashboardChartsMonthly = () => {
+const apiUrl = "http://localhost:3000/json/chartsWeeklyReservation.json";
+const ChartsWeekly = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
@@ -19,8 +18,8 @@ const DashboardChartsMonthly = () => {
         fetchData();
     }, []);
     return (
-        <CardContainer>
-            <div className="card-header bg-white">월간 예약건</div>
+        <React.Fragment>
+            <div className="card-header bg-white">주간 예약건</div>
             <div className="card-body bg-white">
                 <ResponsiveLine
                     data={data}
@@ -53,7 +52,7 @@ const DashboardChartsMonthly = () => {
                         legendOffset: -40,
                         legendPosition: "middle",
                     }}
-                    colors={{ scheme: "set1" }}
+                    colors={{ scheme: "category10" }}
                     lineWidth={3}
                     pointSize={6}
                     pointColor={{ theme: "background" }}
@@ -91,8 +90,8 @@ const DashboardChartsMonthly = () => {
                     ]}
                 />
             </div>
-        </CardContainer>
+        </React.Fragment>
     );
 };
 
-export default DashboardChartsMonthly;
+export default ChartsWeekly;

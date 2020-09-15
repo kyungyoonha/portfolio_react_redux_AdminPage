@@ -5,12 +5,12 @@ import "./App.css";
 import routes from "./routes";
 
 // pages
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+import Signup from "./views/pages/Signup";
+import Login from "./views/pages/Login";
 
 // container
 import Layout from "./containers/Layout";
-import PageNotFound from "./pages/PageNotFound";
+import PageNotFound from "./views/pages/PageNotFound";
 
 const App = () => {
     return (
@@ -31,8 +31,8 @@ const App = () => {
                         />
                     ))}
                     <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
-                    <Route path="signup" title="회원가입" component={Signup} />
-                    <Route path="login" title="로그인" component={Login} />
+                    <Route path="/pages/signup" title="회원가입" component={Signup} />
+                    <Route path="/pages/login" title="로그인" component={Login} />
                     <Route component={PageNotFound} />
                 </Switch>
             </Router>

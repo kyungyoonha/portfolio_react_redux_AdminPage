@@ -1,33 +1,16 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import MemberNav from "./MemberNav";
-import validateInput from "../../util/validateInput";
+import Template from "../../../components/template/Template";
+import validateInput from "../../../util/validateInput";
 import {
     Input,
     Select,
     RatioMulti,
     RatioSingle,
     Textarea,
-} from "../common/FormComponents";
+} from "../../../components/Form/FormComponents2";
+import FormTable from "../../../components/Form/FormTable";
 
-const Container = styled.div`
-    flex: 1;
-    padding: 15px;
-    background: #eeeeee;
-
-    > div > i {
-        margin-right: 10px;
-    }
-`;
-
-const ButtonContainer = styled.div`
-    float: right;
-    & > button {
-        margin-right: 10px;
-    }
-`;
-
-const MemberInsertUser = () => {
+const UserInsert = () => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
         user_id: "",
@@ -69,30 +52,20 @@ const MemberInsertUser = () => {
             [name]: error,
         }));
     };
+
+    const handleClickInsert = () => {};
+    const handleClickDelete = () => {};
     return (
-        <Container className="card">
-            <div className="card-header bg-white">
-                <i className="fas fa-user-cog"></i>
-                회원 정보
-            </div>
-            <div className="card-body bg-white">
-                <MemberNav />
-                <form>
-                    <div className="row justify-content-center align-self-center mb-5">
-                        <h2>
-                            <i className="fas fa-user-plus"></i>
-                            &nbsp;&nbsp;일반회원 추가
-                        </h2>
-                    </div>
-                    <div className="row justify-content-md-center">
-                        {/* Left */}
-                        <div
-                            className="col-lg-6"
-                            style={{
-                                padding: "0 100px",
-                                borderRight: "1px solid #dfdfdf",
-                            }}
-                        >
+        <Template
+            title="매니저 정보"
+            handleClickInsert={handleClickInsert}
+            handleClickDelete={handleClickDelete}
+        >
+            <form style={{ margin: "0 60px" }}>
+                <h4 className="mb-4">추가하기</h4>
+                <div className="no-Gutter2 row">
+                    <div className="col-md-6">
+                        <FormTable>
                             <Input
                                 label="id"
                                 name="user_id"
@@ -150,16 +123,10 @@ const MemberInsertUser = () => {
                                 onChange={onChange}
                                 errors={errors}
                             />
-                        </div>
-
-                        {/* Right */}
-                        <div
-                            className="col-lg-6"
-                            style={{
-                                padding: "0 100px",
-                                borderRight: "1px solid #dfdfdf",
-                            }}
-                        >
+                        </FormTable>
+                    </div>
+                    <div className="col-md-6">
+                        <FormTable>
                             <Input
                                 label="누적투어수"
                                 name="tourCnt"
@@ -167,7 +134,6 @@ const MemberInsertUser = () => {
                                 onChange={onChange}
                                 errors={errors}
                             />
-
                             <Select
                                 label="외향/내향"
                                 name="characteristic"
@@ -223,23 +189,12 @@ const MemberInsertUser = () => {
                                 onChange={onChange}
                                 rows={6}
                             />
-                        </div>
+                        </FormTable>
                     </div>
-                </form>
-            </div>
-            {/* Footer */}
-            <div className="card-footer bg-white">
-                <ButtonContainer>
-                    <button type="button" className="btn btn-secondary">
-                        취소하기
-                    </button>
-                    <button type="button" className="btn btn-secondary">
-                        등록하기
-                    </button>
-                </ButtonContainer>
-            </div>
-        </Container>
+                </div>
+            </form>
+        </Template>
     );
 };
 
-export default MemberInsertUser;
+export default UserInsert;

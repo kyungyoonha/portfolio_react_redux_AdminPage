@@ -5,7 +5,7 @@ const Container = styled.div`
     margin-top: 30px;
 `;
 
-const DashboardTable = () => {
+const CSBoard = () => {
     return (
         <div className="col-md-12">
             <div className="card" style={{ height: "500px" }}>
@@ -61,4 +61,4 @@ const DashboardTable = () => {
     );
 };
 
-export default DashboardTable;
+export default CSBoard;

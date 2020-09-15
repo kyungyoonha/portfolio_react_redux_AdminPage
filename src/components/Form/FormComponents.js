@@ -17,7 +17,6 @@ export const Input = ({
                         name={name}
                         type={type}
                         value={value}
-                        // placeholder={`${label}을(를) 입력해주세요.`}
                         className={`form-control form-control-sm ${
                             errors[name] && "is-invalid"
                         }`}

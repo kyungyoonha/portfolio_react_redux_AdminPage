@@ -29,7 +29,7 @@ const Container = styled.div`
     }
 `;
 
-const UserNav = () => {
+const MainNav = () => {
     return (
         <Container>
             <NavLink to="/member/user" activeClassName="active">
@@ -45,4 +45,4 @@ const UserNav = () => {
     );
 };
 
-export default UserNav;
+export default MainNav;

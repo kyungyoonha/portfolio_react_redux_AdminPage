@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import MemberNav from "./MemberNav";
-import validateInput from "../../util/validateInput";
+import Template from "../../../components/template/Template";
+import validateInput from "../../../util/validateInput";
+import FormTable from "../../../components/Form/FormTable";
 import {
     Input,
     Select,
@@ -9,30 +9,17 @@ import {
     Textarea,
     FileUpload,
     FileuploadCard,
-} from "../common/FormComponents";
+} from "../../../components/Form/FormComponents2";
 
-import noImg from "../../image/no-img.jpg";
-import noImgCar from "../../image/no-img-car.png";
-import { optionsCountry, optionsCity, optionsRegion } from "../../util/options";
+import noImg from "../../../image/no-img.jpg";
+import noImgCar from "../../../image/no-img-car.png";
+import {
+    optionsCountry,
+    optionsCity,
+    optionsRegion,
+} from "../../../util/options";
 
-const Container = styled.div`
-    flex: 1;
-    padding: 15px;
-    background: #eeeeee;
-
-    > div > i {
-        margin-right: 10px;
-    }
-`;
-
-const ButtonContainer = styled.div`
-    float: right;
-    & > button {
-        margin-right: 10px;
-    }
-`;
-
-const MemberInsertUser = () => {
+const DriverInsert = () => {
     const [errors, setErrors] = useState({});
     const [profile, setProfile] = useState("");
     const [carImg, setCarImg] = useState("");
@@ -98,31 +85,20 @@ const MemberInsertUser = () => {
         // this.props.uploadImage(formData);
     };
 
-    return (
-        <Container className="card">
-            <div className="card-header bg-white">
-                <i className="fas fa-user-cog"></i>
-                회원 정보
-            </div>
-            <div className="card-body bg-white">
-                <MemberNav />
+    const handleClickInsert = () => {};
+    const handleClickDelete = () => {};
 
-                <form>
-                    <div className="row justify-content-center align-self-center mb-5">
-                        <h2>
-                            <i className="fas fa-user-plus"></i>
-                            &nbsp;&nbsp;드라이버 추가
-                        </h2>
-                    </div>
-                    <div className="row">
-                        {/* Left */}
-                        <div
-                            className="col-lg-6"
-                            style={{
-                                padding: "0 100px",
-                                borderRight: "1px solid #dfdfdf",
-                            }}
-                        >
+    return (
+        <Template
+            title="기사 정보"
+            handleClickInsert={handleClickInsert}
+            handleClickDelete={handleClickDelete}
+        >
+            <form style={{ margin: "0 60px" }}>
+                <h4 className="mb-4">추가하기</h4>
+                <div className="no-Gutter2 row">
+                    <div className="col-md-6">
+                        <FormTable>
                             <Input
                                 label="id"
                                 name="driver_id"
@@ -130,7 +106,6 @@ const MemberInsertUser = () => {
                                 onChange={onChange}
                                 errors={errors}
                             />
-
                             <RatioSingle
                                 label="국가"
                                 name="countryCtg"
@@ -263,16 +238,10 @@ const MemberInsertUser = () => {
                                 onChange={onChange}
                                 rows={6}
                             />
-                        </div>
-
-                        {/* Right */}
-                        <div
-                            className="col-lg-6"
-                            style={{
-                                padding: "0 100px",
-                                borderRight: "1px solid #dfdfdf",
-                            }}
-                        >
+                        </FormTable>
+                    </div>
+                    <div className="col-md-6">
+                        <FormTable>
                             <FileuploadCard
                                 label="기사 사진"
                                 src={profile || noImg}
@@ -286,23 +255,12 @@ const MemberInsertUser = () => {
                                 onChange={onUploadFile}
                                 ctg="carImg"
                             />
-                        </div>
+                        </FormTable>
                     </div>
-                </form>
-            </div>
-            {/* Footer */}
-            <div className="card-footer bg-white">
-                <ButtonContainer>
-                    <button type="button" className="btn btn-outline-secondary">
-                        삭제하기
-                    </button>
-                    <button type="button" className="btn btn-outline-secondary">
-                        추가하기
-                    </button>
-                </ButtonContainer>
-            </div>
-        </Container>
+                </div>
+            </form>
+        </Template>
     );
 };
 
-export default MemberInsertUser;
+export default DriverInsert;

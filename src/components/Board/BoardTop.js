@@ -1,43 +1,35 @@
 import React, { useState } from "react";
 
-const MemberTableTop = ({
-    handleCountryCtg,
-    handlePageSize,
-    handleSearchKeyword,
-}) => {
+const MainTableTop = ({ handleChangePageCtrl }) => {
     const [input, setInput] = useState("");
 
     const onChangeInput = (e) => {
         setInput(e.target.value);
     };
 
-    const onChangePageSize = (e) => {
-        handlePageSize(e.target.value);
-    };
-
-    const onChangeCountryCtg = (e) => {
-        handleCountryCtg(e.target.value);
-    };
-
     const onClick = () => {
-        handleSearchKeyword(input);
-        setInput("");
+        handleChangePageCtrl("searchKeyword", input);
     };
 
     const onKeyPress = (e) => {
         if (e.key === "Enter") {
-            handleSearchKeyword(input);
-            setInput("");
+            handleChangePageCtrl("searchKeyword", input);
         }
+    };
+
+    const onChangePageCtrl = (e) => {
+        const { name, value } = e.target;
+        handleChangePageCtrl(name, value);
     };
 
     return (
         <div>
             <div className=" float-left" style={{ width: "250px" }}>
                 <select
+                    name="countryCtg"
                     className="custom-select"
                     required
-                    onChange={onChangeCountryCtg}
+                    onChange={onChangePageCtrl}
                 >
                     <option value="KOREA">대한민국</option>
                     <option value="THAILAND">태국</option>
@@ -48,9 +40,10 @@ const MemberTableTop = ({
             </div>
             <div className=" float-left ml-3" style={{ width: "150px" }}>
                 <select
+                    name="pageSize"
                     className="custom-select"
                     required
-                    onChange={onChangePageSize}
+                    onChange={onChangePageCtrl}
                 >
                     <option value="10">10건 노출</option>
                     <option value="15">15건 노출</option>
@@ -83,4 +76,4 @@ const MemberTableTop = ({
     );
 };
 
-export default MemberTableTop;
+export default MainTableTop;
