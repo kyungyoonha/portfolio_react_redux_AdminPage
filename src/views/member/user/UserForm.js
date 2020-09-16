@@ -7,10 +7,10 @@ import {
     RatioMulti,
     RatioSingle,
     Textarea,
-} from "../../../components/Form/FormComponents2";
+} from "../../../components/Form/FormComponents";
 import FormTable from "../../../components/Form/FormTable";
 
-const UserInsert = () => {
+const UserForm = () => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
         user_id: "",
@@ -197,4 +197,4 @@ const UserInsert = () => {
     );
 };
 
-export default UserInsert;
+export default UserForm;

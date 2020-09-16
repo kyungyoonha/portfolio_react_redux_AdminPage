@@ -9,148 +9,153 @@ export const Input = ({
     errors,
 }) => {
     return (
-        <>
-            <div className="form-group row">
-                <label className="col-sm-3 col-form-label">※ {label}</label>
-                <div className="col-sm-9">
-                    <input
-                        name={name}
-                        type={type}
-                        value={value}
-                        className={`form-control form-control-sm ${
-                            errors[name] && "is-invalid"
-                        }`}
-                        onChange={onChange}
-                    />
-                    {errors[name] && (
-                        <div className="invalid-feedback">{errors[name]}</div>
-                    )}
-                </div>
-            </div>
-        </>
+        <tr>
+            <th>
+                <label className="col-form-label">※ {label}</label>
+            </th>
+
+            <td>
+                <input
+                    name={name}
+                    type={type}
+                    value={value}
+                    className={`form-control ${errors[name] && "is-invalid"}`}
+                    onChange={onChange}
+                    autoComplete="off"
+                />
+                {errors[name] && (
+                    <div className="invalid-feedback">{errors[name]}</div>
+                )}
+            </td>
+        </tr>
     );
 };
 
 export const Select = ({ label, name, value, onChange, errors, options }) => {
     return (
-        <>
-            <div className="form-group row">
-                <label className="col-sm-3 col-form-label">
+        <tr>
+            <th>
+                <label className="col-form-label">
                     {label && `※ ${label}`}
                 </label>
-                <div className="col-sm-9">
-                    <select
-                        name={name}
-                        value={value}
-                        onChange={onChange}
-                        className={`custom-select custom-select-sm ${
-                            errors[name] && "is-invalid"
-                        }`}
-                    >
-                        {options.map((item) => (
-                            <option key={item.value} value={item.value}>
-                                {item.title}
-                            </option>
-                        ))}
-                    </select>
-                    {errors[name] && (
-                        <div className="invalid-feedback">{errors[name]}</div>
-                    )}
-                </div>
-            </div>
-        </>
+            </th>
+            <td>
+                <select
+                    name={name}
+                    value={value}
+                    onChange={onChange}
+                    className={`custom-select ${errors[name] && "is-invalid"}`}
+                >
+                    {options.map((item) => (
+                        <option key={item.value} value={item.value}>
+                            {item.title}
+                        </option>
+                    ))}
+                </select>
+                {errors[name] && (
+                    <div className="invalid-feedback">{errors[name]}</div>
+                )}
+            </td>
+        </tr>
     );
 };
 
 export const RatioMulti = ({ label, name, value, onChange, options }) => {
     return (
-        <>
-            <div className="form-group row">
-                <label className="col-sm-3 col-form-label">※ {label}</label>
-                <div className="col-sm-9">
-                    {options.map((option) => (
-                        <div
-                            key={option.value}
-                            className="form-check form-check-inline"
+        <tr>
+            <th>
+                <label className="col-form-label">※ {label}</label>
+            </th>
+
+            <td>
+                {options.map((option) => (
+                    <div
+                        key={option.value}
+                        className="form-check form-check-inline"
+                    >
+                        <input
+                            className="form-check-input"
+                            type="checkbox"
+                            name={option.value}
+                            value={option.value}
+                            checked={value[option.value] || false}
+                            onChange={(e) => onChange(e, name)}
+                            id={name + option.value}
+                        />
+                        <label
+                            className="form-check-label"
+                            htmlFor={name + option.value}
                         >
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                name={option.value}
-                                value={option.value}
-                                checked={value[option.value] || false}
-                                onChange={(e) => onChange(e, name)}
-                                id={name + option.value}
-                            />
-                            <label
-                                className="form-check-label"
-                                htmlFor={name + option.value}
-                            >
-                                {option.title}
-                            </label>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </>
+                            {option.title}
+                        </label>
+                    </div>
+                ))}
+            </td>
+        </tr>
     );
 };
 
 export const RatioSingle = ({ label, name, value, onChange, options }) => {
     return (
-        <>
-            <div className="form-group row">
-                <label className="col-sm-3 col-form-label">※ {label}</label>
-                <div className="col-sm-9">
-                    {options.map((option) => (
-                        <div
-                            key={option.value}
-                            className="form-check form-check-inline"
+        <tr>
+            <th>
+                <label className="col-form-label">※ {label}</label>
+            </th>
+
+            <td>
+                {options.map((option) => (
+                    <div
+                        key={option.value}
+                        className="form-check form-check-inline"
+                    >
+                        <input
+                            className="form-check-input"
+                            type="radio"
+                            name={name}
+                            value={option.value}
+                            checked={value === option.value}
+                            onChange={onChange}
+                            id={name + option.value}
+                        />
+                        <label
+                            className="form-check-label"
+                            htmlFor={name + option.value}
                         >
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name={name}
-                                value={option.value}
-                                checked={value === option.value}
-                                onChange={onChange}
-                                id={name + option.value}
-                            />
-                            <label
-                                className="form-check-label"
-                                htmlFor={name + option.value}
-                            >
-                                {option.title}
-                            </label>
-                        </div>
-                    ))}
-                </div>
-            </div>
-        </>
+                            {option.title}
+                        </label>
+                    </div>
+                ))}
+            </td>
+        </tr>
     );
 };
 
 export const Textarea = ({ label, name, value, rows, onChange }) => {
     return (
-        <div className="form-group row">
-            <label className="col-sm-3">※ {label}</label>
-            <div className="col-sm-9">
+        <tr>
+            <th>
+                <label>※ {label}</label>
+            </th>
+            <td>
                 <textarea
                     className="form-control"
                     rows={rows}
                     value={value}
                     onChange={onChange}
+                    autoComplete="off"
                 ></textarea>
-            </div>
-        </div>
+            </td>
+        </tr>
     );
 };
 
 export const FileUpload = ({ label, name, value, onChange, ctg }) => {
     return (
-        <div className="form-group row">
-            <label className="col-sm-3">※ {label}</label>
-            <div className="col-sm-9">
+        <tr>
+            <th>
+                <label>※ {label}</label>
+            </th>
+            <td>
                 <div className="custom-file">
                     <input
                         type="file"
@@ -162,8 +167,8 @@ export const FileUpload = ({ label, name, value, onChange, ctg }) => {
                         {value}
                     </label>
                 </div>
-            </div>
-        </div>
+            </td>
+        </tr>
     );
 };
 
@@ -174,31 +179,40 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
         inputFileRef.current.click();
     };
     return (
-        <div className="card mb-5">
-            <img
-                src={src}
-                className="card-img-top"
-                alt={label}
-                style={{
-                    height: "300px",
-                    objectFit: "contain",
-                }}
-            />
-            <div className="card-footer">
-                <input
-                    ref={inputFileRef}
-                    type="file"
-                    hidden
-                    onChange={(e) => onChange(e, ctg)}
-                />
-                <button
-                    type="button"
-                    className="btn btn-secondary btn-md btn-block"
-                    onClick={handleBtnClick}
-                >
-                    {label} 등록
-                </button>
-            </div>
-        </div>
+        <React.Fragment>
+            <tr>
+                <th rowspan="2" style={{ verticalAlign: "middle" }}>
+                    <label>※ {label}</label>
+                </th>
+                <td className="text-center">
+                    <img
+                        src={src}
+                        alt={label}
+                        style={{
+                            height: "300px",
+                            maxWidth: "60%",
+                            objectFit: "contain",
+                        }}
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input
+                        ref={inputFileRef}
+                        type="file"
+                        hidden
+                        onChange={(e) => onChange(e, ctg)}
+                    />
+                    <button
+                        type="button"
+                        className="btn btn-primary btn-md"
+                        onClick={handleBtnClick}
+                    >
+                        이미지 찾기
+                    </button>
+                </td>
+            </tr>
+        </React.Fragment>
     );
 };

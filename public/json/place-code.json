@@ -1,0 +1,44 @@
+{
+    "totalPage": 20,
+    "data": [
+        {
+            "id": 1,
+            "country": "K(대한민국)",
+            "state": "G(강원)",
+            "city": "Y(영월)",
+            "category": "N",
+            "number": "1",
+            "placeName": "김삿갓 문학관",
+            "info": true,
+            "description": true,
+            "kr": true,
+            "en": false
+        },
+        {
+            "id": 2,
+            "country": "K(대한민국)",
+            "state": "G(강원)",
+            "city": "Y(영월)",
+            "category": "C",
+            "number": "1",
+            "placeName": "한반도 지형",
+            "info": true,
+            "description": true,
+            "kr": true,
+            "en": false
+        },
+        {
+            "id": 3,
+            "country": "K(대한민국)",
+            "state": "G(강원)",
+            "city": "Y(영월)",
+            "category": "M",
+            "number": "1",
+            "placeName": "단종 유배지",
+            "info": true,
+            "description": true,
+            "kr": true,
+            "en": false
+        }
+    ]
+}

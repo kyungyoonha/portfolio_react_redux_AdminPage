@@ -4,10 +4,10 @@ import history from "../../../history";
 
 import Template from "../../../components/template/Template";
 import headerObj from "../../../components/Board/boardHeader.json";
-import BoardTop from "../../../components/Board/BoardTop";
+import BoardTopPlace from "../../../components/Board/BoardTopPlace";
 import BoardFooter from "../../../components/Board/BoardFooter";
 
-const User = ({ match }) => {
+const PlaceCode = ({ match }) => {
     const id = match.url.split("/")[2];
     const [pageData, setPageData] = useState({
         data: [],
@@ -56,15 +56,15 @@ const User = ({ match }) => {
 
     return (
         <Template
-            title="회원 정보"
+            title="관광지 관리"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
-            <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
+            <BoardTopPlace handleChangePageCtrl={handleChangePageCtrl} />
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        {headerObj["driver"].map((item) => (
+                        {headerObj["place"].map((item) => (
                             <th key={item} scope="col">
                                 {item}
                             </th>
@@ -75,13 +75,15 @@ const User = ({ match }) => {
                     {pageData.data.map((item, idx) => (
                         <tr key={idx}>
                             <th scope="row">{idx}</th>
-                            <td>{item.id}</td>
-                            <td>{item.name}</td>
-                            <td>{item.phone}</td>
-                            <td>{item.email}</td>
                             <td>{item.country}</td>
-                            <td>{item.history.length}건</td>
-                            <td>{item.cs.length} 건</td>
+                            <td>{item.state}</td>
+                            <td>{item.city}</td>
+                            <td>{item.category}</td>
+                            <td>{item.placeName}</td>
+                            <td>{item.info ? "O" : "X"}</td>
+                            <td>{item.description ? "O" : "X"}</td>
+                            <td>{item.kr ? "O" : "X"}</td>
+                            <td>{item.en ? "O" : "X"}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -95,4 +97,4 @@ const User = ({ match }) => {
     );
 };
 
-export default User;
+export default PlaceCode;

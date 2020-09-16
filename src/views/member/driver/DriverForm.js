@@ -9,7 +9,7 @@ import {
     Textarea,
     FileUpload,
     FileuploadCard,
-} from "../../../components/Form/FormComponents2";
+} from "../../../components/Form/FormComponents";
 
 import noImg from "../../../image/no-img.jpg";
 import noImgCar from "../../../image/no-img-car.png";
@@ -19,7 +19,7 @@ import {
     optionsRegion,
 } from "../../../util/options";
 
-const DriverInsert = () => {
+const DriverForm = () => {
     const [errors, setErrors] = useState({});
     const [profile, setProfile] = useState("");
     const [carImg, setCarImg] = useState("");
@@ -263,4 +263,4 @@ const DriverInsert = () => {
     );
 };
 
-export default DriverInsert;
+export default DriverForm;

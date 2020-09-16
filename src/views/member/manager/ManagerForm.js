@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Template from "../../../components/template/Template";
 import validateInput from "../../../util/validateInput";
-import { Input, Textarea } from "../../../components/Form/FormComponents2";
+import { Input, Textarea } from "../../../components/Form/FormComponents";
 import FormTable from "../../../components/Form/FormTable";
 
-const ManagerInsert = () => {
+const ManagerForm = () => {
     const [errors, setErrors] = useState({});
 
     const [inputs, setInputs] = useState({
@@ -156,4 +156,4 @@ const ManagerInsert = () => {
     );
 };
 
-export default ManagerInsert;
+export default ManagerForm;

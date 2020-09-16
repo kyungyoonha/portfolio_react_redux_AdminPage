@@ -3,11 +3,16 @@ import axios from "axios";
 import history from "../../../history";
 
 import Template from "../../../components/template/Template";
-import Board from "../../../components/Board/Board";
+import headerObj from "../../../components/Board/boardHeader.json";
+import BoardTop from "../../../components/Board/BoardTop";
+import BoardFooter from "../../../components/Board/BoardFooter";
 
 const Manager = ({ match }) => {
     const id = match.url.split("/")[2];
-    const [data, setData] = useState([]);
+    const [pageData, setPageData] = useState({
+        data: [],
+        totalPage: 5,
+    });
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -28,7 +33,7 @@ const Manager = ({ match }) => {
                     //     &searchKeyword=${pageCtrl.searchKeyword}
                     //     &sort=${pageCtrl.sort}
                 );
-                setData(response.data);
+                setPageData(response.data);
             } catch (err) {
                 console.error("DataboardTable Fecth error:", err);
             }
@@ -55,10 +60,36 @@ const Manager = ({ match }) => {
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
-            <Board
+            <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
+            <table className="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        {headerObj["driver"].map((item) => (
+                            <th key={item} scope="col">
+                                {item}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {pageData.data.map((item, idx) => (
+                        <tr key={idx}>
+                            <th scope="row">{idx}</th>
+                            <td>{item.id}</td>
+                            <td>{item.name}</td>
+                            <td>{item.phone}</td>
+                            <td>{item.email}</td>
+                            <td>{item.country}</td>
+                            <td>{item.history.length}건</td>
+                            <td>{item.cs.length} 건</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            <BoardFooter
+                totalPage={pageData.totalPage}
+                currentPage={pageCtrl.currentPage}
                 handleChangePageCtrl={handleChangePageCtrl}
-                headerCtg="manager"
-                data={data}
             />
         </Template>
     );
