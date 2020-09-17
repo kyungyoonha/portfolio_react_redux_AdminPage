@@ -4,7 +4,8 @@ import history from "../../../history";
 
 import Template from "../../../components/template/Template";
 import headerObj from "../../../components/Board/boardHeader.json";
-import BoardTopPlace from "../../../components/Board/BoardTopPlace";
+
+import PlaceCodeTop from "./PlaceCodeTop";
 import BoardFooter from "../../../components/Board/BoardFooter";
 
 const PlaceCode = ({ match }) => {
@@ -42,7 +43,7 @@ const PlaceCode = ({ match }) => {
     }, [id, pageCtrl]);
 
     const handleClickInsert = () => {
-        history.push(`/member/${id}/insert`);
+        history.push(`/place/${id}-form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -60,7 +61,7 @@ const PlaceCode = ({ match }) => {
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
-            <BoardTopPlace handleChangePageCtrl={handleChangePageCtrl} />
+            <PlaceCodeTop handleChangePageCtrl={handleChangePageCtrl} />
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>

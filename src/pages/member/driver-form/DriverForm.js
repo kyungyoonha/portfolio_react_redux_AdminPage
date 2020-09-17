@@ -27,8 +27,8 @@ const DriverForm = () => {
         driver_id: "",
         countryCtg: "KOREA",
         country: "",
+        state: "",
         city: "",
-        region: "",
         name: "",
         birth: "",
         contactNumber: "",
@@ -129,7 +129,7 @@ const DriverForm = () => {
 
                             <Select
                                 label="시/도"
-                                name="city"
+                                name="state"
                                 value={inputs.city}
                                 onChange={onChange}
                                 errors={errors}
@@ -137,7 +137,7 @@ const DriverForm = () => {
                             />
                             <Select
                                 label="지역"
-                                name="region"
+                                name="city"
                                 value={inputs.region}
                                 onChange={onChange}
                                 errors={errors}

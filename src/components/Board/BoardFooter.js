@@ -1,20 +1,5 @@
 import React from "react";
 import ReactPaginate from "react-paginate";
-import styled from "styled-components";
-
-const Container = styled.div`
-    a {
-        border: 1px solid #dee2e6;
-        padding: 5px 12px;
-        margin-right: -1px;
-    }
-    li.active {
-        a {
-            background: #2d7ab1;
-            color: white;
-        }
-    }
-`;
 
 const BoardFooter = ({ totalPage, currentPage, handleChangePageCtrl }) => {
     const onChangePageCtrl = (e) => {

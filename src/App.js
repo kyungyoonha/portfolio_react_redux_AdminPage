@@ -5,12 +5,13 @@ import "./App.css";
 import routes from "./routes";
 
 // pages
-import Signup from "./views/pages/Signup";
-import Login from "./views/pages/Login";
+import Signup from './pages/signup/Signup';
+import Login from "./pages/login/Login";
+import PageNotFound from "./pages/pageNotFound/PageNotFound";
 
 // container
 import Layout from "./containers/Layout";
-import PageNotFound from "./views/pages/PageNotFound";
+
 
 const App = () => {
     return (

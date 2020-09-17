@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const BoardTopPlace = ({ handleChangePageCtrl }) => {
+const PlaceCodeTop = ({ handleChangePageCtrl }) => {
     const [input, setInput] = useState("");
 
     const onChangeInput = (e) => {
@@ -91,4 +91,4 @@ const BoardTopPlace = ({ handleChangePageCtrl }) => {
     );
 };
 
-export default BoardTopPlace;
+export default PlaceCodeTop;

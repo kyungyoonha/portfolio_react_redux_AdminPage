@@ -7,14 +7,16 @@ export const Input = ({
     type = "text",
     onChange,
     errors,
+    children,
 }) => {
+    // errors["placeCode"] = "Fewfew";
     return (
         <tr>
             <th>
                 <label className="col-form-label">※ {label}</label>
             </th>
 
-            <td>
+            <td style={{ display: "flex" }}>
                 <input
                     name={name}
                     type={type}
@@ -22,7 +24,10 @@ export const Input = ({
                     className={`form-control ${errors[name] && "is-invalid"}`}
                     onChange={onChange}
                     autoComplete="off"
+                    style={{ flex: 1, marginRight: "10px" }}
                 />
+                {children}
+
                 {errors[name] && (
                     <div className="invalid-feedback">{errors[name]}</div>
                 )}
@@ -71,7 +76,7 @@ export const RatioMulti = ({ label, name, value, onChange, options }) => {
                 {options.map((option) => (
                     <div
                         key={option.value}
-                        className="form-check form-check-inline"
+                        className="form-check form-check-inline mr-5"
                     >
                         <input
                             className="form-check-input"
@@ -130,12 +135,48 @@ export const RatioSingle = ({ label, name, value, onChange, options }) => {
     );
 };
 
-export const Textarea = ({ label, name, value, rows, onChange }) => {
+export const RatioTypeCheck = ({
+    label,
+    labelLeft,
+    labelRight,
+    name,
+    value,
+    onChange,
+}) => {
     return (
         <tr>
             <th>
-                <label>※ {label}</label>
+                <label className="col-form-label">{label}</label>
             </th>
+
+            <td className="d-flex justify-content-between">
+                <label className="col-form-label">{labelLeft}</label>
+                {[...new Array(7)].map((_, i) => (
+                    <div key={i} className="form-check form-check-inline">
+                        <input
+                            className="form-check-input"
+                            type="radio"
+                            name={name}
+                            value={i - 3}
+                            checked={value === String(i - 3)}
+                            onChange={onChange}
+                            id={name + i}
+                        />
+                        <label className="form-check-label" htmlFor={name + i}>
+                            {i - 3}
+                        </label>
+                    </div>
+                ))}
+                <label className="col-form-label">※ {labelRight}</label>
+            </td>
+        </tr>
+    );
+};
+
+export const Textarea = ({ label, name, value, rows, onChange }) => {
+    return (
+        <tr>
+            <th></th>
             <td>
                 <textarea
                     className="form-control"
@@ -181,7 +222,7 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
     return (
         <React.Fragment>
             <tr>
-                <th rowspan="2" style={{ verticalAlign: "middle" }}>
+                <th rowSpan="2" style={{ verticalAlign: "middle" }}>
                     <label>※ {label}</label>
                 </th>
                 <td className="text-center">
@@ -196,6 +237,7 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
                     />
                 </td>
             </tr>
+
             <tr>
                 <td>
                     <input
@@ -210,6 +252,89 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
                         onClick={handleBtnClick}
                     >
                         이미지 찾기
+                    </button>
+                </td>
+            </tr>
+        </React.Fragment>
+    );
+};
+
+export const FileuploadManyCard = ({ label, src, onChange, ctg }) => {
+    const inputFileRef = useRef(null);
+
+    const handleBtnClick = () => {
+        inputFileRef.current.click();
+    };
+    return (
+        <React.Fragment>
+            <tr>
+                <th
+                    rowSpan="3"
+                    style={{ verticalAlign: "middle", width: "20%" }}
+                >
+                    <label>※ {label}</label>
+                </th>
+                <td colSpan="3" className="text-center">
+                    <img
+                        src={src}
+                        alt={label}
+                        style={{
+                            height: "250px",
+                            maxWidth: "60%",
+                            objectFit: "contain",
+                        }}
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <img
+                        src={src}
+                        alt={label}
+                        style={{
+                            width: "100%",
+                            height: "150px",
+                            objectFit: "contain",
+                        }}
+                    />
+                </td>
+                <td>
+                    <img
+                        src={src}
+                        alt={label}
+                        style={{
+                            width: "100%",
+                            height: "150px",
+                            objectFit: "contain",
+                        }}
+                    />
+                </td>
+                <td>
+                    <img
+                        src={src}
+                        alt={label}
+                        style={{
+                            width: "100%",
+                            height: "150px",
+                            objectFit: "contain",
+                        }}
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td colSpan="3">
+                    <input
+                        ref={inputFileRef}
+                        type="file"
+                        hidden
+                        onChange={(e) => onChange(e, ctg)}
+                    />
+                    <button
+                        type="button"
+                        className="btn btn-outline-primary btn-md btn-block"
+                        onClick={handleBtnClick}
+                    >
+                        사진 편집하기
                     </button>
                 </td>
             </tr>
