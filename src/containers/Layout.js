@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 // containers
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
 
 const Container = styled.div`
     height: 100%;

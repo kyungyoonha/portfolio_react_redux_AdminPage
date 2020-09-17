@@ -176,7 +176,9 @@ export const RatioTypeCheck = ({
 export const Textarea = ({ label, name, value, rows, onChange }) => {
     return (
         <tr>
-            <th></th>
+            <th>
+                <label>※ {label}</label>
+            </th>
             <td>
                 <textarea
                     className="form-control"

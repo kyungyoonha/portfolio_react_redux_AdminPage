@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import history from "../../../history";
 
-import Template from "../../../components/template/Template";
-import headerObj from "../../../components/Board/boardHeader.json";
+import Template from "../../../components/common/template/Template";
+import headerObj from "../../../components/common/Board/boardHeader.json";
 
 import PlaceCodeTop from "./PlaceCodeTop";
-import BoardFooter from "../../../components/Board/BoardFooter";
+import BoardFooter from "../../../components/common/Board/BoardFooter";
 
 const PlaceCode = ({ match }) => {
     const id = match.url.split("/")[2];
@@ -43,7 +43,7 @@ const PlaceCode = ({ match }) => {
     }, [id, pageCtrl]);
 
     const handleClickInsert = () => {
-        history.push(`/place/${id}-form`);
+        history.push(`/place/${id}/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -54,10 +54,11 @@ const PlaceCode = ({ match }) => {
     };
 
     const handleClickDelete = () => {};
-
+    console.log(pageData);
     return (
         <Template
             title="관광지 관리"
+            navCtg="place"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
@@ -75,11 +76,11 @@ const PlaceCode = ({ match }) => {
                 <tbody>
                     {pageData.data.map((item, idx) => (
                         <tr key={idx}>
-                            <th scope="row">{idx}</th>
                             <td>{item.country}</td>
                             <td>{item.state}</td>
                             <td>{item.city}</td>
                             <td>{item.category}</td>
+                            <td>{item.number}</td>
                             <td>{item.placeName}</td>
                             <td>{item.info ? "O" : "X"}</td>
                             <td>{item.description ? "O" : "X"}</td>

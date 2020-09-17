@@ -20,6 +20,7 @@ const ButtonContainer = styled.div`
 
 const Template = ({
     title,
+    navCtg,
     handleClickInsert,
     handleClickDelete,
     children,
@@ -31,7 +32,7 @@ const Template = ({
                 {title}
             </div>
             <div className="card-body bg-white">
-                <MainNav />
+                <MainNav navCtg={navCtg} />
                 {children}
             </div>
             {/* Footer */}

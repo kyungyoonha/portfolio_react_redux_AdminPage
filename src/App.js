@@ -32,6 +32,7 @@ const App = () => {
                         />
                     ))}
                     <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
+                    <Route path="/place" exact render={() => <Redirect to="/place/placecode" />}/>
                     <Route path="/pages/signup" title="회원가입" component={Signup} />
                     <Route path="/pages/login" title="로그인" component={Login} />
                     <Route component={PageNotFound} />

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Template from "../../../components/template/Template";
-import validateInput from "../../../util/validateInput";
-import FormTable from "../../../components/Form/FormTable";
-import noImg from "../../../image/no-img.jpg";
+import Template from "../../../../components/common/template/Template";
+import validateInput from "../../../../util/validateInput";
+import FormTable from "../../../../components/common/Form/FormTable";
+
+import noImg from "../../../../img/no-img.jpg";
 import PlaceCodeFormMid from "./PlaceCodeFormMid";
 import PlaceCodeFormBottom from "./PlaceCodeFormBottom";
 import {
@@ -12,14 +13,13 @@ import {
     RatioTypeCheck,
     RatioMulti,
     FileuploadManyCard,
-    // PlaceAudioAdd,
-} from "../../../components/Form/FormComponents";
+} from "../../../../components/common/Form/FormComponents";
 
 import {
     optionsCountry,
     optionsCity,
     optionsRegion,
-} from "../../../util/options";
+} from "../../../../util/options";
 
 const PlaceCodeForm = () => {
     const [errors, setErrors] = useState({});
@@ -45,8 +45,28 @@ const PlaceCodeForm = () => {
         // section3
         hasAudio: "noe",
         hasAudioMain: false,
+        // section4
+        audioTitle: "",
+        audioFileName: "",
+        audioScript: "",
+        etc: "",
     });
-    console.log(inputs);
+
+    const onUploadFile = (e, type) => {
+        const image = e.target.files[0];
+        // const previewSrc = URL.createObjectURL(image);
+
+        const formData = new FormData();
+        formData.append("image", image, image.name);
+        if (type === "audioFileName") {
+            setInputs((state) => ({
+                ...state,
+                audioFileName: image.name,
+            }));
+        }
+
+        // this.props.uploadImage(formData);
+    };
 
     const onChange = (e, inputName) => {
         const { name, value, type, checked } = e.target;
@@ -80,35 +100,17 @@ const PlaceCodeForm = () => {
         }));
     };
 
-    const onUploadFile = (e, type) => {
-        const image = e.target.files[0];
-        const previewSrc = URL.createObjectURL(image);
-
-        const formData = new FormData();
-        formData.append("image", image, image.name);
-
-        if (type === "profile") {
-            setProfile(previewSrc);
-        } else if (type === "license") {
-            setInputs((state) => ({
-                ...state,
-                license: image.name,
-            }));
-        }
-
-        // this.props.uploadImage(formData);
-    };
-
     const handleClickInsert = () => {};
     const handleClickDelete = () => {};
 
     return (
         <Template
             title="관광지 관리"
+            navCtg="place"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
-            <form style={{ margin: "0 150px" }}>
+            <form style={{ margin: "0 100px" }}>
                 <h4 className="mb-4">추가하기</h4>
                 <div className="no-Gutter2 row">
                     <div className="col-md-6">
@@ -216,7 +218,7 @@ const PlaceCodeForm = () => {
                             />
                         </FormTable>
                     </div>
-                    <div className="col-md-12 mt-4">
+                    <div className="col-md-12">
                         <FormTable>
                             <RatioMulti
                                 label="여행태그"
@@ -252,7 +254,7 @@ const PlaceCodeForm = () => {
                             />
                         </FormTable>
                     </div>
-                    <div className="col-md-6 mt-4">
+                    <div className="col-md-6">
                         <FormTable>
                             <PlaceCodeFormMid
                                 label="세부 관광지 오디오 가이드"
@@ -266,19 +268,19 @@ const PlaceCodeForm = () => {
                             />
                         </FormTable>
                     </div>
-                    <div className="col-md-12 mt-4">
-                        <FormTable>
-                            <PlaceCodeFormMid
-                                label="세부 관광지 오디오 가이드"
-                                name="hasAudio"
-                                value={inputs}
-                                onChange={onChange}
-                                options={[
-                                    { value: "yes", title: "有" },
-                                    { value: "no", title: "無" },
-                                ]}
-                            />
-                        </FormTable>
+                    <div className="col-md-12 mt-5">
+                        <PlaceCodeFormBottom
+                            label="세부 관광지 오디오 가이드"
+                            name="hasAudio"
+                            value={inputs}
+                            onChange={onChange}
+                            onUploadFile={onUploadFile}
+                            errors={errors}
+                            options={[
+                                { value: "yes", title: "有" },
+                                { value: "no", title: "無" },
+                            ]}
+                        />
                     </div>
                 </div>
             </form>

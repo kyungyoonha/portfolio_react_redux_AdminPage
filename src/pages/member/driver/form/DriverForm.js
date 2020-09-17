@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Template from "../../../components/template/Template";
-import validateInput from "../../../util/validateInput";
-import FormTable from "../../../components/Form/FormTable";
+import Template from "../../../../components/common/template/Template";
+import validateInput from "../../../../util/validateInput";
+import FormTable from "../../../../components/common/Form/FormTable";
 import {
     Input,
     Select,
@@ -9,15 +9,15 @@ import {
     Textarea,
     FileUpload,
     FileuploadCard,
-} from "../../../components/Form/FormComponents";
+} from "../../../../components/common/Form/FormComponents";
 
-import noImg from "../../../image/no-img.jpg";
-import noImgCar from "../../../image/no-img-car.png";
+import noImg from "../../../../img/no-img.jpg";
+import noImgCar from "../../../../img/no-img-car.png";
 import {
     optionsCountry,
     optionsCity,
     optionsRegion,
-} from "../../../util/options";
+} from "../../../../util/options";
 
 const DriverForm = () => {
     const [errors, setErrors] = useState({});
@@ -91,6 +91,7 @@ const DriverForm = () => {
     return (
         <Template
             title="기사 정보"
+            navCtg="member"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >

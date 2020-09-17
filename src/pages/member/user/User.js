@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import history from "../../../history";
 
-import Template from "../../../components/template/Template";
-import Board from "../../../components/Board/Board";
-import BoardTop from "../../../components/Board/BoardTop";
-import BoardFooter from "../../../components/Board/BoardFooter";
+import Template from "../../../components/common/template/Template";
+import Board from "../../../components/common/Board/Board";
+import BoardTop from "../../../components/common/Board/BoardTop";
+import BoardFooter from "../../../components/common/Board/BoardFooter";
 
 const User = ({ match }) => {
     const id = match.url.split("/")[2];
@@ -42,7 +42,7 @@ const User = ({ match }) => {
     }, [id, pageCtrl]);
 
     const handleClickInsert = () => {
-        history.push(`/member/${id}-form`);
+        history.push(`/member/${id}/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -57,6 +57,7 @@ const User = ({ match }) => {
     return (
         <Template
             title="회원 정보"
+            navCtg="member"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >

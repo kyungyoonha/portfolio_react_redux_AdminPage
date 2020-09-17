@@ -2,6 +2,18 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+const navMap = {
+    member: [
+        { to: "/member/user", title: "일반 회원" },
+        { to: "/member/driver", title: "기사 회원" },
+        { to: "/member/manager", title: "관리자" },
+    ],
+    place: [
+        { to: "/place/placecode", title: "관광지 코드 관리" },
+        { to: "/place/regioncode", title: "지역 코드 관리" },
+    ],
+};
+
 const Container = styled.div`
     display: flex;
     justify-content: space-evenly;
@@ -29,20 +41,17 @@ const Container = styled.div`
     }
 `;
 
-const MainNav = () => {
+const TemplateNav = ({ navCtg }) => {
+    const navList = navMap[navCtg];
     return (
         <Container>
-            <NavLink to="/member/user" activeClassName="active">
-                일반 회원
-            </NavLink>
-            <NavLink to="/member/driver" activeClassName="active">
-                기사 회원
-            </NavLink>
-            <NavLink to="/member/manager" activeClassName="active">
-                관리자
-            </NavLink>
+            {navList.map((nav) => (
+                <NavLink key={nav.to} to={nav.to} activeClassName="active">
+                    {nav.title}
+                </NavLink>
+            ))}
         </Container>
     );
 };
 
-export default MainNav;
+export default TemplateNav;
