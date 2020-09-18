@@ -75,21 +75,21 @@ export const RatioMulti = ({ label, name, value, onChange, options }) => {
             <td>
                 {options.map((option) => (
                     <div
-                        key={option.value}
+                        key={option.key}
                         className="form-check form-check-inline mr-5"
                     >
                         <input
                             className="form-check-input"
                             type="checkbox"
-                            name={option.value}
-                            value={option.value}
-                            checked={value[option.value] || false}
+                            name={option.key}
+                            value={option.key}
+                            checked={value[option.key] || false}
                             onChange={(e) => onChange(e, name)}
-                            id={name + option.value}
+                            id={name + option.key}
                         />
                         <label
                             className="form-check-label"
-                            htmlFor={name + option.value}
+                            htmlFor={name + option.key}
                         >
                             {option.title}
                         </label>
@@ -205,6 +205,30 @@ export const FileUpload = ({ label, name, value, onChange, ctg }) => {
                         className="custom-file-input"
                         name={name}
                         onChange={(e) => onChange(e, ctg)}
+                    />
+                    <label className="custom-file-label" data-browse={label}>
+                        {value}
+                    </label>
+                </div>
+            </td>
+        </tr>
+    );
+};
+
+export const FileUploadMany = ({ label, name, value, onChange, ctg }) => {
+    return (
+        <tr>
+            <th>
+                <label>※ {label}</label>
+            </th>
+            <td>
+                <div className="custom-file">
+                    <input
+                        type="file"
+                        className="custom-file-input"
+                        name={name}
+                        onChange={(e) => onChange(e, ctg)}
+                        multiple
                     />
                     <label className="custom-file-label" data-browse={label}>
                         {value}

@@ -17,11 +17,15 @@ const Table = styled.table`
     }
 `;
 
-const FormTable = ({ children }) => {
+const FormTable = ({ size, children }) => {
+    const num = size === "half" ? "6" : "12";
+
     return (
-        <Table className="table table-bordered">
-            <tbody>{children}</tbody>
-        </Table>
+        <div className={`col-md-${num}`}>
+            <Table className="table table-bordered">
+                <tbody>{children}</tbody>
+            </Table>
+        </div>
     );
 };
 
