@@ -54,7 +54,6 @@ const PlaceCode = ({ match }) => {
     };
 
     const handleClickDelete = () => {};
-    console.log(pageData);
     return (
         <Template
             title="관광지 관리"

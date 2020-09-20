@@ -90,16 +90,22 @@ const PlaceCodeForm = () => {
         }));
     };
     // ========== handle Upload Images ==========
-    const uploadImgs2 = [
-        { src: img1, fileName: "", file: null },
-        { src: img2, fileName: "", file: null },
-        { src: img3, fileName: "", file: null },
-        { src: img4, fileName: "", file: null },
-    ];
-    const [uploadImgs, setUploadImgs] = useState([]);
 
-    const handleUploadImgs = (imgs) => {
-        setUploadImgs(imgs);
+    const [imageList, setImageList] = useState([
+        // { src: img1, fileName: "", file: null, main: true },
+        // { src: img2, fileName: "", file: null, main: false },
+        // { src: img3, fileName: "", file: null, main: false },
+        // { src: img4, fileName: "", file: null, main: false },
+    ]);
+
+    const handleChangeImg = (newImgs) => {
+        setImageList(newImgs);
+    };
+
+    const handleUploadImgs = (e) => {
+        const image = e.target.files[0];
+        console.log(image);
+        // setUploadImgs(imgs);
     };
 
     // ========== handle Upload Audio ==========
@@ -229,8 +235,9 @@ const PlaceCodeForm = () => {
                     {/* Top 오른쪽 */}
                     <div className="col-md-6">
                         <PlaceCodeFormRight
-                            uploadImgs={uploadImgs2}
+                            imageList={imageList}
                             handleUploadImgs={handleUploadImgs}
+                            handleChangeImg={handleChangeImg}
                         />
                     </div>
                     {/* 중앙 */}

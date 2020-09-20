@@ -13,23 +13,35 @@ const Container = styled.div`
 `;
 
 const MainImg = styled.div`
-    text-align: center;
+    position: relative;
     padding: 5px;
+    text-align: center;
     img {
         width: 100%;
         height: 360px;
         object-fit: cover;
     }
+    h3 {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 10px;
+    }
 `;
 
-const SubImg = styled.div`
+const SubImgContainer = styled.div`
     display: flex;
-    flex-wrap: wrap;
-    img {
+
+    width: 100%;
+    div {
         flex: 1;
+    }
+    img {
+        width: 100%;
         padding: 5px;
         height: 150px;
         object-fit: cover;
+        border: 1px solid #dee2e6;
     }
 `;
 
@@ -39,7 +51,11 @@ const ButtonContainer = styled.div`
     line-height: 40px;
 `;
 
-const PlaceCodeFormImages = ({ uploadImgs, handleUploadImgs }) => {
+const PlaceCodeFormImages = ({
+    imageList,
+    handleChangeImg,
+    handleimageList,
+}) => {
     // 모달
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -55,30 +71,34 @@ const PlaceCodeFormImages = ({ uploadImgs, handleUploadImgs }) => {
         <React.Fragment>
             <Container>
                 <MainImg>
+                    <h3>
+                        <span className="badge badge-danger">대표사진</span>
+                    </h3>
                     <img
-                        src={uploadImgs[0] ? uploadImgs[0].src : noImg}
+                        src={imageList[0] ? imageList[0].src : noImg}
                         alt="대표사진"
                     />
                 </MainImg>
-                <SubImg>
+                <SubImgContainer>
                     {[...new Array(4)].map((_, idx) => {
                         if (idx === 0) {
                             return null;
                         } else {
                             return (
-                                <img
-                                    key={idx}
-                                    src={
-                                        uploadImgs[idx]
-                                            ? uploadImgs[idx].src
-                                            : noImg
-                                    }
-                                    alt="대표사진"
-                                />
+                                <div key={idx}>
+                                    <img
+                                        src={
+                                            imageList[idx]
+                                                ? imageList[idx].src
+                                                : noImg
+                                        }
+                                        alt="대표사진"
+                                    />
+                                </div>
                             );
                         }
                     })}
-                </SubImg>
+                </SubImgContainer>
                 <ButtonContainer>
                     <button
                         type="button"
@@ -89,8 +109,9 @@ const PlaceCodeFormImages = ({ uploadImgs, handleUploadImgs }) => {
                     </button>
                     <PlaceCodeFormModal
                         isModalOpen={isModalOpen}
+                        handleChangeImg={handleChangeImg}
                         handleModalClose={handleModalClose}
-                        uploadImgs={uploadImgs}
+                        imageList={imageList}
                     ></PlaceCodeFormModal>
                 </ButtonContainer>
             </Container>
