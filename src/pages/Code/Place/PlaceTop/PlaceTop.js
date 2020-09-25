@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const PlaceCodeTop = ({ handleChangePageCtrl }) => {
+const PlaceTop = ({ handleChangePageCtrl }) => {
     const [input, setInput] = useState("");
 
     const onChangeInput = (e) => {
@@ -91,4 +91,4 @@ const PlaceCodeTop = ({ handleChangePageCtrl }) => {
     );
 };
 
-export default PlaceCodeTop;
+export default PlaceTop;

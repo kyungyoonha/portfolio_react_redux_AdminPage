@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import Template from "../../../../components/common/template/Template";
-import validateInput from "../../../../util/validateInput";
-import FormTable from "../../../../components/common/Form/FormTable";
-import PlaceCodeFormMid from "./PlaceCodeFormMid";
-import PlaceCodeFormBottom from "./PlaceCodeFormBottom";
-import PlaceCodeFormRight from "./PlaceCodeFormRight";
+import Template from "../../../components/common/template/Template";
+import validateInput from "../../../util/validateInput";
+import FormTable from "../../../components/common/Form/FormTable";
+
+import SectionAudio from "./SectionAudio/SectionAudio";
+import SectionMain from "./SectionMain/SectionMain";
+import SectionImage from "./SectionImage/SectionImage";
 
 import {
     Input,
@@ -12,21 +13,15 @@ import {
     RatioSingle,
     RatioTypeCheck,
     RatioMulti,
-} from "../../../../components/common/Form/FormComponents";
+} from "../../../components/common/Form/FormComponents";
 
 import {
     optionsCountry,
     optionsCity,
     optionsRegion,
-} from "../../../../util/options";
+} from "../../../util/options";
 
-import img1 from "../../../../img/1.jpg";
-import img2 from "../../../../img/2.jpg";
-import img3 from "../../../../img/3.jpg";
-import img4 from "../../../../img/4.jpg";
-
-const PlaceCodeForm = () => {
-    // ========== handle Inputs ==========
+const FormPlace = () => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
         countryCtg: "KOREA",
@@ -43,38 +38,35 @@ const PlaceCodeForm = () => {
         tourTags: {},
         typeCharacteristic: "",
         typeStyle: "",
-        hasAudio: "noe",
-        hasAudioMain: false,
-        audioTitle: "",
-        audioFileName: "",
-        audioScript: "",
-        etc: "",
+        hasAudio: "no",
+        hasAudioMain: "no",
+    });
+    const [imageList, setImageList] = useState([]);
+    const [audioList, setAudioList] = useState([]);
+    const [audioMain, setAudioMain] = useState({
+        korea: { title: "", script: "", files: [] },
+        english: { title: "", script: "", files: [] },
+        japan: { title: "", script: "", files: [] },
+        china: { title: "", script: "", files: [] },
     });
 
-    const onChange = (e, inputName) => {
+    const handleChangeInputs = (e) => {
         const { name, value, type, checked } = e.target;
-        // tourTags 체크박스 여러개
         if (type === "checkbox") {
-            const length = Object.keys(inputs.tourTags).filter(
-                (key) => inputs.tourTags[key]
-            ).length;
-            if (length >= 3 && checked) {
-                alert("3개까지만 선택 가능합니다");
-            } else {
-                setInputs((state) => ({
-                    ...state,
-                    [inputName]: {
-                        ...state[inputName],
-                        [name]: checked,
-                    },
-                }));
-            }
+            setInputs((state) => ({
+                ...state,
+                tourTags: {
+                    ...state.tourTags,
+                    [name]: checked,
+                },
+            }));
         } else {
             setInputs((state) => ({
                 ...state,
                 [name]: value,
             }));
         }
+
         // 국적선택 시
         if (name === "countryCtg" && value === "KOREA") {
             setInputs((state) => ({
@@ -89,40 +81,24 @@ const PlaceCodeForm = () => {
             [name]: error,
         }));
     };
-    // ========== handle Upload Images ==========
 
-    const [imageList, setImageList] = useState([
-        // { src: img1, fileName: "", file: null, main: true },
-        // { src: img2, fileName: "", file: null, main: false },
-        // { src: img3, fileName: "", file: null, main: false },
-        // { src: img4, fileName: "", file: null, main: false },
-    ]);
-
-    const handleChangeImg = (newImgs) => {
-        setImageList(newImgs);
+    const handleChangeImageList = (newImgList) => {
+        setImageList(newImgList);
     };
 
-    const handleUploadImgs = (e) => {
-        const image = e.target.files[0];
-        console.log(image);
-        // setUploadImgs(imgs);
+    const handleChangeAudioList = (newAudioList) => {
+        setAudioList(newAudioList);
     };
 
-    // ========== handle Upload Audio ==========
-    const onUploadFile = (e, type) => {
-        const image = e.target.files[0];
-        // const previewSrc = URL.createObjectURL(image);
-
-        const formData = new FormData();
-        formData.append("image", image, image.name);
-        if (type === "audioFileName") {
-            setInputs((state) => ({
-                ...state,
-                audioFileName: image.name,
-            }));
-        }
-
-        // this.props.uploadImage(formData);
+    const handleChangeAudioMain = ({ selected, name, value }) => {
+        console.log(selected, name, value);
+        setAudioMain((state) => ({
+            ...state,
+            [selected]: {
+                ...state[selected],
+                [name]: value,
+            },
+        }));
     };
 
     const handleClickInsert = () => {};
@@ -144,7 +120,7 @@ const PlaceCodeForm = () => {
                             label="국가"
                             name="countryCtg"
                             value={inputs.countryCtg}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                             options={[
                                 { value: "KOREA", title: "국내" },
                                 { value: "OVERSEAS", title: "국외" },
@@ -155,7 +131,7 @@ const PlaceCodeForm = () => {
                                 label=""
                                 name="country"
                                 value={inputs.country}
-                                onChange={onChange}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                                 options={optionsCountry(inputs.countryCtg)}
                             />
@@ -163,25 +139,25 @@ const PlaceCodeForm = () => {
                         <Select
                             label="시/도"
                             name="state"
-                            value={inputs.city}
-                            onChange={onChange}
+                            value={inputs.state}
+                            onChange={handleChangeInputs}
                             errors={errors}
-                            options={optionsCity(inputs.city)}
+                            options={optionsCity(inputs.state)}
                         />
                         <Select
                             label="지역"
                             name="city"
-                            value={inputs.region}
-                            onChange={onChange}
+                            value={inputs.city}
+                            onChange={handleChangeInputs}
                             errors={errors}
-                            options={optionsRegion(inputs.region)}
+                            options={optionsRegion(inputs.city)}
                         />
 
                         <Input
                             label="관광지 코드"
-                            name="placeCode"
+                            name="place"
                             value={inputs.placeCode}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         >
                             <button className="btn btn-outline-primary float-right">
@@ -193,7 +169,7 @@ const PlaceCodeForm = () => {
                             label="주소"
                             name="address"
                             value={inputs.address}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         >
                             <button className="btn btn-outline-primary float-right">
@@ -205,7 +181,7 @@ const PlaceCodeForm = () => {
                             label="관광지 이름"
                             name="placeName"
                             value={inputs.placeName}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         />
 
@@ -213,7 +189,7 @@ const PlaceCodeForm = () => {
                             label="전화번호"
                             name="contactNumber"
                             value={inputs.contactNumber}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         />
 
@@ -221,32 +197,33 @@ const PlaceCodeForm = () => {
                             label="입장료"
                             name="entranceFee"
                             value={inputs.entranceFee}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         />
                         <Input
                             label="운영시간"
                             name="businessHours"
                             value={inputs.businessHours}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         />
                     </FormTable>
                     {/* Top 오른쪽 */}
                     <div className="col-md-6">
-                        <PlaceCodeFormRight
+                        <SectionImage
                             imageList={imageList}
-                            handleUploadImgs={handleUploadImgs}
-                            handleChangeImg={handleChangeImg}
+                            handleChangeImageList={handleChangeImageList}
                         />
                     </div>
+
                     {/* 중앙 */}
                     <FormTable>
                         <RatioMulti
                             label="여행태그"
                             name="tourTags"
                             value={inputs.tourTags}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
+                            max={3}
                             options={[
                                 { key: "picture", title: "사진광" },
                                 { key: "sports", title: "스포츠 마니아" },
@@ -263,7 +240,7 @@ const PlaceCodeForm = () => {
                             labelRight="내향성"
                             name="typeCharacteristic"
                             value={inputs.typeCharacteristic}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                         />
 
                         <RatioTypeCheck
@@ -272,35 +249,24 @@ const PlaceCodeForm = () => {
                             labelRight="폐쇄성"
                             name="typeStyle"
                             value={inputs.typeStyle}
-                            onChange={onChange}
+                            onChange={handleChangeInputs}
                         />
                     </FormTable>
                     {/* 오디오 서브 등록 */}
                     <FormTable size="half">
-                        <PlaceCodeFormMid
-                            label="세부 관광지 오디오 가이드"
-                            name="hasAudio"
-                            value={inputs}
-                            onChange={onChange}
-                            options={[
-                                { value: "yes", title: "有" },
-                                { value: "no", title: "無" },
-                            ]}
+                        <SectionAudio
+                            inputs={inputs}
+                            onChange={handleChangeInputs}
+                            audioList={audioList}
+                            handleChangeAudioList={handleChangeAudioList}
                         />
                     </FormTable>
                     {/* 오디오 메인 등록 */}
-                    <FormTable></FormTable>
-                    <PlaceCodeFormBottom
-                        label="세부 관광지 오디오 가이드"
-                        name="hasAudio"
-                        value={inputs}
-                        onChange={onChange}
-                        onUploadFile={onUploadFile}
-                        errors={errors}
-                        options={[
-                            { value: "yes", title: "有" },
-                            { value: "no", title: "無" },
-                        ]}
+
+                    <SectionMain
+                        audioMain={audioMain}
+                        handleChangeAudioMain={handleChangeAudioMain}
+                        disabled={inputs.hasAudioMain === "no"}
                     />
                 </div>
             </form>
@@ -308,4 +274,4 @@ const PlaceCodeForm = () => {
     );
 };
 
-export default PlaceCodeForm;
+export default FormPlace;

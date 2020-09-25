@@ -59,14 +59,16 @@ const DisplayMap = GoogleApiWrapper({
     );
 });
 
-const GoogleMap = () => {
+const GoogleMap = ({ size }) => {
     return (
-        <React.Fragment>
-            <div className="card-header bg-white">주간 예약건</div>
-            <div className="card-body bg-white">
-                <DisplayMap />
+        <div className={`col-sm-${size === "full" ? 12 : 6}`}>
+            <div className="card">
+                <div className="card-header bg-white">주간 예약건</div>
+                <div className="card-body bg-white">
+                    <DisplayMap />
+                </div>
             </div>
-        </React.Fragment>
+        </div>
     );
 };
 export default GoogleMap;

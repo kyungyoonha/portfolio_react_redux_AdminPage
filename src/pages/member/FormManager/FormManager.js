@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import Template from "../../../../components/common/template/Template";
-import validateInput from "../../../../util/validateInput";
+import Template from "../../../components/common/template/Template";
+import validateInput from "../../../util/validateInput";
 import {
     Input,
     Textarea,
-} from "../../../../components/common/Form/FormComponents";
-import FormTable from "../../../../components/common/Form/FormTable";
+} from "../../../components/common/Form/FormComponents";
+import FormTable from "../../../components/common/Form/FormTable";
 
-const ManagerForm = () => {
+const FormManager = () => {
     const [errors, setErrors] = useState({});
 
     const [inputs, setInputs] = useState({
@@ -160,4 +160,4 @@ const ManagerForm = () => {
     );
 };
 
-export default ManagerForm;
+export default FormManager;

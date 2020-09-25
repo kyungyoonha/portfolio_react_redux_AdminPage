@@ -2,8 +2,8 @@
     "totalPage": 20,
     "data": [
         {
-            "id": "Mark",
-            "name": "홍길동",
+            "id": "user1",
+            "name": "유저1",
             "phone": "+82-10-1111-2222",
             "email": "info@tripsoda.com",
             "country": "KOREA",
@@ -46,8 +46,8 @@
             ]
         },
         {
-            "id": "feww",
-            "name": "아무개",
+            "id": "user2",
+            "name": "유저2",
             "phone": "+82-10-1111-2222",
             "email": "info@tripsoda.com",
             "country": "KOREA",
@@ -89,8 +89,8 @@
             ]
         },
         {
-            "id": "feww4w",
-            "name": "아무개3",
+            "id": "user3",
+            "name": "유저3",
             "phone": "+82-10-1111-2222",
             "email": "info@tripsoda.com",
             "country": "KOREA",

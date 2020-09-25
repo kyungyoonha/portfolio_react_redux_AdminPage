@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import Template from "../../../../components/common/template/Template";
-import validateInput from "../../../../util/validateInput";
+import Template from "../../../components/common/template/Template";
+import validateInput from "../../../util/validateInput";
 import {
     Input,
     Select,
     RatioMulti,
     RatioSingle,
     Textarea,
-} from "../../../../components/common/Form/FormComponents";
-import FormTable from "../../../../components/common/Form/FormTable";
+} from "../../../components/common/Form/FormComponents";
+import FormTable from "../../../components/common/Form/FormTable";
 
-const UserForm = () => {
+const FormUser = () => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
         user_id: "",
@@ -198,4 +198,4 @@ const UserForm = () => {
     );
 };
 
-export default UserForm;
+export default FormUser;

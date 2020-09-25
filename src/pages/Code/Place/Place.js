@@ -5,10 +5,10 @@ import history from "../../../history";
 import Template from "../../../components/common/template/Template";
 import headerObj from "../../../components/common/Board/boardHeader.json";
 
-import PlaceCodeTop from "./PlaceCodeTop";
+import PlaceTop from "./PlaceTop/PlaceTop";
 import BoardFooter from "../../../components/common/Board/BoardFooter";
 
-const PlaceCode = ({ match }) => {
+const Place = ({ match }) => {
     const id = match.url.split("/")[2];
     const [pageData, setPageData] = useState({
         data: [],
@@ -43,7 +43,7 @@ const PlaceCode = ({ match }) => {
     }, [id, pageCtrl]);
 
     const handleClickInsert = () => {
-        history.push(`/place/${id}/form`);
+        history.push(`/code/${id}/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -61,7 +61,7 @@ const PlaceCode = ({ match }) => {
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
-            <PlaceCodeTop handleChangePageCtrl={handleChangePageCtrl} />
+            <PlaceTop handleChangePageCtrl={handleChangePageCtrl} />
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
@@ -98,4 +98,4 @@ const PlaceCode = ({ match }) => {
     );
 };
 
-export default PlaceCode;
+export default Place;

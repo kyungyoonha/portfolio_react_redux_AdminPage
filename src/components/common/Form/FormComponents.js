@@ -7,9 +7,9 @@ export const Input = ({
     type = "text",
     onChange,
     errors,
+    disabled,
     children,
 }) => {
-    // errors["placeCode"] = "Fewfew";
     return (
         <tr>
             <th>
@@ -25,6 +25,7 @@ export const Input = ({
                     onChange={onChange}
                     autoComplete="off"
                     style={{ flex: 1, marginRight: "10px" }}
+                    disabled={disabled}
                 />
                 {children}
 
@@ -65,7 +66,17 @@ export const Select = ({ label, name, value, onChange, errors, options }) => {
     );
 };
 
-export const RatioMulti = ({ label, name, value, onChange, options }) => {
+export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
+    const handleChange = (e) => {
+        const { checked } = e.target;
+        const length = Object.keys(value).filter((key) => value[key]).length;
+        if (length >= max && checked) {
+            alert("3개까지만 선택 가능합니다");
+        } else {
+            onChange(e, name);
+        }
+    };
+
     return (
         <tr>
             <th>
@@ -73,18 +84,15 @@ export const RatioMulti = ({ label, name, value, onChange, options }) => {
             </th>
 
             <td>
-                {options.map((option) => (
-                    <div
-                        key={option.key}
-                        className="form-check form-check-inline mr-5"
-                    >
+                {options.map((option, i) => (
+                    <div key={i} className="form-check form-check-inline mr-5">
                         <input
                             className="form-check-input"
                             type="checkbox"
                             name={option.key}
                             value={option.key}
                             checked={value[option.key] || false}
-                            onChange={(e) => onChange(e, name)}
+                            onChange={handleChange}
                             id={name + option.key}
                         />
                         <label
@@ -173,7 +181,7 @@ export const RatioTypeCheck = ({
     );
 };
 
-export const Textarea = ({ label, name, value, rows, onChange }) => {
+export const Textarea = ({ label, name, value, rows, onChange, disabled }) => {
     return (
         <tr>
             <th>
@@ -183,9 +191,11 @@ export const Textarea = ({ label, name, value, rows, onChange }) => {
                 <textarea
                     className="form-control"
                     rows={rows}
+                    name={name}
                     value={value}
                     onChange={onChange}
                     autoComplete="off"
+                    disabled={disabled}
                 ></textarea>
             </td>
         </tr>
@@ -215,7 +225,14 @@ export const FileUpload = ({ label, name, value, onChange, ctg }) => {
     );
 };
 
-export const FileUploadMany = ({ label, name, value, onChange, ctg }) => {
+export const FileUploadMany = ({
+    label,
+    name,
+    files,
+    onChange,
+    multiple,
+    disabled,
+}) => {
     return (
         <tr>
             <th>
@@ -227,11 +244,12 @@ export const FileUploadMany = ({ label, name, value, onChange, ctg }) => {
                         type="file"
                         className="custom-file-input"
                         name={name}
-                        onChange={(e) => onChange(e, ctg)}
-                        multiple
+                        onChange={onChange}
+                        multiple={multiple}
+                        disabled={disabled}
                     />
                     <label className="custom-file-label" data-browse={label}>
-                        {value}
+                        {files.map((file) => file.name)}
                     </label>
                 </div>
             </td>

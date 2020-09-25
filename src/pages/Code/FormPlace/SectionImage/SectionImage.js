@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import PlaceCodeFormModal from "./PlaceCodeFormModal";
+import ModalImage from "./ModalImage/ModalImage";
 import noImg from "../../../../img/no-img.jpg";
 
 const Container = styled.div`
@@ -51,11 +51,7 @@ const ButtonContainer = styled.div`
     line-height: 40px;
 `;
 
-const PlaceCodeFormImages = ({
-    imageList,
-    handleChangeImg,
-    handleimageList,
-}) => {
+const SectionImage = ({ imageList, handleChangeImageList }) => {
     // 모달
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -107,16 +103,16 @@ const PlaceCodeFormImages = ({
                     >
                         사진 편집하기
                     </button>
-                    <PlaceCodeFormModal
+                    <ModalImage
                         isModalOpen={isModalOpen}
-                        handleChangeImg={handleChangeImg}
+                        handleChangeImageList={handleChangeImageList}
                         handleModalClose={handleModalClose}
                         imageList={imageList}
-                    ></PlaceCodeFormModal>
+                    />
                 </ButtonContainer>
             </Container>
         </React.Fragment>
     );
 };
 
-export default PlaceCodeFormImages;
+export default SectionImage;

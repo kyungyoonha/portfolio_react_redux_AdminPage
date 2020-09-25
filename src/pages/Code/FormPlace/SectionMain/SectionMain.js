@@ -14,29 +14,31 @@ const navObj = {
     china: { name: "중국어", short: "(중)" },
 };
 
-const PlaceAudioUpalod = ({ value, onChange, onUploadFile, errors }) => {
+const SectionMain = ({ audioMain, handleChangeAudioMain, disabled }) => {
     const [selected, setSelected] = useState("korea");
-    // const [files, setFiles] = useState();
     const handleClickNav = (keyword) => {
         setSelected(keyword);
     };
 
-    const onUploadFile2 = (e, type) => {
-        const audio = e.target.files;
-        console.log(audio);
-        // const image = e.target.files[0];
-        // // const previewSrc = URL.createObjectURL(image);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        console.log(name, value);
+        handleChangeAudioMain({
+            selected,
+            name,
+            value,
+        });
+    };
 
-        // const formData = new FormData();
-        // formData.append("image", image, image.name);
-        // if (type === "audioFileName") {
-        //     setInputs((state) => ({
-        //         ...state,
-        //         audioFileName: image.name,
-        //     }));
-        // }
+    const handleChangeFiles = (e) => {
+        const files = e.target.files;
+        const length = files.length;
 
-        // this.props.uploadImage(formData);
+        handleChangeAudioMain({
+            selected,
+            name: "files",
+            value: [...new Array(length)].map((_, idx) => files[idx]),
+        });
     };
 
     return (
@@ -58,33 +60,37 @@ const PlaceAudioUpalod = ({ value, onChange, onUploadFile, errors }) => {
                     </li>
                 ))}
             </ul>
+
             <FormTable className="mt-5">
                 <Input
                     label={`${navObj[selected].short} 가이드 제목`}
-                    name="audioTitle"
-                    value={value.audioTitle}
-                    onChange={onChange}
-                    errors={errors}
+                    name="title"
+                    value={audioMain[selected].title}
+                    onChange={handleChange}
+                    errors={{ title: "" }}
+                    disabled={disabled}
                 />
 
                 <FileUploadMany
                     label={`${navObj[selected].short} 가이드 추가`}
-                    name={`audioFile_${selected}`}
-                    value={value.audioFileName}
-                    onChange={onUploadFile2}
-                    ctg={`audioFile_${selected}`}
+                    name="files"
+                    files={audioMain[selected].files}
+                    onChange={handleChangeFiles}
+                    multiple={false}
+                    disabled={disabled}
                 />
 
                 <Textarea
                     label={`${navObj[selected].short} 스크립트`}
-                    name="etc"
-                    value={value.ect}
-                    onChange={onChange}
+                    name="script"
+                    value={audioMain[selected].script}
+                    onChange={handleChange}
                     rows={6}
+                    disabled={disabled}
                 />
             </FormTable>
         </React.Fragment>
     );
 };
 
-export default PlaceAudioUpalod;
+export default SectionMain;

@@ -6,9 +6,9 @@ import routes from "./routes";
 
 
 // pages
-import Signup from './pages/signup/Signup';
-import Login from "./pages/login/Login";
-import PageNotFound from "./pages/pageNotFound/PageNotFound";
+import Signup from './pages/Signup/Signup';
+import Login from "./pages/Login/Login";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 // container
 import Layout from "./containers/Layout";
@@ -33,7 +33,7 @@ const App = () => {
                         />
                     ))}
                     <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
-                    <Route path="/place" exact render={() => <Redirect to="/place/placecode" />}/>
+                    <Route path="/code" exact render={() => <Redirect to="/code/place" />}/>
                     <Route path="/pages/signup" title="회원가입" component={Signup} />
                     <Route path="/pages/login" title="로그인" component={Login} />
                     <Route component={PageNotFound} />

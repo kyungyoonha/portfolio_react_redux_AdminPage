@@ -1,19 +1,14 @@
 import React from "react";
-import styled from "styled-components";
 
-const Container = styled.div`
-    margin-top: 30px;
-`;
-
-const CSBoard = () => {
+const CSBoard = ({ size }) => {
     return (
-        <div className="col-md-12">
-            <div className="card" style={{ height: "500px" }}>
+        <div className={`col-sm-${size === "full" ? 12 : 6}`}>
+            <div className="card">
                 <div className="card-header bg-white">
                     문의 및 신고 게시판 현황
                 </div>
                 <div className="card-body bg-white">
-                    <Container>
+                    <div>
                         <table className="table table-hover table-bordered">
                             <thead className="thead-dark">
                                 <tr>
@@ -54,7 +49,7 @@ const CSBoard = () => {
                                 </tr>
                             </tbody>
                         </table>
-                    </Container>
+                    </div>
                 </div>
             </div>
         </div>

@@ -9,9 +9,9 @@ const BreadCrumMap = {
     user: "일반 회원",
     driver: "기사 회원",
     manager: "관리자",
-    place: "관광지 관리",
-    placecode: "관광지 코드",
-    regioncode: "지역 코드",
+    code: "관광지 관리",
+    place: "관광지 코드",
+    region: "지역 코드",
     form: "추가",
 };
 
@@ -49,6 +49,7 @@ const Breadcrumb = () => {
         <Container>
             {pathNames.map((value, idx) => {
                 const to = `/${pathNames.slice(0, idx + 1).join("/")}`;
+
                 return (
                     <React.Fragment key={idx}>
                         {idx !== 0 && <Arrow />}

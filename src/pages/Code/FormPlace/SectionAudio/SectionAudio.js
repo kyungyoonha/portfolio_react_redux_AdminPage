@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
+import ModalAudio from "./ModalAudio/ModalAudio";
 
-const PlaceCodeFormMid = ({ label, name, value, onChange, options }) => {
+const SectionAudio = ({
+    inputs,
+    onChange,
+    audioList,
+    handleChangeAudioList,
+}) => {
+    const options = [
+        { value: "yes", title: "有" },
+        { value: "no", title: "無" },
+    ];
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    };
+
     return (
         <React.Fragment>
             <tr>
@@ -8,7 +27,7 @@ const PlaceCodeFormMid = ({ label, name, value, onChange, options }) => {
                     rowSpan="4"
                     style={{ verticalAlign: "middle", width: "25%" }}
                 >
-                    <label>※ {label}</label>
+                    <label>※ 세부 관광지 오디오 가이드</label>
                 </th>
                 <td colSpan="3">
                     {options.map((option) => (
@@ -19,15 +38,15 @@ const PlaceCodeFormMid = ({ label, name, value, onChange, options }) => {
                             <input
                                 className="form-check-input"
                                 type="radio"
-                                name={name}
+                                name="hasAudio"
                                 value={option.value}
-                                checked={value.hasAudio === option.value}
+                                checked={inputs.hasAudio === option.value}
                                 onChange={onChange}
-                                id={name + option.value}
+                                id={"hasAudio" + option.value}
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={name + option.value}
+                                htmlFor={"hasAudio" + option.value}
                             >
                                 {option.title}
                             </label>
@@ -37,17 +56,22 @@ const PlaceCodeFormMid = ({ label, name, value, onChange, options }) => {
             </tr>
             <tr className="text-center">
                 <td>
-                    <button className="btn btn-outline-primary btn-block">
+                    <button
+                        type="button"
+                        className="btn btn-outline-primary btn-block"
+                        disabled={inputs.hasAudio === "no"}
+                    >
                         (-) 삭제
                     </button>
                 </td>
                 <td>첫번째</td>
                 <td>
                     <select
-                        name={name}
-                        value={value}
+                        name="audioSelect"
+                        value={inputs.audioSelect}
                         onChange={onChange}
                         className="custom-select"
+                        disabled={inputs.hasAudio === "no"}
                     >
                         <option value="">...</option>
                     </select>
@@ -58,6 +82,8 @@ const PlaceCodeFormMid = ({ label, name, value, onChange, options }) => {
                     <button
                         type="button"
                         className="btn btn-outline-primary btn-md btn-block"
+                        disabled={inputs.hasAudio === "no"}
+                        onClick={handleModalOpen}
                     >
                         (+)추가하기
                     </button>
@@ -81,15 +107,15 @@ const PlaceCodeFormMid = ({ label, name, value, onChange, options }) => {
                             <input
                                 className="form-check-input"
                                 type="radio"
-                                name={name + "Main"}
+                                name="hasAudioMain"
                                 value={option.value}
-                                checked={value.hasAudioMain === option.value}
+                                checked={inputs.hasAudioMain === option.value}
                                 onChange={onChange}
-                                id={name + "Main" + option.value}
+                                id={"hasAudioMainMain" + option.value}
                             />
                             <label
                                 className="form-check-label"
-                                htmlFor={name + "Main" + option.value}
+                                htmlFor={"hasAudioMainMain" + option.value}
                             >
                                 {option.title}
                             </label>
@@ -97,8 +123,14 @@ const PlaceCodeFormMid = ({ label, name, value, onChange, options }) => {
                     ))}
                 </td>
             </tr>
+            <ModalAudio
+                isModalOpen={isModalOpen}
+                handleModalClose={handleModalClose}
+                audioList={audioList}
+                handleChangeAudioList={handleChangeAudioList}
+            />
         </React.Fragment>
     );
 };
 
-export default PlaceCodeFormMid;
+export default SectionAudio;
