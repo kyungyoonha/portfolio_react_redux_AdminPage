@@ -21,6 +21,13 @@ import {
     optionsRegion,
 } from "../../../util/options";
 
+const initialAudioMain = {
+    korea: { title: "", script: "", files: [] },
+    english: { title: "", script: "", files: [] },
+    japan: { title: "", script: "", files: [] },
+    china: { title: "", script: "", files: [] },
+};
+
 const FormPlace = () => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
@@ -43,12 +50,7 @@ const FormPlace = () => {
     });
     const [imageList, setImageList] = useState([]);
     const [audioList, setAudioList] = useState([]);
-    const [audioMain, setAudioMain] = useState({
-        korea: { title: "", script: "", files: [] },
-        english: { title: "", script: "", files: [] },
-        japan: { title: "", script: "", files: [] },
-        china: { title: "", script: "", files: [] },
-    });
+    const [audioMain, setAudioMain] = useState(initialAudioMain);
 
     const handleChangeInputs = (e) => {
         const { name, value, type, checked } = e.target;
@@ -74,6 +76,15 @@ const FormPlace = () => {
                 country: "KOREA",
             }));
         }
+
+        if (name === "hasAudio" && value === "no") {
+            setAudioList([]);
+        }
+
+        if (name === "hasAudioMain" && value === "no") {
+            setAudioMain(initialAudioMain);
+        }
+
         // 유효값 체크
         const error = validateInput(name, value);
         setErrors((state) => ({
@@ -87,11 +98,14 @@ const FormPlace = () => {
     };
 
     const handleChangeAudioList = (newAudioList) => {
-        setAudioList(newAudioList);
+        setAudioList((state) => [...state, newAudioList]);
+    };
+
+    const handleDeleteAudioList = (idx) => {
+        setAudioList((state) => state.filter((_, i) => String(i) !== idx));
     };
 
     const handleChangeAudioMain = ({ selected, name, value }) => {
-        console.log(selected, name, value);
         setAudioMain((state) => ({
             ...state,
             [selected]: {
@@ -103,7 +117,6 @@ const FormPlace = () => {
 
     const handleClickInsert = () => {};
     const handleClickDelete = () => {};
-
     return (
         <Template
             title="관광지 관리"
@@ -259,6 +272,7 @@ const FormPlace = () => {
                             onChange={handleChangeInputs}
                             audioList={audioList}
                             handleChangeAudioList={handleChangeAudioList}
+                            handleDeleteAudioList={handleDeleteAudioList}
                         />
                     </FormTable>
                     {/* 오디오 메인 등록 */}

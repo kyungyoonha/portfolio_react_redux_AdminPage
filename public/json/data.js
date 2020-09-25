@@ -25,6 +25,7 @@ const data = {
     ],
     audioList: [
         // {
+        //     name: ''
         //     inputs: { countryCtg: "KOREA", state: "", city: "", place: "", name: "", content: "", hasAudio: "no" },
         //     imageList: [
         //         { src: "img1", filename: "", file: null }

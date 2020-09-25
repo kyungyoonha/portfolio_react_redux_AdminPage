@@ -22,7 +22,6 @@ const SectionMain = ({ audioMain, handleChangeAudioMain, disabled }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        console.log(name, value);
         handleChangeAudioMain({
             selected,
             name,
@@ -43,25 +42,27 @@ const SectionMain = ({ audioMain, handleChangeAudioMain, disabled }) => {
 
     return (
         <React.Fragment>
-            <ul
-                className="nav nav-tabs mb-4"
-                style={{ width: "100%", marginTop: "30px" }}
-            >
-                {Object.keys(navObj).map((key) => (
-                    <li className="nav-item" key={key}>
-                        <span
-                            className={`nav-link ${
-                                selected === key && "active"
-                            }`}
-                            onClick={() => handleClickNav(key)}
-                        >
-                            {navObj[key].name}
-                        </span>
-                    </li>
-                ))}
-            </ul>
+            <div className="col-md-12">
+                <ul
+                    className="nav nav-tabs mb-4"
+                    style={{ width: "100%", marginTop: "30px" }}
+                >
+                    {Object.keys(navObj).map((key) => (
+                        <li className="nav-item" key={key}>
+                            <span
+                                className={`nav-link ${
+                                    selected === key && "active"
+                                }`}
+                                onClick={() => handleClickNav(key)}
+                            >
+                                {navObj[key].name}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
-            <FormTable className="mt-5">
+            <FormTable>
                 <Input
                     label={`${navObj[selected].short} 가이드 제목`}
                     name="title"
@@ -88,6 +89,7 @@ const SectionMain = ({ audioMain, handleChangeAudioMain, disabled }) => {
                     rows={6}
                     disabled={disabled}
                 />
+                <tr style={{ height: "40px" }}></tr>
             </FormTable>
         </React.Fragment>
     );

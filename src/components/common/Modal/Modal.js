@@ -8,17 +8,21 @@ const modalStyle = {
         right: "auto",
         bottom: "auto",
         marginRight: "-50%",
+        marginBottom: "50px",
         transform: "translate(-50%, -50%)",
         width: "65%",
+        height: "800px",
+        overflowY: "scroll",
     },
     overlay: {
         background: "rgba(0, 0, 0, 0.5)",
+        zIndex: "5",
     },
 };
 
 ReactModal.setAppElement("#root");
 
-const Modal = ({ isModalOpen, handleModalClose, children }) => {
+const Modal = ({ isModalOpen, title, handleModalClose, children }) => {
     return (
         <ReactModal
             isOpen={isModalOpen}
@@ -26,6 +30,7 @@ const Modal = ({ isModalOpen, handleModalClose, children }) => {
             style={modalStyle}
             onRequestClose={handleModalClose}
         >
+            <h4>{title}</h4>
             {children}
         </ReactModal>
     );

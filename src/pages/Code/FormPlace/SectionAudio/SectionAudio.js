@@ -1,23 +1,37 @@
 import React, { useState } from "react";
 import ModalAudio from "./ModalAudio/ModalAudio";
 
+const options = [
+    { value: "yes", title: "有" },
+    { value: "no", title: "無" },
+];
+
 const SectionAudio = ({
     inputs,
     onChange,
     audioList,
     handleChangeAudioList,
+    handleDeleteAudioList,
 }) => {
-    const options = [
-        { value: "yes", title: "有" },
-        { value: "no", title: "無" },
-    ];
-
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedIdx, setSelectedIdx] = useState("");
+
     const handleModalOpen = () => {
         setIsModalOpen(true);
     };
     const handleModalClose = () => {
         setIsModalOpen(false);
+    };
+
+    const handleSelectedIdx = (e) => {
+        setSelectedIdx(e.target.value);
+    };
+    const handleClickDelete = () => {
+        if (selectedIdx) {
+            handleDeleteAudioList(selectedIdx);
+        } else {
+            alert("삭제할 목록을 선택해주세요");
+        }
     };
 
     return (
@@ -59,21 +73,31 @@ const SectionAudio = ({
                     <button
                         type="button"
                         className="btn btn-outline-primary btn-block"
+                        onClick={handleClickDelete}
                         disabled={inputs.hasAudio === "no"}
                     >
                         (-) 삭제
                     </button>
                 </td>
-                <td>첫번째</td>
+                <td>선택</td>
                 <td>
                     <select
                         name="audioSelect"
                         value={inputs.audioSelect}
-                        onChange={onChange}
+                        onChange={handleSelectedIdx}
                         className="custom-select"
                         disabled={inputs.hasAudio === "no"}
                     >
-                        <option value="">...</option>
+                        <option value="">
+                            {audioList[0]
+                                ? "선택해주세요"
+                                : "아래 + 버튼으로 추가"}
+                        </option>
+                        {audioList.map((audio, idx) => (
+                            <option key={idx} value={idx}>
+                                {audio.inputs.name}
+                            </option>
+                        ))}
                     </select>
                 </td>
             </tr>
@@ -90,7 +114,11 @@ const SectionAudio = ({
                 </td>
             </tr>
             <tr>
-                <td colSpan="3" style={{ height: "200px" }}></td>
+                <td colSpan="3" style={{ height: "200px" }}>
+                    {audioList.map((audio, idx) => (
+                        <p key={idx}>{audio.inputs.name}</p>
+                    ))}
+                </td>
             </tr>
             <tr>
                 <th>
@@ -126,7 +154,6 @@ const SectionAudio = ({
             <ModalAudio
                 isModalOpen={isModalOpen}
                 handleModalClose={handleModalClose}
-                audioList={audioList}
                 handleChangeAudioList={handleChangeAudioList}
             />
         </React.Fragment>
