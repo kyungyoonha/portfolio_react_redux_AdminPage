@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import Template from "../../../components/common/template/Template";
+import Template from "../../../components/template/Template";
 import validateInput from "../../../util/validateInput";
-import {
-    Input,
-    Textarea,
-} from "../../../components/common/Form/FormComponents";
-import FormTable from "../../../components/common/Form/FormTable";
+import { Input, Textarea } from "../../../components/Form/FormComponents";
+import FormTable from "../../../components/Form/FormTable";
 
 const FormManager = () => {
     const [errors, setErrors] = useState({});

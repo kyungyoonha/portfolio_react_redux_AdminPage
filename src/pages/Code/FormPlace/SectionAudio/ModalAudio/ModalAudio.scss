@@ -1,0 +1,17 @@
+.modalAudio {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0px;
+    height: 700px;
+
+    .modalAudio__buttonContainer {
+        padding-right: 30px;
+
+        button {
+            float: right;
+            margin-right: 20px;
+            margin-bottom: 20px;
+            width: 120px;
+        }
+    }
+}

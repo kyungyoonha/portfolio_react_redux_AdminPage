@@ -17,6 +17,7 @@ import FormPlace from './pages/Code/FormPlace/FormPlace';
 
 const routes = [
     { path: "/", exact: true, component: Dashboard },
+    { path: "/Dashboard", exact: true, component: Dashboard },
     { path: "/member/user", exact: true, component: User},
     { path: "/member/driver", exact: true, component: Driver },
     { path: "/member/manager", exact: true,  component: Manager },

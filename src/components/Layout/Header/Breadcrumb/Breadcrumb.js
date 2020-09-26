@@ -1,10 +1,11 @@
 import React from "react";
-import styled from "styled-components";
+import "./Breadcrumb.scss";
 import { NavLink } from "react-router-dom";
-import history from "../history";
+import history from "../../../../history";
 
 const BreadCrumMap = {
     Home: "홈",
+    dashboard: "홈",
     member: "회원정보",
     user: "일반 회원",
     driver: "기사 회원",
@@ -15,44 +16,23 @@ const BreadCrumMap = {
     form: "추가",
 };
 
-const Container = styled.div`
-    padding: 0 30px;
-    height: 50px;
-    line-height: 50px;
-    background: white;
-    border-bottom: 1px solid #d8dbe0;
-    > span {
-        margin: 0 15px;
-    }
-
-    a {
-        color: black;
-
-        :hover {
-            color: red;
-        }
-    }
-`;
-
-const Arrow = () => (
-    <span>
-        <i className="fas fa-chevron-right"></i>
-    </span>
-);
-
 const Breadcrumb = () => {
     const path = history.location.pathname;
     const pathNames =
         path === "/" ? ["Home"] : path.split("/").filter((value) => value);
 
     return (
-        <Container>
+        <div className="breadcrumb__container">
             {pathNames.map((value, idx) => {
                 const to = `/${pathNames.slice(0, idx + 1).join("/")}`;
 
                 return (
                     <React.Fragment key={idx}>
-                        {idx !== 0 && <Arrow />}
+                        {idx !== 0 && (
+                            <span>
+                                <i className="fas fa-chevron-right"></i>
+                            </span>
+                        )}
                         <NavLink to={to} activeClassName="active">
                             {value.indexOf("form") !== -1
                                 ? "추가"
@@ -61,7 +41,7 @@ const Breadcrumb = () => {
                     </React.Fragment>
                 );
             })}
-        </Container>
+        </div>
     );
 };
 

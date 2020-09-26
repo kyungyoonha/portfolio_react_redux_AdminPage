@@ -4,8 +4,8 @@ import {
     Input,
     FileUploadMany,
     Textarea,
-} from "../../../../components/common/Form/FormComponents";
-import FormTable from "../../../../components/common/Form/FormTable";
+} from "../../../../components/Form/FormComponents";
+import FormTable from "../../../../components/Form/FormTable";
 
 const navObj = {
     korea: { name: "한국어", short: "(한)" },

@@ -1,47 +1,29 @@
-import React, { useState, useRef, useEffect } from "react";
-
-import styled from "styled-components";
+import React, { useState } from "react";
+import "./ModalAudio.scss";
 import {
     RatioSingle,
     Select,
     Input,
     FileuploadCard,
-} from "../../../../../components/common/Form/FormComponents";
+} from "../../../../../components/Form/FormComponents";
 
-import FormTable from "../../../../../components/common/Form/FormTable";
-import Modal from "../../../../../components/common/Modal/Modal";
-import noImg from "../../../../../img/no-img.jpg";
 import {
     optionsCountry,
     optionsCity,
     optionsRegion,
 } from "../../../../../util/options";
+
+import FormTable from "../../../../../components/Form/FormTable";
+import Modal from "../../../../../components/Modal/Modal";
+import noImg from "../../../../../img/no-img.jpg";
 import SectionMain from "../../SectionMain/SectionMain";
-
-const ContainerStyled = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0px;
-    height: 700px;
-
-    .top {
-        padding-right: 30px;
-
-        button {
-            float: right;
-            margin-right: 20px;
-            margin-bottom: 20px;
-            width: 120px;
-        }
-    }
-`;
 
 const ModalAudio = ({
     isModalOpen,
     handleModalClose,
     handleChangeAudioList,
 }) => {
-    const [errors, setErrors] = useState({});
+    const errors = {};
     const [inputs, setInputs] = useState({
         countryCtg: "KOREA",
         state: "",
@@ -90,19 +72,6 @@ const ModalAudio = ({
         setImageList(newImageList);
     };
 
-    //  {
-    //     name: ''
-    //     inputs: { countryCtg: "KOREA", state: "", city: "", place: "", name: "", content: "", hasAudio: "no" },
-    //     imageList: [
-    //         { src: "img1", filename: "", file: null }
-    //     ],
-    //     audioMain: {
-    //         korea: { title: "", script: "", files: [] },
-    //         english: { title: "", script: "", files: [] },
-    //         japan: { title: "", script: "", files: [] },
-    //         china: { title: "", script: "", files: [] },
-    //     },
-    // },
     const handleClickSave = () => {
         handleChangeAudioList({
             inputs,
@@ -119,8 +88,8 @@ const ModalAudio = ({
             title="세부 관광지 추가하기"
             handleModalClose={handleModalClose}
         >
-            <ContainerStyled>
-                <div className="top">
+            <div className="modalAudio">
+                <div className="modalAudio__buttonContainer">
                     <button
                         type="button"
                         className="btn btn-outline-primary"
@@ -213,7 +182,7 @@ const ModalAudio = ({
                         handleChangeAudioMain={handleChangeAudioMain}
                     />
                 </div>
-            </ContainerStyled>
+            </div>
         </Modal>
     );
 };

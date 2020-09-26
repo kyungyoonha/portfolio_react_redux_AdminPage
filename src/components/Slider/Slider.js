@@ -1,13 +1,7 @@
 import React, { useState } from "react";
 import ReactSlick from "react-slick";
-import styled from "styled-components";
+import "./Slider.scss";
 
-const ContainerButton = styled.div`
-    display: flex;
-    button {
-        flex: 1;
-    }
-`;
 const Slider = ({ children }) => {
     const [slider, setSlider] = useState(null);
 
@@ -32,7 +26,7 @@ const Slider = ({ children }) => {
             <ReactSlick ref={(c) => setSlider(c)} {...settings}>
                 {children}
             </ReactSlick>
-            <ContainerButton>
+            <div className="slider__buttonContainer">
                 <button
                     type="button"
                     className="btn btn-outline-primary"
@@ -47,7 +41,7 @@ const Slider = ({ children }) => {
                 >
                     다음
                 </button>
-            </ContainerButton>
+            </div>
         </React.Fragment>
     );
 };

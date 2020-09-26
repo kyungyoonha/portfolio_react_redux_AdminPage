@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Template from "../../../components/common/template/Template";
+import Template from "../../../components/template/Template";
 import validateInput from "../../../util/validateInput";
 import {
     Input,
@@ -7,8 +7,8 @@ import {
     RatioMulti,
     RatioSingle,
     Textarea,
-} from "../../../components/common/Form/FormComponents";
-import FormTable from "../../../components/common/Form/FormTable";
+} from "../../../components/Form/FormComponents";
+import FormTable from "../../../components/Form/FormTable";
 
 const FormUser = () => {
     const [errors, setErrors] = useState({});

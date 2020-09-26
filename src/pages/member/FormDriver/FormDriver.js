@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Template from "../../../components/common/template/Template";
+import Template from "../../../components/template/Template";
 import validateInput from "../../../util/validateInput";
-import FormTable from "../../../components/common/Form/FormTable";
+import FormTable from "../../../components/Form/FormTable";
 import {
     Input,
     Select,
@@ -9,7 +9,7 @@ import {
     Textarea,
     FileUpload,
     FileuploadCard,
-} from "../../../components/common/Form/FormComponents";
+} from "../../../components/Form/FormComponents";
 
 import noImg from "../../../img/no-img.jpg";
 

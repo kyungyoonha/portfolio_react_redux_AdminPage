@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Router, Route, Switch } from "react-router-dom";
 import history from "./history";
-import "./App.css";
+import "./App.scss";
 import routes from "./routes";
 
 
@@ -11,7 +11,7 @@ import Login from "./pages/Login/Login";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 // container
-import Layout from "./containers/Layout";
+import Layout from "./components/Layout/Layout";
 
 
 const App = () => {

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import history from "../../../history";
 
-import Template from "../../../components/common/template/Template";
-import headerObj from "../../../components/common/Board/boardHeader.json";
+import Template from "../../../components/template/Template";
+import headerObj from "../../../components/Board/boardHeader.json";
 
 import PlaceTop from "./PlaceTop/PlaceTop";
-import BoardFooter from "../../../components/common/Board/BoardFooter";
+import BoardFooter from "../../../components/Board/BoardFooter";
 
 const Place = ({ match }) => {
     const id = match.url.split("/")[2];

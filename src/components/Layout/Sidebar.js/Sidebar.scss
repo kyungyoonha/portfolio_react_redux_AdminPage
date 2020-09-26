@@ -1,0 +1,46 @@
+.sidebar {
+    width: 300px;
+    background: #303c54;
+
+    .sidebar__user {
+        position: relative;
+        padding-left: 15px;
+        height: 100px;
+        color: #7d8798;
+        font-size: 0.8rem;
+
+        > div {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            line-height: 30px;
+        }
+        > div > span {
+            margin-left: 5px;
+            color: white;
+            font-size: 0.9rem;
+        }
+    }
+
+    a {
+        display: block;
+        padding-left: 15px;
+        height: 70px;
+        line-height: 70px;
+        background: #3c4b64;
+        color: white;
+        font-size: 0.8rem;
+
+        i {
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        &:hover {
+            background: #46546c;
+            color: white;
+        }
+        &.active {
+            color: #2196f3;
+        }
+    }
+}

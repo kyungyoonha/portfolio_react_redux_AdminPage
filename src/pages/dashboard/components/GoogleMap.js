@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import "./GoogleMap.scss";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-
-const Container = styled.div`
-    position: relative;
-    width: 100%;
-    height: 400px;
-`;
 
 const mapStyles = {
     position: "absolute",
@@ -45,7 +39,7 @@ const DisplayMap = GoogleApiWrapper({
         });
     };
     return (
-        <Container>
+        <div className="googleMap">
             <Map
                 google={google}
                 zoom={8}
@@ -55,7 +49,7 @@ const DisplayMap = GoogleApiWrapper({
             >
                 {displayMarkers()}
             </Map>
-        </Container>
+        </div>
     );
 });
 

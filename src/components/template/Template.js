@@ -1,22 +1,6 @@
 import React from "react";
-import styled from "styled-components";
-import MainNav from "./TemplateNav";
-
-const Container = styled.div`
-    flex: 1;
-    padding: 15px;
-    background: #eeeeee;
-    & > div > i {
-        margin-right: 10px;
-    }
-`;
-
-const ButtonContainer = styled.div`
-    float: right;
-    & > button {
-        margin-right: 10px;
-    }
-`;
+import "./Template.scss";
+import MainNav from "./TemplateNav/TemplateNav";
 
 const Template = ({
     title,
@@ -26,7 +10,7 @@ const Template = ({
     children,
 }) => {
     return (
-        <Container className="card">
+        <div className="card template">
             <div className="card-header bg-white">
                 <i className="fas fa-user-cog"></i>
                 {title}
@@ -37,7 +21,7 @@ const Template = ({
             </div>
             {/* Footer */}
             <div className="card-footer bg-white">
-                <ButtonContainer>
+                <div className="template__buttonContainer">
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
@@ -52,9 +36,9 @@ const Template = ({
                     >
                         추가하기
                     </button>
-                </ButtonContainer>
+                </div>
             </div>
-        </Container>
+        </div>
     );
 };
 

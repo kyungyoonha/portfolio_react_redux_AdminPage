@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
-import Slider from "../../../../../components/common/Slider/Slider";
-import Modal from "../../../../../components/common/Modal/Modal";
+import Slider from "../../../../../components/Slider/Slider";
+import Modal from "../../../../../components/Modal/Modal";
 import noImg from "../../../../../img/no-img.jpg";
 
 const ContainerStyled = styled.div`
