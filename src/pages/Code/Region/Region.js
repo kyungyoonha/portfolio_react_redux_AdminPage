@@ -9,7 +9,8 @@ import RegionModal from "./RegionModal/RegionModal";
 const Region = ({ match }) => {
     const id = match.url.split("/")[2];
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [checkId, setCheckId] = useState("");
+    // const [checkId, setCheckId] = useState("");
+    const [selectedItem, setSelectedItem] = useState({});
     const [pageData, setPageData] = useState({
         data: [],
         totalPage: 5,
@@ -37,15 +38,23 @@ const Region = ({ match }) => {
         getFetchData();
     }, [id]);
 
+    const handleModalOpen = () => {
+        if (!selectedItem.id) {
+            alert("데이터 행을 체크해주세요.");
+        } else {
+            setIsModalOpen(true);
+        }
+    };
+
     const handleModalClose = () => {
         setIsModalOpen(false);
     };
 
-    const handleCheckId = (id) => {
-        if (checkId !== id) {
-            setCheckId(id);
+    const handleSelectedItem = (item) => {
+        if (selectedItem.id !== item.id) {
+            setSelectedItem(item);
         } else {
-            setCheckId("");
+            setSelectedItem({});
         }
     };
 
@@ -57,9 +66,6 @@ const Region = ({ match }) => {
     };
 
     const handleClickDelete = () => {};
-    const handleClickInsert = () => {};
-    const handleClickCopy = () => {};
-
     return (
         <div className="card template">
             <div className="card-header bg-white">
@@ -72,14 +78,21 @@ const Region = ({ match }) => {
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
-                        onClick={handleClickCopy}
+                        onClick={handleModalOpen}
+                    >
+                        수정하기
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={handleModalOpen}
                     >
                         복사하기
                     </button>
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
-                        onClick={handleClickInsert}
+                        onClick={handleModalOpen}
                     >
                         추가하기
                     </button>
@@ -94,8 +107,8 @@ const Region = ({ match }) => {
                 </div>
                 <RegionTable
                     data={pageData.data}
-                    checkId={checkId}
-                    handleCheckId={handleCheckId}
+                    selectedItem={selectedItem}
+                    handleSelectedItem={handleSelectedItem}
                 />
                 <BoardFooter
                     totalPage={pageData.totalPage}
@@ -104,6 +117,7 @@ const Region = ({ match }) => {
                 />
                 <RegionModal
                     isModalOpen={isModalOpen}
+                    selectedItem={selectedItem}
                     handleModalClose={handleModalClose}
                 />
             </div>

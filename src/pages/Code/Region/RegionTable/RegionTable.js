@@ -7,6 +7,7 @@ const RegionValueList = [
     { key: "countryCode", value: "", name: "국가코드" },
     { key: "countrySort", value: "", name: "국가정렬" },
     { key: "state", value: "", name: "시/도" },
+    { key: "stateCode", value: "", name: "시/도 코드" },
     { key: "stateSort", value: "", name: "시/도 정렬" },
     { key: "city", value: "", name: "지역" },
     { key: "hasImgMain", value: false, name: "대표사진 유무" },
@@ -18,7 +19,7 @@ const RegionValueList = [
     { key: "makeDate", value: "", name: "생성 일자" },
 ];
 
-const RegionTable = ({ data, checkId, handleCheckId }) => {
+const RegionTable = ({ data, selectedItem, handleSelectedItem }) => {
     return (
         <table className="table table-hover table-bordered text-center">
             <thead>
@@ -35,8 +36,8 @@ const RegionTable = ({ data, checkId, handleCheckId }) => {
                     <RegionTableItem
                         key={idx}
                         item={item}
-                        isChecked={checkId === item.id}
-                        handleCheckId={handleCheckId}
+                        isChecked={selectedItem.id === item.id}
+                        handleSelectedItem={handleSelectedItem}
                     />
                 ))}
             </tbody>
