@@ -1,57 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import ModalImage from "./ModalImage/ModalImage";
+import "./FormPlaceRight.scss";
+import FormPlaceRightModal from "./FormPlaceRightModal/FormPlaceRightModal";
 import noImg from "../../../../img/no-img.jpg";
 
-const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 30px;
-    width: 100%;
-    height: 570px;
-    border: 1px solid #dee2e6;
-`;
-
-const MainImg = styled.div`
-    position: relative;
-    padding: 5px;
-    text-align: center;
-    img {
-        width: 100%;
-        height: 360px;
-        object-fit: cover;
-    }
-    h3 {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 10px;
-    }
-`;
-
-const SubImgContainer = styled.div`
-    display: flex;
-
-    width: 100%;
-    div {
-        flex: 1;
-    }
-    img {
-        width: 100%;
-        padding: 5px;
-        height: 150px;
-        object-fit: cover;
-        border: 1px solid #dee2e6;
-    }
-`;
-
-const ButtonContainer = styled.div`
-    padding: 5px;
-    height: 40px;
-    line-height: 40px;
-`;
-
-const SectionImage = ({ imageList, handleChangeImageList }) => {
+const FormPlaceRight = ({ imageList, handleChangeImageList }) => {
     // 모달
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -65,8 +17,8 @@ const SectionImage = ({ imageList, handleChangeImageList }) => {
 
     return (
         <React.Fragment>
-            <Container>
-                <MainImg>
+            <div className="formPlaceRight">
+                <div className="formPlaceRight__imgMain">
                     <h3>
                         <span className="badge badge-danger">대표사진</span>
                     </h3>
@@ -74,8 +26,8 @@ const SectionImage = ({ imageList, handleChangeImageList }) => {
                         src={imageList[0] ? imageList[0].src : noImg}
                         alt="대표사진"
                     />
-                </MainImg>
-                <SubImgContainer>
+                </div>
+                <div className="formPlaceRight__imgSub">
                     {[...new Array(4)].map((_, idx) => {
                         if (idx === 0) {
                             return null;
@@ -94,8 +46,8 @@ const SectionImage = ({ imageList, handleChangeImageList }) => {
                             );
                         }
                     })}
-                </SubImgContainer>
-                <ButtonContainer>
+                </div>
+                <div className="formPlaceRight__buttonContainer">
                     <button
                         type="button"
                         className="btn btn-outline-primary btn-md btn-block"
@@ -103,16 +55,16 @@ const SectionImage = ({ imageList, handleChangeImageList }) => {
                     >
                         사진 편집하기
                     </button>
-                    <ModalImage
+                    <FormPlaceRightModal
                         isModalOpen={isModalOpen}
                         handleChangeImageList={handleChangeImageList}
                         handleModalClose={handleModalClose}
                         imageList={imageList}
                     />
-                </ButtonContainer>
-            </Container>
+                </div>
+            </div>
         </React.Fragment>
     );
 };
 
-export default SectionImage;
+export default FormPlaceRight;

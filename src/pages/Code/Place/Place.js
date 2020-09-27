@@ -40,7 +40,7 @@ const Place = ({ match }) => {
             }
         };
         getFetchData();
-    }, [id, pageCtrl]);
+    }, [id]);
 
     const handleClickInsert = () => {
         history.push(`/code/${id}/form`);
@@ -57,7 +57,7 @@ const Place = ({ match }) => {
     return (
         <Template
             title="관광지 관리"
-            navCtg="place"
+            navCtg="code"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >

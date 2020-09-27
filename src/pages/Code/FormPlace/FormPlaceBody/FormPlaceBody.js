@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import ModalAudio from "./ModalAudio/ModalAudio";
+import FormPlaceBodyModal from "./FormPlaceBodyModal/FormPlaceBodyModal";
 
 const options = [
     { value: "yes", title: "有" },
     { value: "no", title: "無" },
 ];
 
-const SectionAudio = ({
+const FormPlaceBody = ({
     inputs,
     onChange,
     audioList,
@@ -151,7 +151,7 @@ const SectionAudio = ({
                     ))}
                 </td>
             </tr>
-            <ModalAudio
+            <FormPlaceBodyModal
                 isModalOpen={isModalOpen}
                 handleModalClose={handleModalClose}
                 handleChangeAudioList={handleChangeAudioList}
@@ -160,4 +160,4 @@ const SectionAudio = ({
     );
 };
 
-export default SectionAudio;
+export default FormPlaceBody;

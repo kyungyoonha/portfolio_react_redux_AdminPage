@@ -1,6 +1,6 @@
 import React from "react";
 import "./Template.scss";
-import MainNav from "./TemplateNav/TemplateNav";
+import TemplateNav from "./TemplateNav/TemplateNav";
 
 const Template = ({
     title,
@@ -16,7 +16,7 @@ const Template = ({
                 {title}
             </div>
             <div className="card-body bg-white">
-                <MainNav navCtg={navCtg} />
+                <TemplateNav navCtg={navCtg} />
                 {children}
             </div>
             {/* Footer */}

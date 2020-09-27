@@ -8,7 +8,7 @@ const navMap = {
         { to: "/member/driver", title: "기사 회원" },
         { to: "/member/manager", title: "관리자" },
     ],
-    place: [
+    code: [
         { to: "/code/place", title: "관광지 코드 관리" },
         { to: "/code/region", title: "지역 코드 관리" },
     ],

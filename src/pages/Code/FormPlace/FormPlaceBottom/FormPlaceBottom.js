@@ -14,7 +14,7 @@ const navObj = {
     china: { name: "중국어", short: "(중)" },
 };
 
-const SectionMain = ({ audioMain, handleChangeAudioMain, disabled }) => {
+const FormPlaceBottom = ({ audioMain, handleChangeAudioMain, disabled }) => {
     const [selected, setSelected] = useState("korea");
     const handleClickNav = (keyword) => {
         setSelected(keyword);
@@ -95,4 +95,4 @@ const SectionMain = ({ audioMain, handleChangeAudioMain, disabled }) => {
     );
 };
 
-export default SectionMain;
+export default FormPlaceBottom;

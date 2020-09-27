@@ -1,61 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import styled from "styled-components";
+
+import "./FormPlaceRightModal.scss";
 import Slider from "../../../../../components/Slider/Slider";
 import Modal from "../../../../../components/Modal/Modal";
 import noImg from "../../../../../img/no-img.jpg";
 
-const ContainerStyled = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 40px 0px;
-    .top {
-        padding: 0 50px;
-        button {
-            float: right;
-            margin-right: 20px;
-            width: 120px;
-        }
-    }
-    .middle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 40px 30px;
-        > div {
-            margin: 0 20px;
-            width: 500px;
-            height: 500px;
-            border: 1px solid #dfdfdf;
-        }
-
-        img {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border: 1px solid #dfdfdf;
-        }
-
-        .innerImg {
-            position: relative;
-            img {
-                height: 150px;
-            }
-            h4 {
-                position: absolute;
-                top: 0;
-                right: 0;
-                padding: 5px;
-            }
-        }
-
-        .right {
-            padding: 50px;
-            text-align: center;
-        }
-    }
-`;
-
-const ModalImage = ({
+const FormPlaceRightModal = ({
     isModalOpen,
     handleChangeImageList,
     handleModalClose,
@@ -148,7 +98,7 @@ const ModalImage = ({
 
     return (
         <Modal isModalOpen={isModalOpen} handleModalClose={handleModalClose}>
-            <ContainerStyled>
+            <div className="formPlaceRightModal">
                 <div className="top">
                     <button
                         type="button"
@@ -256,9 +206,9 @@ const ModalImage = ({
                         </button>
                     </div>
                 </div>
-            </ContainerStyled>
+            </div>
         </Modal>
     );
 };
 
-export default ModalImage;
+export default FormPlaceRightModal;

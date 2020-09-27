@@ -3,9 +3,9 @@ import Template from "../../../components/template/Template";
 import validateInput from "../../../util/validateInput";
 import FormTable from "../../../components/Form/FormTable";
 
-import SectionAudio from "./SectionAudio/SectionAudio";
-import SectionMain from "./SectionMain/SectionMain";
-import SectionImage from "./SectionImage/SectionImage";
+import FormPlaceBottom from "./FormPlaceBottom/FormPlaceBottom";
+import FormPlaceRight from "./FormPlaceRight/FormPlaceRight";
+import FormPlaceBody from "./FormPlaceBody/FormPlaceBody";
 
 import {
     Input,
@@ -120,7 +120,7 @@ const FormPlace = () => {
     return (
         <Template
             title="관광지 관리"
-            navCtg="place"
+            navCtg="code"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
@@ -223,7 +223,7 @@ const FormPlace = () => {
                     </FormTable>
                     {/* Top 오른쪽 */}
                     <div className="col-md-6">
-                        <SectionImage
+                        <FormPlaceRight
                             imageList={imageList}
                             handleChangeImageList={handleChangeImageList}
                         />
@@ -267,7 +267,7 @@ const FormPlace = () => {
                     </FormTable>
                     {/* 오디오 서브 등록 */}
                     <FormTable size="half">
-                        <SectionAudio
+                        <FormPlaceBody
                             inputs={inputs}
                             onChange={handleChangeInputs}
                             audioList={audioList}
@@ -277,7 +277,7 @@ const FormPlace = () => {
                     </FormTable>
                     {/* 오디오 메인 등록 */}
 
-                    <SectionMain
+                    <FormPlaceBottom
                         audioMain={audioMain}
                         handleChangeAudioMain={handleChangeAudioMain}
                         disabled={inputs.hasAudioMain === "no"}

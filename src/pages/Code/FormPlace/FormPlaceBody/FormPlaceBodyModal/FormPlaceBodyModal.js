@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ModalAudio.scss";
+import "./FormPlaceBodyModal.scss";
 import {
     RatioSingle,
     Select,
@@ -16,9 +16,9 @@ import {
 import FormTable from "../../../../../components/Form/FormTable";
 import Modal from "../../../../../components/Modal/Modal";
 import noImg from "../../../../../img/no-img.jpg";
-import SectionMain from "../../SectionMain/SectionMain";
+import FormPlaceBottom from "../../FormPlaceBottom/FormPlaceBottom";
 
-const ModalAudio = ({
+const FormPlaceBodyModal = ({
     isModalOpen,
     handleModalClose,
     handleChangeAudioList,
@@ -88,8 +88,8 @@ const ModalAudio = ({
             title="세부 관광지 추가하기"
             handleModalClose={handleModalClose}
         >
-            <div className="modalAudio">
-                <div className="modalAudio__buttonContainer">
+            <div className="formPlaceBodyModal">
+                <div className="formPlaceBodyModal__buttonContainer">
                     <button
                         type="button"
                         className="btn btn-outline-primary"
@@ -177,7 +177,7 @@ const ModalAudio = ({
                             ctg="profile"
                         />
                     </FormTable>
-                    <SectionMain
+                    <FormPlaceBottom
                         audioMain={audioMain}
                         handleChangeAudioMain={handleChangeAudioMain}
                     />
@@ -187,4 +187,4 @@ const ModalAudio = ({
     );
 };
 
-export default ModalAudio;
+export default FormPlaceBodyModal;

@@ -39,7 +39,7 @@ const Manager = ({ match }) => {
             }
         };
         getFetchData();
-    }, [id, pageCtrl]);
+    }, [id]);
 
     const handleClickInsert = () => {
         history.push(`/member/${id}/form`);

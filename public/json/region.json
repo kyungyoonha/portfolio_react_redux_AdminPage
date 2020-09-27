@@ -1,0 +1,56 @@
+{
+    "totalPage": 5,
+    "data": [
+        {
+            "id": "1",
+            "check": false,
+            "country": "대한민국",
+            "countryCode": "K",
+            "countrySort": "?",
+            "state": "서울",
+            "stateSort": "?",
+            "city": "강남",
+            "hasImgMain": false,
+            "cityCode": "G",
+            "citySort": "?",
+            "editMng": "Yoon",
+            "editDate": "2020-09-27",
+            "makeMng": "Yoon",
+            "makeDate": "2020-09-27"
+        },
+        {
+            "id": "2",
+            "check": false,
+            "country": "대한민국",
+            "countryCode": "K",
+            "countrySort": "?",
+            "state": "서울",
+            "stateSort": "?",
+            "city": "강남",
+            "hasImgMain": false,
+            "cityCode": "G",
+            "citySort": "?",
+            "editMng": "Yoon",
+            "editDate": "2020-09-27",
+            "makeMng": "Yoon",
+            "makeDate": "2020-09-27"
+        },
+        {
+            "id": "3",
+            "check": false,
+            "country": "대한민국",
+            "countryCode": "K",
+            "countrySort": "?",
+            "state": "서울",
+            "stateSort": "?",
+            "city": "강남",
+            "hasImgMain": false,
+            "cityCode": "G",
+            "citySort": "?",
+            "editMng": "Yoon",
+            "editDate": "2020-09-27",
+            "makeMng": "Yoon",
+            "makeDate": "2020-09-27"
+        }
+    ]
+}
