@@ -5,11 +5,12 @@ import TemplateNav from "../../../components/template/TemplateNav/TemplateNav";
 import RegionTable from "./RegionTable/RegionTable";
 import BoardFooter from "../../../components/Board/BoardFooter";
 import RegionModal from "./RegionModal/RegionModal";
+import randomKey from "../../../util/randomKey";
 
 const Region = ({ match }) => {
     const id = match.url.split("/")[2];
     const [isModalOpen, setIsModalOpen] = useState(false);
-    // const [checkId, setCheckId] = useState("");
+    const [modalType, setModalType] = useState("");
     const [selectedItem, setSelectedItem] = useState({});
     const [pageData, setPageData] = useState({
         data: [],
@@ -38,8 +39,10 @@ const Region = ({ match }) => {
         getFetchData();
     }, [id]);
 
-    const handleModalOpen = () => {
-        if (!selectedItem.id) {
+    const handleModalOpen = (type) => {
+        setModalType(type);
+
+        if (!selectedItem.id && type !== "new") {
             alert("데이터 행을 체크해주세요.");
         } else {
             setIsModalOpen(true);
@@ -65,7 +68,40 @@ const Region = ({ match }) => {
         }));
     };
 
-    const handleClickDelete = () => {};
+    const handleChangePageData = (newData) => {
+        if (newData.id) {
+            setPageData((state) => ({
+                ...state,
+                data: state.data.map((item) =>
+                    item.id === newData.id ? newData : item
+                ),
+            }));
+        } else {
+            setPageData((state) => ({
+                ...state,
+                data: [...state.data, { id: randomKey(), ...newData }],
+            }));
+        }
+    };
+
+    const handleClickDelete = async () => {
+        if (!selectedItem.id) {
+            alert("삭제할 행을 선택해주세요");
+        } else {
+            try {
+                //await axios.post("http://localhost:8000/region/delete", selectedItem.id);
+                setPageData((state) => ({
+                    ...state,
+                    data: state.data.filter(
+                        (item) => item.id !== selectedItem.id
+                    ),
+                }));
+                setSelectedItem({});
+            } catch (e) {
+                console.error("Region Delete Error", e);
+            }
+        }
+    };
     return (
         <div className="card template">
             <div className="card-header bg-white">
@@ -78,23 +114,23 @@ const Region = ({ match }) => {
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
-                        onClick={handleModalOpen}
+                        onClick={() => handleModalOpen("edit")}
                     >
                         수정하기
                     </button>
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
-                        onClick={handleModalOpen}
+                        onClick={() => handleModalOpen("copy")}
                     >
                         복사하기
                     </button>
                     <button
                         type="button"
                         className="btn btn-outline-secondary"
-                        onClick={handleModalOpen}
+                        onClick={() => handleModalOpen("new")}
                     >
-                        추가하기
+                        새로 추가하기
                     </button>
 
                     <button
@@ -117,8 +153,10 @@ const Region = ({ match }) => {
                 />
                 <RegionModal
                     isModalOpen={isModalOpen}
+                    modalType={modalType}
                     selectedItem={selectedItem}
                     handleModalClose={handleModalClose}
+                    handleChangePageData={handleChangePageData}
                 />
             </div>
             {/* Footer */}

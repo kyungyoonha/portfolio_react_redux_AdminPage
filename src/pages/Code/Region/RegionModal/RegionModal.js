@@ -13,9 +13,10 @@ import {
     optionsRegion,
 } from "../../../../util/options";
 import noImg from "../../../../img/no-img.jpg";
+// import axios from "axios";
 
 const initialValue = {
-    id: "1",
+    id: "",
     check: false,
     country: "",
     countryCode: "",
@@ -33,18 +34,24 @@ const initialValue = {
     makeDate: "",
 };
 
-const RegionModal = ({ isModalOpen, selectedItem, handleModalClose }) => {
+const RegionModal = ({
+    isModalOpen,
+    modalType,
+    selectedItem,
+    handleModalClose,
+    handleChangePageData,
+}) => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({});
     const [imageList, setImageList] = useState([]);
 
     useEffect(() => {
-        if (selectedItem.id) {
+        if (selectedItem.id && modalType !== "new") {
             setInputs(selectedItem);
         } else {
             setInputs(initialValue);
         }
-    }, [selectedItem]);
+    }, [modalType, selectedItem]);
 
     const handleChangeInput = (e) => {
         const { name, value } = e.target;
@@ -54,7 +61,23 @@ const RegionModal = ({ isModalOpen, selectedItem, handleModalClose }) => {
         }));
     };
 
-    const handleClickSave = () => {};
+    const handleClickSave = async () => {
+        let newId = modalType === "edit" ? inputs.id : "";
+
+        const newInputs = {
+            ...inputs,
+            id: newId,
+        };
+        try {
+            // ### 서버저장
+            // await axios.post("http://localhost:8000/region/update", newInputs);
+            handleChangePageData(newInputs);
+        } catch (e) {
+            console.error("RegionModal Submit Error", e);
+        }
+        setInputs(initialValue);
+        handleModalClose();
+    };
     const handleChangeImageList = () => {};
 
     return (
@@ -88,7 +111,10 @@ const RegionModal = ({ isModalOpen, selectedItem, handleModalClose }) => {
                             value={inputs.country}
                             onChange={handleChangeInput}
                             errors={errors}
-                            options={optionsCountry(inputs.countryCtg)}
+                            options={[
+                                ...optionsCountry(inputs.countryCtg),
+                                { value: "KOREA", title: "대한민국" },
+                            ]}
                         />
 
                         <Select
@@ -101,6 +127,7 @@ const RegionModal = ({ isModalOpen, selectedItem, handleModalClose }) => {
                                 { value: "code1", title: "코드1" },
                                 { value: "code2", title: "코드2" },
                                 { value: "code3", title: "코드3" },
+                                { value: "K", title: "K" },
                             ]}
                         />
 
@@ -131,6 +158,7 @@ const RegionModal = ({ isModalOpen, selectedItem, handleModalClose }) => {
                                 { value: "code1", title: "코드1" },
                                 { value: "code2", title: "코드2" },
                                 { value: "code3", title: "코드3" },
+                                { value: "S", title: "코드4" },
                             ]}
                         />
 

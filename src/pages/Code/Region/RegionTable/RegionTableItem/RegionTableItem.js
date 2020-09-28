@@ -15,9 +15,10 @@ const RegionTableItem = ({ item, isChecked, handleSelectedItem }) => {
             <td>{item.countryCode}</td>
             <td>{item.countrySort}</td>
             <td>{item.state}</td>
+            <td>{item.stateCode}</td>
             <td>{item.stateSort}</td>
             <td>{item.city}</td>
-            <td>{item.hasImgMain ? "O" : "X"}</td>
+            <td>{item.hasImgMain !== "no" ? "O" : "X"}</td>
             <td>{item.cityCode}</td>
             <td>{item.citySort}</td>
             <td>{item.editMng}</td>
