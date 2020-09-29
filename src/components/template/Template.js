@@ -7,6 +7,7 @@ const Template = ({
     navCtg,
     handleClickInsert,
     handleClickDelete,
+    isFooter,
     children,
 }) => {
     return (
@@ -19,25 +20,26 @@ const Template = ({
                 <TemplateNav navCtg={navCtg} />
                 {children}
             </div>
-            {/* Footer */}
-            <div className="card-footer bg-white">
-                <div className="template__buttonContainer">
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary"
-                        onClick={handleClickDelete}
-                    >
-                        삭제하기
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-secondary"
-                        onClick={handleClickInsert}
-                    >
-                        추가하기
-                    </button>
+            {isFooter && (
+                <div className="card-footer bg-white">
+                    <div className="template__buttonContainer">
+                        <button
+                            type="button"
+                            className="btn btn-outline-secondary"
+                            onClick={handleClickDelete}
+                        >
+                            삭제하기
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            onClick={handleClickInsert}
+                        >
+                            추가하기
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 };

@@ -10,9 +10,13 @@ const BreadCrumMap = {
     user: "일반 회원",
     driver: "기사 회원",
     manager: "관리자",
-    code: "관광지 관리",
-    place: "관광지 코드",
+    tourarea: "관광지 관리",
+    area: "관광지 코드",
     region: "지역 코드",
+    tourpackage: "투어 관리",
+    purchinfo: "구매정보 관리",
+    purchcode: "구매코드 조회",
+    purchcodeform: "구매코드 발급",
     form: "추가",
 };
 

@@ -3,11 +3,11 @@ import axios from "axios";
 import history from "../../../history";
 
 import Template from "../../../components/Template/Template";
-import Board from "../../../components/Board/Board";
-import BoardTop from "../../../components/Board/BoardTop";
+import headerObj from "../../../components/Board/boardHeader.json";
 import BoardFooter from "../../../components/Board/BoardFooter";
+import PurchInfoTop from "./PurchInfoTop/PurchInfoTop";
 
-const User = ({ match }) => {
+const PurchInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [pageData, setPageData] = useState({
         data: [],
@@ -27,11 +27,6 @@ const User = ({ match }) => {
             try {
                 const response = await axios.get(
                     `http://localhost:3000/json/${id}.json`
-                    //     ?pageSize=${pageCtrl.pageSize}
-                    //     &currentPage=${pageCtrl.currentPage}
-                    //     &countryCtg=${pageCtrl.countryCtg}
-                    //     &searchKeyword=${pageCtrl.searchKeyword}
-                    //     &sort=${pageCtrl.sort}
                 );
                 setPageData(response.data);
             } catch (err) {
@@ -42,7 +37,7 @@ const User = ({ match }) => {
     }, [id]);
 
     const handleClickInsert = () => {
-        history.push(`/member/${id}/form`);
+        history.push(`/tourarea/${id}/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -53,17 +48,42 @@ const User = ({ match }) => {
     };
 
     const handleClickDelete = () => {};
-
     return (
         <Template
-            title="회원 정보"
-            navCtg="member"
+            title="투어 관리"
+            navCtg="tourpackage"
             isFooter={true}
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
-            <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
-            <Board headerCtg="user" data={pageData.data} />
+            <PurchInfoTop handleChangePageCtrl={handleChangePageCtrl} />
+            {/* <AreaTop handleChangePageCtrl={handleChangePageCtrl} /> */}
+            <table className="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        {headerObj["tourpackage"].map((item) => (
+                            <th key={item} scope="col">
+                                {item}
+                            </th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {pageData.data.map((item, idx) => (
+                        <tr key={idx}>
+                            <td>{item.date}</td>
+                            <td>{item.guestId}</td>
+                            <td>{item.driver}</td>
+                            <td>{item.region}</td>
+                            <td>{item.totalNum}</td>
+                            <td>{item.totalPrice}</td>
+                            <td>{item.hours}</td>
+                            <td>{item.schedule.length + "곳 방문"}</td>
+                            <td>{item.done ? "O" : "X"}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
             <BoardFooter
                 totalPage={pageData.totalPage}
                 currentPage={pageCtrl.currentPage}
@@ -73,4 +93,4 @@ const User = ({ match }) => {
     );
 };
 
-export default User;
+export default PurchInfo;

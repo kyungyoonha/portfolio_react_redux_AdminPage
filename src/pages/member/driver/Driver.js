@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import history from "../../../history";
 
-import Template from "../../../components/template/Template";
+import Template from "../../../components/Template/Template";
 import Board from "../../../components/Board/Board";
 import BoardTop from "../../../components/Board/BoardTop";
 import BoardFooter from "../../../components/Board/BoardFooter";
@@ -58,6 +58,7 @@ const Driver = ({ match }) => {
         <Template
             title="기사 정보"
             navCtg="member"
+            isFooter={true}
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >

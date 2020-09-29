@@ -8,7 +8,7 @@ import CSTable from "./components/CSBoard";
 
 const Dashboard = () => {
     return (
-        <div className="dashboard row no-Gutter">
+        <div className="dashboard no-Gutter row">
             <GoogleMap />
             <ChartsRegion />
             <ChartsMonthly />
