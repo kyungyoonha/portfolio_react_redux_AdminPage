@@ -123,6 +123,7 @@ const AreaForm = () => {
             navCtg="tourarea"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
+            isFooter={true}
         >
             <form style={{ margin: "0 100px" }}>
                 <h4 className="mb-4">추가하기</h4>

@@ -37,7 +37,7 @@ const PurchInfo = ({ match }) => {
     }, [id]);
 
     const handleClickInsert = () => {
-        history.push(`/tourarea/${id}/form`);
+        history.push(`/tourpackage/purchinfo/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
