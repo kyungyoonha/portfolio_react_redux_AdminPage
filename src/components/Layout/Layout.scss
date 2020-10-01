@@ -1,11 +1,32 @@
+@import "../../styles/Common.scss";
+
 .layout {
-    height: 100%;
     display: flex;
     flex-direction: column;
-    background: #ebedef;
+    height: 100%;
+    background: $grey;
 
     .layout__body {
-        display: flex;
         flex: 1;
+        display: flex;
+    }
+
+    .layout__content {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        width: 100%;
+        min-width: 900px;
     }
 }
+
+// @media screen and (max-width: 1200px) {
+//     .sidebar {
+//         display: none;
+//     }
+// }
+
+// bootstrap
+// 992 px
+// 768 px
+// 576 px

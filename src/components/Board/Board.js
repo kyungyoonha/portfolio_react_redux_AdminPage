@@ -1,12 +1,11 @@
 import React from "react";
-import headerObj from "./boardHeader.json";
 
-const Board = ({ headerCtg, data }) => {
+const Board = ({ headerList, data, selectedItem, handleSelectedItem }) => {
     return (
         <table className="table table-hover table-bordered">
             <thead>
                 <tr>
-                    {headerObj[headerCtg].map((item) => (
+                    {headerList.map((item) => (
                         <th key={item} scope="col">
                             {item}
                         </th>
@@ -15,8 +14,15 @@ const Board = ({ headerCtg, data }) => {
             </thead>
             <tbody>
                 {data.map((item, idx) => (
-                    <tr key={idx}>
-                        <th scope="row">{idx}</th>
+                    <tr key={idx} onClick={() => handleSelectedItem(item)}>
+                        <td>
+                            <input
+                                type="checkbox"
+                                aria-label="Checkbox"
+                                checked={item.id === selectedItem.id}
+                                onChange={() => handleSelectedItem(item)}
+                            />
+                        </td>
                         <td>{item.id}</td>
                         <td>{item.name}</td>
                         <td>{item.phone}</td>
