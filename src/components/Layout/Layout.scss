@@ -3,7 +3,7 @@
 .layout {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: auto;
     background: $grey;
 
     .layout__body {
@@ -14,7 +14,7 @@
     .layout__content {
         display: flex;
         flex-direction: column;
-        padding: 15px;
+        //padding: 15px;
         width: 100%;
         min-width: 900px;
     }

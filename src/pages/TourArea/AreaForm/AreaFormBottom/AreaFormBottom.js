@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 
 import {
+    FormLayout,
     Input,
     FileUploadMany,
     Textarea,
-} from "../../../../components/Form/FormComponents";
-import FormTable from "../../../../components/Form/FormTable";
+} from "../../../../components/Form/Form";
 
 const navObj = {
     korea: { name: "한국어", short: "(한)" },
@@ -62,7 +62,7 @@ const AreaFormBottom = ({ audioMain, handleChangeAudioMain, disabled }) => {
                 </ul>
             </div>
 
-            <FormTable>
+            <FormLayout>
                 <Input
                     label={`${navObj[selected].short} 가이드 제목`}
                     name="title"
@@ -90,7 +90,7 @@ const AreaFormBottom = ({ audioMain, handleChangeAudioMain, disabled }) => {
                     disabled={disabled}
                 />
                 <tr style={{ height: "40px" }}></tr>
-            </FormTable>
+            </FormLayout>
         </React.Fragment>
     );
 };

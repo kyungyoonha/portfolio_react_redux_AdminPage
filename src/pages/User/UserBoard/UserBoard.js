@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Fragment } from "react";
 import axios from "axios";
-import history from "../../history";
+import history from "../../../history";
 
-import Board from "../../components/Board/Board";
-import BoardTop from "../../components/Board/BoardTop";
-import BoardFooter from "../../components/Board/BoardFooter";
-import { ContentButton, ContentNav } from "../../components/Content/Content";
-import memberObj from "./member.json";
+import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
+import {
+    ContentButton,
+    ContentNav,
+    ContentBody,
+} from "../../../components/Content/Content";
+import userObj from "../user.json";
 
-const Member = ({ match }) => {
+const User = ({ match }) => {
     const id = match.url.split("/")[2];
     const [selectedItem, setSelectedItem] = useState({});
     const [pageData, setPageData] = useState({
         data: [],
         totalPage: 5,
     });
-
-    console.log(selectedItem);
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -37,6 +37,7 @@ const Member = ({ match }) => {
                     //     &searchKeyword=${pageCtrl.searchKeyword}
                     //     &sort=${pageCtrl.sort}
                 );
+
                 setPageData(response.data);
             } catch (err) {
                 console.error("DataboardTable Fecth error:", err);
@@ -46,7 +47,7 @@ const Member = ({ match }) => {
     }, [id]);
 
     const handleClickInsert = () => {
-        history.push(`/member/${id}/form`);
+        history.push(`/user/${id}/form`);
     };
 
     const handleSelectedItem = (item) => {
@@ -83,16 +84,13 @@ const Member = ({ match }) => {
         }));
     };
 
-    const headerList = memberObj[id].header;
+    const { title, navCtg, headerList } = userObj[id];
 
     return (
-        <React.Fragment>
-            <ContentNav
-                title={memberObj[id].title}
-                navCtg={memberObj[id].navCtg}
-            ></ContentNav>
+        <Fragment>
+            <ContentNav title={title} navCtg={navCtg}></ContentNav>
 
-            <div className="content__container">
+            <ContentBody>
                 <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
                 <Board
                     headerList={headerList}
@@ -108,13 +106,14 @@ const Member = ({ match }) => {
 
                 <br />
                 <br />
+
                 <ContentButton
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={handleClickDelete}
                 />
-            </div>
-        </React.Fragment>
+            </ContentBody>
+        </Fragment>
     );
 };
 
-export default Member;
+export default User;

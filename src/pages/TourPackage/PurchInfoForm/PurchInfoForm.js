@@ -3,13 +3,13 @@ import history from "../../../history";
 import Template from "../../../components/Template/Template";
 import validateInput from "../../../util/validateInput";
 import {
+    FormLayout,
     Input,
     Select,
     RatioMulti,
     RatioSingle,
     Textarea,
-} from "../../../components/Form/FormComponents";
-import FormTable from "../../../components/Form/FormTable";
+} from "../../../components/Form/Form";
 import {
     optionsCity,
     optionsCountry,
@@ -86,7 +86,7 @@ const PurchInfoForm = () => {
             </div>
             <form style={{ margin: "0 15px" }}>
                 <div className="no-Gutter2 row">
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <Input
                             label="투어 이름"
                             name="tourName"
@@ -161,9 +161,9 @@ const PurchInfoForm = () => {
                                 errors={errors}
                             />
                         )}
-                    </FormTable>
+                    </FormLayout>
 
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <Input
                             label="누적투어수"
                             name="tourCnt"
@@ -226,7 +226,7 @@ const PurchInfoForm = () => {
                             onChange={handleChangeInputs}
                             rows={6}
                         />
-                    </FormTable>
+                    </FormLayout>
                 </div>
             </form>
         </Template>

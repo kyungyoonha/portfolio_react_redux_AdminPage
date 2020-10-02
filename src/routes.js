@@ -1,10 +1,10 @@
 // pages
 import Dashboard from "./pages/Dashboard/DashBoard";
 
-import Member from './pages/Member/Member';
-import UserForm from './pages/Member/UserForm/UserForm'
-import DriverForm from './pages/Member/DriverForm/DriverForm';
-import ManagerForm from './pages/Member/ManagerForm/ManagerForm';
+import UserBoard from './pages/User/UserBoard/UserBoard';
+import UserFormMember from './pages/User/UserFormMember/UserFormMember'
+import UserFormDriver from './pages/User/UserFormDriver/UserFormDriver';
+import UserFormManager from './pages/User/UserFormManager/UserFormManager';
 
 import Area from './pages/TourArea/Area/Area'
 import AreaForm from './pages/TourArea/AreaForm/AreaForm';
@@ -17,13 +17,13 @@ import PurchCodeForm from "./pages/TourPackage/PurchCodeForm/PurchCodeForm";
 
 const routes = [
     { path: "/", exact: true, component: Dashboard },
-    { path: "/Dashboard", exact: true, component: Dashboard },
-    { path: "/member/user", exact: true, component: Member},
-    { path: "/member/user/form",  component: UserForm },
-    { path: "/member/driver", exact: true, component: Member },
-    { path: "/member/driver/form",  component: DriverForm },
-    { path: "/member/manager", exact: true,  component: Member },
-    { path: "/member/manager/form",  component: ManagerForm },
+    { path: "/dashboard", exact: true, component: Dashboard },
+    { path: "/user/member", exact: true, component: UserBoard},
+    { path: "/user/member/form",  component: UserFormMember },
+    { path: "/user/driver", exact: true, component: UserBoard },
+    { path: "/user/driver/form",  component: UserFormDriver },
+    { path: "/user/manager", exact: true,  component: UserBoard },
+    { path: "/user/manager/form",  component: UserFormManager },
     
     { path: "/tourarea/area", exact: true,  component: Area },
     { path: "/tourarea/area/form",  component: AreaForm},

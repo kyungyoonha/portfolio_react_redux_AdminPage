@@ -4,7 +4,7 @@ import history from "../../../history";
 
 import Template from "../../../components/Template/Template";
 import headerObj from "../../../components/Board/boardHeader.json";
-import BoardFooter from "../../../components/Board/BoardFooter";
+import { BoardFooter } from "../../../components/Board/Board";
 
 const PurchCode = ({ match }) => {
     const id = match.url.split("/")[2];

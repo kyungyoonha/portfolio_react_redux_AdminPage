@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./AreaFormBodyModal.scss";
 import {
+    FormLayout,
     RatioSingle,
     Select,
     Input,
     FileuploadCard,
-} from "../../../../../components/Form/FormComponents";
+} from "../../../../../components/Form/Form";
 
 import {
     optionsCountry,
@@ -13,7 +14,6 @@ import {
     optionsRegion,
 } from "../../../../../util/options";
 
-import FormTable from "../../../../../components/Form/FormTable";
 import Modal from "../../../../../components/Modal/Modal";
 import noImg from "../../../../../img/no-img.jpg";
 
@@ -107,7 +107,7 @@ const AreaFormBodyModal = ({
                     </button>
                 </div>
                 <div className=" row">
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <RatioSingle
                             label="국가"
                             name="countryCtg"
@@ -169,15 +169,15 @@ const AreaFormBodyModal = ({
                             onChange={handleChangeInput}
                             errors={errors}
                         />
-                    </FormTable>
-                    <FormTable size="half">
+                    </FormLayout>
+                    <FormLayout size="half">
                         <FileuploadCard
                             label="대표 사진"
                             src={imageList[0] ? imageList[0].src : noImg}
                             onChange={handleChangeImageList}
                             ctg="profile"
                         />
-                    </FormTable>
+                    </FormLayout>
                     <AreaFormBottom
                         audioMain={audioMain}
                         handleChangeAudioMain={handleChangeAudioMain}

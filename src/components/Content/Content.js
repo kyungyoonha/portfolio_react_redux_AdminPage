@@ -3,10 +3,10 @@ import { NavLink } from "react-router-dom";
 import "./Content.scss";
 
 const navMap = {
-    member: [
-        { to: "/member/user", title: "일반 회원" },
-        { to: "/member/driver", title: "기사 회원" },
-        { to: "/member/manager", title: "관리자" },
+    user: [
+        { to: "/user/member", title: "일반 회원" },
+        { to: "/user/driver", title: "기사 회원" },
+        { to: "/user/manager", title: "관리자" },
     ],
     tourarea: [
         { to: "/tourarea/area", title: "관광지 코드 관리" },
@@ -39,7 +39,15 @@ export const ContentNav = ({ title, navCtg, children }) => {
     );
 };
 
-export const ContentButton = ({ handleClickInsert, handleClickDelete }) => {
+export const ContentBody = ({ children }) => {
+    return <div className="contentBody">{children}</div>;
+};
+
+export const ContentButton = ({
+    type,
+    handleClickInsert,
+    handleClickDelete,
+}) => {
     return (
         <div className="contentButton">
             <button
@@ -47,7 +55,7 @@ export const ContentButton = ({ handleClickInsert, handleClickDelete }) => {
                 className="btn btn-outline-secondary"
                 onClick={handleClickDelete}
             >
-                삭제하기
+                {type === "form" ? "뒤로가기" : "삭제하기"}
             </button>
             <button
                 type="button"

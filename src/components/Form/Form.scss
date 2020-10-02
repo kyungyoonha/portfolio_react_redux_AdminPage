@@ -1,0 +1,30 @@
+@import "../../styles/Common.scss";
+
+.formlayout__table {
+    margin: 0 auto;
+    thead th {
+        height: 50px;
+        line-height: 50px;
+        background: #303c54;
+        color: white;
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    tbody th {
+        background: #f8f8f8;
+    }
+}
+
+.formLayout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.formCard {
+    @extend %styleCard;
+    margin-bottom: 10px;
+    padding: 30px 40px;
+    width: 49.8%;
+}

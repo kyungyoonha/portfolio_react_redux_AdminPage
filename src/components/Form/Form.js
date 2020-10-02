@@ -1,4 +1,29 @@
 import React, { useRef } from "react";
+import "./Form.scss";
+
+export const FormLayout = ({ size, children }) => {
+    const num = size === "half" ? "6" : "12";
+
+    return (
+        <div className={`card col-md-${num}`}>
+            <table className="formlayout__table table table-bordered">
+                <tbody>{children}</tbody>
+            </table>
+        </div>
+    );
+};
+
+export const FormLayout2 = ({ children }) => {
+    return <form className="formLayout">{children}</form>;
+};
+
+export const FormCard = ({ size, children }) => {
+    return (
+        <div className={`formCard ${size === "full" && "full"} `}>
+            <table className="table table-bordered">{children}</table>
+        </div>
+    );
+};
 
 export const Input = ({
     label,

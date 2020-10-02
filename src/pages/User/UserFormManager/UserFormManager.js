@@ -2,50 +2,32 @@ import React, { useState } from "react";
 import history from "../../../history";
 import Template from "../../../components/Template/Template";
 import validateInput from "../../../util/validateInput";
-import {
-    Input,
-    Select,
-    RatioMulti,
-    RatioSingle,
-    Textarea,
-} from "../../../components/Form/FormComponents";
-import FormTable from "../../../components/Form/FormTable";
+import { FormLayout, Input, Textarea } from "../../../components/Form/Form";
 
-const FormUser = () => {
+const UserFormManager = () => {
     const [errors, setErrors] = useState({});
+
     const [inputs, setInputs] = useState({
-        user_id: "",
+        manager_id: "",
         password: "",
         name: "",
         birth: "",
         contactNumber: "",
-        nickname: "",
         email: "",
+        englishName: "",
         address: "",
-        tourCnt: "",
-        characteristic: "",
-        tourTags: {},
-        recieveEmail: "수신",
-        recieveMessage: "수신",
-        etc: "",
+        joinYear: "",
+        duty: "",
+        department: "",
     });
-    const onChange = (e, inputName) => {
-        const { name, value, type, checked } = e.target;
 
-        if (type === "checkbox") {
-            setInputs((state) => ({
-                ...state,
-                [inputName]: {
-                    ...state[inputName],
-                    [name]: checked,
-                },
-            }));
-        } else {
-            setInputs((state) => ({
-                ...state,
-                [name]: value,
-            }));
-        }
+    const onChange = (e) => {
+        const { name, value } = e.target;
+
+        setInputs((state) => ({
+            ...state,
+            [name]: value,
+        }));
 
         const error = validateInput(name, value);
         setErrors((state) => ({
@@ -55,9 +37,10 @@ const FormUser = () => {
     };
 
     const handleClickInsert = () => {};
+    const handleClickDelete = () => {};
 
     return (
-        <Template title="매니저 정보" navCtg="member">
+        <Template title="매니저 정보" navCtg="user">
             <div className="template__top">
                 <h4 className="mb-4">추가하기</h4>
                 <div>
@@ -81,22 +64,23 @@ const FormUser = () => {
             </div>
             <form style={{ margin: "0 15px" }}>
                 <div className="no-Gutter2 row">
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <Input
                             label="id"
-                            name="user_id"
-                            value={inputs.user_id}
+                            name="manager_id"
+                            value={inputs.manager_id}
                             onChange={onChange}
                             errors={errors}
                         />
+
                         <Input
                             label="비밀번호"
-                            type="password"
                             name="password"
                             value={inputs.password}
                             onChange={onChange}
                             errors={errors}
                         />
+
                         <Input
                             label="이름"
                             name="name"
@@ -104,6 +88,7 @@ const FormUser = () => {
                             onChange={onChange}
                             errors={errors}
                         />
+
                         <Input
                             label="생년월일"
                             name="birth"
@@ -111,6 +96,7 @@ const FormUser = () => {
                             onChange={onChange}
                             errors={errors}
                         />
+
                         <Input
                             label="전화번호"
                             name="contactNumber"
@@ -118,13 +104,7 @@ const FormUser = () => {
                             onChange={onChange}
                             errors={errors}
                         />
-                        <Input
-                            label="별명"
-                            name="nickname"
-                            value={inputs.nickname}
-                            onChange={onChange}
-                            errors={errors}
-                        />
+
                         <Input
                             label="이메일"
                             name="email"
@@ -132,6 +112,17 @@ const FormUser = () => {
                             onChange={onChange}
                             errors={errors}
                         />
+
+                        <Input
+                            label="영어이름"
+                            name="englishName"
+                            value={inputs.englishName}
+                            onChange={onChange}
+                            errors={errors}
+                        />
+                    </FormLayout>
+
+                    <FormLayout size="half">
                         <Input
                             label="주소"
                             name="address"
@@ -139,62 +130,29 @@ const FormUser = () => {
                             onChange={onChange}
                             errors={errors}
                         />
-                    </FormTable>
 
-                    <FormTable size="half">
                         <Input
-                            label="누적투어수"
-                            name="tourCnt"
-                            value={inputs.tourCnt}
+                            label="입사년도"
+                            name="joinYear"
+                            value={inputs.joinYear}
                             onChange={onChange}
                             errors={errors}
                         />
-                        <Select
-                            label="외향/내향"
-                            name="characteristic"
-                            value={inputs.characteristic}
+
+                        <Input
+                            label="직무"
+                            name="duty"
+                            value={inputs.duty}
                             onChange={onChange}
                             errors={errors}
-                            options={[
-                                { value: "", title: "선택해주세요." },
-                                { value: "외향", title: "외향" },
-                                { value: "내향", title: "내향" },
-                            ]}
                         />
 
-                        <RatioMulti
-                            label="여행태그"
-                            name="tourTags"
-                            value={inputs.tourTags}
+                        <Input
+                            label="부서"
+                            name="department"
+                            value={inputs.department}
                             onChange={onChange}
-                            options={[
-                                { value: "tiger", title: "호랑이" },
-                                { value: "dog", title: "강아지" },
-                                { value: "monkey", title: "원숭이" },
-                                { value: "bear", title: "곰돌이" },
-                            ]}
-                        />
-
-                        <RatioSingle
-                            label="이메일 수신"
-                            name="recieveEmail"
-                            value={inputs.recieveEmail}
-                            onChange={onChange}
-                            options={[
-                                { value: "agree", title: "수신" },
-                                { value: "disagree", title: "미수신" },
-                            ]}
-                        />
-
-                        <RatioSingle
-                            label="문자 수신"
-                            name="recieveMessage"
-                            value={inputs.recieveMessage}
-                            onChange={onChange}
-                            options={[
-                                { value: "agree", title: "수신" },
-                                { value: "disagree", title: "미수신" },
-                            ]}
+                            errors={errors}
                         />
 
                         <Textarea
@@ -204,11 +162,11 @@ const FormUser = () => {
                             onChange={onChange}
                             rows={6}
                         />
-                    </FormTable>
+                    </FormLayout>
                 </div>
             </form>
         </Template>
     );
 };
 
-export default FormUser;
+export default UserFormManager;

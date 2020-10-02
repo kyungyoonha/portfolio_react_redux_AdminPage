@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import Template from "../../../components/Template/Template";
 import validateInput from "../../../util/validateInput";
-import FormTable from "../../../components/Form/FormTable";
-
 import AreaFormBottom from "./AreaFormBottom/AreaFormBottom";
 import AreaFormRight from "./AreaFormRight/AreaFormRight";
 import AreaFormBody from "./AreaFormBody/AreaFormBody";
 
 import {
+    FormLayout,
     Input,
     Select,
     RatioSingle,
     RatioTypeCheck,
     RatioMulti,
-} from "../../../components/Form/FormComponents";
+} from "../../../components/Form/Form";
 
 import {
     optionsCountry,
@@ -129,7 +128,7 @@ const AreaForm = () => {
                 <h4 className="mb-4">추가하기</h4>
                 <div className="no-Gutter2 row">
                     {/* top 왼쪽 */}
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <RatioSingle
                             label="국가"
                             name="countryCtg"
@@ -221,7 +220,7 @@ const AreaForm = () => {
                             onChange={handleChangeInputs}
                             errors={errors}
                         />
-                    </FormTable>
+                    </FormLayout>
                     {/* Top 오른쪽 */}
                     <div className="col-md-6">
                         <AreaFormRight
@@ -231,7 +230,7 @@ const AreaForm = () => {
                     </div>
 
                     {/* 중앙 */}
-                    <FormTable>
+                    <FormLayout>
                         <RatioMulti
                             label="여행태그"
                             name="tourTags"
@@ -265,9 +264,9 @@ const AreaForm = () => {
                             value={inputs.typeStyle}
                             onChange={handleChangeInputs}
                         />
-                    </FormTable>
+                    </FormLayout>
                     {/* 오디오 서브 등록 */}
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <AreaFormBody
                             inputs={inputs}
                             onChange={handleChangeInputs}
@@ -275,7 +274,7 @@ const AreaForm = () => {
                             handleChangeAudioList={handleChangeAudioList}
                             handleDeleteAudioList={handleDeleteAudioList}
                         />
-                    </FormTable>
+                    </FormLayout>
                     {/* 오디오 메인 등록 */}
 
                     <AreaFormBottom

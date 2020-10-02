@@ -6,8 +6,8 @@ import history from "../../../../history";
 const BreadCrumMap = {
     Home: "홈",
     dashboard: "홈",
-    member: "회원정보",
-    user: "일반 회원",
+    user: "회원 정보",
+    member: "일반 회원",
     driver: "기사 회원",
     manager: "관리자",
     tourarea: "관광지 관리",

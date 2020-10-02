@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TemplateNav from "../../../components/Template/TemplateNav/TemplateNav";
+import { BoardFooter } from "../../../components/Board/Board";
 import RegionTable from "./RegionTable/RegionTable";
-import BoardFooter from "../../../components/Board/BoardFooter";
 import RegionModal from "./RegionModal/RegionModal";
 import randomKey from "../../../util/randomKey";
 import Template from "../../../components/Template/Template";

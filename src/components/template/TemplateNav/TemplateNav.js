@@ -3,10 +3,10 @@ import { NavLink } from "react-router-dom";
 import "./TemplateNav.scss";
 
 const navMap = {
-    member: [
-        { to: "/member/user", title: "일반 회원" },
-        { to: "/member/driver", title: "기사 회원" },
-        { to: "/member/manager", title: "관리자" },
+    user: [
+        { to: "/user/member", title: "일반 회원" },
+        { to: "/user/driver", title: "기사 회원" },
+        { to: "/user/manager", title: "관리자" },
     ],
     tourarea: [
         { to: "/tourarea/area", title: "관광지 코드 관리" },

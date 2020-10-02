@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import "./RegionModal.scss";
 
 import {
+    FormLayout,
     FileuploadCard,
     Input,
     RatioSingle,
     Select,
-} from "../../../../components/Form/FormComponents";
-import FormTable from "../../../../components/Form/FormTable";
+} from "../../../../components/Form/Form";
 import Modal from "../../../../components/Modal/Modal";
 import {
     optionsCity,
@@ -117,7 +117,7 @@ const RegionModal = ({
                     </button>
                 </div>
                 <div className=" row">
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <Select
                             label="국가"
                             name="country"
@@ -243,15 +243,15 @@ const RegionModal = ({
                             onChange={handleChangeInput}
                             errors={errors}
                         />
-                    </FormTable>
-                    <FormTable size="half">
+                    </FormLayout>
+                    <FormLayout size="half">
                         <FileuploadCard
                             label="대표 사진"
                             src={imageList[0] ? imageList[0].src : noImg}
                             onChange={handleChangeImageList}
                             ctg="profile"
                         />
-                    </FormTable>
+                    </FormLayout>
                 </div>
             </div>
         </Modal>

@@ -9,7 +9,7 @@ const user = {
 
 const routes = [
     { path: "/dashboard", title: "Dashboard", icon: "chart-pie" },
-    { path: "/member", title: "회원정보", icon: "user-cog" },
+    { path: "/user", title: "회원정보", icon: "user-cog" },
     {
         path: "/tourarea",
         title: "관광지 관리",

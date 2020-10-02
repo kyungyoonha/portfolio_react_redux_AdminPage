@@ -2,26 +2,27 @@ import React, { useState } from "react";
 import history from "../../../history";
 import Template from "../../../components/Template/Template";
 import validateInput from "../../../util/validateInput";
-import FormTable from "../../../components/Form/FormTable";
+
+import noImg from "../../../img/no-img.jpg";
+import noImgCar from "../../../img/no-img-car.png";
+
 import {
+    FormLayout,
     Input,
     Select,
     RatioSingle,
     Textarea,
     FileUpload,
     FileuploadCard,
-} from "../../../components/Form/FormComponents";
+} from "../../../components/Form/Form";
 
-import noImg from "../../../img/no-img.jpg";
-
-import noImgCar from "../../../img/no-img-car.png";
 import {
     optionsCountry,
     optionsCity,
     optionsRegion,
 } from "../../../util/options";
 
-const DriverForm = () => {
+const UserFormDriver = () => {
     const [errors, setErrors] = useState({});
     const [profile, setProfile] = useState("");
     const [carImg, setCarImg] = useState("");
@@ -90,7 +91,7 @@ const DriverForm = () => {
     const handleClickInsert = () => {};
 
     return (
-        <Template title="기사 정보" navCtg="member">
+        <Template title="기사 정보" navCtg="user">
             <div className="template__top">
                 <h4 className="mb-4">추가하기</h4>
                 <div>
@@ -115,7 +116,7 @@ const DriverForm = () => {
 
             <form style={{ margin: "0 15px" }}>
                 <div className="no-Gutter2 row">
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <Input
                             label="id"
                             name="driver_id"
@@ -255,9 +256,9 @@ const DriverForm = () => {
                             onChange={onChange}
                             rows={6}
                         />
-                    </FormTable>
+                    </FormLayout>
 
-                    <FormTable size="half">
+                    <FormLayout size="half">
                         <FileuploadCard
                             label="기사 사진"
                             src={profile || noImg}
@@ -271,11 +272,11 @@ const DriverForm = () => {
                             onChange={onUploadFile}
                             ctg="carImg"
                         />
-                    </FormTable>
+                    </FormLayout>
                 </div>
             </form>
         </Template>
     );
 };
 
-export default DriverForm;
+export default UserFormDriver;
