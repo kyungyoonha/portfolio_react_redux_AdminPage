@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./AreaFormRight.scss";
-import AreaFormRightModal from "./AreaFormRightModal/AreaFormRightModal";
+import AreaFormRightModal from "./AreaFormRightModal";
 import noImg from "../../../../img/no-img.jpg";
 
 const AreaFormRight = ({ imageList, handleChangeImageList }) => {

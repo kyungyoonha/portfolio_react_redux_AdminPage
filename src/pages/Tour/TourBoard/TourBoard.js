@@ -2,16 +2,18 @@ import React, { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 import history from "../../../history";
 
-import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
+import headerObj from "../../../components/Board/boardHeader.json";
+
+import { BoardFooter } from "../../../components/Board/Board";
+import TourBoardTop from "./components/TourBoardTop";
 import {
+    ContentBody,
     ContentButton,
     ContentNav,
-    ContentBody,
 } from "../../../components/Content/Content";
 
-const User = ({ match }) => {
+const TourBoard = ({ match }) => {
     const id = match.url.split("/")[2];
-    const [selectedItem, setSelectedItem] = useState({});
     const [pageData, setPageData] = useState({
         data: [],
         totalPage: 5,
@@ -36,7 +38,6 @@ const User = ({ match }) => {
                     //     &searchKeyword=${pageCtrl.searchKeyword}
                     //     &sort=${pageCtrl.sort}
                 );
-
                 setPageData(response.data);
             } catch (err) {
                 console.error("DataboardTable Fecth error:", err);
@@ -46,34 +47,7 @@ const User = ({ match }) => {
     }, [id]);
 
     const handleClickInsert = () => {
-        history.push(`/user/${id}/form`);
-    };
-
-    const handleSelectedItem = (item) => {
-        if (selectedItem.id !== item.id) {
-            setSelectedItem(item);
-        } else {
-            setSelectedItem({});
-        }
-    };
-
-    const handleClickDelete = async () => {
-        if (!selectedItem.id) {
-            alert("삭제할 행을 선택해주세요");
-        } else {
-            try {
-                //await axios.post("http://localhost:8000/region/delete", selectedItem.id);
-                setPageData((state) => ({
-                    ...state,
-                    data: state.data.filter(
-                        (item) => item.id !== selectedItem.id
-                    ),
-                }));
-                setSelectedItem({});
-            } catch (e) {
-                console.error("Region Delete Error", e);
-            }
-        }
+        history.push(`/tour/${id}/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -82,6 +56,8 @@ const User = ({ match }) => {
             [name]: value,
         }));
     };
+
+    const handleClickDelete = () => {};
 
     return (
         <Fragment>
@@ -93,19 +69,39 @@ const User = ({ match }) => {
             </ContentNav>
 
             <ContentBody>
-                <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
-                <Board
-                    id={id}
-                    data={pageData.data}
-                    selectedItem={selectedItem}
-                    handleSelectedItem={handleSelectedItem}
-                />
+                <TourBoardTop handleChangePageCtrl={handleChangePageCtrl} />
+                <table className="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            {headerObj["tour"].map((item) => (
+                                <th key={item} scope="col">
+                                    {item}
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {pageData.data.map((item, idx) => (
+                            <tr key={idx}>
+                                <td>{item.country}</td>
+                                <td>{item.state}</td>
+                                <td>{item.city}</td>
+                                <td>{item.category}</td>
+                                <td>{item.number}</td>
+                                <td>{item.placeName}</td>
+                                <td>{item.info ? "O" : "X"}</td>
+                                <td>{item.description ? "O" : "X"}</td>
+                                <td>{item.kr ? "O" : "X"}</td>
+                                <td>{item.en ? "O" : "X"}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
                 <BoardFooter
                     totalPage={pageData.totalPage}
                     currentPage={pageCtrl.currentPage}
                     handleChangePageCtrl={handleChangePageCtrl}
                 />
-
                 <br />
                 <br />
             </ContentBody>
@@ -113,4 +109,4 @@ const User = ({ match }) => {
     );
 };
 
-export default User;
+export default TourBoard;

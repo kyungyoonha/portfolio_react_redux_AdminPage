@@ -17,10 +17,12 @@ export const FormLayout2 = ({ children }) => {
     return <form className="formLayout">{children}</form>;
 };
 
-export const FormCard = ({ size, children }) => {
+export const FormSection = ({ size, children }) => {
     return (
-        <div className={`formCard ${size === "full" && "full"} `}>
-            <table className="table table-bordered">{children}</table>
+        <div className="formSection">
+            <table className={`${size === "full" && "full"} table`}>
+                <tbody>{children}</tbody>
+            </table>
         </div>
     );
 };
@@ -300,7 +302,7 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
                         alt={label}
                         style={{
                             height: "300px",
-                            maxWidth: "60%",
+                            width: "100%",
                             objectFit: "contain",
                         }}
                     />

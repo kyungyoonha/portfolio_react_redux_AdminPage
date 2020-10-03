@@ -25,6 +25,25 @@
 .formCard {
     @extend %styleCard;
     margin-bottom: 10px;
-    padding: 30px 40px;
+    padding: 80px 40px;
     width: 49.8%;
+}
+
+.formSection {
+    width: 49.8%;
+    height: auto;
+    background: white;
+    border: 1px solid $line;
+    border-radius: 0.25rem;
+
+    table {
+        margin-bottom: 10px;
+        padding: 80px 40px;
+        border-bottom: 1px solid $line;
+
+        th {
+            background: #f8f8f8;
+            width: 180px;
+        }
+    }
 }

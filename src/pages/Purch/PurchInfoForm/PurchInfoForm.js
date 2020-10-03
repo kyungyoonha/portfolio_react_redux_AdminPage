@@ -62,7 +62,7 @@ const PurchInfoForm = () => {
     const handleClickInsert = () => {};
 
     return (
-        <Template title="구매정보 관리 추가" navCtg="tourpackage">
+        <Template title="구매정보 관리 추가" navCtg="purch">
             <div className="template__top">
                 <h4 className="mb-4">추가하기</h4>
                 <div>

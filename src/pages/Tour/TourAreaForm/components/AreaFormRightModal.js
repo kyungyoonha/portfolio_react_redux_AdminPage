@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import "./AreaFormRightModal.scss";
-import Slider from "../../../../../components/Slider/Slider";
-import Modal from "../../../../../components/Modal/Modal";
-import noImg from "../../../../../img/no-img.jpg";
+import Slider from "../../../../components/Slider/Slider";
+import Modal from "../../../../components/Modal/Modal";
+import noImg from "../../../../img/no-img.jpg";
 
 const AreaFormRightModal = ({
     isModalOpen,

@@ -15,7 +15,7 @@ import {
     optionsRegion,
 } from "../../../../util/options";
 import noImg from "../../../../img/no-img.jpg";
-// import axios from "axios";
+import validateInput from "../../../../util/validateInput";
 
 const initialValue = {
     id: "",
@@ -60,6 +60,12 @@ const RegionModal = ({
         setInputs((state) => ({
             ...state,
             [name]: value,
+        }));
+
+        const error = validateInput(name, value);
+        setErrors((state) => ({
+            ...state,
+            [name]: error,
         }));
     };
 

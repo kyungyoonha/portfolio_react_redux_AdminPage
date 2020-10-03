@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Template from "../../../components/Template/Template";
 import validateInput from "../../../util/validateInput";
-import AreaFormBottom from "./AreaFormBottom/AreaFormBottom";
-import AreaFormRight from "./AreaFormRight/AreaFormRight";
-import AreaFormBody from "./AreaFormBody/AreaFormBody";
+import AreaFormBottom from "./components/AreaFormBottom";
+import AreaFormRight from "./components/AreaFormRight";
+import AreaFormBody from "./components/AreaFormBody";
 
 import {
     FormLayout,
@@ -27,7 +27,7 @@ const initialAudioMain = {
     china: { title: "", script: "", files: [] },
 };
 
-const AreaForm = () => {
+const TourAreaForm = () => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
         countryCtg: "KOREA",
@@ -119,7 +119,7 @@ const AreaForm = () => {
     return (
         <Template
             title="관광지 관리"
-            navCtg="tourarea"
+            navCtg="tour"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
             isFooter={true}
@@ -288,4 +288,4 @@ const AreaForm = () => {
     );
 };
 
-export default AreaForm;
+export default TourAreaForm;

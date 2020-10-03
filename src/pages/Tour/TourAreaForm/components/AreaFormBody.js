@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AreaFormBodyModal from "./AreaFormBodyModal/AreaFormBodyModal";
+import AreaFormBodyModal from "./AreaFormBodyModal";
 
 const options = [
     { value: "yes", title: "有" },

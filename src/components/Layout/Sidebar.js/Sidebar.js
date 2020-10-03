@@ -11,11 +11,11 @@ const routes = [
     { path: "/dashboard", title: "Dashboard", icon: "chart-pie" },
     { path: "/user", title: "회원정보", icon: "user-cog" },
     {
-        path: "/tourarea",
+        path: "/tour",
         title: "관광지 관리",
         icon: "map-marked-alt",
     },
-    { path: "/tourpackage", title: "투어 관리", icon: "route" },
+    { path: "/purch", title: "구매 관리", icon: "route" },
     { path: "/notice", title: "공지사항", icon: "bell" },
 ];
 

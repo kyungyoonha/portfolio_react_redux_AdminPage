@@ -19,7 +19,7 @@ const ChartsRegion = ({ size }) => {
     }, []);
 
     return (
-        <div className={`col-sm-${size === "full" ? 12 : 6}`}>
+        <div className={`dashboardCard ${size === "full" && "full"}`}>
             <div className="card">
                 <div className="card-header bg-white">지역별 그래프</div>
                 <div className="card-body bg-white">

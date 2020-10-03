@@ -1,8 +1,19 @@
 .dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     background: #eeeeee;
-    flex: 1;
-    padding: 15px;
     .card {
         height: 500px;
+    }
+
+    .dashboardCard {
+        margin-bottom: 5px;
+        width: 49.8%;
+        height: 500px;
+
+        &.full {
+            width: 100%;
+        }
     }
 }

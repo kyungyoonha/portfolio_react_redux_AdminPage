@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import Template from "../../../components/Template/Template";
 import validateInput from "../../../util/validateInput";
 
 import noImg from "../../../img/no-img.jpg";
 import noImgCar from "../../../img/no-img-car.png";
+import { ContentButton, ContentNav } from "../../../components/Content/Content";
 
 import {
-    FormLayout,
+    FormLayout2,
+    FormSection,
     Input,
     Select,
     RatioSingle,
@@ -22,7 +23,8 @@ import {
     optionsRegion,
 } from "../../../util/options";
 
-const UserFormDriver = () => {
+const UserFormDriver = ({ match }) => {
+    const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [profile, setProfile] = useState("");
     const [carImg, setCarImg] = useState("");
@@ -91,191 +93,174 @@ const UserFormDriver = () => {
     const handleClickInsert = () => {};
 
     return (
-        <Template title="기사 정보" navCtg="user">
-            <div className="template__top">
-                <h4 className="mb-4">추가하기</h4>
-                <div>
-                    <button
-                        type="button"
-                        className="btn btn-secondary"
-                        onClick={handleClickInsert}
-                    >
-                        추가하기
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary"
-                        onClick={() => {
-                            history.goBack();
-                        }}
-                    >
-                        뒤로가기
-                    </button>
-                </div>
-            </div>
+        <React.Fragment>
+            <ContentNav id={id}>
+                <ContentButton
+                    type="form"
+                    handleClickInsert={handleClickInsert}
+                    handleClickDelete={() => history.goBack()}
+                />
+            </ContentNav>
 
-            <form style={{ margin: "0 15px" }}>
-                <div className="no-Gutter2 row">
-                    <FormLayout size="half">
-                        <Input
-                            label="id"
-                            name="driver_id"
-                            value={inputs.driver_id}
-                            onChange={onChange}
-                            errors={errors}
-                        />
-                        <RatioSingle
-                            label="국가"
-                            name="countryCtg"
-                            value={inputs.countryCtg}
-                            onChange={onChange}
-                            options={[
-                                { value: "KOREA", title: "국내" },
-                                { value: "OVERSEAS", title: "국외" },
-                            ]}
-                        />
-                        {inputs.countryCtg !== "KOREA" && (
-                            <Select
-                                label=""
-                                name="country"
-                                value={inputs.country}
-                                onChange={onChange}
-                                errors={errors}
-                                options={optionsCountry(inputs.countryCtg)}
-                            />
-                        )}
-
+            <FormLayout2>
+                <FormSection>
+                    <Input
+                        label="id"
+                        name="driver_id"
+                        value={inputs.driver_id}
+                        onChange={onChange}
+                        errors={errors}
+                    />
+                    <RatioSingle
+                        label="국가"
+                        name="countryCtg"
+                        value={inputs.countryCtg}
+                        onChange={onChange}
+                        options={[
+                            { value: "KOREA", title: "국내" },
+                            { value: "OVERSEAS", title: "국외" },
+                        ]}
+                    />
+                    {inputs.countryCtg !== "KOREA" && (
                         <Select
-                            label="시/도"
-                            name="state"
-                            value={inputs.city}
+                            label=""
+                            name="country"
+                            value={inputs.country}
                             onChange={onChange}
                             errors={errors}
-                            options={optionsCity(inputs.city)}
+                            options={optionsCountry(inputs.countryCtg)}
                         />
-                        <Select
-                            label="지역"
-                            name="city"
-                            value={inputs.region}
-                            onChange={onChange}
-                            errors={errors}
-                            options={optionsRegion(inputs.region)}
-                        />
+                    )}
 
-                        <Input
-                            label="이름"
-                            name="name"
-                            value={inputs.name}
-                            onChange={onChange}
-                            errors={errors}
-                        />
+                    <Select
+                        label="시/도"
+                        name="state"
+                        value={inputs.city}
+                        onChange={onChange}
+                        errors={errors}
+                        options={optionsCity(inputs.city)}
+                    />
+                    <Select
+                        label="지역"
+                        name="city"
+                        value={inputs.region}
+                        onChange={onChange}
+                        errors={errors}
+                        options={optionsRegion(inputs.region)}
+                    />
 
-                        <Input
-                            label="생년월일"
-                            name="birth"
-                            value={inputs.birth}
-                            onChange={onChange}
-                            errors={errors}
-                        />
+                    <Input
+                        label="이름"
+                        name="name"
+                        value={inputs.name}
+                        onChange={onChange}
+                        errors={errors}
+                    />
 
-                        <Input
-                            label="전화번호"
-                            name="contactNumber"
-                            value={inputs.contactNumber}
-                            onChange={onChange}
-                            errors={errors}
-                        />
-                        <Input
-                            label="차종"
-                            name="carType"
-                            value={inputs.carType}
-                            onChange={onChange}
-                            errors={errors}
-                        />
-                        <Input
-                            label="차량번호"
-                            name="plateNumber"
-                            value={inputs.plateNumber}
-                            onChange={onChange}
-                            errors={errors}
-                        />
+                    <Input
+                        label="생년월일"
+                        name="birth"
+                        value={inputs.birth}
+                        onChange={onChange}
+                        errors={errors}
+                    />
 
-                        <FileUpload
-                            label="면허증 첨부"
-                            name="license"
-                            value={inputs.license}
-                            onChange={onUploadFile}
-                            ctg="license"
-                        />
+                    <Input
+                        label="전화번호"
+                        name="contactNumber"
+                        value={inputs.contactNumber}
+                        onChange={onChange}
+                        errors={errors}
+                    />
+                    <Input
+                        label="차종"
+                        name="carType"
+                        value={inputs.carType}
+                        onChange={onChange}
+                        errors={errors}
+                    />
+                    <Input
+                        label="차량번호"
+                        name="plateNumber"
+                        value={inputs.plateNumber}
+                        onChange={onChange}
+                        errors={errors}
+                    />
 
-                        <RatioSingle
-                            label="소속"
-                            name="belong"
-                            value={inputs.belong}
-                            onChange={onChange}
-                            options={[
-                                { value: "private", title: "개인" },
-                                { value: "company", title: "기업" },
-                            ]}
-                        />
-                        {inputs.belong !== "private" && (
-                            <Input
-                                label="회사명"
-                                name="companyName"
-                                value={inputs.companyName}
-                                onChange={onChange}
-                                errors={errors}
-                            />
-                        )}
+                    <FileUpload
+                        label="면허증 첨부"
+                        name="license"
+                        value={inputs.license}
+                        onChange={onUploadFile}
+                        ctg="license"
+                    />
 
+                    <RatioSingle
+                        label="소속"
+                        name="belong"
+                        value={inputs.belong}
+                        onChange={onChange}
+                        options={[
+                            { value: "private", title: "개인" },
+                            { value: "company", title: "기업" },
+                        ]}
+                    />
+                    {inputs.belong !== "private" && (
                         <Input
-                            label="운행 횟수"
-                            name="scheduleCount"
-                            value={inputs.scheduleCount}
+                            label="회사명"
+                            name="companyName"
+                            value={inputs.companyName}
                             onChange={onChange}
                             errors={errors}
                         />
-                        <Input
-                            label="컴플레인"
-                            name="complain"
-                            value={inputs.complain}
-                            onChange={onChange}
-                            errors={errors}
-                        />
-                        <Input
-                            label="평점"
-                            name="score"
-                            value={inputs.score}
-                            onChange={onChange}
-                            errors={errors}
-                        />
-                        <Textarea
-                            label="기타"
-                            name="etc"
-                            value={inputs.ect}
-                            onChange={onChange}
-                            rows={6}
-                        />
-                    </FormLayout>
+                    )}
 
-                    <FormLayout size="half">
-                        <FileuploadCard
-                            label="기사 사진"
-                            src={profile || noImg}
-                            onChange={onUploadFile}
-                            ctg="profile"
-                        />
+                    <Input
+                        label="운행 횟수"
+                        name="scheduleCount"
+                        value={inputs.scheduleCount}
+                        onChange={onChange}
+                        errors={errors}
+                    />
+                    <Input
+                        label="컴플레인"
+                        name="complain"
+                        value={inputs.complain}
+                        onChange={onChange}
+                        errors={errors}
+                    />
+                    <Input
+                        label="평점"
+                        name="score"
+                        value={inputs.score}
+                        onChange={onChange}
+                        errors={errors}
+                    />
+                    <Textarea
+                        label="기타"
+                        name="etc"
+                        value={inputs.ect}
+                        onChange={onChange}
+                        rows={6}
+                    />
+                </FormSection>
+                <FormSection>
+                    <FileuploadCard
+                        label="기사 사진"
+                        src={profile || noImg}
+                        onChange={onUploadFile}
+                        ctg="profile"
+                    />
 
-                        <FileuploadCard
-                            label="차량 사진"
-                            src={carImg || noImgCar}
-                            onChange={onUploadFile}
-                            ctg="carImg"
-                        />
-                    </FormLayout>
-                </div>
-            </form>
-        </Template>
+                    <FileuploadCard
+                        label="차량 사진"
+                        src={carImg || noImgCar}
+                        onChange={onUploadFile}
+                        ctg="carImg"
+                    />
+                </FormSection>
+            </FormLayout2>
+        </React.Fragment>
     );
 };
 

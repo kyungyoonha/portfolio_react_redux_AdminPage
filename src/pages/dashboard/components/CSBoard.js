@@ -2,7 +2,7 @@ import React from "react";
 
 const CSBoard = ({ size }) => {
     return (
-        <div className={`col-sm-${size === "full" ? 12 : 6}`}>
+        <div className={`dashboardCard ${size === "full" && "full"}`}>
             <div className="card">
                 <div className="card-header bg-white">
                     문의 및 신고 게시판 현황

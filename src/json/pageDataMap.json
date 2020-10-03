@@ -1,0 +1,98 @@
+{
+    "member": {
+        "title": "회원 정보",
+        "navCtg": "user",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "id", "title": "id" },
+            { "key": "name", "title": "이름" },
+            { "key": "phone", "title": "전화번호" },
+            { "key": "email", "title": "이메일" },
+            { "key": "country", "title": "국적" },
+            { "key": "history", "title": "구매내역" },
+            { "key": "cs", "title": "문의사항" }
+        ]
+    },
+    "driver": {
+        "title": "기사 정보",
+        "navCtg": "user",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "id", "title": "id" },
+            { "key": "name", "title": "이름" },
+            { "key": "phone", "title": "전화번호" },
+            { "key": "email", "title": "이메일" },
+            { "key": "country", "title": "국적" },
+            { "key": "history", "title": "운행내역" },
+            { "key": "cs", "title": "문의사항" }
+        ]
+    },
+    "manager": {
+        "title": "매니저 정보",
+        "navCtg": "user",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "id", "title": "id" },
+            { "key": "name", "title": "이름" },
+            { "key": "phone", "title": "전화번호" },
+            { "key": "email", "title": "이메일" },
+            { "key": "country", "title": "국적" },
+            { "key": "history", "title": "구매내역" },
+            { "key": "cs", "title": "문의사항" }
+        ]
+    },
+    "area": {
+        "title": "관광지 코드 관리",
+        "navCtg": "tour",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "country", "title": "국가" },
+            { "key": "state", "title": "주/도" },
+            { "key": "city", "title": "시" },
+            { "key": "category", "title": "분류" },
+            { "key": "number", "title": "순번" },
+            { "key": "placeName", "title": "관광지명" },
+            { "key": "info", "title": "기본정보" },
+            { "key": "description", "title": "설명" },
+            { "key": "kr", "title": "KR" },
+            { "key": "en", "title": "EN" }
+        ]
+    },
+    "region": {
+        "title": "지역 코드 관리",
+        "navCtg": "tour",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "country", "title": "국가" },
+            { "key": "countryCode", "title": "국가코드" },
+            { "key": "countrySort", "title": "국가정렬" },
+            { "key": "state", "title": "시/도" },
+            { "key": "stateCode", "title": "시/도 코드" },
+            { "key": "stateSort", "title": "시/도 정렬" },
+            { "key": "city", "title": "지역" },
+            { "key": "hasImgMain", "title": "대표사진 유무" },
+            { "key": "cityCode", "title": "지역 코드" },
+            { "key": "citySort", "title": "지역 정렬" },
+            { "key": "editMng", "title": "최근 수정 관리자" },
+            { "key": "editDate", "title": "최근 수정 날짜" },
+            { "key": "makeMng", "title": "생성 관리자" },
+            { "key": "makeDate", "title": "생성 일자" }
+        ]
+    },
+    "purchInfo": {
+        "title": "구매정보 관리",
+        "navCtg": "purch",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "date", "title": "날짜/시간" },
+            { "key": "guestId", "title": "고객" },
+            { "key": "driver", "title": "담당기사" },
+            { "key": "region", "title": "지역" },
+            { "key": "totalNum", "title": "인원" },
+            { "key": "totalPrice", "title": "결제 금액" },
+            { "key": "hours", "title": "시간" },
+            { "key": "schedule", "title": "투어 일정" },
+            { "key": "done", "title": "완료" }
+        ]
+    }
+}

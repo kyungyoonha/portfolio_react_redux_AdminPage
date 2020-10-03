@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Content.scss";
+import pageDataMap from "../../json/pageDataMap.json";
 
 const navMap = {
     user: [
@@ -8,18 +9,19 @@ const navMap = {
         { to: "/user/driver", title: "기사 회원" },
         { to: "/user/manager", title: "관리자" },
     ],
-    tourarea: [
-        { to: "/tourarea/area", title: "관광지 코드 관리" },
-        { to: "/tourarea/region", title: "지역 코드 관리" },
+    tour: [
+        { to: "/tour/area", title: "관광지 코드 관리" },
+        { to: "/tour/region", title: "지역 코드 관리" },
     ],
-    tourpackage: [
-        { to: "/tourpackage/purchinfo", title: "구매정보 관리" },
-        { to: "/tourpackage/purchcodeform", title: "구매코드 발급" },
-        { to: "/tourpackage/purchcode", title: "구매코드 조회" },
+    purch: [
+        { to: "/purch/purchinfo", title: "구매정보 관리" },
+        { to: "/purch/purchcodeform", title: "구매코드 발급" },
+        { to: "/purch/purchcode", title: "구매코드 조회" },
     ],
 };
 
-export const ContentNav = ({ title, navCtg, children }) => {
+export const ContentNav = ({ id, children }) => {
+    const { title, navCtg } = pageDataMap[id];
     const navList = navMap[navCtg];
     return (
         <div className="contentNav">
@@ -59,7 +61,7 @@ export const ContentButton = ({
             </button>
             <button
                 type="button"
-                className="btn btn-secondary"
+                className="btn btn-outline-primary"
                 onClick={handleClickInsert}
             >
                 추가하기

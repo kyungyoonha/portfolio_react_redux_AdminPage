@@ -43,7 +43,7 @@
     },
     "area": {
         "title": "관광지 코드 관리",
-        "navCtg": "tourarea",
+        "navCtg": "tour",
         "headerList": [
             "국가",
             "주/도",
@@ -59,7 +59,7 @@
     },
     "purchInfo": {
         "title": "구매정보 관리",
-        "navCtg": "tourpackage",
+        "navCtg": "purch",
         "headerList": [
             "날짜/시간",
             "고객",

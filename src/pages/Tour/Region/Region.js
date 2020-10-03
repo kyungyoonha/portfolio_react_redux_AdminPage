@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import TemplateNav from "../../../components/Template/TemplateNav/TemplateNav";
 import { BoardFooter } from "../../../components/Board/Board";
 import RegionTable from "./RegionTable/RegionTable";
 import RegionModal from "./RegionModal/RegionModal";
@@ -103,9 +102,8 @@ const Region = ({ match }) => {
         }
     };
     return (
-        <Template title="관광지 관리" navCtg="tourarea">
+        <Template title="관광지 관리" navCtg="tour">
             <div className="template__top">
-                <h4> </h4>
                 <div>
                     <button
                         type="button"

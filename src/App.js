@@ -33,8 +33,8 @@ const App = () => {
                         />
                     ))}
                     <Route path="/user" exact render={() => <Redirect to="/user/member" />}/>
-                    <Route path="/tourarea" exact render={() => <Redirect to="/tourarea/area" />}/>
-                    <Route path="/tourpackage" exact render={() => <Redirect to="/tourpackage/purchinfo" />}/>
+                    <Route path="/tour" exact render={() => <Redirect to="/tour/area" />}/>
+                    <Route path="/purch" exact render={() => <Redirect to="/purch/purchinfo" />}/>
                     <Route path="/pages/signup" title="회원가입" component={Signup} />
                     <Route path="/pages/login" title="로그인" component={Login} />
                     <Route component={PageNotFound} />

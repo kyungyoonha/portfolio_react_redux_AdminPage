@@ -6,18 +6,18 @@ import {
     Select,
     Input,
     FileuploadCard,
-} from "../../../../../components/Form/Form";
+} from "../../../../components/Form/Form";
 
 import {
     optionsCountry,
     optionsCity,
     optionsRegion,
-} from "../../../../../util/options";
+} from "../../../../util/options";
 
-import Modal from "../../../../../components/Modal/Modal";
-import noImg from "../../../../../img/no-img.jpg";
+import Modal from "../../../../components/Modal/Modal";
+import noImg from "../../../../img/no-img.jpg";
 
-import AreaFormBottom from "../../AreaFormBottom/AreaFormBottom";
+import AreaFormBottom from "./AreaFormBottom";
 
 const AreaFormBodyModal = ({
     isModalOpen,

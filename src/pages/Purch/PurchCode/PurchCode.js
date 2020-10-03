@@ -36,7 +36,7 @@ const PurchCode = ({ match }) => {
     }, [id]);
 
     const handleClickInsert = () => {
-        history.push(`/tourarea/${id}/form`);
+        history.push(`/tour/${id}/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -49,8 +49,8 @@ const PurchCode = ({ match }) => {
     const handleClickDelete = () => {};
     return (
         <Template
-            title="투어 관리"
-            navCtg="tourpackage"
+            title="구매 관리"
+            navCtg="purch"
             handleClickInsert={handleClickInsert}
             handleClickDelete={handleClickDelete}
         >
@@ -58,7 +58,7 @@ const PurchCode = ({ match }) => {
             <table className="table table-hover table-bordered">
                 <thead>
                     <tr>
-                        {headerObj["tourarea"].map((item) => (
+                        {headerObj["tour"].map((item) => (
                             <th key={item} scope="col">
                                 {item}
                             </th>

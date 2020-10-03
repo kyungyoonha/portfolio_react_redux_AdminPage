@@ -1,41 +1,47 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
+import pageDataMap from "../../json/pageDataMap.json";
 
-export const Board = ({
-    headerList,
-    data,
-    selectedItem,
-    handleSelectedItem,
-}) => {
+export const Board = ({ id, data, selectedItem, handleSelectedItem }) => {
+    const headerList = pageDataMap[id].headerList;
+
+    const makeRowData = (item) => {
+        return headerList.map((col) => {
+            if (col.key === "check") {
+                return (
+                    <td key={col.key}>
+                        <input
+                            type="checkbox"
+                            aria-label="Checkbox"
+                            checked={item.id === selectedItem.id}
+                            onChange={() => handleSelectedItem(item)}
+                        />
+                    </td>
+                );
+            }
+
+            // member, driver, manager
+            else if (col.key === "history" || col.key === "cs") {
+                return <td key={col.key}>{item[col.key].length}건</td>;
+            }
+
+            return <td key={col.key}>{item[col.key]}</td>;
+        });
+    };
+
     return (
         <table className="table table-hover table-bordered">
             <thead>
                 <tr>
                     {headerList.map((item) => (
-                        <th key={item} scope="col">
-                            {item}
-                        </th>
+                        <th key={item.key}>{item.title}</th>
                     ))}
                 </tr>
             </thead>
             <tbody>
                 {data.map((item, idx) => (
                     <tr key={idx} onClick={() => handleSelectedItem(item)}>
-                        <td>
-                            <input
-                                type="checkbox"
-                                aria-label="Checkbox"
-                                checked={item.id === selectedItem.id}
-                                onChange={() => handleSelectedItem(item)}
-                            />
-                        </td>
-                        <td>{item.id}</td>
-                        <td>{item.name}</td>
-                        <td>{item.phone}</td>
-                        <td>{item.email}</td>
-                        <td>{item.country}</td>
-                        <td>{item.history.length}건</td>
-                        <td>{item.cs.length} 건</td>
+                        {makeRowData(item)}
                     </tr>
                 ))}
             </tbody>
