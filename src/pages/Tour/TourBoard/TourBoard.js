@@ -1,23 +1,35 @@
-import React, { useEffect, useState, Fragment } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import history from "../../../history";
 
-import headerObj from "../../../components/Board/boardHeader.json";
-
-import { BoardFooter } from "../../../components/Board/Board";
 import TourBoardTop from "./components/TourBoardTop";
+import { Board, BoardFooter } from "../../../components/Board/Board";
 import {
-    ContentBody,
-    ContentButton,
+    Content,
+    ContentBtn,
     ContentNav,
+    ContentBody,
 } from "../../../components/Content/Content";
+
+import TourBoardModal from "./components/TourBoardModal";
+import randomKey from "../../../util/randomKey";
+
+// 리덕스
+import { useSelector, useDispatch } from "react-redux";
+import {
+    boardAction_fetch,
+    boardAction_selected,
+    boardAction_update,
+    boardAction_delete,
+    boardAction_init,
+} from "../../../redux/actions";
 
 const TourBoard = ({ match }) => {
     const id = match.url.split("/")[2];
-    const [pageData, setPageData] = useState({
-        data: [],
-        totalPage: 5,
-    });
+    const dispatch = useDispatch();
+    const { data, totalPage, selectedItem } = useSelector(
+        (state) => state.board
+    );
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -28,26 +40,28 @@ const TourBoard = ({ match }) => {
     });
 
     useEffect(() => {
-        const getFetchData = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:3000/json/${id}.json`
-                    //     ?pageSize=${pageCtrl.pageSize}
-                    //     &currentPage=${pageCtrl.currentPage}
-                    //     &countryCtg=${pageCtrl.countryCtg}
-                    //     &searchKeyword=${pageCtrl.searchKeyword}
-                    //     &sort=${pageCtrl.sort}
-                );
-                setPageData(response.data);
-            } catch (err) {
-                console.error("DataboardTable Fecth error:", err);
-            }
-        };
-        getFetchData();
-    }, [id]);
+        dispatch(boardAction_fetch(id));
+        return () => dispatch(boardAction_init());
+    }, [dispatch, id]);
+
+    const handleClickUpdate = (newData) => {
+        dispatch(boardAction_update(newData));
+    };
 
     const handleClickInsert = () => {
         history.push(`/tour/${id}/form`);
+    };
+
+    const handleSelectedItem = (selectedItem) => {
+        dispatch(boardAction_selected(selectedItem));
+    };
+
+    const handleClickDelete = async () => {
+        if (!selectedItem.id) {
+            alert("삭제할 행을 선택해주세요");
+        } else {
+            dispatch(boardAction_delete(id, selectedItem.id));
+        }
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -57,55 +71,39 @@ const TourBoard = ({ match }) => {
         }));
     };
 
-    const handleClickDelete = () => {};
-
     return (
-        <Fragment>
+        <Content>
             <ContentNav id={id}>
-                <ContentButton
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={handleClickDelete}
-                />
+                {id === "region" ? (
+                    <TourBoardModal
+                        selectedItem={selectedItem}
+                        handleClickDelete={handleClickDelete}
+                        handleClickUpdate={handleClickUpdate}
+                    />
+                ) : (
+                    <ContentBtn
+                        handleClickInsert={handleClickInsert}
+                        handleClickDelete={handleClickDelete}
+                    />
+                )}
             </ContentNav>
 
             <ContentBody>
                 <TourBoardTop handleChangePageCtrl={handleChangePageCtrl} />
-                <table className="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            {headerObj["tour"].map((item) => (
-                                <th key={item} scope="col">
-                                    {item}
-                                </th>
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {pageData.data.map((item, idx) => (
-                            <tr key={idx}>
-                                <td>{item.country}</td>
-                                <td>{item.state}</td>
-                                <td>{item.city}</td>
-                                <td>{item.category}</td>
-                                <td>{item.number}</td>
-                                <td>{item.placeName}</td>
-                                <td>{item.info ? "O" : "X"}</td>
-                                <td>{item.description ? "O" : "X"}</td>
-                                <td>{item.kr ? "O" : "X"}</td>
-                                <td>{item.en ? "O" : "X"}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+
+                <Board
+                    id={id}
+                    data={data}
+                    selectedItem={selectedItem}
+                    handleSelectedItem={handleSelectedItem}
+                />
                 <BoardFooter
-                    totalPage={pageData.totalPage}
+                    totalPage={totalPage}
                     currentPage={pageCtrl.currentPage}
                     handleChangePageCtrl={handleChangePageCtrl}
                 />
-                <br />
-                <br />
             </ContentBody>
-        </Fragment>
+        </Content>
     );
 };
 

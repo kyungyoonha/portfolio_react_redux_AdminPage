@@ -8,7 +8,6 @@ registerLocale("ko", ko);
 
 const PurchInfoTop = ({ handleChangePageCtrl }) => {
     const [startDate, setStartDate] = useState(new Date());
-    console.log(startDate);
 
     const [input, setInput] = useState("");
 

@@ -6,11 +6,11 @@ import UserFormMember from './pages/User/UserFormMember/UserFormMember'
 import UserFormDriver from './pages/User/UserFormDriver/UserFormDriver';
 import UserFormManager from './pages/User/UserFormManager/UserFormManager';
 
-import TourAreaBoard from './pages/Tour/TourAreaBoard/TourAreaBoard'
-import TourAreaForm from './pages/Tour/TourAreaForm/TourAreaForm';
-import Region from './pages/Tour/Region/Region';
-
 import TourBoard from './pages/Tour/TourBoard/TourBoard';
+import TourAreaForm from './pages/Tour/TourAreaForm/TourAreaForm';
+
+
+
 
 import PurchInfo from "./pages/Purch/PurchInfo/PurchInfo";
 import PurchInfoForm from "./pages/Purch/PurchInfoForm/PurchInfoForm";
@@ -29,7 +29,7 @@ const routes = [
     
     { path: "/tour/area", exact: true,  component: TourBoard },
     { path: "/tour/area/form",  component: TourAreaForm},
-    { path: "/tour/region",  component: Region},
+    { path: "/tour/region",  component: TourBoard},
 
     { path: "/purch/purchinfo", exact: true,  component: PurchInfo },
     { path: "/purch/purchinfo/form", exact: true,  component: PurchInfoForm },

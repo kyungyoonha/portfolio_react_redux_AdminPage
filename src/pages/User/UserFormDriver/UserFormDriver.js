@@ -4,7 +4,11 @@ import validateInput from "../../../util/validateInput";
 
 import noImg from "../../../img/no-img.jpg";
 import noImgCar from "../../../img/no-img-car.png";
-import { ContentButton, ContentNav } from "../../../components/Content/Content";
+import {
+    Content,
+    ContentBtn,
+    ContentNav,
+} from "../../../components/Content/Content";
 
 import {
     FormLayout2,
@@ -93,9 +97,9 @@ const UserFormDriver = ({ match }) => {
     const handleClickInsert = () => {};
 
     return (
-        <React.Fragment>
+        <Content>
             <ContentNav id={id}>
-                <ContentButton
+                <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={() => history.goBack()}
@@ -260,7 +264,7 @@ const UserFormDriver = ({ match }) => {
                     />
                 </FormSection>
             </FormLayout2>
-        </React.Fragment>
+        </Content>
     );
 };
 

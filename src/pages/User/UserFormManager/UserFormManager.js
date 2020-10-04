@@ -8,7 +8,11 @@ import {
     Textarea,
 } from "../../../components/Form/Form";
 
-import { ContentButton, ContentNav } from "../../../components/Content/Content";
+import {
+    Content,
+    ContentBtn,
+    ContentNav,
+} from "../../../components/Content/Content";
 
 const UserFormManager = ({ match }) => {
     const id = match.url.split("/")[2];
@@ -45,9 +49,9 @@ const UserFormManager = ({ match }) => {
     const handleClickInsert = () => {};
 
     return (
-        <React.Fragment>
+        <Content>
             <ContentNav id={id}>
-                <ContentButton
+                <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={() => history.goBack()}
@@ -153,7 +157,7 @@ const UserFormManager = ({ match }) => {
                     />
                 </FormSection>
             </FormLayout2>
-        </React.Fragment>
+        </Content>
     );
 };
 

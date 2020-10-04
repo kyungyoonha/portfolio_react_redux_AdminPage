@@ -45,7 +45,6 @@ const PurchCode = ({ match }) => {
             [name]: value,
         }));
     };
-    console.log(pageData.data);
     const handleClickDelete = () => {};
     return (
         <Template

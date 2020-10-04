@@ -4,7 +4,6 @@ import pageDataMap from "../../json/pageDataMap.json";
 
 export const Board = ({ id, data, selectedItem, handleSelectedItem }) => {
     const headerList = pageDataMap[id].headerList;
-
     const makeRowData = (item) => {
         return headerList.map((col) => {
             if (col.key === "check") {
@@ -23,6 +22,15 @@ export const Board = ({ id, data, selectedItem, handleSelectedItem }) => {
             // member, driver, manager
             else if (col.key === "history" || col.key === "cs") {
                 return <td key={col.key}>{item[col.key].length}건</td>;
+            }
+            // area
+            else if (
+                col.key === "info" ||
+                col.key === "description" ||
+                col.key === "kr" ||
+                col.key === "en"
+            ) {
+                return <td key={col.key}>{item[col.key] ? "O" : "X"}</td>;
             }
 
             return <td key={col.key}>{item[col.key]}</td>;

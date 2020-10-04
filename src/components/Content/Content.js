@@ -20,6 +20,10 @@ const navMap = {
     ],
 };
 
+export const Content = ({ children }) => {
+    return <div className="content">{children}</div>;
+};
+
 export const ContentNav = ({ id, children }) => {
     const { title, navCtg } = pageDataMap[id];
     const navList = navMap[navCtg];
@@ -45,11 +49,7 @@ export const ContentBody = ({ children }) => {
     return <div className="contentBody">{children}</div>;
 };
 
-export const ContentButton = ({
-    type,
-    handleClickInsert,
-    handleClickDelete,
-}) => {
+export const ContentBtn = ({ type, handleClickInsert, handleClickDelete }) => {
     return (
         <div className="contentButton">
             <button

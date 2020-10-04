@@ -1,21 +1,29 @@
-import React, { useEffect, useState, Fragment } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import history from "../../../history";
 
 import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
 import {
-    ContentButton,
+    Content,
+    ContentBtn,
     ContentNav,
     ContentBody,
 } from "../../../components/Content/Content";
 
-const User = ({ match }) => {
+// 리덕스
+import { useSelector, useDispatch } from "react-redux";
+import {
+    boardAction_fetch,
+    boardAction_selected,
+    boardAction_delete,
+    boardAction_init,
+} from "../../../redux/actions";
+
+const UserBoard = ({ match }) => {
     const id = match.url.split("/")[2];
-    const [selectedItem, setSelectedItem] = useState({});
-    const [pageData, setPageData] = useState({
-        data: [],
-        totalPage: 5,
-    });
+    const dispatch = useDispatch();
+    const { data, totalPage, selectedItem } = useSelector(
+        (state) => state.board
+    );
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -26,53 +34,23 @@ const User = ({ match }) => {
     });
 
     useEffect(() => {
-        const getFetchData = async () => {
-            try {
-                const response = await axios.get(
-                    `http://localhost:3000/json/${id}.json`
-                    //     ?pageSize=${pageCtrl.pageSize}
-                    //     &currentPage=${pageCtrl.currentPage}
-                    //     &countryCtg=${pageCtrl.countryCtg}
-                    //     &searchKeyword=${pageCtrl.searchKeyword}
-                    //     &sort=${pageCtrl.sort}
-                );
-
-                setPageData(response.data);
-            } catch (err) {
-                console.error("DataboardTable Fecth error:", err);
-            }
-        };
-        getFetchData();
-    }, [id]);
+        dispatch(boardAction_fetch(id));
+        return () => dispatch(boardAction_init());
+    }, [dispatch, id]);
 
     const handleClickInsert = () => {
         history.push(`/user/${id}/form`);
     };
 
-    const handleSelectedItem = (item) => {
-        if (selectedItem.id !== item.id) {
-            setSelectedItem(item);
-        } else {
-            setSelectedItem({});
-        }
+    const handleSelectedItem = (selectedItem) => {
+        dispatch(boardAction_selected(selectedItem));
     };
 
     const handleClickDelete = async () => {
         if (!selectedItem.id) {
             alert("삭제할 행을 선택해주세요");
         } else {
-            try {
-                //await axios.post("http://localhost:8000/region/delete", selectedItem.id);
-                setPageData((state) => ({
-                    ...state,
-                    data: state.data.filter(
-                        (item) => item.id !== selectedItem.id
-                    ),
-                }));
-                setSelectedItem({});
-            } catch (e) {
-                console.error("Region Delete Error", e);
-            }
+            dispatch(boardAction_delete(id, selectedItem.id));
         }
     };
 
@@ -84,9 +62,9 @@ const User = ({ match }) => {
     };
 
     return (
-        <Fragment>
+        <Content>
             <ContentNav id={id}>
-                <ContentButton
+                <ContentBtn
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={handleClickDelete}
                 />
@@ -96,21 +74,18 @@ const User = ({ match }) => {
                 <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
                 <Board
                     id={id}
-                    data={pageData.data}
+                    data={data}
                     selectedItem={selectedItem}
                     handleSelectedItem={handleSelectedItem}
                 />
                 <BoardFooter
-                    totalPage={pageData.totalPage}
+                    totalPage={totalPage}
                     currentPage={pageCtrl.currentPage}
                     handleChangePageCtrl={handleChangePageCtrl}
                 />
-
-                <br />
-                <br />
             </ContentBody>
-        </Fragment>
+        </Content>
     );
 };
 
-export default User;
+export default UserBoard;

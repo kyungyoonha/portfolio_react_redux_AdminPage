@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import dataReducers from "./dataReducers";
+import boardReducers from "./boardReducers";
 
 export default combineReducers({
-    data: dataReducers,
+    board: boardReducers,
 });
