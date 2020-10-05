@@ -9,14 +9,24 @@ import {
     RatioMulti,
     RatioSingle,
     Textarea,
+    FormLayout2,
+    FormSection,
+    SelectMultiCustom,
 } from "../../../components/Form/Form";
 import {
     optionsCity,
     optionsCountry,
     optionsRegion,
 } from "../../../util/options";
+import {
+    Content,
+    ContentBtn,
+    ContentNav,
+} from "../../../components/Content/Content";
+import PurchInfoFormBottom from "./components/PurchInfoFormBottom";
 
-const PurchInfoForm = () => {
+const PurchInfoForm = ({ match }) => {
+    const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
         user_id: "",
@@ -62,174 +72,171 @@ const PurchInfoForm = () => {
     const handleClickInsert = () => {};
 
     return (
-        <Template title="구매정보 관리 추가" navCtg="purch">
-            <div className="template__top">
-                <h4 className="mb-4">추가하기</h4>
-                <div>
-                    <button
-                        type="button"
-                        className="btn btn-secondary"
-                        onClick={handleClickInsert}
+        <Content>
+            <ContentNav id={id}>
+                <ContentBtn
+                    type="form"
+                    handleClickInsert={handleClickInsert}
+                    handleClickDelete={() => history.goBack()}
+                />
+            </ContentNav>
+
+            <FormLayout2>
+                <FormSection>
+                    <Input
+                        label="투어 이름"
+                        name="tourName"
+                        value={inputs.tourName}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+
+                    <RatioSingle
+                        label="국가"
+                        name="countryCtg"
+                        value={inputs.countryCtg}
+                        onChange={handleChangeInputs}
+                        options={[
+                            { value: "KOREA", title: "국내" },
+                            { value: "OVERSEAS", title: "국외" },
+                        ]}
+                    />
+                    {inputs.countryCtg !== "KOREA" && (
+                        <Select
+                            label=""
+                            name="country"
+                            value={inputs.country}
+                            onChange={handleChangeInputs}
+                            errors={errors}
+                            options={optionsCountry(inputs.countryCtg)}
+                        />
+                    )}
+                    <Select
+                        label="시/도"
+                        name="state"
+                        value={inputs.state}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        options={optionsCity(inputs.state)}
+                    />
+                    <Select
+                        label="지역"
+                        name="city"
+                        value={inputs.city}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        options={optionsRegion(inputs.city)}
+                    />
+
+                    <RatioSingle
+                        label="투어 구분"
+                        name="tourCtg"
+                        value={inputs.tourCtg}
+                        onChange={handleChangeInputs}
+                        options={[
+                            { value: "taxi", title: "택시 투어" },
+                            { value: "nomal", title: "일반 투어" },
+                        ]}
+                    />
+                    <RatioSingle
+                        label="투어 일수"
+                        name="tourDayCntCheck"
+                        value={inputs.tourDayCntCheck}
+                        onChange={handleChangeInputs}
+                        options={[
+                            { value: false, title: "당일" },
+                            { value: true, title: "기간설정" },
+                        ]}
                     >
-                        추가하기
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary"
-                        onClick={() => {
-                            history.goBack();
-                        }}
-                    >
-                        뒤로가기
-                    </button>
-                </div>
-            </div>
-            <form style={{ margin: "0 15px" }}>
-                <div className="no-Gutter2 row">
-                    <FormLayout size="half">
-                        <Input
-                            label="투어 이름"
-                            name="tourName"
-                            value={inputs.tourName}
+                        <br />
+                        <input
+                            name="tourDayCnt"
+                            type="text"
+                            value={inputs.tourDayCnt}
+                            className={`form-control ${
+                                errors["tourDayCnt"] && "is-invalid"
+                            }`}
                             onChange={handleChangeInputs}
-                            errors={errors}
+                            autoComplete="off"
+                            disabled={inputs.tourDayCntCheck}
                         />
+                    </RatioSingle>
 
-                        <RatioSingle
-                            label="국가"
-                            name="countryCtg"
-                            value={inputs.countryCtg}
-                            onChange={handleChangeInputs}
-                            options={[
-                                { value: "KOREA", title: "국내" },
-                                { value: "OVERSEAS", title: "국외" },
-                            ]}
-                        />
-                        {inputs.countryCtg !== "KOREA" && (
-                            <Select
-                                label=""
-                                name="country"
-                                value={inputs.country}
-                                onChange={handleChangeInputs}
-                                errors={errors}
-                                options={optionsCountry(inputs.countryCtg)}
-                            />
-                        )}
-                        <Select
-                            label="시/도"
-                            name="state"
-                            value={inputs.state}
-                            onChange={handleChangeInputs}
-                            errors={errors}
-                            options={optionsCity(inputs.state)}
-                        />
-                        <Select
-                            label="지역"
-                            name="city"
-                            value={inputs.city}
-                            onChange={handleChangeInputs}
-                            errors={errors}
-                            options={optionsRegion(inputs.city)}
-                        />
+                    <SelectMultiCustom
+                        inputs={inputs}
+                        onChange={handleChangeInputs}
+                        options={[
+                            { value: 1, title: "1명" },
+                            { value: 2, title: "2명" },
+                            { value: 3, title: "3명" },
+                            { value: 4, title: "4명" },
+                            { value: 5, title: "5명" },
+                        ]}
+                    />
 
-                        <RatioSingle
-                            label="투어 구분"
-                            name="tourCtg"
-                            value={inputs.tourCtg}
-                            onChange={handleChangeInputs}
-                            options={[
-                                { value: "taxi", title: "택시 투어" },
-                                { value: "nomal", title: "일반 투어" },
-                            ]}
-                        />
-                        <RatioSingle
-                            label="투어 일수"
-                            name="tourDayCntCheck"
-                            value={inputs.tourDayCntCheck}
-                            onChange={handleChangeInputs}
-                            options={[
-                                { value: false, title: "당일" },
-                                { value: true, title: "기간설정" },
-                            ]}
-                        />
-                        {inputs.tourDayCntCheck && (
-                            <Input
-                                label=""
-                                name="tourDayCnt"
-                                value={inputs.tourDayCnt}
-                                onChange={handleChangeInputs}
-                                errors={errors}
-                            />
-                        )}
-                    </FormLayout>
+                    <Input
+                        label="가격"
+                        name="price"
+                        value={inputs.price}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
 
-                    <FormLayout size="half">
-                        <Input
-                            label="누적투어수"
-                            name="tourCnt"
-                            value={inputs.tourCnt}
-                            onChange={handleChangeInputs}
-                            errors={errors}
-                        />
-                        <Select
-                            label="외향/내향"
-                            name="characteristic"
-                            value={inputs.characteristic}
-                            onChange={handleChangeInputs}
-                            errors={errors}
-                            options={[
-                                { value: "", title: "선택해주세요." },
-                                { value: "외향", title: "외향" },
-                                { value: "내향", title: "내향" },
-                            ]}
-                        />
-
-                        <RatioMulti
-                            label="여행태그"
-                            name="tourTags"
-                            value={inputs.tourTags}
-                            onChange={handleChangeInputs}
-                            options={[
-                                { value: "tiger", title: "호랑이" },
-                                { value: "dog", title: "강아지" },
-                                { value: "monkey", title: "원숭이" },
-                                { value: "bear", title: "곰돌이" },
-                            ]}
-                        />
-
-                        <RatioSingle
-                            label="이메일 수신"
-                            name="recieveEmail"
-                            value={inputs.recieveEmail}
-                            onChange={handleChangeInputs}
-                            options={[
-                                { value: "agree", title: "수신" },
-                                { value: "disagree", title: "미수신" },
-                            ]}
-                        />
-
-                        <RatioSingle
-                            label="문자 수신"
-                            name="recieveMessage"
-                            value={inputs.recieveMessage}
-                            onChange={handleChangeInputs}
-                            options={[
-                                { value: "agree", title: "수신" },
-                                { value: "disagree", title: "미수신" },
-                            ]}
-                        />
-
-                        <Textarea
-                            label="기타"
-                            name="etc"
-                            value={inputs.ect}
-                            onChange={handleChangeInputs}
-                            rows={6}
-                        />
-                    </FormLayout>
-                </div>
-            </form>
-        </Template>
+                    <Input
+                        label="투어시작 시간"
+                        name="tourStartTime"
+                        value={inputs.tourStartTime}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+                </FormSection>
+                <FormSection>
+                    <Input
+                        label="구매 코드"
+                        name="purchCode"
+                        value={inputs.purchCode}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+                    <Input
+                        label="구매 일자"
+                        name="purchDate"
+                        value={inputs.purchDate}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+                    <Input
+                        label="구매 방식"
+                        name="purchWay"
+                        value={inputs.purchWay}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+                    <Input
+                        label="가격"
+                        name="guestId"
+                        value={inputs.guestId}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+                    <Input
+                        label="구매자 Id"
+                        name="guestName"
+                        value={inputs.guestName}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+                    <Input
+                        label="이름"
+                        name="tourCnt"
+                        value={inputs.tourCnt}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+                </FormSection>
+            </FormLayout2>
+            <FormLayout size="full"></FormLayout>
+        </Content>
     );
 };
 

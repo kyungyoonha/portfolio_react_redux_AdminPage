@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import history from "../../../history";
 
-import TourBoardTop from "./components/TourBoardTop";
-import { Board, BoardFooter } from "../../../components/Board/Board";
+import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
 import {
     Content,
     ContentBtn,
@@ -10,19 +9,16 @@ import {
     ContentBody,
 } from "../../../components/Content/Content";
 
-import TourBoardModal from "./components/TourBoardModal";
-
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import {
     boardAction_fetch,
     boardAction_selected,
-    boardAction_update,
     boardAction_delete,
     boardAction_init,
 } from "../../../redux/actions";
 
-const TourBoard = ({ match }) => {
+const CSBoard = ({ match }) => {
     const id = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { data, totalPage, selectedItem } = useSelector(
@@ -42,12 +38,8 @@ const TourBoard = ({ match }) => {
         return () => dispatch(boardAction_init());
     }, [dispatch, id]);
 
-    const handleClickUpdate = (newData) => {
-        dispatch(boardAction_update(newData));
-    };
-
     const handleClickInsert = () => {
-        history.push(`/tour/${id}/form`);
+        history.push(`/user/${id}/form`);
     };
 
     const handleSelectedItem = (selectedItem) => {
@@ -72,23 +64,14 @@ const TourBoard = ({ match }) => {
     return (
         <Content>
             <ContentNav id={id}>
-                {id === "region" ? (
-                    <TourBoardModal
-                        selectedItem={selectedItem}
-                        handleClickDelete={handleClickDelete}
-                        handleClickUpdate={handleClickUpdate}
-                    />
-                ) : (
-                    <ContentBtn
-                        handleClickInsert={handleClickInsert}
-                        handleClickDelete={handleClickDelete}
-                    />
-                )}
+                <ContentBtn
+                    handleClickInsert={handleClickInsert}
+                    handleClickDelete={handleClickDelete}
+                />
             </ContentNav>
 
             <ContentBody>
-                <TourBoardTop handleChangePageCtrl={handleChangePageCtrl} />
-
+                <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
                 <Board
                     id={id}
                     data={data}
@@ -105,4 +88,4 @@ const TourBoard = ({ match }) => {
     );
 };
 
-export default TourBoard;
+export default CSBoard;

@@ -18,6 +18,11 @@ const navMap = {
         { to: "/purch/purchcodeform", title: "구매코드 발급" },
         { to: "/purch/purchcode", title: "구매코드 조회" },
     ],
+    cs: [
+        { to: "/cs/push", title: "알림 관리" },
+        { to: "/cs/notice", title: "공지사항 관리" },
+        { to: "/cs/service", title: "문의사항 관리" },
+    ],
 };
 
 export const Content = ({ children }) => {

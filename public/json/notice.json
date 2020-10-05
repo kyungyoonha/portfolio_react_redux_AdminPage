@@ -1,0 +1,35 @@
+{
+    "totalPage": 5,
+    "data": [
+        {
+            "id": "1",
+            "check": "#",
+            "date": "2020. 10. 05",
+            "title": "투어 관련 안내",
+            "views": "50",
+            "target": "K-G",
+            "topFix": "O",
+            "hiddenStatus": "X"
+        },
+        {
+            "id": "2",
+            "check": "#",
+            "date": "2020. 10. 08",
+            "title": "결제 관련 안내",
+            "views": "30",
+            "target": "K-G",
+            "topFix": "X",
+            "hiddenStatus": "X"
+        },
+        {
+            "id": "3",
+            "check": "#",
+            "date": "2020. 10. 06",
+            "title": "주의 사항",
+            "views": "80",
+            "target": "K-G",
+            "topFix": "O",
+            "hiddenStatus": "O"
+        }
+    ]
+}

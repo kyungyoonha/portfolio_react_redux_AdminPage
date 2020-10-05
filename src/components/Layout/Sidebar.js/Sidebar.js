@@ -16,7 +16,7 @@ const routes = [
         icon: "map-marked-alt",
     },
     { path: "/purch", title: "구매 관리", icon: "route" },
-    { path: "/notice", title: "공지사항", icon: "bell" },
+    { path: "/cs", title: "공지사항", icon: "bell" },
 ];
 
 const Sidebar = ({ isOpen, handleClickOpen }) => {

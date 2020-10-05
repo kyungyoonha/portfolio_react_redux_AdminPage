@@ -79,7 +79,7 @@
             { "key": "makeDate", "title": "생성 일자" }
         ]
     },
-    "purchInfo": {
+    "purchinfo": {
         "title": "구매정보 관리",
         "navCtg": "purch",
         "headerList": [
@@ -93,6 +93,69 @@
             { "key": "hours", "title": "시간" },
             { "key": "schedule", "title": "투어 일정" },
             { "key": "done", "title": "완료" }
+        ]
+    },
+    "purchcode": {
+        "title": "구매코드 조회",
+        "navCtg": "purch",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "id", "title": "구매 코드" },
+            { "key": "tourName", "title": "투어 이름" },
+            { "key": "country", "title": "국가" },
+            { "key": "state", "title": "시/도" },
+            { "key": "city", "title": "지역" },
+            { "key": "tourCtg", "title": "투어 구분" },
+            { "key": "tourDayCnt", "title": "투어 일수" },
+            { "key": "guestNumMin", "title": "최소 인원" },
+            { "key": "guestNumMax", "title": "최대 인원" },
+            { "key": "price", "title": "가격" },
+            { "key": "guestName", "title": "구매자명" },
+            { "key": "phone", "title": "전화번호" },
+            { "key": "tourStartTime", "title": "투어시작 시간" }
+        ]
+    },
+    "push": {
+        "title": "알림 관리",
+        "navCtg": "cs",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "pushName", "title": "푸시 이름" },
+            { "key": "content", "title": "내용" },
+            { "key": "connectPage", "title": "연결 페이지" },
+            { "key": "state", "title": "상태" },
+            { "key": "target", "title": "푸시 대상" },
+            { "key": "pushedDate", "title": "마지막 푸시 일자" },
+            { "key": "editDate", "title": "마지막 수정 일자" }
+        ]
+    },
+    "notice": {
+        "title": "공지사항 관리",
+        "navCtg": "cs",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "id", "title": "id" },
+            { "key": "date", "title": "날짜" },
+            { "key": "title", "title": "제목" },
+            { "key": "views", "title": "조회수" },
+            { "key": "target", "title": "노출 범위" },
+            { "key": "topFix", "title": "상단 고정" },
+            { "key": "hiddenStatus", "title": "숨김 여부" }
+        ]
+    },
+    "service": {
+        "title": "문의사항 관리",
+        "navCtg": "cs",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "doneStatus", "title": "처리 유무" },
+            { "key": "createdDate", "title": "등록 날짜" },
+            { "key": "guestId", "title": "회원 Id" },
+            { "key": "email", "title": "이메일" },
+            { "key": "content", "title": "내용" },
+            { "key": "fileName", "title": "첨부파일" },
+            { "key": "charge", "title": "처리자" },
+            { "key": "doneDate", "title": "처리 일시" }
         ]
     }
 }

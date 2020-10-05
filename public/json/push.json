@@ -1,0 +1,38 @@
+{
+    "totalPage": 5,
+    "data": [
+        {
+            "id": "1",
+            "check": "#",
+            "pushName": "투어 알림",
+            "content": "투어 하루 전 드리는 안내",
+            "connectPage": "연결 페이지",
+            "state": "예약",
+            "target": "전체",
+            "pushedDate": "2020. 08. 03",
+            "editMng": "관리자1"
+        },
+        {
+            "id": "2",
+            "check": "#",
+            "pushName": "할인 안내",
+            "content": "10월 한정 이벤트",
+            "connectPage": "연결 페이지",
+            "state": "일회성",
+            "target": "전체",
+            "pushedDate": "2020. 08. 03",
+            "editMng": "관리자1"
+        },
+        {
+            "id": "3",
+            "check": "#",
+            "pushName": "공지 안내",
+            "content": "10월 공지",
+            "connectPage": "연결 페이지",
+            "state": "일회성",
+            "target": "전체",
+            "pushedDate": "2020. 08. 03",
+            "editMng": "관리자1"
+        }
+    ]
+}

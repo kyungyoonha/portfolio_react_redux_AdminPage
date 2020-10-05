@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "./PurchInfoTop.scss";
+import "./InfoTop.scss";
 import DatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 import "react-datepicker/dist/react-datepicker.css";
 
 registerLocale("ko", ko);
 
-const PurchInfoTop = ({ handleChangePageCtrl }) => {
+const InfoTop = ({ handleChangePageCtrl }) => {
     const [startDate, setStartDate] = useState(new Date());
 
     const [input, setInput] = useState("");
@@ -192,4 +192,4 @@ const PurchInfoTop = ({ handleChangePageCtrl }) => {
     );
 };
 
-export default PurchInfoTop;
+export default InfoTop;

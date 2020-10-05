@@ -19,8 +19,8 @@ export const FormLayout2 = ({ children }) => {
 
 export const FormSection = ({ size, children }) => {
     return (
-        <div className="formSection">
-            <table className={`${size === "full" && "full"} table`}>
+        <div className={`formSection ${size === "full" && "full"}`}>
+            <table className="table">
                 <tbody>{children}</tbody>
             </table>
         </div>
@@ -93,6 +93,44 @@ export const Select = ({ label, name, value, onChange, errors, options }) => {
     );
 };
 
+export const SelectMultiCustom = ({ inputs, onChange, options }) => {
+    return (
+        <tr className="selectMultiCustom">
+            <th>
+                <label className="col-form-label">※ 인원</label>
+            </th>
+            <td>
+                <label className="col-form-label">최소:</label>
+                <select
+                    name="guestNumMin"
+                    value={inputs.guestNumMin}
+                    onChange={onChange}
+                    className="custom-select"
+                >
+                    {options.map((item) => (
+                        <option key={item.value} value={item.value}>
+                            {item.title}
+                        </option>
+                    ))}
+                </select>
+                <label className="col-form-label">최대:</label>
+                <select
+                    name="guestNumMax"
+                    value={inputs.guestNumMax}
+                    onChange={onChange}
+                    className="custom-select"
+                >
+                    {options.map((item) => (
+                        <option key={item.value} value={item.value}>
+                            {item.title}
+                        </option>
+                    ))}
+                </select>
+            </td>
+        </tr>
+    );
+};
+
 export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
     const handleChange = (e) => {
         const { checked } = e.target;
@@ -135,7 +173,14 @@ export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
     );
 };
 
-export const RatioSingle = ({ label, name, value, onChange, options }) => {
+export const RatioSingle = ({
+    label,
+    name,
+    value,
+    onChange,
+    options,
+    children,
+}) => {
     return (
         <tr>
             <th>
@@ -165,6 +210,7 @@ export const RatioSingle = ({ label, name, value, onChange, options }) => {
                         </label>
                     </div>
                 ))}
+                <div>{children && children}</div>
             </td>
         </tr>
     );

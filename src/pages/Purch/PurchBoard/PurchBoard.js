@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import history from "../../../history";
 
-import TourBoardTop from "./components/TourBoardTop";
+import InfoTop from "./components/InfoTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
 import {
     Content,
@@ -9,8 +9,6 @@ import {
     ContentNav,
     ContentBody,
 } from "../../../components/Content/Content";
-
-import TourBoardModal from "./components/TourBoardModal";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
@@ -22,7 +20,7 @@ import {
     boardAction_init,
 } from "../../../redux/actions";
 
-const TourBoard = ({ match }) => {
+const PurchBoard = ({ match }) => {
     const id = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { data, totalPage, selectedItem } = useSelector(
@@ -47,7 +45,7 @@ const TourBoard = ({ match }) => {
     };
 
     const handleClickInsert = () => {
-        history.push(`/tour/${id}/form`);
+        history.push(`/purch/${id}/form`);
     };
 
     const handleSelectedItem = (selectedItem) => {
@@ -72,22 +70,14 @@ const TourBoard = ({ match }) => {
     return (
         <Content>
             <ContentNav id={id}>
-                {id === "region" ? (
-                    <TourBoardModal
-                        selectedItem={selectedItem}
-                        handleClickDelete={handleClickDelete}
-                        handleClickUpdate={handleClickUpdate}
-                    />
-                ) : (
-                    <ContentBtn
-                        handleClickInsert={handleClickInsert}
-                        handleClickDelete={handleClickDelete}
-                    />
-                )}
+                <ContentBtn
+                    handleClickInsert={handleClickInsert}
+                    handleClickDelete={handleClickDelete}
+                />
             </ContentNav>
 
             <ContentBody>
-                <TourBoardTop handleChangePageCtrl={handleChangePageCtrl} />
+                <InfoTop handleChangePageCtrl={handleChangePageCtrl} />
 
                 <Board
                     id={id}
@@ -105,4 +95,4 @@ const TourBoard = ({ match }) => {
     );
 };
 
-export default TourBoard;
+export default PurchBoard;

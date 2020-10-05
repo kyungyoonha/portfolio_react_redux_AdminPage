@@ -114,43 +114,13 @@ const AreaFormBody = ({
                 </td>
             </tr>
             <tr>
-                <td colSpan="3" style={{ height: "200px" }}>
+                <td colSpan="3" style={{ height: "300px" }}>
                     {audioList.map((audio, idx) => (
                         <p key={idx}>{audio.inputs.name}</p>
                     ))}
                 </td>
             </tr>
-            <tr>
-                <th>
-                    <label className="col-form-label">
-                        ※ 대표 오디오 가이드
-                    </label>
-                </th>
-                <td colSpan="3">
-                    {options.map((option) => (
-                        <div
-                            key={option.value}
-                            className="form-check form-check-inline"
-                        >
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="hasAudioMain"
-                                value={option.value}
-                                checked={inputs.hasAudioMain === option.value}
-                                onChange={onChange}
-                                id={"hasAudioMainMain" + option.value}
-                            />
-                            <label
-                                className="form-check-label"
-                                htmlFor={"hasAudioMainMain" + option.value}
-                            >
-                                {option.title}
-                            </label>
-                        </div>
-                    ))}
-                </td>
-            </tr>
+
             <AreaFormBodyModal
                 isModalOpen={isModalOpen}
                 handleModalClose={handleModalClose}

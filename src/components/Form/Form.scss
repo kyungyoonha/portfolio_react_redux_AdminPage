@@ -30,20 +30,33 @@
 }
 
 .formSection {
+    margin-bottom: 5px;
     width: 49.8%;
     height: auto;
     background: white;
     border: 1px solid $line;
     border-radius: 0.25rem;
 
+    &.full {
+        width: 100%;
+    }
     table {
-        margin-bottom: 10px;
-        padding: 80px 40px;
-        border-bottom: 1px solid $line;
+        margin-bottom: 0 !important;
+        // border-bottom: 1px solid $line;
 
         th {
             background: #f8f8f8;
             width: 180px;
         }
+    }
+}
+
+.selectMultiCustom {
+    td {
+        display: flex;
+        justify-content: space-between;
+    }
+    select {
+        width: 40%;
     }
 }

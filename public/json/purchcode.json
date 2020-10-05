@@ -1,0 +1,53 @@
+{
+    "totalPage": 5,
+    "data": [
+        {
+            "id": "randomCode1",
+            "check": "#",
+            "tourName": "투어이름1",
+            "country": "대한민국",
+            "state": "강원도",
+            "city": "영월",
+            "tourCtg": "택시 투어",
+            "tourDayCnt": "7",
+            "guestNumMin": "4",
+            "guestNumMax": "8",
+            "price": "300000",
+            "guestName": "홍길동",
+            "phone": "01099991111",
+            "tourStartTime": "오전 7시"
+        },
+        {
+            "id": "randomCode2",
+            "check": "#",
+            "tourName": "투어이름2",
+            "country": "대한민국",
+            "state": "강원도",
+            "city": "영월",
+            "tourCtg": "택시 투어",
+            "tourDayCnt": "7",
+            "guestNumMin": "4",
+            "guestNumMax": "8",
+            "price": "300000",
+            "guestName": "홍길동",
+            "phone": "01099991111",
+            "tourStartTime": "오전 7시"
+        },
+        {
+            "id": "randomCode3",
+            "check": "#",
+            "tourName": "투어이름3",
+            "country": "대한민국",
+            "state": "강원도",
+            "city": "영월",
+            "tourCtg": "택시 투어",
+            "tourDayCnt": "7",
+            "guestNumMin": "4",
+            "guestNumMax": "8",
+            "price": "300000",
+            "guestName": "홍길동",
+            "phone": "01099991111",
+            "tourStartTime": "오전 7시"
+        }
+    ]
+}

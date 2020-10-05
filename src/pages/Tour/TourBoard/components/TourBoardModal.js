@@ -7,6 +7,7 @@ import {
     Input,
     RatioSingle,
     Select,
+    FormSection,
 } from "../../../../components/Form/Form";
 import Modal from "../../../../components/Modal/Modal";
 import {
@@ -174,7 +175,7 @@ const RegionModal = ({
                         </button>
                     </div>
                     <div className=" row">
-                        <FormLayout size="half">
+                        <FormSection>
                             <Select
                                 label="국가"
                                 name="country"
@@ -300,15 +301,15 @@ const RegionModal = ({
                                 onChange={handleChangeInput}
                                 errors={errors}
                             />
-                        </FormLayout>
-                        <FormLayout size="half">
+                        </FormSection>
+                        <FormSection>
                             <FileuploadCard
                                 label="대표 사진"
                                 src={imageList[0] ? imageList[0].src : noImg}
                                 onChange={handleChangeImageList}
                                 ctg="profile"
                             />
-                        </FormLayout>
+                        </FormSection>
                     </div>
                 </div>
             </Modal>

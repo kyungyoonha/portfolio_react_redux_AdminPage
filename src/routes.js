@@ -7,15 +7,17 @@ import UserFormDriver from './pages/User/UserFormDriver/UserFormDriver';
 import UserFormManager from './pages/User/UserFormManager/UserFormManager';
 
 import TourBoard from './pages/Tour/TourBoard/TourBoard';
-import TourAreaForm from './pages/Tour/TourAreaForm/TourAreaForm';
+import TourFormArea from './pages/Tour/TourFormArea/TourFormArea';
 
-
-
-
-import PurchInfo from "./pages/Purch/PurchInfo/PurchInfo";
+import PurchBoard from './pages/Purch/PurchBoard/PurchBoard';
 import PurchInfoForm from "./pages/Purch/PurchInfoForm/PurchInfoForm";
-import PurchCode from "./pages/Purch/PurchCode/PurchCode";
 import PurchCodeForm from "./pages/Purch/PurchCodeForm/PurchCodeForm";
+
+import CSBoard from './pages/CS/CSBoard/CSBoard';
+import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
+import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
+import CSFormCstmSvc from './pages/CS/CSFormCstmSvc/CSFormCstmSvc';
+
 
 const routes = [
     { path: "/", exact: true, component: Dashboard },
@@ -28,15 +30,20 @@ const routes = [
     { path: "/user/manager/form",  component: UserFormManager },
     
     { path: "/tour/area", exact: true,  component: TourBoard },
-    { path: "/tour/area/form",  component: TourAreaForm},
+    { path: "/tour/area/form",  component: TourFormArea},
     { path: "/tour/region",  component: TourBoard},
 
-    { path: "/purch/purchinfo", exact: true,  component: PurchInfo },
+    { path: "/purch/purchinfo", exact: true,  component: PurchBoard },
     { path: "/purch/purchinfo/form", exact: true,  component: PurchInfoForm },
-    { path: "/purch/purchcode", exact: true,  component: PurchCode },
+    { path: "/purch/purchcode", exact: true,  component: PurchBoard },
     { path: "/purch/purchcodeform", exact: true,  component: PurchCodeForm },
 
-    { path: "/notice", exact: true, component: Dashboard },
+    { path: "/cs/push", exact: true, component: CSBoard },
+    { path: "/cs/push/form", exact: true, component: CSFormPush },
+    { path: "/cs/notice", exact: true, component: CSBoard },
+    { path: "/cs/notice/form", exact: true, component: CSFormNotice },
+    { path: "/cs/service", exact: true, component: CSBoard },
+    { path: "/cs/service/form", exact: true, component: CSFormCstmSvc },
 ];
 
 export default routes;

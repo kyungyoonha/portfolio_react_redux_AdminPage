@@ -1,0 +1,41 @@
+{
+    "totalPage": 5,
+    "data": [
+        {
+            "id": "1",
+            "check": "#",
+            "doneStatus": "완료",
+            "createdDate": "2020. 10. 05",
+            "guestId": "hong123",
+            "email": "hong123@naver.com",
+            "content": "투어 관련 질문 사항",
+            "fileName": "image.png",
+            "charge": "관리자1",
+            "doneDate": "2020. 10. 06"
+        },
+        {
+            "id": "2",
+            "check": "#",
+            "doneStatus": "미답변",
+            "createdDate": "2020. 10. 04",
+            "guestId": "yoon",
+            "email": "yoon123@naver.com",
+            "content": "투어 관련 질문 사항",
+            "fileName": "image.png",
+            "charge": "관리자1",
+            "doneDate": ""
+        },
+        {
+            "id": "3",
+            "check": "#",
+            "doneStatus": "미답변",
+            "createdDate": "2020. 10. 03",
+            "guestId": "jay123",
+            "email": "jay123@naver.com",
+            "content": "투어 관련 질문 사항",
+            "fileName": "image.png",
+            "charge": "관리자1",
+            "doneDate": ""
+        }
+    ]
+}

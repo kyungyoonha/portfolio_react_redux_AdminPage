@@ -36,7 +36,7 @@ const PurchCode = ({ match }) => {
     }, [id]);
 
     const handleClickInsert = () => {
-        history.push(`/tour/${id}/form`);
+        history.push(`/purch/${id}/form`);
     };
 
     const handleChangePageCtrl = (name, value) => {

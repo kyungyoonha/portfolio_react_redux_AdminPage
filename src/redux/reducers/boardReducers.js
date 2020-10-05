@@ -5,6 +5,7 @@ import {
     BOARD_DELETE,
     BOARD_INITIALIZE,
 } from "../types";
+import randomKey from "../../util/randomKey";
 
 const INITIAL_STATE = {
     data: [],
@@ -41,7 +42,13 @@ export default (state = INITIAL_STATE, action) => {
             } else {
                 return {
                     ...state,
-                    data: [action.payload, ...state.data],
+                    data: [
+                        {
+                            id: randomKey(),
+                            ...action.payload,
+                        },
+                        ...state.data,
+                    ],
                 };
             }
 
