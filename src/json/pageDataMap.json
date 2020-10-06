@@ -115,6 +115,10 @@
             { "key": "tourStartTime", "title": "투어시작 시간" }
         ]
     },
+    "purchcodeform": {
+        "title": "구매코드 조회",
+        "navCtg": "purch"
+    },
     "push": {
         "title": "알림 관리",
         "navCtg": "cs",

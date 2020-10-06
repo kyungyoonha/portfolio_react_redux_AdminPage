@@ -52,14 +52,23 @@ const SectionMultiSelect = ({ multiInfo, setMultiInfo }) => {
         <React.Fragment>
             <tr>
                 <td colSpan="2">
-                    <ul className="nav nav-pills ">
+                    <ul className="nav nav-pills nav-fill">
                         {Object.keys(navObj).map((key) => (
-                            <li className="nav-item" key={key}>
+                            <li
+                                className="nav-item"
+                                key={key}
+                                // style={{
+                                //     border: "1px solid #ced4da",
+                                //     borderRadius: "5%",
+                                //     marginRight: "10px",
+                                // }}
+                            >
                                 <span
                                     className={`nav-link ${
                                         selected === key && "active"
                                     }`}
                                     onClick={() => handleClickNav(key)}
+                                    style={{ cursor: "pointer" }}
                                 >
                                     {navObj[key]}
                                 </span>

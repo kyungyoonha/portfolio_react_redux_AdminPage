@@ -36,7 +36,7 @@ const routes = [
     { path: "/purch/purchinfo", exact: true,  component: PurchBoard },
     { path: "/purch/purchinfo/form", exact: true,  component: PurchFormInfo },
     { path: "/purch/purchcode", exact: true,  component: PurchBoard },
-    { path: "/purch/purchcode/form", exact: true,  component: PurchFormCode },
+    { path: "/purch/purchcodeform", exact: true,  component: PurchFormCode },
 
     { path: "/cs/push", exact: true, component: CSBoard },
     { path: "/cs/push/form", exact: true, component: CSFormPush },

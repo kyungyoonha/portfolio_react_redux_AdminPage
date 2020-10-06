@@ -1,11 +1,3 @@
-// import React from "react";
-
-// const CSFormPush = () => {
-//     return <div>CSFormPush</div>;
-// };
-
-// export default CSFormPush;
-
 import React, { useState } from "react";
 import history from "../../../history";
 import validateInput from "../../../util/validateInput";
@@ -67,7 +59,7 @@ const CSFormPush = ({ match }) => {
                         <th
                             colSpan="2"
                             style={{
-                                background: "#6c757d",
+                                background: "#343a40",
                                 color: "white",
                             }}
                         >

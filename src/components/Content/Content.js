@@ -15,7 +15,7 @@ const navMap = {
     ],
     purch: [
         { to: "/purch/purchinfo", title: "구매정보 관리" },
-        { to: "/purch/purchcode/form", title: "구매코드 발급" },
+        { to: "/purch/purchcodeform", title: "구매코드 발급" },
         { to: "/purch/purchcode", title: "구매코드 조회" },
     ],
     cs: [
