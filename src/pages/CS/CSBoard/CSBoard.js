@@ -39,7 +39,7 @@ const CSBoard = ({ match }) => {
     }, [dispatch, id]);
 
     const handleClickInsert = () => {
-        history.push(`/user/${id}/form`);
+        history.push(`/cs/${id}/form`);
     };
 
     const handleSelectedItem = (selectedItem) => {

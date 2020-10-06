@@ -19,7 +19,7 @@ export const FormLayout2 = ({ children }) => {
 
 export const FormSection = ({ size, children }) => {
     return (
-        <div className={`formSection ${size === "full" && "full"}`}>
+        <div className={`formSection ${size}`}>
             <table className="table">
                 <tbody>{children}</tbody>
             </table>

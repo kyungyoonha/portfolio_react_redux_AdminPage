@@ -40,6 +40,19 @@
     &.full {
         width: 100%;
     }
+
+    &.center {
+        display: flex;
+        justify-content: center;
+        padding: 60px 0;
+        width: 100%;
+        table {
+            width: 60%;
+            border-left: 1px solid $line;
+            border-right: 1px solid $line;
+            border-bottom: 1px solid $line;
+        }
+    }
     table {
         margin-bottom: 0 !important;
         // border-bottom: 1px solid $line;
