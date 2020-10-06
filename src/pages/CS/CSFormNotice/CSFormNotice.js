@@ -57,7 +57,6 @@ const CSFormNotice = ({ match }) => {
     const onUploadFile = (e, type) => {
         const image = e.target.files[0];
         // const previewSrc = URL.createObjectURL(image);
-
         // const formData = new FormData();
         // formData.append("image", image, image.name);
 
