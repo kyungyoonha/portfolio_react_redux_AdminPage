@@ -57,6 +57,7 @@ const InfoTop = ({ handleChangePageCtrl }) => {
                             name="exampleRadios"
                             id="exampleRadios1"
                             value="option1"
+                            onChange={onChangePageCtrl}
                             checked
                         />
                         <label
@@ -73,6 +74,7 @@ const InfoTop = ({ handleChangePageCtrl }) => {
                             name="exampleRadios"
                             id="exampleRadios2"
                             value="option2"
+                            onChange={onChangePageCtrl}
                         />
                         <label
                             className="form-check-label"
@@ -88,6 +90,7 @@ const InfoTop = ({ handleChangePageCtrl }) => {
                             name="exampleRadios"
                             id="exampleRadios3"
                             value="option3"
+                            onChange={onChangePageCtrl}
                             disabled
                         />
                         <label

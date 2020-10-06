@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import Template from "../../../components/Template/Template";
 import validateInput from "../../../util/validateInput";
 import {
-    FormLayout,
     Input,
     Select,
-    RatioMulti,
     RatioSingle,
-    Textarea,
     FormLayout2,
     FormSection,
     SelectMultiCustom,
@@ -23,9 +19,10 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
-import PurchInfoFormBottom from "./components/PurchInfoFormBottom";
+import SectionMultiSelect from "../components/SectionMultiSelect";
+// import PurchInfoFormBottom from "./components/PurchInfoFormBottom";
 
-const PurchInfoForm = ({ match }) => {
+const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [inputs, setInputs] = useState({
@@ -43,6 +40,20 @@ const PurchInfoForm = ({ match }) => {
         recieveEmail: "수신",
         recieveMessage: "수신",
         etc: "",
+    });
+    const [multiInfo, setMultiInfo] = useState({
+        tour: [
+            { seq: 1, value: "" },
+            { seq: 2, value: "" },
+        ],
+        driver: [
+            { seq: 1, value: "" },
+            { seq: 2, value: "" },
+        ],
+        hobby: [
+            { seq: 1, value: "" },
+            { seq: 2, value: "" },
+        ],
     });
 
     const handleChangeInputs = (e) => {
@@ -189,8 +200,30 @@ const PurchInfoForm = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                </FormSection>
-                <FormSection>
+
+                    <Input
+                        label="구매자명"
+                        name="guestName"
+                        value={inputs.guestName}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+
+                    <Input
+                        label="구매자 전화번호"
+                        name="phone"
+                        value={inputs.phone}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
+
+                    <Input
+                        label="투어종료 시간"
+                        name="tourEndTime"
+                        value={inputs.tourEndTime}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
                     <Input
                         label="구매 코드"
                         name="purchCode"
@@ -198,46 +231,16 @@ const PurchInfoForm = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <Input
-                        label="구매 일자"
-                        name="purchDate"
-                        value={inputs.purchDate}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="구매 방식"
-                        name="purchWay"
-                        value={inputs.purchWay}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="가격"
-                        name="guestId"
-                        value={inputs.guestId}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="구매자 Id"
-                        name="guestName"
-                        value={inputs.guestName}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="이름"
-                        name="tourCnt"
-                        value={inputs.tourCnt}
-                        onChange={handleChangeInputs}
-                        errors={errors}
+                </FormSection>
+                <FormSection>
+                    <SectionMultiSelect
+                        multiInfo={multiInfo}
+                        setMultiInfo={setMultiInfo}
                     />
                 </FormSection>
             </FormLayout2>
-            <FormLayout size="full"></FormLayout>
         </Content>
     );
 };
 
-export default PurchInfoForm;
+export default PurchFormInfo;

@@ -1,4 +1,4 @@
-import React, { useState, few } from "react";
+import React, { useState } from "react";
 import history from "../../../history";
 import validateInput from "../../../util/validateInput";
 

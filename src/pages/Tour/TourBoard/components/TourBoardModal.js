@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./TourBoardModal.scss";
 
 import {
-    FormLayout,
     FileuploadCard,
     Input,
     RatioSingle,

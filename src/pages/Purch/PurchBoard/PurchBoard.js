@@ -15,7 +15,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
     boardAction_fetch,
     boardAction_selected,
-    boardAction_update,
     boardAction_delete,
     boardAction_init,
 } from "../../../redux/actions";
@@ -40,9 +39,6 @@ const PurchBoard = ({ match }) => {
         return () => dispatch(boardAction_init());
     }, [dispatch, id]);
 
-    const handleClickUpdate = (newData) => {
-        dispatch(boardAction_update(newData));
-    };
 
     const handleClickInsert = () => {
         history.push(`/purch/${id}/form`);

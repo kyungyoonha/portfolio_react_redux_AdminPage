@@ -10,8 +10,8 @@ import TourBoard from './pages/Tour/TourBoard/TourBoard';
 import TourFormArea from './pages/Tour/TourFormArea/TourFormArea';
 
 import PurchBoard from './pages/Purch/PurchBoard/PurchBoard';
-import PurchInfoForm from "./pages/Purch/PurchInfoForm/PurchInfoForm";
-import PurchCodeForm from "./pages/Purch/PurchCodeForm/PurchCodeForm";
+import PurchFormInfo from './pages/Purch/PurchFormInfo/PurchFormInfo';
+import PurchFormCode from "./pages/Purch/PurchFormCode/PurchFormCode";
 
 import CSBoard from './pages/CS/CSBoard/CSBoard';
 import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
@@ -34,9 +34,9 @@ const routes = [
     { path: "/tour/region",  component: TourBoard},
 
     { path: "/purch/purchinfo", exact: true,  component: PurchBoard },
-    { path: "/purch/purchinfo/form", exact: true,  component: PurchInfoForm },
+    { path: "/purch/purchinfo/form", exact: true,  component: PurchFormInfo },
     { path: "/purch/purchcode", exact: true,  component: PurchBoard },
-    { path: "/purch/purchcodeform", exact: true,  component: PurchCodeForm },
+    { path: "/purch/purchcode/form", exact: true,  component: PurchFormCode },
 
     { path: "/cs/push", exact: true, component: CSBoard },
     { path: "/cs/push/form", exact: true, component: CSFormPush },

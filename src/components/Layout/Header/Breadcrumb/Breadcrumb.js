@@ -16,7 +16,6 @@ const BreadCrumMap = {
     purch: "구매 관리",
     purchinfo: "구매정보 관리",
     purchcode: "구매코드 조회",
-    purchcodeform: "구매코드 발급",
     form: "추가",
 };
 

@@ -1,11 +1,10 @@
-import React, { useState, rew } from "react";
+import React, { useState } from "react";
 import validateInput from "../../../util/validateInput";
 import AreaFormBottom from "./components/AreaFormBottom";
 import AreaFormRight from "./components/AreaFormRight";
 import AreaFormBody from "./components/AreaFormBody";
 
 import {
-    FormLayout,
     Input,
     Select,
     RatioSingle,
@@ -123,7 +122,7 @@ const TourFormArea = ({ match }) => {
     };
 
     const handleClickInsert = () => {};
-    const handleClickDelete = () => {};
+    
     return (
         <Content>
             <ContentNav id={id}>
@@ -291,174 +290,6 @@ const TourFormArea = ({ match }) => {
                 </FormSection>
             </FormLayout2>
         </Content>
-        // <Template
-        //     title="관광지 관리"
-        //     navCtg="tour"
-        //     handleClickInsert={handleClickInsert}
-        //     handleClickDelete={handleClickDelete}
-        //     isFooter={true}
-        // >
-        //     <form style={{ margin: "0 100px" }}>
-        //         <h4 className="mb-4">추가하기</h4>
-        //         <div className="no-Gutter2 row">
-        //             {/* top 왼쪽 */}
-        //             <FormLayout>
-        //                 <RatioSingle
-        //                     label="국가"
-        //                     name="countryCtg"
-        //                     value={inputs.countryCtg}
-        //                     onChange={handleChangeInputs}
-        //                     options={[
-        //                         { value: "KOREA", title: "국내" },
-        //                         { value: "OVERSEAS", title: "국외" },
-        //                     ]}
-        //                 />
-        //                 {inputs.countryCtg !== "KOREA" && (
-        //                     <Select
-        //                         label=""
-        //                         name="country"
-        //                         value={inputs.country}
-        //                         onChange={handleChangeInputs}
-        //                         errors={errors}
-        //                         options={optionsCountry(inputs.countryCtg)}
-        //                     />
-        //                 )}
-        //                 <Select
-        //                     label="시/도"
-        //                     name="state"
-        //                     value={inputs.state}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                     options={optionsCity(inputs.state)}
-        //                 />
-        //                 <Select
-        //                     label="지역"
-        //                     name="city"
-        //                     value={inputs.city}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                     options={optionsRegion(inputs.city)}
-        //                 />
-
-        //                 <Input
-        //                     label="관광지 코드"
-        //                     name="place"
-        //                     value={inputs.placeCode}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                 >
-        //                     <button className="btn btn-outline-primary float-right">
-        //                         중복확인
-        //                     </button>
-        //                 </Input>
-
-        //                 <Input
-        //                     label="주소"
-        //                     name="address"
-        //                     value={inputs.address}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                 >
-        //                     <button className="btn btn-outline-primary float-right">
-        //                         <i className="fas fa-map-marked-alt "></i>
-        //                     </button>
-        //                 </Input>
-
-        //                 <Input
-        //                     label="관광지 이름"
-        //                     name="placeName"
-        //                     value={inputs.placeName}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                 />
-
-        //                 <Input
-        //                     label="전화번호"
-        //                     name="contactNumber"
-        //                     value={inputs.contactNumber}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                 />
-
-        //                 <Input
-        //                     label="입장료"
-        //                     name="entranceFee"
-        //                     value={inputs.entranceFee}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                 />
-        //                 <Input
-        //                     label="운영시간"
-        //                     name="businessHours"
-        //                     value={inputs.businessHours}
-        //                     onChange={handleChangeInputs}
-        //                     errors={errors}
-        //                 />
-        //             </FormLayout>
-        //             {/* Top 오른쪽 */}
-        //             <div className="col-md-6">
-        //                 <AreaFormRight
-        //                     imageList={imageList}
-        //                     handleChangeImageList={handleChangeImageList}
-        //                 />
-        //             </div>
-
-        //             {/* 중앙 */}
-        //             <FormLayout>
-        //                 <RatioMulti
-        //                     label="여행태그"
-        //                     name="tourTags"
-        //                     value={inputs.tourTags}
-        //                     onChange={handleChangeInputs}
-        //                     max={3}
-        //                     options={[
-        //                         { key: "picture", title: "사진광" },
-        //                         { key: "sports", title: "스포츠 마니아" },
-        //                         { key: "shopping", title: "쇼핑왕" },
-        //                         { key: "enjoy", title: "흥폭발" },
-        //                         { key: "study", title: "학구파" },
-        //                         { key: "nature", title: "자연인" },
-        //                     ]}
-        //                 />
-
-        //                 <RatioTypeCheck
-        //                     label="여행 성향1"
-        //                     labelLeft="외향성"
-        //                     labelRight="내향성"
-        //                     name="typeCharacteristic"
-        //                     value={inputs.typeCharacteristic}
-        //                     onChange={handleChangeInputs}
-        //                 />
-
-        //                 <RatioTypeCheck
-        //                     label="여행 성향2"
-        //                     labelLeft="개방성"
-        //                     labelRight="폐쇄성"
-        //                     name="typeStyle"
-        //                     value={inputs.typeStyle}
-        //                     onChange={handleChangeInputs}
-        //                 />
-        //             </FormLayout>
-        //             {/* 오디오 서브 등록 */}
-        //             <FormLayout>
-        //                 <AreaFormBody
-        //                     inputs={inputs}
-        //                     onChange={handleChangeInputs}
-        //                     audioList={audioList}
-        //                     handleChangeAudioList={handleChangeAudioList}
-        //                     handleDeleteAudioList={handleDeleteAudioList}
-        //                 />
-        //             </FormLayout>
-        //             {/* 오디오 메인 등록 */}
-
-        //             <AreaFormBottom
-        //                 audioMain={audioMain}
-        //                 handleChangeAudioMain={handleChangeAudioMain}
-        //                 disabled={inputs.hasAudioMain === "no"}
-        //             />
-        //         </div>
-        //     </form>
-        // </Template>
     );
 };
 

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import "./AreaFormBodyModal.scss";
 import {
-    FormLayout,
     RatioSingle,
     Select,
     Input,
-    FileuploadCard,
+    FileuploadCard, FormSection
 } from "../../../../components/Form/Form";
 
 import {
@@ -107,7 +106,7 @@ const AreaFormBodyModal = ({
                     </button>
                 </div>
                 <div className=" row">
-                    <FormLayout size="half">
+                    <FormSection size="half">
                         <RatioSingle
                             label="국가"
                             name="countryCtg"
@@ -169,19 +168,29 @@ const AreaFormBodyModal = ({
                             onChange={handleChangeInput}
                             errors={errors}
                         />
-                    </FormLayout>
-                    <FormLayout size="half">
+                    </FormSection>
+                    <FormSection size="half">
                         <FileuploadCard
                             label="대표 사진"
                             src={imageList[0] ? imageList[0].src : noImg}
                             onChange={handleChangeImageList}
                             ctg="profile"
                         />
-                    </FormLayout>
+                    </FormSection>
+
+                    <FormSection size="full">
                     <AreaFormBottom
                         audioMain={audioMain}
                         handleChangeAudioMain={handleChangeAudioMain}
+                        onChange={handleChangeInput}
+                        inputs={inputs}
+                        disabled={false}
+    
+    
+    
                     />
+                    </FormSection>
+                    
                 </div>
             </div>
         </Modal>

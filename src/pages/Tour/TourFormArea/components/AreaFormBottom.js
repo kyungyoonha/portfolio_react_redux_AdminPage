@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 
 import {
-    FormLayout,
     Input,
     FileUploadMany,
     Textarea,
-    FormSection,
 } from "../../../../components/Form/Form";
 
 const navObj = {
