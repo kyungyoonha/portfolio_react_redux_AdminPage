@@ -1,5 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./Form.scss";
+import noImg from "../../img/no-img.jpg";
+import { optionsCountry } from "../../util/options";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
@@ -21,7 +23,7 @@ export const Input = ({
     value,
     type = "text",
     onChange,
-    errors,
+    errors = {},
     disabled,
     children,
 }) => {
@@ -52,7 +54,15 @@ export const Input = ({
     );
 };
 
-export const Select = ({ label, name, value, onChange, errors, options }) => {
+export const Select = ({
+    label,
+    name,
+    value,
+    onChange,
+    errors = {},
+    disabled,
+    options,
+}) => {
     return (
         <tr>
             <th>
@@ -66,6 +76,7 @@ export const Select = ({ label, name, value, onChange, errors, options }) => {
                     value={value}
                     onChange={onChange}
                     className={`custom-select ${errors[name] && "is-invalid"}`}
+                    disabled={disabled}
                 >
                     {options.map((item) => (
                         <option key={item.value} value={item.value}>
@@ -332,7 +343,7 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
                 </th>
                 <td className="text-center">
                     <img
-                        src={src}
+                        src={src || noImg}
                         alt={label}
                         style={{
                             height: "300px",
@@ -358,6 +369,63 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
                     >
                         이미지 찾기
                     </button>
+                </td>
+            </tr>
+        </React.Fragment>
+    );
+};
+
+export const FileSingle = ({ label, name, file, onChange }) => {
+    const inputFileRef = useRef(null);
+
+    const handleBtnClick = () => {
+        inputFileRef.current.click();
+    };
+
+    return (
+        <React.Fragment>
+            <tr>
+                <th
+                    rowSpan="2"
+                    style={{
+                        verticalAlign: "middle",
+                        borderBottom: "1px solid #dee2e6",
+                    }}
+                >
+                    <label>※ {label}</label>
+                </th>
+                <td className="text-center">
+                    <img
+                        src={file.src || noImg}
+                        alt={label}
+                        style={{
+                            height: "300px",
+                            width: "100%",
+                            objectFit: "contain",
+                        }}
+                    />
+                </td>
+            </tr>
+
+            <tr style={{ borderBottom: "1px solid #dee2e6" }}>
+                <td>
+                    <input
+                        ref={inputFileRef}
+                        name={name}
+                        type="file"
+                        hidden
+                        onChange={(e) => onChange(e)}
+                    />
+
+                    <button
+                        type="button"
+                        className="btn btn-primary btn-md"
+                        onClick={handleBtnClick}
+                        style={{ marginRight: "15px" }}
+                    >
+                        이미지 찾기
+                    </button>
+                    {file.filename}
                 </td>
             </tr>
         </React.Fragment>

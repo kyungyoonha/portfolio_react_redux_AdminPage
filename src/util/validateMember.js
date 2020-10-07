@@ -37,6 +37,30 @@ export const validateMember = (name, value) => {
     }
 };
 
+export const validateDriver = (name, value) => {
+    switch (name) {
+        case "driver_id":
+            return value.length < 4 && "5자 이상 입력해주세요";
+
+        case "country":
+            return isEmpty(value) && "국가를 선택해주세요.";
+        case "state":
+            return isEmpty(value) && "시/도를 입력해주세요.";
+
+        case "city":
+            return isEmpty(value) && "지역을 입력해주세요.";
+
+        case "name":
+            return isEmpty(value) && "이름을 입력해주세요.";
+
+        case "contactNumber":
+            return isEmpty(value) && "전화번호를 입력해주세요.";
+
+        default:
+            return;
+    }
+};
+
 const isEmpty = (string) => {
     if (string.trim() === "") return true;
     else return false;

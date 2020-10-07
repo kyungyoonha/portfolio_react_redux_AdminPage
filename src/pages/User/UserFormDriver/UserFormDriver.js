@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import validateInput from "../../../util/validateInput";
 
-import noImg from "../../../img/no-img.jpg";
-import noImgCar from "../../../img/no-img-car.png";
 import {
     Content,
     ContentBtn,
@@ -19,6 +16,8 @@ import {
     Textarea,
     FileUpload,
     FileuploadCard,
+    FormCountry,
+    FileSingle,
 } from "../../../components/Form/Form";
 
 import {
@@ -26,76 +25,94 @@ import {
     optionsCity,
     optionsRegion,
 } from "../../../util/options";
+import { validateAll, validateDriver } from "../../../util/validateMember";
+
+const initialValue = {
+    driver_id: "",
+    countryCtg: "KOREA",
+    country: "KOREA",
+    state: "",
+    city: "",
+    name: "",
+    birth: "",
+    contactNumber: "",
+    carType: "",
+    plateNumber: "",
+    // license: "",
+    licenseNumber: "",
+    belong: "private",
+    companyName: "",
+    scheduleCount: "",
+    complain: "",
+    score: "",
+};
 
 const UserFormDriver = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [profile, setProfile] = useState("");
-    const [carImg, setCarImg] = useState("");
-    const [inputs, setInputs] = useState({
-        driver_id: "",
-        countryCtg: "KOREA",
-        country: "",
-        state: "",
-        city: "",
-        name: "",
-        birth: "",
-        contactNumber: "",
-        carType: "",
-        plateNumber: "",
-        license: "",
-        belong: "private",
-        companyName: "",
-        scheduleCount: "",
-        complain: "",
-        score: "",
+    const [files, setFiles] = useState({
+        profile: {},
+        carPic: {},
+        license: {},
     });
+    const [inputs, setInputs] = useState(initialValue);
 
-    const onChange = (e) => {
+    const handleChangeInputs = (e) => {
         const { name, value } = e.target;
 
+        if (name === "countryCtg") {
+            let country = "";
+            if (value === "KOREA") {
+                country = "KOREA";
+            }
+            setInputs((state) => ({
+                ...state,
+                country,
+            }));
+        } else if (name === "belong") {
+            setInputs((state) => ({
+                ...state,
+                companyName: "",
+            }));
+        }
         setInputs((state) => ({
             ...state,
             [name]: value,
         }));
 
-        if (name === "countryCtg" && value === "KOREA") {
-            setInputs((state) => ({
-                ...state,
-                country: "KOREA",
-            }));
-        }
-
-        const error = validateInput(name, value);
+        const error = validateDriver(name, value);
         setErrors((state) => ({
             ...state,
             [name]: error,
         }));
     };
 
-    const onUploadFile = (e, type) => {
-        const image = e.target.files[0];
-        const previewSrc = URL.createObjectURL(image);
-
-        const formData = new FormData();
-        formData.append("image", image, image.name);
-
-        if (type === "profile") {
-            setProfile(previewSrc);
-        } else if (type === "carImg") {
-            setCarImg(previewSrc);
-        } else if (type === "license") {
-            setInputs((state) => ({
-                ...state,
-                license: image.name,
-            }));
-        }
-
-        // this.props.uploadImage(formData);
+    const handleChangeFile = (e) => {
+        const { name, files } = e.target;
+        setFiles((state) => ({
+            ...state,
+            [name]: {
+                src: URL.createObjectURL(files[0]),
+                filename: files[0].name,
+                file: files[0],
+            },
+        }));
     };
 
-    const handleClickInsert = () => {};
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateDriver);
 
+        if (isValid) {
+            console.log("에러 없음");
+        } else {
+            setErrors(checkedErrors);
+        }
+
+        if (!files.profile.src) {
+            alert("기사 사진을 선택해주세요.");
+        }
+    };
+    console.log(files);
     return (
         <Content>
             <ContentNav id={id}>
@@ -112,35 +129,35 @@ const UserFormDriver = ({ match }) => {
                         label="id"
                         name="driver_id"
                         value={inputs.driver_id}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <RatioSingle
                         label="국가"
                         name="countryCtg"
                         value={inputs.countryCtg}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         options={[
                             { value: "KOREA", title: "국내" },
                             { value: "OVERSEAS", title: "국외" },
                         ]}
                     />
-                    {inputs.countryCtg !== "KOREA" && (
-                        <Select
-                            label=""
-                            name="country"
-                            value={inputs.country}
-                            onChange={onChange}
-                            errors={errors}
-                            options={optionsCountry(inputs.countryCtg)}
-                        />
-                    )}
+
+                    <Select
+                        label="국가 선택"
+                        name="country"
+                        value={inputs.country}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        options={optionsCountry(inputs.countryCtg)}
+                        disabled={inputs.countryCtg === "KOREA"}
+                    />
 
                     <Select
                         label="시/도"
                         name="state"
                         value={inputs.city}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                         options={optionsCity(inputs.city)}
                     />
@@ -148,7 +165,7 @@ const UserFormDriver = ({ match }) => {
                         label="지역"
                         name="city"
                         value={inputs.region}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                         options={optionsRegion(inputs.region)}
                     />
@@ -157,7 +174,7 @@ const UserFormDriver = ({ match }) => {
                         label="이름"
                         name="name"
                         value={inputs.name}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -165,7 +182,7 @@ const UserFormDriver = ({ match }) => {
                         label="생년월일"
                         name="birth"
                         value={inputs.birth}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -173,94 +190,109 @@ const UserFormDriver = ({ match }) => {
                         label="전화번호"
                         name="contactNumber"
                         value={inputs.contactNumber}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="차종"
                         name="carType"
                         value={inputs.carType}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="차량번호"
                         name="plateNumber"
                         value={inputs.plateNumber}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
-                    <FileUpload
+                    {/* <FileUpload
                         label="면허증 첨부"
                         name="license"
                         value={inputs.license}
-                        onChange={onUploadFile}
+                        onChange={handleChangeFile}
                         ctg="license"
+                    /> */}
+
+                    <Input
+                        label="면허증 번호"
+                        name="licenseNumber"
+                        value={inputs.licenseNumber}
+                        onChange={handleChangeInputs}
+                        errors={errors}
                     />
 
                     <RatioSingle
                         label="소속"
                         name="belong"
                         value={inputs.belong}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         options={[
                             { value: "private", title: "개인" },
                             { value: "company", title: "기업" },
                         ]}
                     />
-                    {inputs.belong !== "private" && (
-                        <Input
-                            label="회사명"
-                            name="companyName"
-                            value={inputs.companyName}
-                            onChange={onChange}
-                            errors={errors}
-                        />
-                    )}
+
+                    <Input
+                        label="회사명"
+                        name="companyName"
+                        value={inputs.companyName}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        disabled={inputs.belong === "private"}
+                    />
 
                     <Input
                         label="운행 횟수"
                         name="scheduleCount"
                         value={inputs.scheduleCount}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="컴플레인"
                         name="complain"
                         value={inputs.complain}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="평점"
                         name="score"
                         value={inputs.score}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Textarea
                         label="기타"
                         name="etc"
                         value={inputs.ect}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         rows={6}
                     />
                 </FormSection>
                 <FormSection>
-                    <FileuploadCard
+                    <FileSingle
                         label="기사 사진"
-                        src={profile || noImg}
-                        onChange={onUploadFile}
-                        ctg="profile"
+                        name="profile"
+                        file={files.profile}
+                        onChange={handleChangeFile}
                     />
 
-                    <FileuploadCard
+                    <FileSingle
+                        label="면허증 사진"
+                        name="license"
+                        file={files.license}
+                        onChange={handleChangeFile}
+                    />
+
+                    <FileSingle
                         label="차량 사진"
-                        src={carImg || noImgCar}
-                        onChange={onUploadFile}
-                        ctg="carImg"
+                        name="carPic"
+                        file={files.carPic}
+                        onChange={handleChangeFile}
                     />
                 </FormSection>
             </FormLayout>

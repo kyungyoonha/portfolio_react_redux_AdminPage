@@ -114,7 +114,6 @@ const UserFormMember = ({ match }) => {
                         name="birth"
                         value={inputs.birth}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="전화번호"
@@ -135,14 +134,12 @@ const UserFormMember = ({ match }) => {
                         name="email"
                         value={inputs.email}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="주소"
                         name="address"
                         value={inputs.address}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                 </FormSection>
                 <FormSection>
@@ -151,14 +148,12 @@ const UserFormMember = ({ match }) => {
                         name="tourCnt"
                         value={inputs.tourCnt}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Select
                         label="외향/내향"
                         name="characteristic"
                         value={inputs.characteristic}
                         onChange={handleChangeInputs}
-                        errors={errors}
                         options={[
                             { value: "", title: "선택해주세요." },
                             { value: "외향", title: "외향" },

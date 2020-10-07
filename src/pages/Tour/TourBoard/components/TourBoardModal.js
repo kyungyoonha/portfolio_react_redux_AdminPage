@@ -112,7 +112,6 @@ const RegionModal = ({
             }
         }
     };
-    console.log(selectedItem);
     const handleModalClose = () => {
         setModalOpen("");
     };
