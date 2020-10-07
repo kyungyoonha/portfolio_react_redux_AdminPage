@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import validateInput from "../../../util/validateInput";
 import {
     FormLayout,
     FormSection,
@@ -13,25 +12,28 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
+import { validateAll, validateManager } from "../../../util/validateMember";
+
+const initialValue = {
+    manager_id: "",
+    password: "",
+    name: "",
+    birth: "",
+    contactNumber: "",
+    email: "",
+    englishName: "",
+    address: "",
+    joinYear: "",
+    duty: "",
+    department: "",
+};
 
 const UserFormManager = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState({
-        manager_id: "",
-        password: "",
-        name: "",
-        birth: "",
-        contactNumber: "",
-        email: "",
-        englishName: "",
-        address: "",
-        joinYear: "",
-        duty: "",
-        department: "",
-    });
+    const [inputs, setInputs] = useState(initialValue);
 
-    const onChange = (e) => {
+    const handleChangeInputs = (e) => {
         const { name, value } = e.target;
 
         setInputs((state) => ({
@@ -39,14 +41,23 @@ const UserFormManager = ({ match }) => {
             [name]: value,
         }));
 
-        const error = validateInput(name, value);
+        const error = validateManager(name, value);
         setErrors((state) => ({
             ...state,
             [name]: error,
         }));
     };
 
-    const handleClickInsert = () => {};
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateManager);
+
+        if (isValid) {
+            console.log("에러 없음");
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
+    };
 
     return (
         <Content>
@@ -64,7 +75,7 @@ const UserFormManager = ({ match }) => {
                         label="id"
                         name="manager_id"
                         value={inputs.manager_id}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -72,7 +83,7 @@ const UserFormManager = ({ match }) => {
                         label="비밀번호"
                         name="password"
                         value={inputs.password}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -80,7 +91,7 @@ const UserFormManager = ({ match }) => {
                         label="이름"
                         name="name"
                         value={inputs.name}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -88,7 +99,7 @@ const UserFormManager = ({ match }) => {
                         label="생년월일"
                         name="birth"
                         value={inputs.birth}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -96,7 +107,7 @@ const UserFormManager = ({ match }) => {
                         label="전화번호"
                         name="contactNumber"
                         value={inputs.contactNumber}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -104,7 +115,7 @@ const UserFormManager = ({ match }) => {
                         label="이메일"
                         name="email"
                         value={inputs.email}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -112,14 +123,14 @@ const UserFormManager = ({ match }) => {
                         label="영어이름"
                         name="englishName"
                         value={inputs.englishName}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="주소"
                         name="address"
                         value={inputs.address}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -127,7 +138,7 @@ const UserFormManager = ({ match }) => {
                         label="입사년도"
                         name="joinYear"
                         value={inputs.joinYear}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                 </FormSection>
@@ -136,7 +147,7 @@ const UserFormManager = ({ match }) => {
                         label="직무"
                         name="duty"
                         value={inputs.duty}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -144,7 +155,7 @@ const UserFormManager = ({ match }) => {
                         label="부서"
                         name="department"
                         value={inputs.department}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -152,7 +163,7 @@ const UserFormManager = ({ match }) => {
                         label="기타"
                         name="etc"
                         value={inputs.ect}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         rows={6}
                     />
                 </FormSection>

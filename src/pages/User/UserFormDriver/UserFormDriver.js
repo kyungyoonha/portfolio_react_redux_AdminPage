@@ -14,9 +14,6 @@ import {
     Select,
     RatioSingle,
     Textarea,
-    FileUpload,
-    FileuploadCard,
-    FormCountry,
     FileSingle,
 } from "../../../components/Form/Form";
 
@@ -38,7 +35,6 @@ const initialValue = {
     contactNumber: "",
     carType: "",
     plateNumber: "",
-    // license: "",
     licenseNumber: "",
     belong: "private",
     companyName: "",
@@ -104,6 +100,7 @@ const UserFormDriver = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
+            setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
         }
@@ -112,7 +109,7 @@ const UserFormDriver = ({ match }) => {
             alert("기사 사진을 선택해주세요.");
         }
     };
-    console.log(files);
+
     return (
         <Content>
             <ContentNav id={id}>
@@ -207,14 +204,6 @@ const UserFormDriver = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
-                    {/* <FileUpload
-                        label="면허증 첨부"
-                        name="license"
-                        value={inputs.license}
-                        onChange={handleChangeFile}
-                        ctg="license"
-                    /> */}
 
                     <Input
                         label="면허증 번호"

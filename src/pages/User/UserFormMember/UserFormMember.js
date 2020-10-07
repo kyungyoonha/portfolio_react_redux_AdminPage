@@ -69,6 +69,7 @@ const UserFormMember = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
+            setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
         }

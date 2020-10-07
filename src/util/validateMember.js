@@ -27,7 +27,9 @@ export const validateMember = (name, value) => {
             return isEmpty(value) && "이름을 입력해주세요.";
 
         case "contactNumber":
-            return isEmpty(value) && "번호를 입력해주세요.";
+            if (isEmpty(value)) return "전화번호를 입력해주세요.";
+            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
+            return;
 
         case "nickname":
             return isEmpty(value) && "별명을 입력해주세요.";
@@ -54,7 +56,41 @@ export const validateDriver = (name, value) => {
             return isEmpty(value) && "이름을 입력해주세요.";
 
         case "contactNumber":
-            return isEmpty(value) && "전화번호를 입력해주세요.";
+            if (isEmpty(value)) return "전화번호를 입력해주세요.";
+            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
+            return;
+
+        case "licenseNumber":
+            return checkNumber(value) && "숫자만 입력 가능합니다.";
+
+        default:
+            return;
+    }
+};
+
+export const validateManager = (name, value) => {
+    switch (name) {
+        case "manager_id":
+            return value.length < 4 && "5자 이상 입력해주세요";
+
+        case "password":
+            return (
+                checkRegPassword(value) &&
+                "비밀번호는 8자이상이며 숫자, 영어, 특수문자가 포함되어야 합니다."
+            );
+
+        case "name":
+            return isEmpty(value) && "이름을 입력해주세요.";
+
+        case "contactNumber":
+            if (isEmpty(value)) return "전화번호를 입력해주세요.";
+            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
+            return;
+
+        case "email":
+            if (isEmpty(value)) return "이메일을 입력해주세요.";
+            if (checkEmail(value)) return "양식에 맞게 입력해주세요.";
+            return;
 
         default:
             return;
@@ -63,6 +99,18 @@ export const validateDriver = (name, value) => {
 
 const isEmpty = (string) => {
     if (string.trim() === "") return true;
+    else return false;
+};
+
+const checkNumber = (input) => {
+    const regexp = /^[0-9]*$/;
+    if (!regexp.test(input)) return true;
+    else return false;
+};
+
+const checkEmail = (input) => {
+    var regexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    if (!regexp.test(input)) return true;
     else return false;
 };
 
@@ -83,16 +131,3 @@ const checkRegPassword = (password) => {
         return false;
     }
 };
-
-// const numbers = /[0-9]/;
-//     const spellings = /[a-zA-Z]/;
-//     const specialCharacters = /[~!@#$%&*]/;
-//     const { pw } = this.state;
-
-//     if (
-//       !numbers.test(pw) ||
-//       !spellings.test(pw) ||
-//       !specialCharacters.test(pw) ||
-//       pw.length < 8 ||
-//       pw.length > 16
-//     )
