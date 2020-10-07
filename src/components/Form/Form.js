@@ -1,19 +1,7 @@
 import React, { useRef } from "react";
 import "./Form.scss";
 
-export const FormLayout = ({ size, children }) => {
-    const num = size === "half" ? "6" : "12";
-
-    return (
-        <div className={`card col-md-${num}`}>
-            <table className="formlayout__table table table-bordered">
-                <tbody>{children}</tbody>
-            </table>
-        </div>
-    );
-};
-
-export const FormLayout2 = ({ children }) => {
+export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
 };
 
@@ -43,7 +31,7 @@ export const Input = ({
                 <label className="col-form-label">※ {label}</label>
             </th>
 
-            <td style={{ display: "flex" }}>
+            <td>
                 <input
                     name={name}
                     type={type}
@@ -138,7 +126,7 @@ export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
         if (length >= max && checked) {
             alert("3개까지만 선택 가능합니다");
         } else {
-            onChange(e, name);
+            onChange(e);
         }
     };
 
@@ -375,86 +363,3 @@ export const FileuploadCard = ({ label, src, onChange, ctg }) => {
         </React.Fragment>
     );
 };
-
-// export const FileuploadManyCard = ({ label, src, onChange, ctg }) => {
-//     const inputFileRef = useRef(null);
-
-//     const handleBtnClick = () => {
-//         inputFileRef.current.click();
-//     };
-//     return (
-//         <React.Fragment>
-//             <tr>
-//                 <th
-//                     rowSpan="3"
-//                     style={{ verticalAlign: "middle", width: "20%" }}
-//                 >
-//                     <label>※ {label}</label>
-//                 </th>
-//                 <td colSpan="3" className="text-center">
-//                     <img
-//                         src={src}
-//                         alt={label}
-//                         style={{
-//                             height: "250px",
-//                             maxWidth: "60%",
-//                             objectFit: "contain",
-//                         }}
-//                     />
-//                 </td>
-//             </tr>
-//             <tr>
-//                 <td>
-//                     <img
-//                         src={src}
-//                         alt={label}
-//                         style={{
-//                             width: "100%",
-//                             height: "150px",
-//                             objectFit: "contain",
-//                         }}
-//                     />
-//                 </td>
-//                 <td>
-//                     <img
-//                         src={src}
-//                         alt={label}
-//                         style={{
-//                             width: "100%",
-//                             height: "150px",
-//                             objectFit: "contain",
-//                         }}
-//                     />
-//                 </td>
-//                 <td>
-//                     <img
-//                         src={src}
-//                         alt={label}
-//                         style={{
-//                             width: "100%",
-//                             height: "150px",
-//                             objectFit: "contain",
-//                         }}
-//                     />
-//                 </td>
-//             </tr>
-//             <tr>
-//                 <td colSpan="3">
-//                     <input
-//                         ref={inputFileRef}
-//                         type="file"
-//                         hidden
-//                         onChange={(e) => onChange(e, ctg)}
-//                     />
-//                     <button
-//                         type="button"
-//                         className="btn btn-outline-primary btn-md btn-block"
-//                         onClick={handleBtnClick}
-//                     >
-//                         사진 편집하기
-//                     </button>
-//                 </td>
-//             </tr>
-//         </React.Fragment>
-//     );
-// };

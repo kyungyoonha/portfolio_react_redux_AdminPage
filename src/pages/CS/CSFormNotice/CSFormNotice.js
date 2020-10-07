@@ -3,11 +3,10 @@ import history from "../../../history";
 import validateInput from "../../../util/validateInput";
 import {
     FileUpload,
-    FormLayout2,
+    FormLayout,
     FormSection,
     Input,
     RatioMulti,
-    Select,
     Textarea,
 } from "../../../components/Form/Form";
 
@@ -29,8 +28,8 @@ const CSFormNotice = ({ match }) => {
     });
 
     const onChange = (e) => {
-        const { name, value, type, checked } = e.target;
-        if (type === "checkbox") {
+        const { name, value, checked } = e.target;
+        if (name === "displayOptions") {
             setInputs((state) => ({
                 ...state,
                 displayOptions: {
@@ -75,7 +74,7 @@ const CSFormNotice = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout2>
+            <FormLayout>
                 <FormSection size="center">
                     <tr style={{ textAlign: "center" }}>
                         <th
@@ -85,7 +84,7 @@ const CSFormNotice = ({ match }) => {
                                 color: "white",
                             }}
                         >
-                            [알림 추가]
+                            [공지 추가]
                         </th>
                     </tr>
                     <Input
@@ -132,7 +131,7 @@ const CSFormNotice = ({ match }) => {
                         rows={8}
                     />
                 </FormSection>
-            </FormLayout2>
+            </FormLayout>
         </Content>
     );
 };

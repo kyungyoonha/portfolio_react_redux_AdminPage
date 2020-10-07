@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import validateInput from "../../../util/validateInput";
 import {
-    FormLayout2,
+    FormLayout,
     FormSection,
     Input,
     Select,
@@ -16,34 +15,37 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
+import { validateAll, validateMember } from "../../../util/validateMember";
+
+const initialValue = {
+    user_id: "",
+    password: "",
+    name: "",
+    birth: "",
+    contactNumber: "",
+    nickname: "",
+    email: "",
+    address: "",
+    tourCnt: "",
+    characteristic: "",
+    tourTags: {},
+    recieveEmail: "수신",
+    recieveMessage: "수신",
+    etc: "",
+};
 
 const UserFormMember = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState({
-        user_id: "",
-        password: "",
-        name: "",
-        birth: "",
-        contactNumber: "",
-        nickname: "",
-        email: "",
-        address: "",
-        tourCnt: "",
-        characteristic: "",
-        tourTags: {},
-        recieveEmail: "수신",
-        recieveMessage: "수신",
-        etc: "",
-    });
-    const onChange = (e, inputName) => {
-        const { name, value, type, checked } = e.target;
+    const [inputs, setInputs] = useState(initialValue);
 
-        if (type === "checkbox") {
+    const handleChangeInputs = (e) => {
+        const { name, value, checked } = e.target;
+        if (name === "tourTags") {
             setInputs((state) => ({
                 ...state,
-                [inputName]: {
-                    ...state[inputName],
+                tourTags: {
+                    ...state.tourTags,
                     [name]: checked,
                 },
             }));
@@ -54,14 +56,23 @@ const UserFormMember = ({ match }) => {
             }));
         }
 
-        const error = validateInput(name, value);
+        // Check Validation
+        const error = validateMember(name, value);
         setErrors((state) => ({
             ...state,
             [name]: error,
         }));
     };
 
-    const handleClickInsert = () => {};
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateMember);
+
+        if (isValid) {
+            console.log("에러 없음");
+        } else {
+            setErrors(checkedErrors);
+        }
+    };
 
     return (
         <Content>
@@ -73,13 +84,13 @@ const UserFormMember = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout2>
+            <FormLayout>
                 <FormSection>
                     <Input
                         label="id"
                         name="user_id"
                         value={inputs.user_id}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -88,49 +99,49 @@ const UserFormMember = ({ match }) => {
                         type="password"
                         name="password"
                         value={inputs.password}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="이름"
                         name="name"
                         value={inputs.name}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="생년월일"
                         name="birth"
                         value={inputs.birth}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="전화번호"
                         name="contactNumber"
                         value={inputs.contactNumber}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="별명"
                         name="nickname"
                         value={inputs.nickname}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="이메일"
                         name="email"
                         value={inputs.email}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="주소"
                         name="address"
                         value={inputs.address}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                 </FormSection>
@@ -139,14 +150,14 @@ const UserFormMember = ({ match }) => {
                         label="누적투어수"
                         name="tourCnt"
                         value={inputs.tourCnt}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Select
                         label="외향/내향"
                         name="characteristic"
                         value={inputs.characteristic}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                         options={[
                             { value: "", title: "선택해주세요." },
@@ -159,7 +170,7 @@ const UserFormMember = ({ match }) => {
                         label="여행태그"
                         name="tourTags"
                         value={inputs.tourTags}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         options={[
                             { value: "tiger", title: "호랑이" },
                             { value: "dog", title: "강아지" },
@@ -172,7 +183,7 @@ const UserFormMember = ({ match }) => {
                         label="이메일 수신"
                         name="recieveEmail"
                         value={inputs.recieveEmail}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         options={[
                             { value: "agree", title: "수신" },
                             { value: "disagree", title: "미수신" },
@@ -183,7 +194,7 @@ const UserFormMember = ({ match }) => {
                         label="문자 수신"
                         name="recieveMessage"
                         value={inputs.recieveMessage}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         options={[
                             { value: "agree", title: "수신" },
                             { value: "disagree", title: "미수신" },
@@ -194,11 +205,11 @@ const UserFormMember = ({ match }) => {
                         label="기타"
                         name="etc"
                         value={inputs.ect}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         rows={6}
                     />
                 </FormSection>
-            </FormLayout2>
+            </FormLayout>
         </Content>
     );
 };

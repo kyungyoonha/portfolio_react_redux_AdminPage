@@ -10,7 +10,7 @@ import {
     RatioSingle,
     RatioTypeCheck,
     RatioMulti,
-    FormLayout2,
+    FormLayout,
     FormSection,
 } from "../../../components/Form/Form";
 
@@ -59,8 +59,8 @@ const TourFormArea = ({ match }) => {
     const [audioMain, setAudioMain] = useState(initialAudioMain);
 
     const handleChangeInputs = (e) => {
-        const { name, value, type, checked } = e.target;
-        if (type === "checkbox") {
+        const { name, value, checked } = e.target;
+        if (name === "tourTags") {
             setInputs((state) => ({
                 ...state,
                 tourTags: {
@@ -122,7 +122,7 @@ const TourFormArea = ({ match }) => {
     };
 
     const handleClickInsert = () => {};
-    
+
     return (
         <Content>
             <ContentNav id={id}>
@@ -133,7 +133,7 @@ const TourFormArea = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout2>
+            <FormLayout>
                 <FormSection>
                     <RatioSingle
                         label="국가"
@@ -288,7 +288,7 @@ const TourFormArea = ({ match }) => {
                         disabled={inputs.hasAudioMain === "no"}
                     />
                 </FormSection>
-            </FormLayout2>
+            </FormLayout>
         </Content>
     );
 };

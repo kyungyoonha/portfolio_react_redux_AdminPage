@@ -1,29 +1,15 @@
-// import React from "react";
-
-// const CSFormCstmSvc = () => {
-//     return <div>CSFormCstmSvc</div>;
-// };
-
-// export default CSFormCstmSvc;
-
 import React, { useState } from "react";
 import history from "../../../history";
 import validateInput from "../../../util/validateInput";
 import {
     Input,
     Select,
-    RatioSingle,
-    FormLayout2,
+    FormLayout,
     FormSection,
-    SelectMultiCustom,
     Textarea,
     FileUpload,
 } from "../../../components/Form/Form";
-import {
-    optionsCity,
-    optionsCountry,
-    optionsRegion,
-} from "../../../util/options";
+
 import {
     Content,
     ContentBtn,
@@ -42,20 +28,6 @@ const PurchFormInfo = ({ match }) => {
         user: "",
         sendEmail: "",
         sendContent: "",
-    });
-    const [multiInfo, setMultiInfo] = useState({
-        tour: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-        driver: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-        hobby: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
     });
 
     const handleChangeInputs = (e) => {
@@ -104,7 +76,7 @@ const PurchFormInfo = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout2>
+            <FormLayout>
                 <FormSection>
                     <Input
                         label="등록자"
@@ -182,7 +154,7 @@ const PurchFormInfo = ({ match }) => {
                         rows={8}
                     />
                 </FormSection>
-            </FormLayout2>
+            </FormLayout>
         </Content>
     );
 };

@@ -5,7 +5,7 @@ import {
     Input,
     Select,
     RatioSingle,
-    FormLayout2,
+    FormLayout,
     FormSection,
     SelectMultiCustom,
 } from "../../../components/Form/Form";
@@ -91,7 +91,7 @@ const PurchFormInfo = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout2>
+            <FormLayout>
                 <FormSection>
                     <Input
                         label="투어 이름"
@@ -257,7 +257,7 @@ const PurchFormInfo = ({ match }) => {
                         errors={errors}
                     />
                 </FormSection>
-            </FormLayout2>
+            </FormLayout>
         </Content>
     );
 };

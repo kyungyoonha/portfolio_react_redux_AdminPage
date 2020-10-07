@@ -11,7 +11,7 @@ import {
 } from "../../../components/Content/Content";
 
 import {
-    FormLayout2,
+    FormLayout,
     FormSection,
     Input,
     Select,
@@ -106,7 +106,7 @@ const UserFormDriver = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout2>
+            <FormLayout>
                 <FormSection>
                     <Input
                         label="id"
@@ -263,7 +263,7 @@ const UserFormDriver = ({ match }) => {
                         ctg="carImg"
                     />
                 </FormSection>
-            </FormLayout2>
+            </FormLayout>
         </Content>
     );
 };

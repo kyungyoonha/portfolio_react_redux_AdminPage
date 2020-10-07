@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import history from "../../../history";
 import validateInput from "../../../util/validateInput";
 import {
-    FormLayout2,
+    FormLayout,
     FormSection,
     Input,
     Textarea,
@@ -58,7 +58,7 @@ const UserFormManager = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout2>
+            <FormLayout>
                 <FormSection>
                     <Input
                         label="id"
@@ -156,7 +156,7 @@ const UserFormManager = ({ match }) => {
                         rows={6}
                     />
                 </FormSection>
-            </FormLayout2>
+            </FormLayout>
         </Content>
     );
 };
