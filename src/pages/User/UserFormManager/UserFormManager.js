@@ -26,8 +26,9 @@ const initialValue = {
     joinYear: "",
     duty: "",
     department: "",
+    etc: "",
 };
-
+//working done
 const UserFormManager = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -35,9 +36,9 @@ const UserFormManager = ({ match }) => {
 
     const handleChangeInputs = (e) => {
         const { name, value } = e.target;
-        setInputs((state) => ({ ...state, [name]: value }));
-
         const error = validateManager(name, value);
+
+        setInputs((state) => ({ ...state, [name]: value }));
         setErrors((state) => ({ ...state, [name]: error }));
     };
 

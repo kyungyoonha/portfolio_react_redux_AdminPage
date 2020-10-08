@@ -73,3 +73,16 @@
         width: 40%;
     }
 }
+
+.widthButton {
+    display: flex;
+    justify-content: space-between;
+
+    input {
+        width: 77%;
+    }
+
+    button {
+        width: 20%;
+    }
+}

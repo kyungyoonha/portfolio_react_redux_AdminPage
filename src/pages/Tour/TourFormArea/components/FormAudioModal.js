@@ -42,8 +42,16 @@ const FormAudioModal = ({
         china: { title: "", script: "", files: [] },
     });
 
-    const handleChangeInput = (e) => {
+    const handleChangeInputs = (e) => {
         const { name, value } = e.target;
+
+        if (name === "countryCtg") {
+            setInputs((state) => ({
+                ...state,
+                country: value === "KOREA" ? "KOREA" : "",
+            }));
+        }
+
         setInputs((state) => ({
             ...state,
             [name]: value,
@@ -112,27 +120,41 @@ const FormAudioModal = ({
                             label="국가"
                             name="countryCtg"
                             value={inputs.countryCtg}
-                            onChange={handleChangeInput}
+                            onChange={handleChangeInputs}
                             options={[
                                 { value: "KOREA", title: "국내" },
                                 { value: "OVERSEAS", title: "국외" },
                             ]}
                         />
-                        {inputs.countryCtg !== "KOREA" && (
-                            <Select
-                                label=""
-                                name="country"
-                                value={inputs.country}
-                                onChange={handleChangeInput}
-                                errors={errors}
-                                options={optionsCountry(inputs.countryCtg)}
-                            />
-                        )}
+
+                        <Select
+                            label="(국가 선택)"
+                            name="country"
+                            value={inputs.country}
+                            onChange={handleChangeInputs}
+                            errors={errors}
+                            options={optionsCountry(inputs.countryCtg)}
+                            disabled={inputs.countryCtg === "KOREA"}
+                        />
+
+                        <Select
+                            label="국가 코드"
+                            name="countryCode"
+                            value={inputs.countryCode}
+                            onChange={handleChangeInputs}
+                            errors={errors}
+                            options={[
+                                { value: "code1", title: "코드1" },
+                                { value: "code2", title: "코드2" },
+                                { value: "code3", title: "코드3" },
+                                { value: "K", title: "K" },
+                            ]}
+                        />
                         <Select
                             label="시/도"
                             name="state"
                             value={inputs.state}
-                            onChange={handleChangeInput}
+                            onChange={handleChangeInputs}
                             errors={errors}
                             options={optionsCity(inputs.state)}
                         />
@@ -140,7 +162,7 @@ const FormAudioModal = ({
                             label="지역"
                             name="city"
                             value={inputs.city}
-                            onChange={handleChangeInput}
+                            onChange={handleChangeInputs}
                             errors={errors}
                             options={optionsRegion(inputs.region)}
                         />
@@ -149,7 +171,7 @@ const FormAudioModal = ({
                             label="관광지"
                             name="place"
                             value={inputs.place}
-                            onChange={handleChangeInput}
+                            onChange={handleChangeInputs}
                             errors={errors}
                             options={optionsRegion(inputs.region)}
                         />
@@ -158,7 +180,7 @@ const FormAudioModal = ({
                             label="이름"
                             name="name"
                             value={inputs.name}
-                            onChange={handleChangeInput}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         />
 
@@ -166,7 +188,7 @@ const FormAudioModal = ({
                             label="한줄 소개"
                             name="content"
                             value={inputs.content}
-                            onChange={handleChangeInput}
+                            onChange={handleChangeInputs}
                             errors={errors}
                         />
                     </FormSection>
@@ -183,7 +205,7 @@ const FormAudioModal = ({
                         <FormAudioMain
                             audioMain={audioMain}
                             handleChangeAudioMain={handleChangeAudioMain}
-                            onChange={handleChangeInput}
+                            onChange={handleChangeInputs}
                             inputs={inputs}
                             disabled={false}
                         />

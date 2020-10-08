@@ -41,29 +41,32 @@ const initialValue = {
     scheduleCount: "",
     complain: "",
     score: "",
+    etc: "",
 };
 
+const initialValueFiles = {
+    profile: {},
+    carPic: {},
+    license: {},
+};
+//working done
 const UserFormDriver = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [files, setFiles] = useState({
-        profile: {},
-        carPic: {},
-        license: {},
-    });
+    const [files, setFiles] = useState(initialValueFiles);
     const [inputs, setInputs] = useState(initialValue);
 
     const handleChangeInputs = (e) => {
         const { name, value } = e.target;
+        const error = validateDriver(name, value);
+
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
 
         if (name === "countryCtg") {
-            let country = "";
-            if (value === "KOREA") {
-                country = "KOREA";
-            }
             setInputs((state) => ({
                 ...state,
-                country,
+                country: value === "KOREA" ? "KOREA" : "",
             }));
         } else if (name === "belong") {
             setInputs((state) => ({
@@ -71,16 +74,6 @@ const UserFormDriver = ({ match }) => {
                 companyName: "",
             }));
         }
-        setInputs((state) => ({
-            ...state,
-            [name]: value,
-        }));
-
-        const error = validateDriver(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
     };
 
     const handleChangeFile = (e) => {
@@ -141,7 +134,7 @@ const UserFormDriver = ({ match }) => {
                     />
 
                     <Select
-                        label="국가 선택"
+                        label="(국가 선택)"
                         name="country"
                         value={inputs.country}
                         onChange={handleChangeInputs}

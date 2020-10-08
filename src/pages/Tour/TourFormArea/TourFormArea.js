@@ -29,6 +29,7 @@ import history from "../../../history";
 
 const initialValue = {
     countryCtg: "KOREA",
+    country: "KOREA",
     state: "",
     city: "",
     placeCode: "",
@@ -52,7 +53,7 @@ const initialAudioMain = {
     japan: { title: "", script: "", files: [] },
     china: { title: "", script: "", files: [] },
 };
-
+//working
 const TourFormArea = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -63,6 +64,11 @@ const TourFormArea = ({ match }) => {
 
     const handleChangeInputs = (e) => {
         const { name, value, checked } = e.target;
+        const error = validateInput(name, value);
+
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
+
         if (name === "tourTags") {
             setInputs((state) => ({
                 ...state,
@@ -71,35 +77,22 @@ const TourFormArea = ({ match }) => {
                     [name]: checked,
                 },
             }));
-        } else {
+        }
+        // 국적 선택
+        else if (name === "countryCtg") {
             setInputs((state) => ({
                 ...state,
-                [name]: value,
+                country: value === "KOREA" ? "KOREA" : "",
             }));
         }
-
-        // 국적선택 시
-        if (name === "countryCtg" && value === "KOREA") {
-            setInputs((state) => ({
-                ...state,
-                country: "KOREA",
-            }));
-        }
-
-        if (name === "hasAudio" && value === "no") {
+        // 오디오 세부 유/무
+        else if (name === "hasAudio" && value === "no") {
             setAudioList([]);
         }
-
-        if (name === "hasAudioMain" && value === "no") {
+        // 오디오 메인 유/무
+        else if (name === "hasAudioMain" && value === "no") {
             setAudioMain(initialAudioMain);
         }
-
-        // 유효값 체크
-        const error = validateInput(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
     };
 
     const handleChangeImageList = (newImgList) => setImageList(newImgList);
@@ -146,16 +139,16 @@ const TourFormArea = ({ match }) => {
                             { value: "OVERSEAS", title: "국외" },
                         ]}
                     />
-                    {inputs.countryCtg !== "KOREA" && (
-                        <Select
-                            label=""
-                            name="country"
-                            value={inputs.country}
-                            onChange={handleChangeInputs}
-                            errors={errors}
-                            options={optionsCountry(inputs.countryCtg)}
-                        />
-                    )}
+
+                    <Select
+                        label="(국가 선택)"
+                        name="country"
+                        value={inputs.country}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        options={optionsCountry(inputs.countryCtg)}
+                        disabled={inputs.countryCtg === "KOREA"}
+                    />
                     <Select
                         label="시/도"
                         name="state"
@@ -270,25 +263,24 @@ const TourFormArea = ({ match }) => {
                     />
                 </FormSection>
                 {/* 오디오 서브 등록 */}
-                <FormSection>
-                    <FormAudio
-                        inputs={inputs}
-                        onChange={handleChangeInputs}
-                        audioList={audioList}
-                        handleChangeAudioList={handleChangeAudioList}
-                        handleDeleteAudioList={handleDeleteAudioList}
-                    />
-                </FormSection>
+
+                <FormAudio
+                    inputs={inputs}
+                    onChange={handleChangeInputs}
+                    audioList={audioList}
+                    handleChangeAudioList={handleChangeAudioList}
+                    handleDeleteAudioList={handleDeleteAudioList}
+                />
+
                 {/* 오디오 메인 등록 */}
-                <FormSection>
-                    <FormAudioMain
-                        inputs={inputs}
-                        onChange={handleChangeInputs}
-                        audioMain={audioMain}
-                        handleChangeAudioMain={handleChangeAudioMain}
-                        disabled={inputs.hasAudioMain === "no"}
-                    />
-                </FormSection>
+
+                <FormAudioMain
+                    inputs={inputs}
+                    onChange={handleChangeInputs}
+                    audioMain={audioMain}
+                    handleChangeAudioMain={handleChangeAudioMain}
+                    disabled={inputs.hasAudioMain === "no"}
+                />
             </FormLayout>
         </Content>
     );

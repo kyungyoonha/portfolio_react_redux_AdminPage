@@ -33,7 +33,7 @@ const initialValue = {
     recieveMessage: "수신",
     etc: "",
 };
-
+//working done
 const UserFormMember = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -41,6 +41,11 @@ const UserFormMember = ({ match }) => {
 
     const handleChangeInputs = (e) => {
         const { name, value, checked } = e.target;
+        const error = validateMember(name, value);
+
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
+
         if (name === "tourTags") {
             setInputs((state) => ({
                 ...state,
@@ -49,19 +54,7 @@ const UserFormMember = ({ match }) => {
                     [name]: checked,
                 },
             }));
-        } else {
-            setInputs((state) => ({
-                ...state,
-                [name]: value,
-            }));
         }
-
-        // Check Validation
-        const error = validateMember(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
     };
 
     const handleClickInsert = () => {

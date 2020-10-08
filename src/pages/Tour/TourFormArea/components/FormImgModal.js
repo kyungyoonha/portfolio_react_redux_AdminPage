@@ -5,21 +5,25 @@ import Slider from "../../../../components/Slider/Slider";
 import Modal from "../../../../components/Modal/Modal";
 import noImg from "../../../../img/no-img.jpg";
 
-const FormImgModal = ({
-    isModalOpen,
-    handleChangeImageList,
-    handleModalClose,
-    imageList,
-}) => {
+const FormImgModal = ({ handleChangeImageList, imageList }) => {
     const [showIdx, setShowIdx] = useState(0);
     const [images, setImages] = useState([]);
     const inputFileRef = useRef(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         if (imageList[0]) {
             setImages(imageList);
         }
     }, [imageList]);
+
+    const handleModalOpen = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalOpen(false);
+    };
 
     // 이미지 보기
     const handleClickImg = (idx) => {
@@ -97,117 +101,139 @@ const FormImgModal = ({
     };
 
     return (
-        <Modal isModalOpen={isModalOpen} handleModalClose={handleModalClose}>
-            <div className="formImgModal">
-                <div className="top">
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary"
-                        onClick={handleModalClose}
-                    >
-                        닫기
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-outline-secondary"
-                        onClick={handleClickSave}
-                    >
-                        저장
-                    </button>
-                </div>
-                <div className="middle">
-                    <div className="left">
-                        <img
-                            src={images[showIdx] ? images[showIdx].src : noImg}
-                            alt=""
-                        />
+        <React.Fragment>
+            <button
+                type="button"
+                className="btn btn-outline-primary btn-md btn-block"
+                onClick={handleModalOpen}
+            >
+                사진 편집하기
+            </button>
+            {isModalOpen && (
+                <Modal
+                    isModalOpen={isModalOpen}
+                    handleModalClose={handleModalClose}
+                >
+                    <div className="formImgModal">
+                        <div className="top">
+                            <button
+                                type="button"
+                                className="btn btn-outline-secondary"
+                                onClick={handleModalClose}
+                            >
+                                닫기
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-outline-secondary"
+                                onClick={handleClickSave}
+                            >
+                                저장
+                            </button>
+                        </div>
+                        <div className="middle">
+                            <div className="left">
+                                <img
+                                    src={
+                                        images[showIdx]
+                                            ? images[showIdx].src
+                                            : noImg
+                                    }
+                                    alt=""
+                                />
 
-                        <Slider>
-                            {[...new Array(4)].map((_, idx) => (
-                                <div className="innerImg" key={idx}>
-                                    <h4>
-                                        <span className="badge badge-danger">
-                                            {idx === 0 ? "대표" : idx + 1}
-                                        </span>
-                                    </h4>
-                                    <img
-                                        src={
-                                            images[idx]
-                                                ? images[idx].src
-                                                : noImg
-                                        }
-                                        alt=""
-                                        onClick={() => handleClickImg(idx)}
-                                    />
-                                </div>
-                            ))}
-                        </Slider>
+                                <Slider>
+                                    {[...new Array(4)].map((_, idx) => (
+                                        <div className="innerImg" key={idx}>
+                                            <h4>
+                                                <span className="badge badge-danger">
+                                                    {idx === 0
+                                                        ? "대표"
+                                                        : idx + 1}
+                                                </span>
+                                            </h4>
+                                            <img
+                                                src={
+                                                    images[idx]
+                                                        ? images[idx].src
+                                                        : noImg
+                                                }
+                                                alt=""
+                                                onClick={() =>
+                                                    handleClickImg(idx)
+                                                }
+                                            />
+                                        </div>
+                                    ))}
+                                </Slider>
+                            </div>
+                            <div className="right">
+                                <h3>설정</h3>
+                                <input
+                                    ref={inputFileRef}
+                                    type="file"
+                                    hidden
+                                    onChange={handleInsertImg}
+                                    multiple
+                                />
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-dark btn-sm btn-block"
+                                    onClick={() => inputFileRef.current.click()}
+                                >
+                                    사진 추가
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-dark btn-sm btn-block"
+                                    onClick={() => handleChangeImg("delete")}
+                                >
+                                    사진 삭제
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-dark btn-sm btn-block"
+                                    onClick={() => handleChangeImg("first")}
+                                >
+                                    대표사진 설정
+                                </button>
+                                <br />
+                                <br />
+                                <h3>정렬</h3>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-dark btn-sm btn-block"
+                                    onClick={() => handleChangeImg("first")}
+                                >
+                                    제일 앞으로 이동
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-dark btn-sm btn-block"
+                                    onClick={() => handleChangeImg("last")}
+                                >
+                                    제일 뒤로 이동
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-dark btn-sm btn-block"
+                                    onClick={() => handleChangeImg("up")}
+                                >
+                                    한칸 앞으로 이동
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-outline-dark btn-sm btn-block"
+                                    onClick={() => handleChangeImg("down")}
+                                >
+                                    한칸 뒤로 이동
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div className="right">
-                        <h3>설정</h3>
-                        <input
-                            ref={inputFileRef}
-                            type="file"
-                            hidden
-                            onChange={handleInsertImg}
-                            multiple
-                        />
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark btn-sm btn-block"
-                            onClick={() => inputFileRef.current.click()}
-                        >
-                            사진 추가
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark btn-sm btn-block"
-                            onClick={() => handleChangeImg("delete")}
-                        >
-                            사진 삭제
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark btn-sm btn-block"
-                            onClick={() => handleChangeImg("first")}
-                        >
-                            대표사진 설정
-                        </button>
-                        <br />
-                        <br />
-                        <h3>정렬</h3>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark btn-sm btn-block"
-                            onClick={() => handleChangeImg("first")}
-                        >
-                            제일 앞으로 이동
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark btn-sm btn-block"
-                            onClick={() => handleChangeImg("last")}
-                        >
-                            제일 뒤로 이동
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark btn-sm btn-block"
-                            onClick={() => handleChangeImg("up")}
-                        >
-                            한칸 앞으로 이동
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-dark btn-sm btn-block"
-                            onClick={() => handleChangeImg("down")}
-                        >
-                            한칸 뒤로 이동
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </Modal>
+                </Modal>
+            )}
+        </React.Fragment>
     );
 };
 

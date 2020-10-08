@@ -14,31 +14,26 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 
+const initialValue = {
+    pushName: "",
+    state: "",
+    target: "",
+    editMng: "",
+    connectPage: "",
+    content: "",
+};
+//working
 const CSFormPush = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState({
-        pushName: "",
-        state: "",
-        target: "",
-        editMng: "",
-        connectPage: "",
-        content: "",
-    });
+    const [inputs, setInputs] = useState(initialValue);
 
     const onChange = (e) => {
         const { name, value } = e.target;
-
-        setInputs((state) => ({
-            ...state,
-            [name]: value,
-        }));
-
         const error = validateInput(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
+
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
     };
 
     const handleClickInsert = () => {};

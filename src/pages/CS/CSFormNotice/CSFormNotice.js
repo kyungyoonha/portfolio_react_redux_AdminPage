@@ -16,19 +16,26 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 
+const initialValue = {
+    title: "",
+    createMng: "",
+    displayOptions: {},
+    content: "",
+};
+//working
 const CSFormNotice = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [fileImg, setFileImg] = useState();
-    const [inputs, setInputs] = useState({
-        title: "",
-        createMng: "",
-        displayOptions: {},
-        content: "",
-    });
+    const [inputs, setInputs] = useState(initialValue);
 
     const onChange = (e) => {
         const { name, value, checked } = e.target;
+        const error = validateInput(name, value);
+
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
+
         if (name === "displayOptions") {
             setInputs((state) => ({
                 ...state,
@@ -37,18 +44,7 @@ const CSFormNotice = ({ match }) => {
                     [name]: checked,
                 },
             }));
-        } else {
-            setInputs((state) => ({
-                ...state,
-                [name]: value,
-            }));
         }
-
-        const error = validateInput(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
     };
 
     const handleClickInsert = () => {};

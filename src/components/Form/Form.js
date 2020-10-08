@@ -32,7 +32,7 @@ export const Input = ({
                 <label className="col-form-label">※ {label}</label>
             </th>
 
-            <td>
+            <td className={`${children && "widthButton"}`}>
                 <input
                     name={name}
                     type={type}
@@ -40,7 +40,6 @@ export const Input = ({
                     className={`form-control ${errors[name] && "is-invalid"}`}
                     onChange={onChange}
                     autoComplete="off"
-                    style={{ flex: 1, marginRight: "10px" }}
                     disabled={disabled}
                 />
                 {children}

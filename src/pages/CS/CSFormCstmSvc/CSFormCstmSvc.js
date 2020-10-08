@@ -16,42 +16,36 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 
+const initialValue = {
+    name: "",
+    content: "",
+    title: "",
+    hiddenStatus: "",
+    user: "",
+    sendEmail: "",
+    sendContent: "",
+};
+//working
 const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [fileImg, setFileImg] = useState();
-    const [inputs, setInputs] = useState({
-        name: "",
-        content: "",
-        title: "",
-        hiddenStatus: "",
-        user: "",
-        sendEmail: "",
-        sendContent: "",
-    });
+    const [inputs, setInputs] = useState(initialValue);
 
     const handleChangeInputs = (e) => {
         const { name, value } = e.target;
+        const error = validateInput(name, value);
 
-        setInputs((state) => ({
-            ...state,
-            [name]: value,
-        }));
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
 
         // 국적선택 시
-        if (name === "countryCtg" && value === "KOREA") {
+        if (name === "countryCtg") {
             setInputs((state) => ({
                 ...state,
-                country: "KOREA",
+                country: value === "KOREA" ? "KOREA" : "",
             }));
         }
-
-        // 유효값 체크
-        const error = validateInput(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
     };
 
     const onUploadFile = (e, type) => {

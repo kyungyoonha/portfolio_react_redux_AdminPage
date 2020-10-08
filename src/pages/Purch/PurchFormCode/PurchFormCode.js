@@ -20,64 +20,65 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import SectionMultiSelect from "../components/SectionMultiSelect";
-// import PurchInfoFormBottom from "./components/PurchInfoFormBottom";
 
+const initialValue = {
+    tourName: "",
+    countryCtg: "KOREA",
+    country: "KOREA",
+    state: "",
+    city: "",
+    tourCtg: "",
+    tourDayCntCheck: "one",
+    tourDayCnt: "1",
+    price: "",
+    tourStartTime: "",
+    guestName: "",
+    phone: "",
+    tourEndTime: "",
+    purchCode: "",
+};
+
+const initialValueMulti = {
+    tour: [
+        { seq: 1, value: "" },
+        { seq: 2, value: "" },
+    ],
+    driver: [
+        { seq: 1, value: "" },
+        { seq: 2, value: "" },
+    ],
+    hobby: [
+        { seq: 1, value: "" },
+        { seq: 2, value: "" },
+    ],
+};
+//working
 const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState({
-        user_id: "",
-        password: "",
-        name: "",
-        birth: "",
-        contactNumber: "",
-        nickname: "",
-        email: "",
-        address: "",
-        tourCnt: "",
-        characteristic: "",
-        tourTags: {},
-        recieveEmail: "수신",
-        recieveMessage: "수신",
-        etc: "",
-    });
-    const [multiInfo, setMultiInfo] = useState({
-        tour: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-        driver: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-        hobby: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-    });
+    const [inputs, setInputs] = useState(initialValue);
+    const [multiInfo, setMultiInfo] = useState(initialValueMulti);
 
     const handleChangeInputs = (e) => {
         const { name, value } = e.target;
+        const error = validateInput(name, value);
 
-        setInputs((state) => ({
-            ...state,
-            [name]: value,
-        }));
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
 
-        // 국적선택 시
-        if (name === "countryCtg" && value === "KOREA") {
+        if (name === "tourDayCntCheck") {
             setInputs((state) => ({
                 ...state,
-                country: "KOREA",
+                tourDayCnt: value === "one" ? "1" : "",
             }));
         }
-
-        // 유효값 체크
-        const error = validateInput(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
+        // 국적선택 시
+        else if (name === "countryCtg") {
+            setInputs((state) => ({
+                ...state,
+                country: value === "KOREA" ? "KOREA" : "",
+            }));
+        }
     };
 
     const handleClickInsert = () => {};
@@ -112,16 +113,15 @@ const PurchFormInfo = ({ match }) => {
                             { value: "OVERSEAS", title: "국외" },
                         ]}
                     />
-                    {inputs.countryCtg !== "KOREA" && (
-                        <Select
-                            label=""
-                            name="country"
-                            value={inputs.country}
-                            onChange={handleChangeInputs}
-                            errors={errors}
-                            options={optionsCountry(inputs.countryCtg)}
-                        />
-                    )}
+                    <Select
+                        label="(국가 선택)"
+                        name="country"
+                        value={inputs.country}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        options={optionsCountry(inputs.countryCtg)}
+                        disabled={inputs.countryCtg === "KOREA"}
+                    />
                     <Select
                         label="시/도"
                         name="state"
@@ -149,29 +149,26 @@ const PurchFormInfo = ({ match }) => {
                             { value: "nomal", title: "일반 투어" },
                         ]}
                     />
+
                     <RatioSingle
                         label="투어 일수"
                         name="tourDayCntCheck"
                         value={inputs.tourDayCntCheck}
                         onChange={handleChangeInputs}
                         options={[
-                            { value: false, title: "당일" },
-                            { value: true, title: "기간설정" },
+                            { value: "one", title: "당일" },
+                            { value: "range", title: "기간설정" },
                         ]}
-                    >
-                        <br />
-                        <input
-                            name="tourDayCnt"
-                            type="text"
-                            value={inputs.tourDayCnt}
-                            className={`form-control ${
-                                errors["tourDayCnt"] && "is-invalid"
-                            }`}
-                            onChange={handleChangeInputs}
-                            autoComplete="off"
-                            disabled={inputs.tourDayCntCheck}
-                        />
-                    </RatioSingle>
+                    />
+
+                    <Input
+                        label="(기간 설정)"
+                        name="tourDayCnt"
+                        value={inputs.tourDayCnt}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        disabled={inputs.tourDayCntCheck === "one"}
+                    />
 
                     <SelectMultiCustom
                         inputs={inputs}
@@ -192,7 +189,6 @@ const PurchFormInfo = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
                     <Input
                         label="투어시작 시간"
                         name="tourStartTime"

@@ -35,7 +35,7 @@ const initialValue = {
     makeMng: "",
     makeDate: "",
 };
-
+//working
 const RegionModal = ({
     selectedItem,
     handleClickUpdate,
@@ -54,18 +54,20 @@ const RegionModal = ({
         }
     }, [modalOpen, selectedItem]);
 
-    const handleChangeInput = (e) => {
+    const handleChangeInputs = (e) => {
         const { name, value } = e.target;
-        setInputs((state) => ({
-            ...state,
-            [name]: value,
-        }));
-
         const error = validateInput(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
+
+        setInputs((state) => ({ ...state, [name]: value }));
+        setErrors((state) => ({ ...state, [name]: error }));
+
+        // 국적선택 시
+        if (name === "countryCtg") {
+            setInputs((state) => ({
+                ...state,
+                country: value === "KOREA" ? "KOREA" : "",
+            }));
+        }
     };
 
     const handleClickSave = async () => {
@@ -174,11 +176,21 @@ const RegionModal = ({
                     </div>
                     <div className=" row">
                         <FormSection>
+                            <RatioSingle
+                                label="국가"
+                                name="countryCtg"
+                                value={inputs.countryCtg}
+                                onChange={handleChangeInputs}
+                                options={[
+                                    { value: "KOREA", title: "국내" },
+                                    { value: "OVERSEAS", title: "국외" },
+                                ]}
+                            />
                             <Select
                                 label="국가"
                                 name="country"
                                 value={inputs.country}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                                 options={[
                                     ...optionsCountry(inputs.countryCtg),
@@ -190,7 +202,7 @@ const RegionModal = ({
                                 label="국가 코드"
                                 name="countryCode"
                                 value={inputs.countryCode}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                                 options={[
                                     { value: "code1", title: "코드1" },
@@ -204,7 +216,7 @@ const RegionModal = ({
                                 label="국가 정렬"
                                 name="countrySort"
                                 value={inputs.countrySort}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                             />
 
@@ -212,7 +224,7 @@ const RegionModal = ({
                                 label="시/도"
                                 name="state"
                                 value={inputs.state}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                                 options={optionsCity(inputs.state)}
                             />
@@ -221,7 +233,7 @@ const RegionModal = ({
                                 label="시도 코드"
                                 name="stateCode"
                                 value={inputs.stateCode}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                                 options={[
                                     { value: "code1", title: "코드1" },
@@ -235,14 +247,14 @@ const RegionModal = ({
                                 label="시/도 정렬"
                                 name="stateSort"
                                 value={inputs.stateSort}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                             />
                             <Select
                                 label="지역"
                                 name="city"
                                 value={inputs.city}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                                 options={optionsRegion(inputs.region)}
                             />
@@ -251,7 +263,7 @@ const RegionModal = ({
                                 label="대표사진 유무"
                                 name="hasImgMain"
                                 value={inputs.hasImgMain}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 options={[
                                     { value: "yes", title: "있음" },
                                     { value: "no", title: "없음" },
@@ -262,7 +274,7 @@ const RegionModal = ({
                                 label="지역 코드"
                                 name="cityCode"
                                 value={inputs.cityCode}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                                 options={[
                                     { value: "code1", title: "코드1" },
@@ -274,7 +286,7 @@ const RegionModal = ({
                                 label="최근 수정 관리자"
                                 name="editMng"
                                 value={inputs.editMng}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                             />
 
@@ -282,21 +294,21 @@ const RegionModal = ({
                                 label="최근 수정 날짜"
                                 name="editDate"
                                 value={inputs.editDate}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                             />
                             <Input
                                 label="생성 관리자"
                                 name="makeMng"
                                 value={inputs.makeMng}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                             />
                             <Input
                                 label="생성 일자"
                                 name="makeDate"
                                 value={inputs.makeDate}
-                                onChange={handleChangeInput}
+                                onChange={handleChangeInputs}
                                 errors={errors}
                             />
                         </FormSection>
