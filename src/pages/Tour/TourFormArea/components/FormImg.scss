@@ -1,6 +1,6 @@
 @import "../../../../styles/Common.scss";
 
-.areaFormRight {
+.formImg {
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
@@ -10,7 +10,7 @@
     border: 1px solid $line;
     border-radius: 0.25rem;
 
-    .areaFormRight__imgMain {
+    .formImg__imgMain {
         position: relative;
         padding: 5px;
         text-align: center;
@@ -28,7 +28,7 @@
         }
     }
 
-    .areaFormRight__imgSub {
+    .formImg__imgSub {
         display: flex;
         width: 100%;
         border-bottom: 1px solid #dee2e6;
@@ -44,7 +44,7 @@
         }
     }
 
-    .areaFormRight__buttonContainer {
+    .formImg__buttonContainer {
         padding: 5px;
         height: 40px;
         line-height: 40px;

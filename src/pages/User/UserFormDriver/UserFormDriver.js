@@ -180,7 +180,6 @@ const UserFormDriver = ({ match }) => {
                         name="birth"
                         value={inputs.birth}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
 
                     <Input
@@ -195,14 +194,12 @@ const UserFormDriver = ({ match }) => {
                         name="carType"
                         value={inputs.carType}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="차량번호"
                         name="plateNumber"
                         value={inputs.plateNumber}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
 
                     <Input
@@ -229,7 +226,6 @@ const UserFormDriver = ({ match }) => {
                         name="companyName"
                         value={inputs.companyName}
                         onChange={handleChangeInputs}
-                        errors={errors}
                         disabled={inputs.belong === "private"}
                     />
 
@@ -238,21 +234,18 @@ const UserFormDriver = ({ match }) => {
                         name="scheduleCount"
                         value={inputs.scheduleCount}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="컴플레인"
                         name="complain"
                         value={inputs.complain}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="평점"
                         name="score"
                         value={inputs.score}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Textarea
                         label="기타"

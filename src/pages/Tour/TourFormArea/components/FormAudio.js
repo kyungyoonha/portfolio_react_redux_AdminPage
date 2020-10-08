@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import AreaFormBodyModal from "./AreaFormBodyModal";
+import FormAudioModal from "./FormAudioModal";
 
 const options = [
     { value: "yes", title: "有" },
     { value: "no", title: "無" },
 ];
 
-const AreaFormBody = ({
+const FormAudio = ({
     inputs,
     onChange,
     audioList,
@@ -121,7 +121,7 @@ const AreaFormBody = ({
                 </td>
             </tr>
 
-            <AreaFormBodyModal
+            <FormAudioModal
                 isModalOpen={isModalOpen}
                 handleModalClose={handleModalClose}
                 handleChangeAudioList={handleChangeAudioList}
@@ -130,4 +130,4 @@ const AreaFormBody = ({
     );
 };
 
-export default AreaFormBody;
+export default FormAudio;

@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 
-import {
-    Input,
-    FileUploadMany,
-    Textarea,
-} from "../../../../components/Form/Form";
+import { Input, FileUploadMany, Textarea } from "../../../components/Form/Form";
 
 const navObj = {
     korea: { name: "한국어", short: "(한)" },
@@ -18,7 +14,7 @@ const options = [
     { value: "no", title: "無" },
 ];
 
-const AreaFormBottom = ({
+const FormAudioMain = ({
     inputs,
     onChange,
     audioMain,
@@ -133,4 +129,4 @@ const AreaFormBottom = ({
     );
 };
 
-export default AreaFormBottom;
+export default FormAudioMain;

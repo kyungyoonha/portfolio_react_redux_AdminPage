@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 
-import "./AreaFormRightModal.scss";
+import "./FormImgModal.scss";
 import Slider from "../../../../components/Slider/Slider";
 import Modal from "../../../../components/Modal/Modal";
 import noImg from "../../../../img/no-img.jpg";
 
-const AreaFormRightModal = ({
+const FormImgModal = ({
     isModalOpen,
     handleChangeImageList,
     handleModalClose,
@@ -98,7 +98,7 @@ const AreaFormRightModal = ({
 
     return (
         <Modal isModalOpen={isModalOpen} handleModalClose={handleModalClose}>
-            <div className="areaFormRightModal">
+            <div className="formImgModal">
                 <div className="top">
                     <button
                         type="button"
@@ -211,4 +211,4 @@ const AreaFormRightModal = ({
     );
 };
 
-export default AreaFormRightModal;
+export default FormImgModal;

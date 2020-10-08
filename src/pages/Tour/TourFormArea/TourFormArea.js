@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import validateInput from "../../../util/validateInput";
-import AreaFormBottom from "./components/AreaFormBottom";
-import AreaFormRight from "./components/AreaFormRight";
-import AreaFormBody from "./components/AreaFormBody";
+
+import FormImg from "./components/FormImg";
+import FormAudio from "./components/FormAudio";
+import FormAudioMain from "../components/FormAudioMain";
 
 import {
     Input,
@@ -26,6 +27,25 @@ import {
 } from "../../../components/Content/Content";
 import history from "../../../history";
 
+const initialValue = {
+    countryCtg: "KOREA",
+    state: "",
+    city: "",
+    placeCode: "",
+    address: "",
+    lat: "",
+    lng: "",
+    placeName: "",
+    contactNumber: "",
+    entranceFee: "",
+    businessHours: "",
+    tourTags: {},
+    typeCharacteristic: "",
+    typeStyle: "",
+    hasAudio: "no",
+    hasAudioMain: "no",
+};
+
 const initialAudioMain = {
     korea: { title: "", script: "", files: [] },
     english: { title: "", script: "", files: [] },
@@ -36,24 +56,7 @@ const initialAudioMain = {
 const TourFormArea = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState({
-        countryCtg: "KOREA",
-        state: "",
-        city: "",
-        placeCode: "",
-        address: "",
-        lat: "",
-        lng: "",
-        placeName: "",
-        contactNumber: "",
-        entranceFee: "",
-        businessHours: "",
-        tourTags: {},
-        typeCharacteristic: "",
-        typeStyle: "",
-        hasAudio: "no",
-        hasAudioMain: "no",
-    });
+    const [inputs, setInputs] = useState(initialValue);
     const [imageList, setImageList] = useState([]);
     const [audioList, setAudioList] = useState([]);
     const [audioMain, setAudioMain] = useState(initialAudioMain);
@@ -99,9 +102,7 @@ const TourFormArea = ({ match }) => {
         }));
     };
 
-    const handleChangeImageList = (newImgList) => {
-        setImageList(newImgList);
-    };
+    const handleChangeImageList = (newImgList) => setImageList(newImgList);
 
     const handleChangeAudioList = (newAudioList) => {
         setAudioList((state) => [...state, newAudioList]);
@@ -228,7 +229,7 @@ const TourFormArea = ({ match }) => {
                     />
                 </FormSection>
 
-                <AreaFormRight
+                <FormImg
                     imageList={imageList}
                     handleChangeImageList={handleChangeImageList}
                 />
@@ -270,7 +271,7 @@ const TourFormArea = ({ match }) => {
                 </FormSection>
                 {/* 오디오 서브 등록 */}
                 <FormSection>
-                    <AreaFormBody
+                    <FormAudio
                         inputs={inputs}
                         onChange={handleChangeInputs}
                         audioList={audioList}
@@ -280,7 +281,7 @@ const TourFormArea = ({ match }) => {
                 </FormSection>
                 {/* 오디오 메인 등록 */}
                 <FormSection>
-                    <AreaFormBottom
+                    <FormAudioMain
                         inputs={inputs}
                         onChange={handleChangeInputs}
                         audioMain={audioMain}

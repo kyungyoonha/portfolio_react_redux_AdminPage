@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import "./AreaFormBodyModal.scss";
+import "./FormAudioModal.scss";
 import {
     RatioSingle,
     Select,
     Input,
-    FileuploadCard, FormSection
+    FileuploadCard,
+    FormSection,
 } from "../../../../components/Form/Form";
 
 import {
@@ -16,9 +17,9 @@ import {
 import Modal from "../../../../components/Modal/Modal";
 import noImg from "../../../../img/no-img.jpg";
 
-import AreaFormBottom from "./AreaFormBottom";
+import FormAudioMain from "../../components/FormAudioMain";
 
-const AreaFormBodyModal = ({
+const FormAudioModal = ({
     isModalOpen,
     handleModalClose,
     handleChangeAudioList,
@@ -88,8 +89,8 @@ const AreaFormBodyModal = ({
             title="세부 관광지 추가하기"
             handleModalClose={handleModalClose}
         >
-            <div className="areaFormBodyModal">
-                <div className="areaFormBodyModal__buttonContainer">
+            <div className="formAudioModal">
+                <div className="formAudioModal__buttonContainer">
                     <button
                         type="button"
                         className="btn btn-outline-primary"
@@ -179,22 +180,18 @@ const AreaFormBodyModal = ({
                     </FormSection>
 
                     <FormSection size="full">
-                    <AreaFormBottom
-                        audioMain={audioMain}
-                        handleChangeAudioMain={handleChangeAudioMain}
-                        onChange={handleChangeInput}
-                        inputs={inputs}
-                        disabled={false}
-    
-    
-    
-                    />
+                        <FormAudioMain
+                            audioMain={audioMain}
+                            handleChangeAudioMain={handleChangeAudioMain}
+                            onChange={handleChangeInput}
+                            inputs={inputs}
+                            disabled={false}
+                        />
                     </FormSection>
-                    
                 </div>
             </div>
         </Modal>
     );
 };
 
-export default AreaFormBodyModal;
+export default FormAudioModal;

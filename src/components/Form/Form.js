@@ -1,7 +1,6 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import "./Form.scss";
 import noImg from "../../img/no-img.jpg";
-import { optionsCountry } from "../../util/options";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;

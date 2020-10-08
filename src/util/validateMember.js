@@ -46,6 +46,7 @@ export const validateDriver = (name, value) => {
 
         case "country":
             return isEmpty(value) && "국가를 선택해주세요.";
+
         case "state":
             return isEmpty(value) && "시/도를 입력해주세요.";
 

@@ -35,17 +35,10 @@ const UserFormManager = ({ match }) => {
 
     const handleChangeInputs = (e) => {
         const { name, value } = e.target;
-
-        setInputs((state) => ({
-            ...state,
-            [name]: value,
-        }));
+        setInputs((state) => ({ ...state, [name]: value }));
 
         const error = validateManager(name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: error,
-        }));
+        setErrors((state) => ({ ...state, [name]: error }));
     };
 
     const handleClickInsert = () => {
@@ -100,7 +93,6 @@ const UserFormManager = ({ match }) => {
                         name="birth"
                         value={inputs.birth}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
 
                     <Input
@@ -124,14 +116,12 @@ const UserFormManager = ({ match }) => {
                         name="englishName"
                         value={inputs.englishName}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="주소"
                         name="address"
                         value={inputs.address}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
 
                     <Input
@@ -139,7 +129,6 @@ const UserFormManager = ({ match }) => {
                         name="joinYear"
                         value={inputs.joinYear}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                 </FormSection>
                 <FormSection>
@@ -148,7 +137,6 @@ const UserFormManager = ({ match }) => {
                         name="duty"
                         value={inputs.duty}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
 
                     <Input
@@ -156,7 +144,6 @@ const UserFormManager = ({ match }) => {
                         name="department"
                         value={inputs.department}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
 
                     <Textarea

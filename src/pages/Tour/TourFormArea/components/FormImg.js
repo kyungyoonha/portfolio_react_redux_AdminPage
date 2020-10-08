@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import "./AreaFormRight.scss";
-import AreaFormRightModal from "./AreaFormRightModal";
+import "./FormImg.scss";
+import FormImgModal from "./FormImgModal";
 import noImg from "../../../../img/no-img.jpg";
 
-const AreaFormRight = ({ imageList, handleChangeImageList }) => {
+const FormImg = ({ imageList, handleChangeImageList }) => {
     // 모달
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -17,8 +17,8 @@ const AreaFormRight = ({ imageList, handleChangeImageList }) => {
 
     return (
         <React.Fragment>
-            <div className="areaFormRight">
-                <div className="areaFormRight__imgMain">
+            <div className="formImg">
+                <div className="formImg__imgMain">
                     <h3>
                         <span className="badge badge-danger">대표사진</span>
                     </h3>
@@ -27,7 +27,7 @@ const AreaFormRight = ({ imageList, handleChangeImageList }) => {
                         alt="대표사진"
                     />
                 </div>
-                <div className="areaFormRight__imgSub">
+                <div className="formImg__imgSub">
                     {[...new Array(4)].map((_, idx) => {
                         if (idx === 0) {
                             return null;
@@ -47,7 +47,7 @@ const AreaFormRight = ({ imageList, handleChangeImageList }) => {
                         }
                     })}
                 </div>
-                <div className="areaFormRight__buttonContainer">
+                <div className="formImg__buttonContainer">
                     <button
                         type="button"
                         className="btn btn-outline-primary btn-md btn-block"
@@ -55,7 +55,7 @@ const AreaFormRight = ({ imageList, handleChangeImageList }) => {
                     >
                         사진 편집하기
                     </button>
-                    <AreaFormRightModal
+                    <FormImgModal
                         isModalOpen={isModalOpen}
                         handleChangeImageList={handleChangeImageList}
                         handleModalClose={handleModalClose}
@@ -67,4 +67,4 @@ const AreaFormRight = ({ imageList, handleChangeImageList }) => {
     );
 };
 
-export default AreaFormRight;
+export default FormImg;
