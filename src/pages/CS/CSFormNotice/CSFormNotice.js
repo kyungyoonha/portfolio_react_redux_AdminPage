@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import validateInput from "../../../util/validateInput";
 import {
     FileUpload,
     FormLayout,
@@ -15,14 +14,18 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
+import { validateAll, validateNotice } from "../../../util/validateMember";
 
 const initialValue = {
     title: "",
     createMng: "",
-    displayOptions: {},
+    displayOptions: {
+        hiddenStatus: true,
+        displayTop: true,
+    },
     content: "",
 };
-//working
+//working done
 const CSFormNotice = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -31,7 +34,7 @@ const CSFormNotice = ({ match }) => {
 
     const onChange = (e) => {
         const { name, value, checked } = e.target;
-        const error = validateInput(name, value);
+        const error = validateNotice(name, value);
 
         setInputs((state) => ({ ...state, [name]: value }));
         setErrors((state) => ({ ...state, [name]: error }));
@@ -47,8 +50,6 @@ const CSFormNotice = ({ match }) => {
         }
     };
 
-    const handleClickInsert = () => {};
-
     const onUploadFile = (e, type) => {
         const image = e.target.files[0];
         // const previewSrc = URL.createObjectURL(image);
@@ -58,6 +59,17 @@ const CSFormNotice = ({ match }) => {
         setFileImg(image.name);
 
         // this.props.uploadImage(formData);
+    };
+
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateNotice);
+
+        if (isValid) {
+            console.log("에러 없음");
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
     };
 
     return (
@@ -101,14 +113,14 @@ const CSFormNotice = ({ match }) => {
                     />
 
                     <FileUpload
-                        label="면허증 첨부"
+                        label="첨부 파일"
                         name="file"
                         value={fileImg}
                         onChange={onUploadFile}
                     />
 
                     <RatioMulti
-                        label="상단 노출"
+                        label="노출"
                         name="displayOptions"
                         value={inputs.displayOptions}
                         onChange={onChange}
@@ -125,6 +137,7 @@ const CSFormNotice = ({ match }) => {
                         value={inputs.content}
                         onChange={onChange}
                         rows={8}
+                        errors={errors}
                     />
                 </FormSection>
             </FormLayout>

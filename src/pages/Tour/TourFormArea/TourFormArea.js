@@ -41,8 +41,8 @@ const initialValue = {
     entranceFee: "",
     businessHours: "",
     tourTags: {},
-    typeCharacteristic: "",
-    typeStyle: "",
+    typeCharacteristic: "0",
+    typeStyle: "0",
     hasAudio: "no",
     hasAudioMain: "no",
 };

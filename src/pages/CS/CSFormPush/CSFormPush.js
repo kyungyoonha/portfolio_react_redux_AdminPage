@@ -13,6 +13,7 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
+import { validateAll, validatePush } from "../../../util/validateMember";
 
 const initialValue = {
     pushName: "",
@@ -22,7 +23,7 @@ const initialValue = {
     connectPage: "",
     content: "",
 };
-//working
+//working done
 const CSFormPush = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -30,13 +31,22 @@ const CSFormPush = ({ match }) => {
 
     const onChange = (e) => {
         const { name, value } = e.target;
-        const error = validateInput(name, value);
+        const error = validatePush(name, value);
 
         setInputs((state) => ({ ...state, [name]: value }));
         setErrors((state) => ({ ...state, [name]: error }));
     };
 
-    const handleClickInsert = () => {};
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validatePush);
+
+        if (isValid) {
+            console.log("에러 없음");
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
+    };
 
     return (
         <Content>
@@ -62,7 +72,7 @@ const CSFormPush = ({ match }) => {
                         </th>
                     </tr>
                     <Input
-                        label="푸쉬제목"
+                        label={`푸쉬제목 (${inputs.pushName.length}/50)`}
                         name="pushName"
                         value={inputs.pushName}
                         onChange={onChange}
@@ -102,11 +112,12 @@ const CSFormPush = ({ match }) => {
                     />
 
                     <Textarea
-                        label="내용"
+                        label={`내용 (${inputs.content.length}/50)`}
                         name="content"
                         value={inputs.content}
                         onChange={onChange}
                         rows={8}
+                        errors={errors}
                     />
                 </FormSection>
             </FormLayout>

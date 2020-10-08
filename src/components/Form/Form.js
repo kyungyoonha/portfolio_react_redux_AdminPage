@@ -251,7 +251,15 @@ export const RatioTypeCheck = ({
     );
 };
 
-export const Textarea = ({ label, name, value, rows, onChange, disabled }) => {
+export const Textarea = ({
+    label,
+    name,
+    value,
+    rows,
+    onChange,
+    disabled,
+    errors = {},
+}) => {
     return (
         <tr>
             <th>
@@ -259,7 +267,7 @@ export const Textarea = ({ label, name, value, rows, onChange, disabled }) => {
             </th>
             <td>
                 <textarea
-                    className="form-control"
+                    className={`form-control ${errors[name] && "is-invalid"}`}
                     rows={rows}
                     name={name}
                     value={value}
@@ -267,6 +275,9 @@ export const Textarea = ({ label, name, value, rows, onChange, disabled }) => {
                     autoComplete="off"
                     disabled={disabled}
                 ></textarea>
+                {errors[name] && (
+                    <div className="invalid-feedback">{errors[name]}</div>
+                )}
             </td>
         </tr>
     );

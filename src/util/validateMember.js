@@ -98,6 +98,54 @@ export const validateManager = (name, value) => {
     }
 };
 
+export const validatePush = (name, value) => {
+    switch (name) {
+        case ("pushName", "content"):
+            if (isEmpty(value)) return "입력해주세요.";
+            if (value.length > 50) return "50자까지 입력 가능합니다.";
+            return;
+
+        default:
+            return;
+    }
+};
+
+export const validateNotice = (name, value) => {
+    switch (name) {
+        case "title":
+            return isEmpty(value) && "제목을 입력해주세요.";
+
+        case "content":
+            return isEmpty(value) && "내용을 입력해주세요.";
+
+        default:
+            return;
+    }
+};
+
+export const validateService = (name, value) => {
+    switch (name) {
+        case "title":
+            return isEmpty(value) && "제목을 입력해주세요.";
+
+        case "contactNumber":
+            if (isEmpty(value)) return "전화번호를 입력해주세요.";
+            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
+            return;
+
+        case "sendEmail":
+            if (isEmpty(value)) return "이메일을 입력해주세요.";
+            if (checkEmail(value)) return "양식에 맞게 입력해주세요.";
+            return;
+
+        case "sendContent":
+            return isEmpty(value) && "내용을 입력해주세요.";
+
+        default:
+            return;
+    }
+};
+
 const isEmpty = (string) => {
     if (string.trim() === "") return true;
     else return false;
