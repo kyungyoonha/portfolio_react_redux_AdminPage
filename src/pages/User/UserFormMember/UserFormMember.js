@@ -16,6 +16,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import { validateAll, validateMember } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     user_id: "",
@@ -37,25 +38,29 @@ const initialValue = {
 const UserFormMember = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState(initialValue);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateMember,
+        setErrors
+    );
+    // const [inputs, setInputs] = useState(initialValue);
+    // const handleChangeInputs = (e) => {
+    //     const { name, value, checked } = e.target;
+    //     const error = validateMember(name, value);
 
-    const handleChangeInputs = (e) => {
-        const { name, value, checked } = e.target;
-        const error = validateMember(name, value);
+    //     setInputs((state) => ({ ...state, [name]: value }));
+    //     setErrors((state) => ({ ...state, [name]: error }));
 
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
-
-        if (name === "tourTags") {
-            setInputs((state) => ({
-                ...state,
-                tourTags: {
-                    ...state.tourTags,
-                    [name]: checked,
-                },
-            }));
-        }
-    };
+    //     if (name === "tourTags") {
+    //         setInputs((state) => ({
+    //             ...state,
+    //             tourTags: {
+    //                 ...state.tourTags,
+    //                 [name]: checked,
+    //             },
+    //         }));
+    //     }
+    // };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateMember);

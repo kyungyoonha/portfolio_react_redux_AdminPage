@@ -13,6 +13,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import { validateAll, validateManager } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     manager_id: "",
@@ -32,15 +33,19 @@ const initialValue = {
 const UserFormManager = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState(initialValue);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateManager,
+        errors
+    );
+    // const [inputs, setInputs] = useState(initialValue);
+    // const handleChangeInputs = (e) => {
+    //     const { name, value } = e.target;
+    //     const error = validateManager(name, value);
 
-    const handleChangeInputs = (e) => {
-        const { name, value } = e.target;
-        const error = validateManager(name, value);
-
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
-    };
+    //     setInputs((state) => ({ ...state, [name]: value }));
+    //     setErrors((state) => ({ ...state, [name]: error }));
+    // };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateManager);

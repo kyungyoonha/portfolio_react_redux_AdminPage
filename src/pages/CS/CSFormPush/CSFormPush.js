@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import validateInput from "../../../util/validateInput";
 import {
     FormLayout,
     FormSection,

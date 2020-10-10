@@ -15,7 +15,7 @@ import {
     optionsRegion,
 } from "../../../../util/options";
 import noImg from "../../../../img/no-img.jpg";
-import validateInput from "../../../../util/validateInput";
+import { validateAll, validateRegion } from "../../../../util/validateMember";
 
 const initialValue = {
     id: "",
@@ -35,7 +35,7 @@ const initialValue = {
     makeMng: "",
     makeDate: "",
 };
-//working
+//working done 이미지
 const RegionModal = ({
     selectedItem,
     handleClickUpdate,
@@ -56,7 +56,7 @@ const RegionModal = ({
 
     const handleChangeInputs = (e) => {
         const { name, value } = e.target;
-        const error = validateInput(name, value);
+        const error = validateRegion(name, value);
 
         setInputs((state) => ({ ...state, [name]: value }));
         setErrors((state) => ({ ...state, [name]: error }));
@@ -71,21 +71,27 @@ const RegionModal = ({
     };
 
     const handleClickSave = async () => {
-        let newId = modalOpen === "edit" ? inputs.id : "";
+        const { isValid, checkedErrors } = validateAll(inputs, validateRegion);
 
-        const newInputs = {
-            ...inputs,
-            id: newId,
-        };
-        try {
-            // ### 서버저장
-            // await axios.post("http://localhost:8000/region/update", newInputs);
-            handleClickUpdate(newInputs);
-        } catch (e) {
-            console.error("RegionModal Submit Error", e);
+        // ★ 이미지 validate
+        if (isValid) {
+            try {
+                // ### 서버저장
+                // await axios.post("http://localhost:8000/region/update", newInputs);
+                handleClickUpdate({
+                    ...inputs,
+                    id: modalOpen === "edit" ? inputs.id : "",
+                });
+            } catch (e) {
+                console.error("RegionModal Submit Error", e);
+            }
+
+            console.log("에러 없음");
+            setInputs(initialValue);
+            handleModalClose();
+        } else {
+            setErrors(checkedErrors);
         }
-        setInputs(initialValue);
-        handleModalClose();
     };
 
     const handleChangeImageList = (e) => {

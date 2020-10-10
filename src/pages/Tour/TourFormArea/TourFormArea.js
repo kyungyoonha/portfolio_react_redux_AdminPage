@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import validateInput from "../../../util/validateInput";
-
 import FormImg from "./components/FormImg";
 import FormAudio from "./components/FormAudio";
 import FormAudioMain from "../components/FormAudioMain";
@@ -26,6 +24,8 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import history from "../../../history";
+import { validateAll, validateArea } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     countryCtg: "KOREA",
@@ -53,47 +53,52 @@ const initialAudioMain = {
     japan: { title: "", script: "", files: [] },
     china: { title: "", script: "", files: [] },
 };
-//working
+//working done 이미지
 const TourFormArea = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState(initialValue);
     const [imageList, setImageList] = useState([]);
     const [audioList, setAudioList] = useState([]);
     const [audioMain, setAudioMain] = useState(initialAudioMain);
 
-    const handleChangeInputs = (e) => {
-        const { name, value, checked } = e.target;
-        const error = validateInput(name, value);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateArea,
+        setErrors
+    );
+    // const [inputs, setInputs] = useState(initialValue);
+    // const handleChangeInputs = (e) => {
+    //     const { name, value, checked } = e.target;
+    //     const error = validateArea(name, value);
 
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
+    //     setInputs((state) => ({ ...state, [name]: value }));
+    //     setErrors((state) => ({ ...state, [name]: error }));
 
-        if (name === "tourTags") {
-            setInputs((state) => ({
-                ...state,
-                tourTags: {
-                    ...state.tourTags,
-                    [name]: checked,
-                },
-            }));
-        }
-        // 국적 선택
-        else if (name === "countryCtg") {
-            setInputs((state) => ({
-                ...state,
-                country: value === "KOREA" ? "KOREA" : "",
-            }));
-        }
-        // 오디오 세부 유/무
-        else if (name === "hasAudio" && value === "no") {
-            setAudioList([]);
-        }
-        // 오디오 메인 유/무
-        else if (name === "hasAudioMain" && value === "no") {
-            setAudioMain(initialAudioMain);
-        }
-    };
+    //     if (name === "tourTags") {
+    //         setInputs((state) => ({
+    //             ...state,
+    //             tourTags: {
+    //                 ...state.tourTags,
+    //                 [name]: checked,
+    //             },
+    //         }));
+    //     }
+    //     // 국적 선택
+    //     else if (name === "countryCtg") {
+    //         setInputs((state) => ({
+    //             ...state,
+    //             country: value === "KOREA" ? "KOREA" : "",
+    //         }));
+    //     }
+    //     // 오디오 세부 유/무
+    //     else if (name === "hasAudio" && value === "no") {
+    //         setAudioList([]);
+    //     }
+    //     // 오디오 메인 유/무
+    //     else if (name === "hasAudioMain" && value === "no") {
+    //         setAudioMain(initialAudioMain);
+    //     }
+    // };
 
     const handleChangeImageList = (newImgList) => setImageList(newImgList);
 
@@ -115,7 +120,16 @@ const TourFormArea = ({ match }) => {
         }));
     };
 
-    const handleClickInsert = () => {};
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateArea);
+
+        if (isValid) {
+            console.log("에러 없음");
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
+    };
 
     return (
         <Content>
@@ -263,7 +277,6 @@ const TourFormArea = ({ match }) => {
                     />
                 </FormSection>
                 {/* 오디오 서브 등록 */}
-
                 <FormAudio
                     inputs={inputs}
                     onChange={handleChangeInputs}
@@ -271,9 +284,7 @@ const TourFormArea = ({ match }) => {
                     handleChangeAudioList={handleChangeAudioList}
                     handleDeleteAudioList={handleDeleteAudioList}
                 />
-
                 {/* 오디오 메인 등록 */}
-
                 <FormAudioMain
                     inputs={inputs}
                     onChange={handleChangeInputs}

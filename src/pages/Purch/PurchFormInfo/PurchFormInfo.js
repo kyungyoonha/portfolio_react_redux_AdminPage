@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import validateInput from "../../../util/validateInput";
 import {
     Input,
     Select,
@@ -20,6 +19,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import SectionMultiSelect from "../components/SectionMultiSelect";
+import { validateAll, validateInfo } from "../../../util/validateMember";
 
 const initialValue = {
     tourName: "",
@@ -57,7 +57,7 @@ const initialValueMulti = {
         { seq: 2, value: "" },
     ],
 };
-//working
+//working done
 const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -66,7 +66,7 @@ const PurchFormInfo = ({ match }) => {
 
     const handleChangeInputs = (e) => {
         const { name, value } = e.target;
-        const error = validateInput(name, value);
+        const error = validateInfo(name, value);
 
         setInputs((state) => ({ ...state, [name]: value }));
         setErrors((state) => ({ ...state, [name]: error }));
@@ -86,7 +86,17 @@ const PurchFormInfo = ({ match }) => {
         }
     };
 
-    const handleClickInsert = () => {};
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateInfo);
+
+        if (isValid) {
+            console.log("에러 없음");
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
+    };
+
     return (
         <Content>
             <ContentNav id={id}>
@@ -182,7 +192,6 @@ const PurchFormInfo = ({ match }) => {
                             { value: 5, title: "5명" },
                         ]}
                     />
-
                     <Input
                         label="가격"
                         name="price"
@@ -202,7 +211,6 @@ const PurchFormInfo = ({ match }) => {
                         name="tourEndTime"
                         value={inputs.tourEndTime}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                 </FormSection>
                 <FormSection>
@@ -217,40 +225,36 @@ const PurchFormInfo = ({ match }) => {
                         name="purchCode"
                         value={inputs.purchCode}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="구매 일자"
                         name="purchDate"
                         value={inputs.purchDate}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="구매 방식"
                         name="purchWay"
                         value={inputs.purchWay}
                         onChange={handleChangeInputs}
-                        errors={errors}
                     />
                     <Input
                         label="가격"
+                        name="purchPrice"
+                        value={inputs.purchPrice}
+                        onChange={handleChangeInputs}
+                    />
+                    <Input
+                        label="구매자 Id"
                         name="guestId"
                         value={inputs.guestId}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
-                        label="구매자 Id"
+                        label="이름"
                         name="guestName"
                         value={inputs.guestName}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="이름"
-                        name="tourCnt"
-                        value={inputs.tourCnt}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />

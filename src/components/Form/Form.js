@@ -16,6 +16,7 @@ export const FormSection = ({ size, children }) => {
     );
 };
 
+export const InputWithButton = () => {};
 export const Input = ({
     label,
     name,
@@ -42,6 +43,7 @@ export const Input = ({
                     autoComplete="off"
                     disabled={disabled}
                 />
+
                 {children}
 
                 {errors[name] && (

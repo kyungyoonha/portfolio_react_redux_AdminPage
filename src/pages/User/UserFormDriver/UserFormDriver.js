@@ -23,6 +23,7 @@ import {
     optionsRegion,
 } from "../../../util/options";
 import { validateAll, validateDriver } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     driver_id: "",
@@ -54,27 +55,32 @@ const UserFormDriver = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [files, setFiles] = useState(initialValueFiles);
-    const [inputs, setInputs] = useState(initialValue);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateDriver,
+        setErrors
+    );
 
-    const handleChangeInputs = (e) => {
-        const { name, value } = e.target;
-        const error = validateDriver(name, value);
+    // const [inputs, setInputs] = useState(initialValue);
+    // const handleChangeInputs = (e) => {
+    //     const { name, value } = e.target;
+    //     const error = validateDriver(name, value);
 
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
+    //     setInputs((state) => ({ ...state, [name]: value }));
+    //     setErrors((state) => ({ ...state, [name]: error }));
 
-        if (name === "countryCtg") {
-            setInputs((state) => ({
-                ...state,
-                country: value === "KOREA" ? "KOREA" : "",
-            }));
-        } else if (name === "belong") {
-            setInputs((state) => ({
-                ...state,
-                companyName: "",
-            }));
-        }
-    };
+    //     if (name === "countryCtg") {
+    //         setInputs((state) => ({
+    //             ...state,
+    //             country: value === "KOREA" ? "KOREA" : "",
+    //         }));
+    //     } else if (name === "belong") {
+    //         setInputs((state) => ({
+    //             ...state,
+    //             companyName: "",
+    //         }));
+    //     }
+    // };
 
     const handleChangeFile = (e) => {
         const { name, files } = e.target;
