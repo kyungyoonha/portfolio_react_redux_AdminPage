@@ -164,7 +164,7 @@ const FormAudioModal = ({
                             value={inputs.city}
                             onChange={handleChangeInputs}
                             errors={errors}
-                            options={optionsRegion(inputs.region)}
+                            options={optionsRegion(inputs.city)}
                         />
 
                         <Select
@@ -173,7 +173,7 @@ const FormAudioModal = ({
                             value={inputs.place}
                             onChange={handleChangeInputs}
                             errors={errors}
-                            options={optionsRegion(inputs.region)}
+                            options={optionsRegion(inputs.place)}
                         />
 
                         <Input

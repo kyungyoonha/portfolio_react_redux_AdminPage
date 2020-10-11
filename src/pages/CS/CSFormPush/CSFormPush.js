@@ -13,6 +13,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import { validateAll, validatePush } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     pushName: "",
@@ -22,19 +23,12 @@ const initialValue = {
     connectPage: "",
     content: "",
 };
-//working done
+//working
 const CSFormPush = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState(initialValue);
-
-    const onChange = (e) => {
-        const { name, value } = e.target;
-        const error = validatePush(name, value);
-
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
-    };
+    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validatePush, setErrors);
+ 
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validatePush);
@@ -74,7 +68,7 @@ const CSFormPush = ({ match }) => {
                         label={`푸쉬제목 (${inputs.pushName.length}/50)`}
                         name="pushName"
                         value={inputs.pushName}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -82,7 +76,7 @@ const CSFormPush = ({ match }) => {
                         label="상태"
                         name="state"
                         value={inputs.state}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -90,7 +84,7 @@ const CSFormPush = ({ match }) => {
                         label="푸쉬 대상"
                         name="target"
                         value={inputs.target}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -98,7 +92,7 @@ const CSFormPush = ({ match }) => {
                         label="등록자"
                         name="editMng"
                         value={inputs.editMng}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -106,7 +100,7 @@ const CSFormPush = ({ match }) => {
                         label="연결페이지"
                         name="connectPage"
                         value={inputs.connectPage}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -114,7 +108,7 @@ const CSFormPush = ({ match }) => {
                         label={`내용 (${inputs.content.length}/50)`}
                         name="content"
                         value={inputs.content}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         rows={8}
                         errors={errors}
                     />

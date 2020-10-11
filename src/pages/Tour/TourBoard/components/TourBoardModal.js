@@ -16,11 +16,13 @@ import {
 } from "../../../../util/options";
 import noImg from "../../../../img/no-img.jpg";
 import { validateAll, validateRegion } from "../../../../util/validateMember";
+import useInputs from "../../../../Hooks/useInputs";
 
 const initialValue = {
     id: "",
     check: false,
-    country: "",
+    countryCtg: "KOREA",
+    country: "KOREA",
     countryCode: "",
     countrySort: "",
     state: "",
@@ -35,16 +37,18 @@ const initialValue = {
     makeMng: "",
     makeDate: "",
 };
-//working done 이미지
+//working 이미지
 const RegionModal = ({
     selectedItem,
     handleClickUpdate,
     handleClickDelete,
 }) => {
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState(initialValue);
+    // const [inputs, setInputs] = useState(initialValue);
     const [imageList, setImageList] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
+
+    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateRegion, setErrors)
 
     useEffect(() => {
         if (selectedItem.id && modalOpen !== "new") {
@@ -52,23 +56,23 @@ const RegionModal = ({
         } else {
             setInputs(initialValue);
         }
-    }, [modalOpen, selectedItem]);
+    }, [modalOpen, selectedItem, setInputs]);
 
-    const handleChangeInputs = (e) => {
-        const { name, value } = e.target;
-        const error = validateRegion(name, value);
+    // const handleChangeInputs = (e) => {
+    //     const { name, value } = e.target;
+    //     const error = validateRegion(name, value);
 
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
+    //     setInputs((state) => ({ ...state, [name]: value }));
+    //     setErrors((state) => ({ ...state, [name]: error }));
 
-        // 국적선택 시
-        if (name === "countryCtg") {
-            setInputs((state) => ({
-                ...state,
-                country: value === "KOREA" ? "KOREA" : "",
-            }));
-        }
-    };
+    //     // 국적선택 시
+    //     if (name === "countryCtg") {
+    //         setInputs((state) => ({
+    //             ...state,
+    //             country: value === "KOREA" ? "KOREA" : "",
+    //         }));
+    //     }
+    // };
 
     const handleClickSave = async () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateRegion);
@@ -192,16 +196,15 @@ const RegionModal = ({
                                     { value: "OVERSEAS", title: "국외" },
                                 ]}
                             />
+                            
                             <Select
-                                label="국가"
+                                label="(국가 선택)"
                                 name="country"
                                 value={inputs.country}
                                 onChange={handleChangeInputs}
                                 errors={errors}
-                                options={[
-                                    ...optionsCountry(inputs.countryCtg),
-                                    { value: "KOREA", title: "대한민국" },
-                                ]}
+                                options={optionsCountry(inputs.countryCtg)}
+                                disabled={inputs.countryCtg === "KOREA"}
                             />
 
                             <Select
@@ -262,7 +265,7 @@ const RegionModal = ({
                                 value={inputs.city}
                                 onChange={handleChangeInputs}
                                 errors={errors}
-                                options={optionsRegion(inputs.region)}
+                                options={optionsRegion(inputs.city)}
                             />
 
                             <RatioSingle

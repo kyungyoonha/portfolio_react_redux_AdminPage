@@ -15,6 +15,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import { validateAll, validateService } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     name: "",
@@ -26,39 +27,39 @@ const initialValue = {
     user: "",
     sendEmail: "",
     sendContent: "",
+    fileImg: {
+        src: '',
+        filename: '',
+        file: '',
+    },
+    uploadImg: {
+        src: '',
+        filename: '',
+        file: '',
+    }
 };
-//working done
+//working
 const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [fileImg, setFileImg] = useState();
-    const [inputs, setInputs] = useState(initialValue);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateService, setErrors)
 
-    const handleChangeInputs = (e) => {
-        const { name, value } = e.target;
-        const error = validateService(name, value);
-
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
-
-        // 국적선택 시
-        if (name === "countryCtg") {
-            setInputs((state) => ({
-                ...state,
-                country: value === "KOREA" ? "KOREA" : "",
-            }));
-        }
-    };
-
-    const onUploadFile = (e, type) => {
-        const image = e.target.files[0];
+    
+    const handleChangeFile = (e) => {
+        const target = e.target;
+        const name = target.name
+        const image = target.files[0];
         // const previewSrc = URL.createObjectURL(image);
         // const formData = new FormData();
         // formData.append("image", image, image.name);
-
-        setFileImg(image.name);
-
-        // this.props.uploadImage(formData);
+        setInputs(state => ({
+            ...state,
+            [name]: {
+                src: '',
+                filename: image.name,
+                file: image
+            }
+        }))
     };
 
     const handleClickInsert = () => {
@@ -93,9 +94,10 @@ const PurchFormInfo = ({ match }) => {
 
                     <FileUpload
                         label="파일 등록"
-                        name="file"
-                        value={fileImg}
-                        onChange={onUploadFile}
+                        name="fileImg"
+                        value={inputs.fileImg.filename}
+                        onChange={handleChangeFile}
+                        disabled                    
                     />
 
                     <Input
@@ -144,9 +146,9 @@ const PurchFormInfo = ({ match }) => {
 
                     <FileUpload
                         label="파일 등록"
-                        name="file"
-                        value={fileImg}
-                        onChange={onUploadFile}
+                        name="uploadImg"
+                        value={inputs.uploadImg.filename}
+                        onChange={handleChangeFile}
                     />
 
                     <Input

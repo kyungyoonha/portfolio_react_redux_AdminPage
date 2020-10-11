@@ -45,79 +45,81 @@ const initialValue = {
     typeStyle: "0",
     hasAudio: "no",
     hasAudioMain: "no",
+    imageList: [
+        // { src: img1, filename: "", file: null },
+        // { src: img1, filename: "", file: null },
+        // { src: img1, filename: "", file: null },
+    ],
+    audioList: [
+        // {
+        //     name: ''
+        //     inputs: { countryCtg: "KOREA", state: "", city: "", place: "", name: "", content: "", hasAudio: "no" },
+        //     imageList: [
+        //         { src: "img1", filename: "", file: null }
+        //     ],
+        //     audioMain: {
+        //         korea: { title: "", script: "", files: [] },
+        //         english: { title: "", script: "", files: [] },
+        //         japan: { title: "", script: "", files: [] },
+        //         china: { title: "", script: "", files: [] },
+        //     },
+        // },
+        // { ... },
+        // { ... },
+    ],
+    audioMain: {
+        korea: { title: "", script: "", files: [] },
+        english: { title: "", script: "", files: [] },
+        japan: { title: "", script: "", files: [] },
+        china: { title: "", script: "", files: [] },
+    },
 };
 
-const initialAudioMain = {
-    korea: { title: "", script: "", files: [] },
-    english: { title: "", script: "", files: [] },
-    japan: { title: "", script: "", files: [] },
-    china: { title: "", script: "", files: [] },
-};
-//working done 이미지
+//working 이미지
 const TourFormArea = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [imageList, setImageList] = useState([]);
-    const [audioList, setAudioList] = useState([]);
-    const [audioMain, setAudioMain] = useState(initialAudioMain);
-
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validateArea,
         setErrors
     );
-    // const [inputs, setInputs] = useState(initialValue);
-    // const handleChangeInputs = (e) => {
-    //     const { name, value, checked } = e.target;
-    //     const error = validateArea(name, value);
 
-    //     setInputs((state) => ({ ...state, [name]: value }));
-    //     setErrors((state) => ({ ...state, [name]: error }));
-
-    //     if (name === "tourTags") {
-    //         setInputs((state) => ({
-    //             ...state,
-    //             tourTags: {
-    //                 ...state.tourTags,
-    //                 [name]: checked,
-    //             },
-    //         }));
-    //     }
-    //     // 국적 선택
-    //     else if (name === "countryCtg") {
-    //         setInputs((state) => ({
-    //             ...state,
-    //             country: value === "KOREA" ? "KOREA" : "",
-    //         }));
-    //     }
-    //     // 오디오 세부 유/무
-    //     else if (name === "hasAudio" && value === "no") {
-    //         setAudioList([]);
-    //     }
-    //     // 오디오 메인 유/무
-    //     else if (name === "hasAudioMain" && value === "no") {
-    //         setAudioMain(initialAudioMain);
-    //     }
-    // };
-
-    const handleChangeImageList = (newImgList) => setImageList(newImgList);
+    const handleChangeImageList = (newImgList) => {
+        setInputs(state => ({
+            ...state,
+            imageList: newImgList,
+        }))
+    }
 
     const handleChangeAudioList = (newAudioList) => {
-        setAudioList((state) => [...state, newAudioList]);
+        setInputs(state => ({
+            ...state,
+            audioList: [
+                ...state.audioList,
+                newAudioList
+            ]
+        }))
     };
 
     const handleDeleteAudioList = (idx) => {
-        setAudioList((state) => state.filter((_, i) => String(i) !== idx));
+        setInputs(state => ({
+            ...state,
+            audioList: state.audioList.filter((_, i) => String(i) !== idx ),
+        }))
     };
 
     const handleChangeAudioMain = ({ selected, name, value }) => {
-        setAudioMain((state) => ({
+        setInputs(state => ({
             ...state,
-            [selected]: {
-                ...state[selected],
-                [name]: value,
-            },
-        }));
+            audioMain:{
+                ...state.audioMain,
+                [selected]: {
+                    ...state.audioMain[selected],
+                    [name]: value
+                }
+            }
+        }))
     };
 
     const handleClickInsert = () => {
@@ -182,7 +184,7 @@ const TourFormArea = ({ match }) => {
 
                     <Input
                         label="관광지 코드"
-                        name="place"
+                        name="placeCode"
                         value={inputs.placeCode}
                         onChange={handleChangeInputs}
                         errors={errors}
@@ -237,7 +239,7 @@ const TourFormArea = ({ match }) => {
                 </FormSection>
 
                 <FormImg
-                    imageList={imageList}
+                    imageList={inputs.imageList}
                     handleChangeImageList={handleChangeImageList}
                 />
 
@@ -280,7 +282,7 @@ const TourFormArea = ({ match }) => {
                 <FormAudio
                     inputs={inputs}
                     onChange={handleChangeInputs}
-                    audioList={audioList}
+                    audioList={inputs.audioList}
                     handleChangeAudioList={handleChangeAudioList}
                     handleDeleteAudioList={handleDeleteAudioList}
                 />
@@ -288,7 +290,7 @@ const TourFormArea = ({ match }) => {
                 <FormAudioMain
                     inputs={inputs}
                     onChange={handleChangeInputs}
-                    audioMain={audioMain}
+                    audioMain={inputs.audioMain}
                     handleChangeAudioMain={handleChangeAudioMain}
                     disabled={inputs.hasAudioMain === "no"}
                 />

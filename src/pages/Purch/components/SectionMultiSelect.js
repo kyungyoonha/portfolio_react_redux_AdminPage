@@ -8,45 +8,45 @@ const navObj = {
     hobby: "취미/관심사",
 };
 
-const SectionMultiSelect = ({ multiInfo, setMultiInfo }) => {
+const SectionMultiSelect = ({ multiInfo, handleChangeMultiInfo, handleAddRow }) => {
     const [selected, setSelected] = useState("tour");
     const handleClickNav = (keyword) => {
         setSelected(keyword);
     };
 
-    const handleChangeMultiInfo = (e, seq) => {
-        const { value } = e.target;
-        setMultiInfo((state) => ({
-            ...state,
-            [selected]: [
-                ...state[selected].map((item) =>
-                    item.seq === seq
-                        ? {
-                              seq: item.seq,
-                              value,
-                          }
-                        : item
-                ),
-            ],
-        }));
-    };
+    // const handleChangeMultiInfo = (e, seq) => {
+    //     const { value } = e.target;
+    //     setMultiInfo((state) => ({
+    //         ...state,
+    //         [selected]: [
+    //             ...state[selected].map((item) =>
+    //                 item.seq === seq
+    //                     ? {
+    //                           seq: item.seq,
+    //                           value,
+    //                       }
+    //                     : item
+    //             ),
+    //         ],
+    //     }));
+    // };
 
-    const handleAddRow = () => {
-        setMultiInfo((state) => ({
-            ...state,
-            [selected]: [
-                ...state[selected],
-                {
-                    seq:
-                        multiInfo[selected].reduce(
-                            (pre, cur) => Math.max(pre, cur.seq),
-                            0
-                        ) + 1,
-                    value: "",
-                },
-            ],
-        }));
-    };
+    // const handleAddRow = () => {
+    //     setMultiInfo((state) => ({
+    //         ...state,
+    //         [selected]: [
+    //             ...state[selected],
+    //             {
+    //                 seq:
+    //                     multiInfo[selected].reduce(
+    //                         (pre, cur) => Math.max(pre, cur.seq),
+    //                         0
+    //                     ) + 1,
+    //                 value: "",
+    //             },
+    //         ],
+    //     }));
+    // };
 
     return (
         <React.Fragment>
@@ -85,7 +85,7 @@ const SectionMultiSelect = ({ multiInfo, setMultiInfo }) => {
                         label={`${item.seq}번째 (${navObj[selected]})`}
                         name="data"
                         value={item.value}
-                        onChange={(e) => handleChangeMultiInfo(e, item.seq)}
+                        onChange={(e) => handleChangeMultiInfo(e, selected, item.seq)}
                         errors={[]}
                         options={[
                             { value: "", title: "선택해주세요" },
@@ -101,7 +101,7 @@ const SectionMultiSelect = ({ multiInfo, setMultiInfo }) => {
                     <button
                         className="btn btn-block btn-outline-primary"
                         type="button"
-                        onClick={handleAddRow}
+                        onClick={() => handleAddRow(selected)}
                     >
                         (+)
                     </button>

@@ -50,7 +50,7 @@ const initialValueFiles = {
     carPic: {},
     license: {},
 };
-//working done
+//working
 const UserFormDriver = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -152,18 +152,18 @@ const UserFormDriver = ({ match }) => {
                     <Select
                         label="시/도"
                         name="state"
-                        value={inputs.city}
+                        value={inputs.state}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsCity(inputs.city)}
+                        options={optionsCity(inputs.state)}
                     />
                     <Select
                         label="지역"
                         name="city"
-                        value={inputs.region}
+                        value={inputs.city}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsRegion(inputs.region)}
+                        options={optionsRegion(inputs.city)}
                     />
 
                     <Input

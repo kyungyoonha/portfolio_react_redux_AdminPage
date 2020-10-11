@@ -15,6 +15,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import { validateAll, validateNotice } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     title: "",
@@ -24,41 +25,33 @@ const initialValue = {
         displayTop: true,
     },
     content: "",
+    fileImg: {
+        src: '',
+        filename: '',
+        file: '',
+    }
 };
-//working done
+
+//working
 const CSFormNotice = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [fileImg, setFileImg] = useState();
-    const [inputs, setInputs] = useState(initialValue);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateNotice, setErrors);
 
-    const onChange = (e) => {
-        const { name, value, checked } = e.target;
-        const error = validateNotice(name, value);
-
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
-
-        if (name === "displayOptions") {
-            setInputs((state) => ({
-                ...state,
-                displayOptions: {
-                    ...state.displayOptions,
-                    [name]: checked,
-                },
-            }));
-        }
-    };
-
-    const onUploadFile = (e, type) => {
+    
+    const handleChangeFile = (e) => {
         const image = e.target.files[0];
         // const previewSrc = URL.createObjectURL(image);
         // const formData = new FormData();
         // formData.append("image", image, image.name);
-
-        setFileImg(image.name);
-
-        // this.props.uploadImage(formData);
+        setInputs(state => ({
+            ...state,
+            fileImg: {
+                src: '',
+                filename: image.name,
+                file: image
+            }
+        }))
     };
 
     const handleClickInsert = () => {
@@ -99,7 +92,7 @@ const CSFormNotice = ({ match }) => {
                         label="제목"
                         name="title"
                         value={inputs.title}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                     />
 
@@ -107,7 +100,7 @@ const CSFormNotice = ({ match }) => {
                         label="등록자"
                         name="createMng"
                         value={inputs.createMng}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         errors={errors}
                         disabled={true}
                     />
@@ -115,15 +108,15 @@ const CSFormNotice = ({ match }) => {
                     <FileUpload
                         label="첨부 파일"
                         name="file"
-                        value={fileImg}
-                        onChange={onUploadFile}
+                        value={inputs.fileImg.filename}
+                        onChange={handleChangeFile}
                     />
 
                     <RatioMulti
                         label="노출"
                         name="displayOptions"
                         value={inputs.displayOptions}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         max={3}
                         options={[
                             { key: "hiddenStatus", title: "공개여부" },
@@ -135,7 +128,7 @@ const CSFormNotice = ({ match }) => {
                         label="내용"
                         name="content"
                         value={inputs.content}
-                        onChange={onChange}
+                        onChange={handleChangeInputs}
                         rows={8}
                         errors={errors}
                     />

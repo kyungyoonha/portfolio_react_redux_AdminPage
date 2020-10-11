@@ -5,47 +5,65 @@ export default (initialValue, validateFunc, setErrors) => {
 
     const handleChangeInputs = useCallback(
         (e) => {
-            const { name, value, checked } = e.target;
+            const { name, value, type, checked } = e.target;
             const error = validateFunc(name, value);
 
-            setInputs((state) => ({ ...state, [name]: value }));
-            setErrors((state) => ({ ...state, [name]: error }));
-
-            // 국가 선택
-            if (name === "countryCtg") {
+            if (type === 'checkbox'){
                 setInputs((state) => ({
                     ...state,
-                    country: value === "KOREA" ? "KOREA" : "",
-                }));
-            }
-
-            // 소속
-            else if (name === "belong") {
-                setInputs((state) => ({
-                    ...state,
-                    companyName: "",
-                }));
-            }
-
-            // Check Box => 여행 태그
-            else if (name === "tourTags") {
-                setInputs((state) => ({
-                    ...state,
-                    tourTags: {
-                        ...state.tourTags,
-                        [name]: checked,
+                    [name]: {
+                        ...state[name],
+                        [value]: checked,
                     },
-                }));
+                }))
             }
+            else{
+                setInputs((state) => ({ ...state, [name]: value }));
+                setErrors((state) => ({ ...state, [name]: error }));
 
-            // // 오디오 세부 유/무
-            // else if (name === "hasAudio" && value === "no") {
-            //     setAudioList([]);
-            // }
-            // // 오디오 메인 유/무
-            // else if (name === "hasAudioMain" && value === "no") {
-            //     setAudioMain(initialAudioMain);
-            // }
+                // 국가 선택
+                if (name === "countryCtg") {
+                    setInputs((state) => ({
+                        ...state,
+                        country: value === "KOREA" ? "KOREA" : "",
+                    }));
+                }
+                // 소속
+                else if (name === "belong") {
+                    setInputs((state) => ({
+                        ...state,
+                        companyName: "",
+                    }));
+                }
+                
+                // 오디오 세부 유/무
+                else if (name === "hasAudio" && value === "no") {
+                    setInputs(state => ({
+                        ...state,
+                        audioList: []
+                    }))
+                }
+
+                // 오디오 메인 유/무
+                else if (name === "hasAudioMain" && value === "no") {
+                    setInputs(state => ({
+                        ...state,
+                        audioMain: {
+                            korea: { title: "", script: "", files: [] },
+                            english: { title: "", script: "", files: [] },
+                            japan: { title: "", script: "", files: [] },
+                            china: { title: "", script: "", files: [] },
+                        }
+                    }))
+                }
+                // 투어 일수 당일 / 기간 설정 
+                else if (name === "tourDayCntCheck") {
+                    setInputs((state) => ({
+                        ...state,
+                        tourDayCnt: value === "one" ? "1" : "",
+                    }));
+                }
+            }
         },
         [setErrors, validateFunc]
     );

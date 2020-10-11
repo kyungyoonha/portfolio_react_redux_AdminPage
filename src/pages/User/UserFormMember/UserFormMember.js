@@ -34,7 +34,7 @@ const initialValue = {
     recieveMessage: "수신",
     etc: "",
 };
-//working done
+//working
 const UserFormMember = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -43,24 +43,6 @@ const UserFormMember = ({ match }) => {
         validateMember,
         setErrors
     );
-    // const [inputs, setInputs] = useState(initialValue);
-    // const handleChangeInputs = (e) => {
-    //     const { name, value, checked } = e.target;
-    //     const error = validateMember(name, value);
-
-    //     setInputs((state) => ({ ...state, [name]: value }));
-    //     setErrors((state) => ({ ...state, [name]: error }));
-
-    //     if (name === "tourTags") {
-    //         setInputs((state) => ({
-    //             ...state,
-    //             tourTags: {
-    //                 ...state.tourTags,
-    //                 [name]: checked,
-    //             },
-    //         }));
-    //     }
-    // };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateMember);
@@ -72,7 +54,7 @@ const UserFormMember = ({ match }) => {
             setErrors(checkedErrors);
         }
     };
-
+    
     return (
         <Content>
             <ContentNav id={id}>
@@ -166,10 +148,10 @@ const UserFormMember = ({ match }) => {
                         value={inputs.tourTags}
                         onChange={handleChangeInputs}
                         options={[
-                            { value: "tiger", title: "호랑이" },
-                            { value: "dog", title: "강아지" },
-                            { value: "monkey", title: "원숭이" },
-                            { value: "bear", title: "곰돌이" },
+                            { key: "tiger", title: "호랑이" },
+                            { key: "dog", title: "강아지" },
+                            { key: "monkey", title: "원숭이" },
+                            { key: "bear", title: "곰돌이" },
                         ]}
                     />
 

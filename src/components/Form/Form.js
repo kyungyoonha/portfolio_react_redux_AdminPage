@@ -131,6 +131,7 @@ export const SelectMultiCustom = ({ inputs, onChange, options }) => {
 };
 
 export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
+    
     const handleChange = (e) => {
         const { checked } = e.target;
         const length = Object.keys(value).filter((key) => value[key]).length;
@@ -153,7 +154,7 @@ export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
                         <input
                             className="form-check-input"
                             type="checkbox"
-                            name={option.key}
+                            name={name}
                             value={option.key}
                             checked={value[option.key] || false}
                             onChange={handleChange}
@@ -285,7 +286,7 @@ export const Textarea = ({
     );
 };
 
-export const FileUpload = ({ label, name, value, onChange, ctg }) => {
+export const FileUpload = ({ label, name, value, onChange, ctg, disabled }) => {
     return (
         <tr>
             <th>
@@ -298,6 +299,7 @@ export const FileUpload = ({ label, name, value, onChange, ctg }) => {
                         className="custom-file-input"
                         name={name}
                         onChange={(e) => onChange(e, ctg)}
+                        disabled={disabled}
                     />
                     <label className="custom-file-label" data-browse={label}>
                         {value}

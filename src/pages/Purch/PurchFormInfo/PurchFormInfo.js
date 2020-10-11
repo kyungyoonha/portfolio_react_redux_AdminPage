@@ -20,6 +20,7 @@ import {
 } from "../../../components/Content/Content";
 import SectionMultiSelect from "../components/SectionMultiSelect";
 import { validateAll, validateInfo } from "../../../util/validateMember";
+import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     tourName: "",
@@ -27,12 +28,12 @@ const initialValue = {
     country: "KOREA",
     state: "",
     city: "",
-    tourCtg: "",
+    tourCtg: "normal",
     tourDayCntCheck: "one",
-    tourDayCnt: "1",
+    tourDayCnt: 1,
     guestNumMin: "1",
     guestNumMax: "1",
-    price: "",
+    totalPrice: "",
     tourStartTime: "",
     tourEndTime: "",
     purchCode: "",
@@ -41,49 +42,68 @@ const initialValue = {
     guestId: "",
     guestName: "",
     tourCnt: "",
+    multiInfo: {
+        tour: [
+            { seq: 1, value: "" },
+            { seq: 2, value: "" },
+        ],
+        driver: [
+            { seq: 1, value: "" },
+            { seq: 2, value: "" },
+        ],
+        hobby: [
+            { seq: 1, value: "" },
+            { seq: 2, value: "" },
+        ],
+    }
 };
 
-const initialValueMulti = {
-    tour: [
-        { seq: 1, value: "" },
-        { seq: 2, value: "" },
-    ],
-    driver: [
-        { seq: 1, value: "" },
-        { seq: 2, value: "" },
-    ],
-    hobby: [
-        { seq: 1, value: "" },
-        { seq: 2, value: "" },
-    ],
-};
-//working done
+//working
 const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs] = useState(initialValue);
-    const [multiInfo, setMultiInfo] = useState(initialValueMulti);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateInfo, setErrors);
 
-    const handleChangeInputs = (e) => {
-        const { name, value } = e.target;
-        const error = validateInfo(name, value);
+    const handleChangeMultiInfo = (e, selected, seq) => {
+        const { value } = e.target;
+        setInputs((state) => ({
+            ...state,
+            multiInfo: {
+                ...state.multiInfo,
+                [selected]: [
+                    ...state.multiInfo[selected].map((item) =>
+                        item.seq === seq
+                            ? {
+                                  seq: item.seq,
+                                  value,
+                              }
+                            : item
+                    ),
+                ],
+            }
+            
+        }));
+    };
 
-        setInputs((state) => ({ ...state, [name]: value }));
-        setErrors((state) => ({ ...state, [name]: error }));
-
-        if (name === "tourDayCntCheck") {
-            setInputs((state) => ({
-                ...state,
-                tourDayCnt: value === "one" ? "1" : "",
-            }));
-        }
-        // 국적선택 시
-        else if (name === "countryCtg") {
-            setInputs((state) => ({
-                ...state,
-                country: value === "KOREA" ? "KOREA" : "",
-            }));
-        }
+    const handleAddRow = (selected) => {
+        setInputs((state) => ({
+            ...state,
+            multiInfo: {
+                ...state.multiInfo,
+                [selected]: [
+                    ...state.multiInfo[selected],
+                    {
+                        seq:
+                            state.multiInfo[selected].reduce(
+                                (pre, cur) => Math.max(pre, cur.seq),
+                                0
+                            ) + 1,
+                        value: "",
+                    },
+                ],
+            }
+            
+        }));
     };
 
     const handleClickInsert = () => {
@@ -160,7 +180,7 @@ const PurchFormInfo = ({ match }) => {
                         onChange={handleChangeInputs}
                         options={[
                             { value: "taxi", title: "택시 투어" },
-                            { value: "nomal", title: "일반 투어" },
+                            { value: "normal", title: "일반 투어" },
                         ]}
                     />
                     <RatioSingle
@@ -194,8 +214,8 @@ const PurchFormInfo = ({ match }) => {
                     />
                     <Input
                         label="가격"
-                        name="price"
-                        value={inputs.price}
+                        name="totalPrice"
+                        value={inputs.totalPrice}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
@@ -215,8 +235,9 @@ const PurchFormInfo = ({ match }) => {
                 </FormSection>
                 <FormSection>
                     <SectionMultiSelect
-                        multiInfo={multiInfo}
-                        setMultiInfo={setMultiInfo}
+                        multiInfo={inputs.multiInfo}
+                        handleChangeMultiInfo={handleChangeMultiInfo}
+                        handleAddRow={handleAddRow}
                     />
                 </FormSection>
                 <FormSection>
