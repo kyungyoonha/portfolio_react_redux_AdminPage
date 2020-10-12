@@ -42,8 +42,8 @@ const TourBoard = ({ match }) => {
         return () => dispatch(boardAction_init());
     }, [dispatch, id]);
 
-    const handleClickUpdate = (newData) => {
-        dispatch(boardAction_update(newData));
+    const handleClickUpdate = (id, newData) => {
+        dispatch(boardAction_update(id, newData));
     };
 
     const handleClickInsert = () => {

@@ -14,7 +14,7 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
-import { validateAll, validateNotice } from "../../../util/validateMember";
+import { validateAll, validateNotice } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
@@ -26,32 +26,35 @@ const initialValue = {
     },
     content: "",
     fileImg: {
-        src: '',
-        filename: '',
-        file: '',
-    }
+        src: "",
+        filename: "",
+        file: "",
+    },
 };
 
 //working
 const CSFormNotice = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateNotice, setErrors);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateNotice,
+        setErrors
+    );
 
-    
     const handleChangeFile = (e) => {
         const image = e.target.files[0];
         // const previewSrc = URL.createObjectURL(image);
         // const formData = new FormData();
         // formData.append("image", image, image.name);
-        setInputs(state => ({
+        setInputs((state) => ({
             ...state,
             fileImg: {
-                src: '',
+                src: "",
                 filename: image.name,
-                file: image
-            }
-        }))
+                file: image,
+            },
+        }));
     };
 
     const handleClickInsert = () => {

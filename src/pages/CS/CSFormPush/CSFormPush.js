@@ -12,7 +12,7 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
-import { validateAll, validatePush } from "../../../util/validateMember";
+import { validateAll, validatePush } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
@@ -27,8 +27,11 @@ const initialValue = {
 const CSFormPush = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validatePush, setErrors);
- 
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validatePush,
+        setErrors
+    );
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validatePush);

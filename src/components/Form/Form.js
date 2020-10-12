@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./Form.scss";
 import noImg from "../../img/no-img.jpg";
+import ReactDatePicker from "react-datepicker";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
@@ -16,7 +17,6 @@ export const FormSection = ({ size, children }) => {
     );
 };
 
-export const InputWithButton = () => {};
 export const Input = ({
     label,
     name,
@@ -131,7 +131,6 @@ export const SelectMultiCustom = ({ inputs, onChange, options }) => {
 };
 
 export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
-    
     const handleChange = (e) => {
         const { checked } = e.target;
         const length = Object.keys(value).filter((key) => value[key]).length;
@@ -442,5 +441,43 @@ export const FileSingle = ({ label, name, file, onChange }) => {
                 </td>
             </tr>
         </React.Fragment>
+    );
+};
+
+export const InputDate = ({ label, name, value, onChange, errors }) => {
+    const handleChangeDate = (date) => {
+        onChange({
+            target: { name, value: date },
+        });
+    };
+    return (
+        <tr>
+            <th>
+                <label className="col-form-label">
+                    {label && `※ ${label}`}
+                </label>
+            </th>
+
+            <td className="">
+                <div className={`input-group ${errors[name] && "is-invalid"}`}>
+                    <ReactDatePicker
+                        locale="ko"
+                        selected={value}
+                        className={`custom-select ${
+                            errors[name] && "is-invalid"
+                        }`}
+                        onChange={handleChangeDate}
+                        dateFormat="yyyy-MM-dd"
+                        peekNextMonth
+                        showYearDropdown
+                        showMonthDropdown
+                        dropdownMode="select"
+                    />
+                </div>
+                {errors[name] && (
+                    <div className="invalid-feedback">{errors[name]}</div>
+                )}
+            </td>
+        </tr>
     );
 };

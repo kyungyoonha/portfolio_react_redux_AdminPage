@@ -19,7 +19,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import SectionMultiSelect from "../components/SectionMultiSelect";
-import { validateAll, validateInfo } from "../../../util/validateMember";
+import { validateAll, validateInfo } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
@@ -55,14 +55,18 @@ const initialValue = {
             { seq: 1, value: "" },
             { seq: 2, value: "" },
         ],
-    }
+    },
 };
 
 //working
 const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateInfo, setErrors);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateInfo,
+        setErrors
+    );
 
     const handleChangeMultiInfo = (e, selected, seq) => {
         const { value } = e.target;
@@ -80,8 +84,7 @@ const PurchFormInfo = ({ match }) => {
                             : item
                     ),
                 ],
-            }
-            
+            },
         }));
     };
 
@@ -101,8 +104,7 @@ const PurchFormInfo = ({ match }) => {
                         value: "",
                     },
                 ],
-            }
-            
+            },
         }));
     };
 
@@ -139,7 +141,7 @@ const PurchFormInfo = ({ match }) => {
                     <RatioSingle
                         label="국가"
                         name="countryCtg"
-                        value={inputs.countryCtg}
+                        value={inputs.countryCtg || "KOREA"}
                         onChange={handleChangeInputs}
                         options={[
                             { value: "KOREA", title: "국내" },
@@ -150,7 +152,7 @@ const PurchFormInfo = ({ match }) => {
                     <Select
                         label="(국가 선택)"
                         name="country"
-                        value={inputs.country}
+                        value={inputs.country || "KOREA"}
                         onChange={handleChangeInputs}
                         errors={errors}
                         options={optionsCountry(inputs.countryCtg)}

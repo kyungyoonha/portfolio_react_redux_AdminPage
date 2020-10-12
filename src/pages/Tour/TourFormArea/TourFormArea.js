@@ -24,7 +24,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import history from "../../../history";
-import { validateAll, validateArea } from "../../../util/validateMember";
+import { validateAll, validateArea } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
@@ -86,40 +86,37 @@ const TourFormArea = ({ match }) => {
     );
 
     const handleChangeImageList = (newImgList) => {
-        setInputs(state => ({
+        setInputs((state) => ({
             ...state,
             imageList: newImgList,
-        }))
-    }
+        }));
+    };
 
     const handleChangeAudioList = (newAudioList) => {
-        setInputs(state => ({
+        setInputs((state) => ({
             ...state,
-            audioList: [
-                ...state.audioList,
-                newAudioList
-            ]
-        }))
+            audioList: [...state.audioList, newAudioList],
+        }));
     };
 
     const handleDeleteAudioList = (idx) => {
-        setInputs(state => ({
+        setInputs((state) => ({
             ...state,
-            audioList: state.audioList.filter((_, i) => String(i) !== idx ),
-        }))
+            audioList: state.audioList.filter((_, i) => String(i) !== idx),
+        }));
     };
 
     const handleChangeAudioMain = ({ selected, name, value }) => {
-        setInputs(state => ({
+        setInputs((state) => ({
             ...state,
-            audioMain:{
+            audioMain: {
                 ...state.audioMain,
                 [selected]: {
                     ...state.audioMain[selected],
-                    [name]: value
-                }
-            }
-        }))
+                    [name]: value,
+                },
+            },
+        }));
     };
 
     const handleClickInsert = () => {
@@ -148,7 +145,7 @@ const TourFormArea = ({ match }) => {
                     <RatioSingle
                         label="국가"
                         name="countryCtg"
-                        value={inputs.countryCtg}
+                        value={inputs.countryCtg || "KOREA"}
                         onChange={handleChangeInputs}
                         options={[
                             { value: "KOREA", title: "국내" },
@@ -159,7 +156,7 @@ const TourFormArea = ({ match }) => {
                     <Select
                         label="(국가 선택)"
                         name="country"
-                        value={inputs.country}
+                        value={inputs.country || "KOREA"}
                         onChange={handleChangeInputs}
                         errors={errors}
                         options={optionsCountry(inputs.countryCtg)}

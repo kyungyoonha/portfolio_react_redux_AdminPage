@@ -14,7 +14,7 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
-import { validateAll, validateService } from "../../../util/validateMember";
+import { validateAll, validateService } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
@@ -28,38 +28,41 @@ const initialValue = {
     sendEmail: "",
     sendContent: "",
     fileImg: {
-        src: '',
-        filename: '',
-        file: '',
+        src: "",
+        filename: "",
+        file: "",
     },
     uploadImg: {
-        src: '',
-        filename: '',
-        file: '',
-    }
+        src: "",
+        filename: "",
+        file: "",
+    },
 };
 //working
 const PurchFormInfo = ({ match }) => {
     const id = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateService, setErrors)
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateService,
+        setErrors
+    );
 
-    
     const handleChangeFile = (e) => {
         const target = e.target;
-        const name = target.name
+        const name = target.name;
         const image = target.files[0];
         // const previewSrc = URL.createObjectURL(image);
         // const formData = new FormData();
         // formData.append("image", image, image.name);
-        setInputs(state => ({
+        setInputs((state) => ({
             ...state,
             [name]: {
-                src: '',
+                src: "",
                 filename: image.name,
-                file: image
-            }
-        }))
+                file: image,
+            },
+        }));
     };
 
     const handleClickInsert = () => {
@@ -97,7 +100,7 @@ const PurchFormInfo = ({ match }) => {
                         name="fileImg"
                         value={inputs.fileImg.filename}
                         onChange={handleChangeFile}
-                        disabled                    
+                        disabled
                     />
 
                     <Input

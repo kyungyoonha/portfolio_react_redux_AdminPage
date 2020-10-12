@@ -6,6 +6,7 @@ import {
     Input,
     FileuploadCard,
     FormSection,
+    FormLayout,
 } from "../../../../components/Form/Form";
 
 import {
@@ -114,12 +115,12 @@ const FormAudioModal = ({
                         닫기
                     </button>
                 </div>
-                <div className=" row">
+                <FormLayout>
                     <FormSection size="half">
                         <RatioSingle
                             label="국가"
                             name="countryCtg"
-                            value={inputs.countryCtg}
+                            value={inputs.countryCtg || "KOREA"}
                             onChange={handleChangeInputs}
                             options={[
                                 { value: "KOREA", title: "국내" },
@@ -130,7 +131,7 @@ const FormAudioModal = ({
                         <Select
                             label="(국가 선택)"
                             name="country"
-                            value={inputs.country}
+                            value={inputs.country || "KOREA"}
                             onChange={handleChangeInputs}
                             errors={errors}
                             options={optionsCountry(inputs.countryCtg)}
@@ -201,16 +202,15 @@ const FormAudioModal = ({
                         />
                     </FormSection>
 
-                    <FormSection size="full">
-                        <FormAudioMain
-                            audioMain={audioMain}
-                            handleChangeAudioMain={handleChangeAudioMain}
-                            onChange={handleChangeInputs}
-                            inputs={inputs}
-                            disabled={false}
-                        />
-                    </FormSection>
-                </div>
+                    <FormAudioMain
+                        size="full"
+                        audioMain={audioMain}
+                        handleChangeAudioMain={handleChangeAudioMain}
+                        onChange={handleChangeInputs}
+                        inputs={inputs}
+                        disabled={false}
+                    />
+                </FormLayout>
             </div>
         </Modal>
     );

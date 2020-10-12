@@ -32,6 +32,7 @@ export default (state = INITIAL_STATE, action) => {
             };
 
         case BOARD_UPDATE:
+            console.log(action.payload.id);
             if (action.payload.id) {
                 return {
                     ...state,

@@ -3,7 +3,9 @@ export const validateAll = (inputs, checkFunc) => {
     let checkedErrors = {};
 
     Object.keys(inputs).forEach((key) => {
-        checkedErrors[key] = checkFunc(key, inputs[key]);
+        if (checkFunc(key, inputs[key])) {
+            checkedErrors[key] = checkFunc(key, inputs[key]);
+        }
     });
 
     if (Object.keys(checkedErrors).length === 0) {
@@ -26,6 +28,9 @@ export const validateMember = (name, value) => {
         case "name":
             return isEmpty(value) && "이름을 입력해주세요.";
 
+        case "birth":
+            return isEmpty(value) && "생년월일을 선택해주세요.";
+
         case "contactNumber":
             if (isEmpty(value)) return "전화번호를 입력해주세요.";
             if (checkNumber(value)) return "숫자만 입력 가능합니다.";
@@ -33,6 +38,9 @@ export const validateMember = (name, value) => {
 
         case "nickname":
             return isEmpty(value) && "별명을 입력해주세요.";
+
+        case "tourCnt":
+            return checkNumber(value) && "숫자만 입력해주세요.";
 
         default:
             return;
@@ -256,8 +264,8 @@ export const validateService = (name, value) => {
     }
 };
 
-const isEmpty = (string) => {
-    if (string.trim() === "") return true;
+const isEmpty = (input) => {
+    if (String(input).trim() === "") return true;
     else return false;
 };
 
@@ -268,7 +276,7 @@ const checkNumber = (input) => {
 };
 
 const checkEmail = (input) => {
-    var regexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+    const regexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if (!regexp.test(input)) return true;
     else return false;
 };

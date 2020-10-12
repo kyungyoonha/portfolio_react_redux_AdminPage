@@ -22,7 +22,7 @@ import {
     optionsCity,
     optionsRegion,
 } from "../../../util/options";
-import { validateAll, validateDriver } from "../../../util/validateMember";
+import { validateAll, validateDriver } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
@@ -60,27 +60,6 @@ const UserFormDriver = ({ match }) => {
         validateDriver,
         setErrors
     );
-
-    // const [inputs, setInputs] = useState(initialValue);
-    // const handleChangeInputs = (e) => {
-    //     const { name, value } = e.target;
-    //     const error = validateDriver(name, value);
-
-    //     setInputs((state) => ({ ...state, [name]: value }));
-    //     setErrors((state) => ({ ...state, [name]: error }));
-
-    //     if (name === "countryCtg") {
-    //         setInputs((state) => ({
-    //             ...state,
-    //             country: value === "KOREA" ? "KOREA" : "",
-    //         }));
-    //     } else if (name === "belong") {
-    //         setInputs((state) => ({
-    //             ...state,
-    //             companyName: "",
-    //         }));
-    //     }
-    // };
 
     const handleChangeFile = (e) => {
         const { name, files } = e.target;
@@ -131,7 +110,7 @@ const UserFormDriver = ({ match }) => {
                     <RatioSingle
                         label="국가"
                         name="countryCtg"
-                        value={inputs.countryCtg}
+                        value={inputs.countryCtg || "KOREA"}
                         onChange={handleChangeInputs}
                         options={[
                             { value: "KOREA", title: "국내" },
@@ -142,7 +121,7 @@ const UserFormDriver = ({ match }) => {
                     <Select
                         label="(국가 선택)"
                         name="country"
-                        value={inputs.country}
+                        value={inputs.country || "KOREA"}
                         onChange={handleChangeInputs}
                         errors={errors}
                         options={optionsCountry(inputs.countryCtg)}

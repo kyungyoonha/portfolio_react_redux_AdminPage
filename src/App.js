@@ -13,10 +13,6 @@ import PageNotFound from "./pages/PageNotFound/PageNotFound";
 // container
 import Layout from "./components/Layout/Layout";
 
-import {useInputs} from './Hooks';
-
-
-
 const App = () => {
 
     return (

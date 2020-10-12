@@ -15,7 +15,7 @@ import {
     optionsRegion,
 } from "../../../../util/options";
 import noImg from "../../../../img/no-img.jpg";
-import { validateAll, validateRegion } from "../../../../util/validateMember";
+import { validateAll, validateRegion } from "../../../../util/validate";
 import useInputs from "../../../../Hooks/useInputs";
 
 const initialValue = {
@@ -48,7 +48,11 @@ const RegionModal = ({
     const [imageList, setImageList] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
 
-    const [inputs, setInputs, handleChangeInputs] = useInputs(initialValue, validateRegion, setErrors)
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateRegion,
+        setErrors
+    );
 
     useEffect(() => {
         if (selectedItem.id && modalOpen !== "new") {
@@ -58,31 +62,19 @@ const RegionModal = ({
         }
     }, [modalOpen, selectedItem, setInputs]);
 
-    // const handleChangeInputs = (e) => {
-    //     const { name, value } = e.target;
-    //     const error = validateRegion(name, value);
-
-    //     setInputs((state) => ({ ...state, [name]: value }));
-    //     setErrors((state) => ({ ...state, [name]: error }));
-
-    //     // 국적선택 시
-    //     if (name === "countryCtg") {
-    //         setInputs((state) => ({
-    //             ...state,
-    //             country: value === "KOREA" ? "KOREA" : "",
-    //         }));
-    //     }
-    // };
-
     const handleClickSave = async () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateRegion);
-
         // ★ 이미지 validate
         if (isValid) {
             try {
                 // ### 서버저장
                 // await axios.post("http://localhost:8000/region/update", newInputs);
-                handleClickUpdate({
+                console.log({
+                    ...inputs,
+                    id: modalOpen === "edit" ? inputs.id : "",
+                });
+                console.log(modalOpen);
+                handleClickUpdate("region", {
                     ...inputs,
                     id: modalOpen === "edit" ? inputs.id : "",
                 });
@@ -114,13 +106,13 @@ const RegionModal = ({
     const handleModalOpen = (type) => {
         if (type === "new") {
             setInputs(initialValue);
-            setModalOpen(true);
+            setModalOpen(type);
         } else {
             if (!selectedItem.id) {
                 alert("행을 선택해주세요");
             } else {
                 setInputs(selectedItem);
-                setModalOpen(true);
+                setModalOpen(type);
             }
         }
     };
@@ -163,7 +155,7 @@ const RegionModal = ({
                 </button>
             </div>
             <Modal
-                isModalOpen={modalOpen}
+                isModalOpen={!!modalOpen}
                 title="지역 코드 추가하기"
                 handleModalClose={handleModalClose}
             >
@@ -189,18 +181,18 @@ const RegionModal = ({
                             <RatioSingle
                                 label="국가"
                                 name="countryCtg"
-                                value={inputs.countryCtg}
+                                value={inputs.countryCtg || "KOREA"}
                                 onChange={handleChangeInputs}
                                 options={[
                                     { value: "KOREA", title: "국내" },
                                     { value: "OVERSEAS", title: "국외" },
                                 ]}
                             />
-                            
+
                             <Select
                                 label="(국가 선택)"
                                 name="country"
-                                value={inputs.country}
+                                value={inputs.country || "KOREA"}
                                 onChange={handleChangeInputs}
                                 errors={errors}
                                 options={optionsCountry(inputs.countryCtg)}

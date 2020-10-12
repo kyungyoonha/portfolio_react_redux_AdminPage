@@ -12,7 +12,7 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
-import { validateAll, validateManager } from "../../../util/validateMember";
+import { validateAll, validateManager } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {

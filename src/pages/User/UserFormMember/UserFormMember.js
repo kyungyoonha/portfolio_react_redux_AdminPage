@@ -8,6 +8,7 @@ import {
     RatioMulti,
     RatioSingle,
     Textarea,
+    InputDate,
 } from "../../../components/Form/Form";
 
 import {
@@ -15,7 +16,7 @@ import {
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
-import { validateAll, validateMember } from "../../../util/validateMember";
+import { validateAll, validateMember } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
@@ -28,10 +29,10 @@ const initialValue = {
     email: "",
     address: "",
     tourCnt: "",
-    characteristic: "",
+    characteristic: "extroverted",
     tourTags: {},
-    recieveEmail: "수신",
-    recieveMessage: "수신",
+    recieveEmail: "agree",
+    recieveMessage: "agree",
     etc: "",
 };
 //working
@@ -54,7 +55,7 @@ const UserFormMember = ({ match }) => {
             setErrors(checkedErrors);
         }
     };
-    
+
     return (
         <Content>
             <ContentNav id={id}>
@@ -74,7 +75,6 @@ const UserFormMember = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
                     <Input
                         label="비밀번호"
                         type="password"
@@ -90,11 +90,13 @@ const UserFormMember = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <Input
+
+                    <InputDate
                         label="생년월일"
                         name="birth"
                         value={inputs.birth}
                         onChange={handleChangeInputs}
+                        errors={errors}
                     />
                     <Input
                         label="전화번호"
@@ -130,15 +132,15 @@ const UserFormMember = ({ match }) => {
                         value={inputs.tourCnt}
                         onChange={handleChangeInputs}
                     />
-                    <Select
+
+                    <RatioSingle
                         label="외향/내향"
                         name="characteristic"
                         value={inputs.characteristic}
                         onChange={handleChangeInputs}
                         options={[
-                            { value: "", title: "선택해주세요." },
-                            { value: "외향", title: "외향" },
-                            { value: "내향", title: "내향" },
+                            { value: "extroverted", title: "외향" },
+                            { value: "introverted", title: "내향" },
                         ]}
                     />
 

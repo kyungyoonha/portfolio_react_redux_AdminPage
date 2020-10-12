@@ -94,3 +94,20 @@
         display: block;
     }
 }
+
+.formBirth {
+    display: flex;
+    flex-direction: column;
+    span {
+        font-size: 0.8rem;
+        color: #dc3545;
+    }
+
+    .input-group {
+        display: flex;
+    }
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}
