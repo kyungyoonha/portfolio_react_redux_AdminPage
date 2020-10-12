@@ -186,7 +186,10 @@ const TourFormArea = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     >
-                        <button className="btn btn-outline-primary float-right">
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                        >
                             중복확인
                         </button>
                     </Input>
@@ -198,7 +201,10 @@ const TourFormArea = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     >
-                        <button className="btn btn-outline-primary float-right">
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                        >
                             <i className="fas fa-map-marked-alt "></i>
                         </button>
                     </Input>

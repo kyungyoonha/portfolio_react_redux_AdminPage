@@ -117,6 +117,7 @@ const UserFormMember = ({ match }) => {
                         name="email"
                         value={inputs.email}
                         onChange={handleChangeInputs}
+                        errors={errors}
                     />
                     <Input
                         label="주소"
@@ -131,6 +132,7 @@ const UserFormMember = ({ match }) => {
                         name="tourCnt"
                         value={inputs.tourCnt}
                         onChange={handleChangeInputs}
+                        errors={errors}
                     />
 
                     <RatioSingle

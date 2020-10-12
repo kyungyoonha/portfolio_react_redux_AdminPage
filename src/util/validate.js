@@ -42,6 +42,9 @@ export const validateMember = (name, value) => {
         case "tourCnt":
             return checkNumber(value) && "숫자만 입력해주세요.";
 
+        case "email":
+            return checkEmail(value) && "이메일을 확인해주세요.";
+
         default:
             return;
     }
@@ -98,7 +101,7 @@ export const validateManager = (name, value) => {
 
         case "email":
             if (isEmpty(value)) return "이메일을 입력해주세요.";
-            if (checkEmail(value)) return "양식에 맞게 입력해주세요.";
+            if (checkEmail(value)) return "이메일을 확인해주세요.";
             return;
 
         default:
@@ -253,7 +256,7 @@ export const validateService = (name, value) => {
 
         case "sendEmail":
             if (isEmpty(value)) return "이메일을 입력해주세요.";
-            if (checkEmail(value)) return "양식에 맞게 입력해주세요.";
+            if (checkEmail(value)) return "이메일을 확인해주세요.";
             return;
 
         case "sendContent":
@@ -275,7 +278,9 @@ const checkNumber = (input) => {
     else return false;
 };
 
+// true 일때 에러 / false
 const checkEmail = (input) => {
+    if (!input) return false;
     const regexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if (!regexp.test(input)) return true;
     else return false;

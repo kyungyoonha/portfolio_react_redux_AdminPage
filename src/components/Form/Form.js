@@ -32,23 +32,24 @@ export const Input = ({
             <th>
                 <label className="col-form-label">※ {label}</label>
             </th>
-
-            <td className={`${children && "widthButton"}`}>
-                <input
-                    name={name}
-                    type={type}
-                    value={value}
-                    className={`form-control ${errors[name] && "is-invalid"}`}
-                    onChange={onChange}
-                    autoComplete="off"
-                    disabled={disabled}
-                />
-
-                {children}
-
-                {errors[name] && (
-                    <div className="invalid-feedback">{errors[name]}</div>
-                )}
+            <td>
+                <div class="input-group">
+                    <input
+                        name={name}
+                        type={type}
+                        value={value}
+                        className={`form-control ${
+                            errors[name] && "is-invalid"
+                        }`}
+                        onChange={onChange}
+                        autoComplete="off"
+                        disabled={disabled}
+                    />
+                    <div class="input-group-append">{children}</div>
+                    {errors[name] && (
+                        <div className="invalid-feedback">{errors[name]}</div>
+                    )}
+                </div>
             </td>
         </tr>
     );

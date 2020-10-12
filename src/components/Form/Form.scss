@@ -74,27 +74,6 @@
     }
 }
 
-.widthButton {
-    display: flex;
-    justify-content: space-between;
-
-    input {
-        width: 80%;
-    }
-
-    button {
-        width: 18%;
-    }
-
-    span {
-        width: 18%;
-    }
-
-    .aaa {
-        display: block;
-    }
-}
-
 .formBirth {
     display: flex;
     flex-direction: column;
