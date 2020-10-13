@@ -35,6 +35,27 @@ const initialValue = {
     recieveMessage: "agree",
     etc: "",
 };
+
+const initialValue2 = {
+    idx: "",
+    username: "",
+    id: "",
+    pw: "",
+    birthday: "",
+    telnumber: "",
+    nickname: "",
+    email: "",
+    address: "",
+    emailagree: "",
+    messageagree: "",
+    pushagree: "",
+    etc: "",
+    profile: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
+};
 //working
 const UserFormMember = ({ match }) => {
     const id = match.url.split("/")[2];

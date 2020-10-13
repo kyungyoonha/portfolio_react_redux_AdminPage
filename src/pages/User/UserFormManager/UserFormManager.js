@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import history from "../../../history";
+
 import {
     FormLayout,
     FormSection,
     Input,
+    InputDate,
+    RatioSingle,
     Textarea,
 } from "../../../components/Form/Form";
 
@@ -16,19 +19,29 @@ import { validateAll, validateManager } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
-    manager_id: "",
-    password: "",
-    name: "",
-    birth: "",
-    contactNumber: "",
+    idx: "",
+    username: "",
+    id: "",
+    pw: "",
+    level: "2",
+    birthday: "",
+    telnumber: "",
     email: "",
-    englishName: "",
+    englishname: "",
     address: "",
-    joinYear: "",
+    entryYear: "",
     duty: "",
     department: "",
     etc: "",
+    regdate: "",
+    reguser: "",
+    // moddate: '',
+    // moduser: '',
 };
+
+// 제출시 regdate / reguser 추가
+// 제출시 level => number type으로 전송
+
 //working
 const UserFormManager = ({ match }) => {
     const id = match.url.split("/")[2];
@@ -63,44 +76,51 @@ const UserFormManager = ({ match }) => {
             <FormLayout>
                 <FormSection>
                     <Input
-                        label="id"
-                        name="manager_id"
-                        value={inputs.manager_id}
+                        label="이름"
+                        name="username"
+                        value={inputs.username}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
+                    <Input
+                        label="아이디"
+                        name="id"
+                        value={inputs.id}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
                     <Input
                         label="비밀번호"
-                        name="password"
-                        value={inputs.password}
+                        name="pw"
+                        value={inputs.pw}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
-                    <Input
-                        label="이름"
-                        name="name"
-                        value={inputs.name}
+                    <RatioSingle
+                        label="등급"
+                        name="level"
+                        value={inputs.level}
                         onChange={handleChangeInputs}
                         errors={errors}
+                        options={[
+                            { value: "1", title: "슈퍼 관리자" },
+                            { value: "2", title: "일반 관리자" },
+                        ]}
                     />
-
-                    <Input
+                    <InputDate
                         label="생년월일"
-                        name="birth"
-                        value={inputs.birth}
+                        name="birthday"
+                        value={inputs.birthday}
                         onChange={handleChangeInputs}
+                        errors={errors}
                     />
-
                     <Input
                         label="전화번호"
-                        name="contactNumber"
-                        value={inputs.contactNumber}
+                        name="telnumber"
+                        value={inputs.telnumber}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
                     <Input
                         label="이메일"
                         name="email"
@@ -108,11 +128,10 @@ const UserFormManager = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
                     <Input
                         label="영어이름"
-                        name="englishName"
-                        value={inputs.englishName}
+                        name="englishname"
+                        value={inputs.englishname}
                         onChange={handleChangeInputs}
                     />
                     <Input
@@ -121,15 +140,14 @@ const UserFormManager = ({ match }) => {
                         value={inputs.address}
                         onChange={handleChangeInputs}
                     />
-
-                    <Input
-                        label="입사년도"
-                        name="joinYear"
-                        value={inputs.joinYear}
-                        onChange={handleChangeInputs}
-                    />
                 </FormSection>
                 <FormSection>
+                    <Input
+                        label="입사년도"
+                        name="entryYear"
+                        value={inputs.entryYear}
+                        onChange={handleChangeInputs}
+                    />
                     <Input
                         label="직무"
                         name="duty"
@@ -147,7 +165,7 @@ const UserFormManager = ({ match }) => {
                     <Textarea
                         label="기타"
                         name="etc"
-                        value={inputs.ect}
+                        value={inputs.etc}
                         onChange={handleChangeInputs}
                         rows={6}
                     />

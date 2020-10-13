@@ -7,13 +7,28 @@ export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
 };
 
-export const FormSection = ({ size, children }) => {
+export const FormSection = ({ size, title, children }) => {
     return (
-        <div className={`formSection ${size}`}>
-            <table className="table">
-                <tbody>{children}</tbody>
-            </table>
-        </div>
+        <React.Fragment>
+            {title && (
+                <tr style={{ textAlign: "center" }}>
+                    <th
+                        colSpan="2"
+                        style={{
+                            background: "#343a40",
+                            color: "white",
+                        }}
+                    >
+                        [공지 추가]
+                    </th>
+                </tr>
+            )}
+            <div className={`formSection ${size}`}>
+                <table className="table">
+                    <tbody>{children}</tbody>
+                </table>
+            </div>
+        </React.Fragment>
     );
 };
 
@@ -33,7 +48,7 @@ export const Input = ({
                 <label className="col-form-label">※ {label}</label>
             </th>
             <td>
-                <div class="input-group">
+                <div className="input-group">
                     <input
                         name={name}
                         type={type}
@@ -45,7 +60,7 @@ export const Input = ({
                         autoComplete="off"
                         disabled={disabled}
                     />
-                    <div class="input-group-append">{children}</div>
+                    <div className="input-group-append">{children}</div>
                     {errors[name] && (
                         <div className="invalid-feedback">{errors[name]}</div>
                     )}

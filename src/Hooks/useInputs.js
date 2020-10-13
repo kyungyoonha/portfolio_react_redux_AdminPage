@@ -8,16 +8,15 @@ export default (initialValue, validateFunc, setErrors) => {
             const { name, value, type, checked } = e.target;
             const error = validateFunc(name, value);
 
-            if (type === 'checkbox'){
+            if (type === "checkbox") {
                 setInputs((state) => ({
                     ...state,
                     [name]: {
                         ...state[name],
                         [value]: checked,
                     },
-                }))
-            }
-            else{
+                }));
+            } else {
                 setInputs((state) => ({ ...state, [name]: value }));
                 setErrors((state) => ({ ...state, [name]: error }));
 
@@ -35,28 +34,28 @@ export default (initialValue, validateFunc, setErrors) => {
                         companyName: "",
                     }));
                 }
-                
+
                 // 오디오 세부 유/무
                 else if (name === "hasAudio" && value === "no") {
-                    setInputs(state => ({
+                    setInputs((state) => ({
                         ...state,
-                        audioList: []
-                    }))
+                        audioList: [],
+                    }));
                 }
 
                 // 오디오 메인 유/무
                 else if (name === "hasAudioMain" && value === "no") {
-                    setInputs(state => ({
+                    setInputs((state) => ({
                         ...state,
                         audioMain: {
                             korea: { title: "", script: "", files: [] },
                             english: { title: "", script: "", files: [] },
                             japan: { title: "", script: "", files: [] },
                             china: { title: "", script: "", files: [] },
-                        }
-                    }))
+                        },
+                    }));
                 }
-                // 투어 일수 당일 / 기간 설정 
+                // 투어 일수 당일 / 기간 설정
                 else if (name === "tourDayCntCheck") {
                     setInputs((state) => ({
                         ...state,

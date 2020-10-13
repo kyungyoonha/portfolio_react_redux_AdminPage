@@ -79,18 +79,7 @@ const CSFormNotice = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center">
-                    <tr style={{ textAlign: "center" }}>
-                        <th
-                            colSpan="2"
-                            style={{
-                                background: "#343a40",
-                                color: "white",
-                            }}
-                        >
-                            [공지 추가]
-                        </th>
-                    </tr>
+                <FormSection size="center" title="[공지 추가]">
                     <Input
                         label="제목"
                         name="title"

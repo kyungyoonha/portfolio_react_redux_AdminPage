@@ -17,6 +17,8 @@ import CSBoard from './pages/CS/CSBoard/CSBoard';
 import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
 import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
 import CSFormCstmSvc from './pages/CS/CSFormCstmSvc/CSFormCstmSvc';
+import GoogleSearch from "./components/GoogleSearch";
+import GoogleSearch2 from "./components/GoogleSearch2";
 
 
 const routes = [
@@ -44,6 +46,7 @@ const routes = [
     { path: "/cs/notice/form", exact: true, component: CSFormNotice },
     { path: "/cs/service", exact: true, component: CSBoard },
     { path: "/cs/service/form", exact: true, component: CSFormCstmSvc },
+    { path: "/test", exact: true, component: GoogleSearch },
 ];
 
 export default routes;
