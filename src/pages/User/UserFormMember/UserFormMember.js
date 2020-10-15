@@ -19,24 +19,24 @@ import {
 import { validateAll, validateMember } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
-const initialValue = {
-    user_id: "",
-    password: "",
-    name: "",
-    birth: "",
-    contactNumber: "",
-    nickname: "",
-    email: "",
-    address: "",
-    tourCnt: "",
-    characteristic: "extroverted",
-    tourTags: {},
-    recieveEmail: "agree",
-    recieveMessage: "agree",
-    etc: "",
-};
+// const initialValue = {
+//     user_id: "",
+//     password: "",
+//     name: "",
+//     birth: "",
+//     contactNumber: "",
+//     nickname: "",
+//     email: "",
+//     address: "",
+//     tourCnt: "",
+//     characteristic: "extroverted",
+//     tourTags: {},
+//     recieveEmail: "agree",
+//     recieveMessage: "agree",
+//     etc: "",
+// };
 
-const initialValue2 = {
+const initialValue = {
     idx: "",
     username: "",
     id: "",
@@ -46,19 +46,20 @@ const initialValue2 = {
     nickname: "",
     email: "",
     address: "",
-    emailagree: "",
-    messageagree: "",
-    pushagree: "",
+    emailagree: "N",
+    messageagree: "N",
+    pushagree: "N",
     etc: "",
     profile: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
-//working
+//working done
 const UserFormMember = ({ match }) => {
     const id = match.url.split("/")[2];
+    // const user = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -71,6 +72,11 @@ const UserFormMember = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
+            // const result = {
+            //     ...inputs,
+            //     regdate: new Date().toISOString(),
+            //     reguser: user.name,
+            // };
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
@@ -88,41 +94,41 @@ const UserFormMember = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection>
+                <FormSection size="center" title="일반회원 추가">
+                    <Input
+                        label="이름"
+                        name="username"
+                        value={inputs.username}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
                     <Input
                         label="id"
-                        name="user_id"
-                        value={inputs.user_id}
+                        name="id"
+                        value={inputs.id}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="비밀번호"
                         type="password"
-                        name="password"
-                        value={inputs.password}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="이름"
-                        name="name"
-                        value={inputs.name}
+                        name="pw"
+                        value={inputs.pw}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
 
                     <InputDate
                         label="생년월일"
-                        name="birth"
-                        value={inputs.birth}
+                        name="birthday"
+                        value={inputs.birthday}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
                         label="전화번호"
-                        name="contactNumber"
-                        value={inputs.contactNumber}
+                        name="telnumber"
+                        value={inputs.telnumber}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
@@ -146,9 +152,7 @@ const UserFormMember = ({ match }) => {
                         value={inputs.address}
                         onChange={handleChangeInputs}
                     />
-                </FormSection>
-                <FormSection>
-                    <Input
+                    {/* <Input
                         label="누적투어수"
                         name="tourCnt"
                         value={inputs.tourCnt}
@@ -178,30 +182,40 @@ const UserFormMember = ({ match }) => {
                             { key: "monkey", title: "원숭이" },
                             { key: "bear", title: "곰돌이" },
                         ]}
-                    />
+                    /> */}
 
                     <RatioSingle
                         label="이메일 수신"
-                        name="recieveEmail"
-                        value={inputs.recieveEmail}
+                        name="emailagree"
+                        value={inputs.emailagree}
                         onChange={handleChangeInputs}
                         options={[
-                            { value: "agree", title: "수신" },
-                            { value: "disagree", title: "미수신" },
+                            { value: "Y", title: "수신" },
+                            { value: "N", title: "미수신" },
                         ]}
                     />
 
                     <RatioSingle
                         label="문자 수신"
-                        name="recieveMessage"
-                        value={inputs.recieveMessage}
+                        name="messageagree"
+                        value={inputs.messageagree}
                         onChange={handleChangeInputs}
                         options={[
-                            { value: "agree", title: "수신" },
-                            { value: "disagree", title: "미수신" },
+                            { value: "Y", title: "수신" },
+                            { value: "N", title: "미수신" },
                         ]}
                     />
 
+                    <RatioSingle
+                        label="문자 수신"
+                        name="pushagree"
+                        value={inputs.pushagree}
+                        onChange={handleChangeInputs}
+                        options={[
+                            { value: "Y", title: "수신" },
+                            { value: "N", title: "미수신" },
+                        ]}
+                    />
                     <Textarea
                         label="기타"
                         name="etc"

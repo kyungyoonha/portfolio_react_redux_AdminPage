@@ -5,6 +5,7 @@ import {
     FormLayout,
     FormSection,
     Input,
+    InputAddress,
     InputDate,
     RatioSingle,
     Textarea,
@@ -33,18 +34,16 @@ const initialValue = {
     duty: "",
     department: "",
     etc: "",
-    regdate: "",
-    reguser: "",
+    // regdate: "",
+    // reguser: "",
     // moddate: '',
     // moduser: '',
 };
 
-// 제출시 regdate / reguser 추가
-// 제출시 level => number type으로 전송
-
-//working
+//working done
 const UserFormManager = ({ match }) => {
     const id = match.url.split("/")[2];
+    // const user = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -57,6 +56,12 @@ const UserFormManager = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
+            // const result = {
+            //     ...inputs,
+            //     level: Number(inputs.level),
+            //     regdate: new Date().toISOString(),
+            //     reguser: user.name,
+            // };
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
@@ -134,12 +139,21 @@ const UserFormManager = ({ match }) => {
                         value={inputs.englishname}
                         onChange={handleChangeInputs}
                     />
-                    <Input
+                    <InputAddress
                         label="주소"
                         name="address"
                         value={inputs.address}
                         onChange={handleChangeInputs}
-                    />
+                        setInputs={setInputs}
+                        errors={errors}
+                    >
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                        >
+                            <i className="fas fa-map-marked-alt "></i>
+                        </button>
+                    </InputAddress>
                 </FormSection>
                 <FormSection>
                     <Input

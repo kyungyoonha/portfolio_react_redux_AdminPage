@@ -137,39 +137,39 @@ const PurchFormInfo = ({ match }) => {
                     />
 
                     <RatioSingle
-                        label="국가"
-                        name="countryCtg"
-                        value={inputs.countryCtg || "KOREA"}
+                        label="국가 분류"
+                        name="nationtype"
+                        value={inputs.nationtype || "1"}
                         onChange={handleChangeInputs}
                         options={[
-                            { value: "KOREA", title: "국내" },
-                            { value: "OVERSEAS", title: "국외" },
+                            { value: "1", title: "국내" },
+                            { value: "2", title: "국외" },
                         ]}
                     />
                     <Select
-                        label="(국가 선택)"
-                        name="country"
-                        value={inputs.country || "KOREA"}
+                        label="국가 코드"
+                        name="nationcode"
+                        value={inputs.nationcode || "KOREA"}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsCountry(inputs.countryCtg)}
-                        disabled={inputs.countryCtg === "KOREA"}
+                        options={optionsCountry(inputs.nationcode)}
+                        disabled={inputs.nationtype === "1"}
                     />
                     <Select
-                        label="시/도"
-                        name="state"
-                        value={inputs.state}
+                        label="시도 코드"
+                        name="sidocode"
+                        value={inputs.sidocode}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsCity(inputs.state)}
+                        options={optionsCity(inputs.sidocode)}
                     />
                     <Select
-                        label="지역"
-                        name="city"
-                        value={inputs.city}
+                        label="지역 코드"
+                        name="areacode"
+                        value={inputs.areacode}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsRegion(inputs.city)}
+                        options={optionsRegion(inputs.areacode)}
                     />
 
                     <RatioSingle

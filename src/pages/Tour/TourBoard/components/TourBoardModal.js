@@ -179,58 +179,44 @@ const RegionModal = ({
                     <div className=" row">
                         <FormSection>
                             <RatioSingle
-                                label="국가"
-                                name="countryCtg"
-                                value={inputs.countryCtg || "KOREA"}
+                                label="국가 분류"
+                                name="nationtype"
+                                value={inputs.nationtype || "1"}
                                 onChange={handleChangeInputs}
                                 options={[
-                                    { value: "KOREA", title: "국내" },
-                                    { value: "OVERSEAS", title: "국외" },
+                                    { value: "1", title: "국내" },
+                                    { value: "2", title: "국외" },
                                 ]}
-                            />
-
-                            <Select
-                                label="(국가 선택)"
-                                name="country"
-                                value={inputs.country || "KOREA"}
-                                onChange={handleChangeInputs}
-                                errors={errors}
-                                options={optionsCountry(inputs.countryCtg)}
-                                disabled={inputs.countryCtg === "KOREA"}
                             />
 
                             <Select
                                 label="국가 코드"
-                                name="countryCode"
-                                value={inputs.countryCode}
+                                name="nationcode"
+                                value={inputs.nationcode || "KOREA"}
                                 onChange={handleChangeInputs}
                                 errors={errors}
-                                options={[
-                                    { value: "code1", title: "코드1" },
-                                    { value: "code2", title: "코드2" },
-                                    { value: "code3", title: "코드3" },
-                                    { value: "K", title: "K" },
-                                ]}
+                                options={optionsCountry(inputs.nationcode)}
+                                disabled={inputs.nationtype === "1"}
                             />
 
-                            <Input
+                            {/* <Input
                                 label="국가 정렬"
                                 name="countrySort"
                                 value={inputs.countrySort}
                                 onChange={handleChangeInputs}
                                 errors={errors}
-                            />
+                            /> */}
 
                             <Select
-                                label="시/도"
-                                name="state"
-                                value={inputs.state}
+                                label="시도 코드"
+                                name="sidocode"
+                                value={inputs.sidocode}
                                 onChange={handleChangeInputs}
                                 errors={errors}
-                                options={optionsCity(inputs.state)}
+                                options={optionsCity(inputs.sidocode)}
                             />
 
-                            <Select
+                            {/* <Select
                                 label="시도 코드"
                                 name="stateCode"
                                 value={inputs.stateCode}
@@ -242,22 +228,22 @@ const RegionModal = ({
                                     { value: "code3", title: "코드3" },
                                     { value: "S", title: "코드4" },
                                 ]}
-                            />
+                            /> */}
 
-                            <Input
+                            {/* <Input
                                 label="시/도 정렬"
                                 name="stateSort"
                                 value={inputs.stateSort}
                                 onChange={handleChangeInputs}
                                 errors={errors}
-                            />
+                            /> */}
                             <Select
-                                label="지역"
-                                name="city"
-                                value={inputs.city}
+                                label="지역 코드"
+                                name="areacode"
+                                value={inputs.areacode}
                                 onChange={handleChangeInputs}
                                 errors={errors}
-                                options={optionsRegion(inputs.city)}
+                                options={optionsRegion(inputs.areacode)}
                             />
 
                             <RatioSingle

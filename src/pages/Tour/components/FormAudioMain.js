@@ -9,8 +9,8 @@ const navObj = {
 };
 
 const options = [
-    { value: "yes", title: "有" },
-    { value: "no", title: "無" },
+    { value: "Y", title: "有" },
+    { value: "N", title: "無" },
 ];
 
 const FormAudioMain = ({
@@ -65,19 +65,17 @@ const FormAudioMain = ({
                                     <input
                                         className="form-check-input"
                                         type="radio"
-                                        name="hasAudioMain"
+                                        name="mainaudioYN"
                                         value={option.value}
                                         checked={
-                                            inputs.hasAudioMain === option.value
+                                            inputs.mainaudioYN === option.value
                                         }
                                         onChange={onChange}
-                                        id={"hasAudioMainMain" + option.value}
+                                        id={"mainaudioYN" + option.value}
                                     />
                                     <label
                                         className="form-check-label"
-                                        htmlFor={
-                                            "hasAudioMainMain" + option.value
-                                        }
+                                        htmlFor={"mainaudioYN" + option.value}
                                     >
                                         {option.title}
                                     </label>

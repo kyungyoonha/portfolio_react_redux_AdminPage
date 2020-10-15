@@ -1,0 +1,48 @@
+@import "../../styles/Common.scss";
+
+.timePicker {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .timePicker__title {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $line;
+    }
+    .timePicker__body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 180px;
+
+        .timePicker__inputbox {
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+
+        .timePicker__timeSelect {
+            width: 100%;
+        }
+    }
+
+    .timePicker__footer {
+        margin-bottom: 10px;
+        width: 100%;
+        height: 180px;
+        line-height: 180px;
+        text-align: center;
+        background: $line;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .timePicker__error {
+        color: red;
+        font-size: 0.9rem;
+    }
+}

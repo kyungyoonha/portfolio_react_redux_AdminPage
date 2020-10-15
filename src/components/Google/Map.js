@@ -16,33 +16,12 @@ const modalStyle = {
     },
     overlay: {
         background: "rgba(0, 0, 0, 0.5)",
-        // zIndex: "5",
+        zIndex: "5",
     },
 };
-// 구글맵
-// https://developers.google.com/maps/documentation/javascript/examples/polygon-draggable
-// 필요한 라이브러리
-// Geocoding API
-// Maps JavaScript API
-// Places API (주소 자동완성)
-
-// Place 자동완성 사용시 주의사항
-// 1. 라이브러리 사용 => Places API
-// 2. 스크립트 뒤에 &libraries=places 붙여줘야한다
-// (x) https://maps.google.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}
-// (o) https://maps.google.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&libraries=places
-
-// 스크립트 api env파일로 처리하기
-// https://maruzzing.github.io/study/react/%EB%A6%AC%EC%95%A1%ED%8A%B8%EC%97%90%EC%84%9C-%EA%B5%AC%EA%B8%80%EB%A7%B5-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0/
-
-// 드래그 이벤트
-// window.google.maps.event.addListener(map, "dragend", () => {
-//     console.log(map.getCenter().lat());
-//     marker.setPosition(map.getCenter());
-// });
 
 const initialValue = {
-    addr: { lat: 33.489, lng: 126.4983 },
+    addr: "",
     lat: "",
     lng: "",
 };
@@ -116,7 +95,7 @@ const Map = ({ id, options, modalOpen, handleCloseModal, onChange }) => {
             options
         );
         let marker = new window.google.maps.Marker({
-            position: initialValue,
+            position: options.center,
             map,
         });
 
@@ -125,10 +104,6 @@ const Map = ({ id, options, modalOpen, handleCloseModal, onChange }) => {
     }, [id, options, onEventSearchBox]);
 
     const initGooglMapAPI = () => {
-        // 스크립트 삽입 - API KEY 환경변수 처리
-        // index.html 에 직접 삽입할 경우, API키 노출 된다.
-        // client 쪽에서 사용하는 key라 노출되어도 크게 문제는 없음(사이트 제한 걸어 놓으면)
-        // 환경변수로 처리하기 위해서는 아래와 같이 스크립트를 삽입해줘야 한다.
         let newScript, topScript;
         if (!document.getElementById("script_insert")) {
             newScript = document.createElement("script");
@@ -145,7 +120,9 @@ const Map = ({ id, options, modalOpen, handleCloseModal, onChange }) => {
     };
 
     const handleClickSave = () => {
-        !address.lat ? alert("장소를 선택해주세요.") : onChange(address);
+        !address.addr && !address.lat && !address.lng
+            ? alert("장소를 선택해주세요.")
+            : onChange(address);
 
         handleCloseModal();
     };

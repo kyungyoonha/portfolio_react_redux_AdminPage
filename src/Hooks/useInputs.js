@@ -20,23 +20,22 @@ export default (initialValue, validateFunc, setErrors) => {
                 setInputs((state) => ({ ...state, [name]: value }));
                 setErrors((state) => ({ ...state, [name]: error }));
 
-                // 국가 선택
-                if (name === "countryCtg") {
+                if (name === "nationtype") {
                     setInputs((state) => ({
                         ...state,
-                        country: value === "KOREA" ? "KOREA" : "",
+                        nationcode: value === "1" ? "KOREA" : "",
                     }));
                 }
                 // 소속
-                else if (name === "belong") {
-                    setInputs((state) => ({
-                        ...state,
-                        companyName: "",
-                    }));
-                }
+                // else if (name === "businesstype") {
+                //     setInputs((state) => ({
+                //         ...state,
+                //         companyName: "",
+                //     }));
+                // }
 
                 // 오디오 세부 유/무
-                else if (name === "hasAudio" && value === "no") {
+                else if (name === "subaudioYN" && value === "N") {
                     setInputs((state) => ({
                         ...state,
                         audioList: [],
@@ -44,7 +43,7 @@ export default (initialValue, validateFunc, setErrors) => {
                 }
 
                 // 오디오 메인 유/무
-                else if (name === "hasAudioMain" && value === "no") {
+                else if (name === "mainaudioYN" && value === "N") {
                     setInputs((state) => ({
                         ...state,
                         audioMain: {

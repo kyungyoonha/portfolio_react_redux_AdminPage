@@ -12,6 +12,7 @@ import {
     FormLayout,
     FormSection,
     InputAddress,
+    InputTimeRange,
 } from "../../../components/Form/Form";
 
 import {
@@ -28,46 +29,78 @@ import history from "../../../history";
 import { validateAll, validateArea } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
+// const initialValue = {
+//     countryCtg: "KOREA",
+//     country: "KOREA",
+//     state: "",
+//     city: "",
+//     placeCode: "",
+//     address: "",
+//     lat: "",
+//     lng: "",
+//     placeName: "",
+//     contactNumber: "",
+//     entranceFee: "",
+//     businessHours: "",
+//     tourTags: {},
+//     typeCharacteristic: "0",
+//     typeStyle: "0",
+//     hasAudio: "no",
+//     hasAudioMain: "no",
+//     imageList: [
+//         // { src: img1, filename: "", file: null },
+//         // { src: img1, filename: "", file: null },
+//         // { src: img1, filename: "", file: null },
+//     ],
+//     audioList: [
+//         // {
+//         //     name: ''
+//         //     inputs: { countryCtg: "KOREA", state: "", city: "", place: "", name: "", content: "", hasAudio: "no" },
+//         //     imageList: [
+//         //         { src: "img1", filename: "", file: null }
+//         //     ],
+//         //     audioMain: {
+//         //         korea: { title: "", script: "", files: [] },
+//         //         english: { title: "", script: "", files: [] },
+//         //         japan: { title: "", script: "", files: [] },
+//         //         china: { title: "", script: "", files: [] },
+//         //     },
+//         // },
+//         // { ... },
+//         // { ... },
+//     ],
+//     audioMain: {
+//         korea: { title: "", script: "", files: [] },
+//         english: { title: "", script: "", files: [] },
+//         japan: { title: "", script: "", files: [] },
+//         china: { title: "", script: "", files: [] },
+//     },
+// };
+
 const initialValue = {
-    countryCtg: "KOREA",
-    country: "KOREA",
-    state: "",
-    city: "",
-    placeCode: "",
+    idx: "",
+    tourname: "",
+    nationtype: "1",
+    nationcode: "KOREA",
+    sidocode: "",
+    areacode: "",
+    tourcode: "",
     address: "",
-    lat: "",
-    lng: "",
-    placeName: "",
-    contactNumber: "",
-    entranceFee: "",
-    businessHours: "",
-    tourTags: {},
-    typeCharacteristic: "0",
-    typeStyle: "0",
-    hasAudio: "no",
-    hasAudioMain: "no",
-    imageList: [
-        // { src: img1, filename: "", file: null },
-        // { src: img1, filename: "", file: null },
-        // { src: img1, filename: "", file: null },
-    ],
-    audioList: [
-        // {
-        //     name: ''
-        //     inputs: { countryCtg: "KOREA", state: "", city: "", place: "", name: "", content: "", hasAudio: "no" },
-        //     imageList: [
-        //         { src: "img1", filename: "", file: null }
-        //     ],
-        //     audioMain: {
-        //         korea: { title: "", script: "", files: [] },
-        //         english: { title: "", script: "", files: [] },
-        //         japan: { title: "", script: "", files: [] },
-        //         china: { title: "", script: "", files: [] },
-        //     },
-        // },
-        // { ... },
-        // { ... },
-    ],
+    telnumber: "",
+    admissionfee: "",
+    operatingtime: "",
+    interesttag: "",
+    inextroversion: "",
+    openclose: "",
+    subaudioYN: "",
+    mainaudioYN: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
+
+    imageList: [],
+    audioList: [],
     audioMain: {
         korea: { title: "", script: "", files: [] },
         english: { title: "", script: "", files: [] },
@@ -130,8 +163,7 @@ const TourFormArea = ({ match }) => {
             setErrors(checkedErrors);
         }
     };
-
-    console.log(inputs.address, inputs.lat, inputs.lng);
+    console.log(inputs.operatingtime);
     return (
         <Content>
             <ContentNav id={id}>
@@ -144,47 +176,53 @@ const TourFormArea = ({ match }) => {
 
             <FormLayout>
                 <FormSection>
+                    <Input
+                        label="관광지명"
+                        name="tourname"
+                        value={inputs.tourname}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    />
                     <RatioSingle
-                        label="국가"
-                        name="countryCtg"
-                        value={inputs.countryCtg || "KOREA"}
+                        label="국가 분류"
+                        name="nationtype"
+                        value={inputs.nationtype || "1"}
                         onChange={handleChangeInputs}
                         options={[
-                            { value: "KOREA", title: "국내" },
-                            { value: "OVERSEAS", title: "국외" },
+                            { value: "1", title: "국내" },
+                            { value: "2", title: "국외" },
                         ]}
                     />
-
                     <Select
-                        label="(국가 선택)"
-                        name="country"
-                        value={inputs.country || "KOREA"}
+                        label="국가 코드"
+                        name="nationcode"
+                        value={inputs.nationcode || "KOREA"}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsCountry(inputs.countryCtg)}
-                        disabled={inputs.countryCtg === "KOREA"}
+                        options={optionsCountry(inputs.nationcode)}
+                        disabled={inputs.nationtype === "1"}
                     />
                     <Select
-                        label="시/도"
-                        name="state"
-                        value={inputs.state}
+                        label="시도 코드"
+                        name="sidocode"
+                        value={inputs.sidocode}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsCity(inputs.state)}
+                        options={optionsCity(inputs.sidocode)}
                     />
                     <Select
-                        label="지역"
-                        name="city"
-                        value={inputs.city}
+                        label="지역 코드"
+                        name="areacode"
+                        value={inputs.areacode}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        options={optionsRegion(inputs.city)}
+                        options={optionsRegion(inputs.areacode)}
                     />
 
                     <Input
                         label="관광지 코드"
-                        name="placeCode"
-                        value={inputs.placeCode}
+                        name="tourcode"
+                        value={inputs.tourcode}
                         onChange={handleChangeInputs}
                         errors={errors}
                     >
@@ -200,44 +238,29 @@ const TourFormArea = ({ match }) => {
                         label="주소"
                         name="address"
                         value={inputs.address}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    >
-                        <button
-                            className="btn btn-outline-primary"
-                            type="button"
-                        >
-                            <i className="fas fa-map-marked-alt "></i>
-                        </button>
-                    </InputAddress>
-
-                    <Input
-                        label="관광지 이름"
-                        name="placeName"
-                        value={inputs.placeName}
+                        setInputs={setInputs}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
 
                     <Input
                         label="전화번호"
-                        name="contactNumber"
-                        value={inputs.contactNumber}
+                        name="telnumber"
+                        value={inputs.telnumber}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
 
                     <Input
                         label="입장료"
-                        name="entranceFee"
-                        value={inputs.entranceFee}
+                        name="admissionfee"
+                        value={inputs.admissionfee}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <Input
-                        label="운영시간"
-                        name="businessHours"
-                        value={inputs.businessHours}
+
+                    <InputTimeRange
+                        value={inputs.operatingtime}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
@@ -250,9 +273,9 @@ const TourFormArea = ({ match }) => {
 
                 <FormSection size="full">
                     <RatioMulti
-                        label="여행태그"
-                        name="tourTags"
-                        value={inputs.tourTags}
+                        label="관심사 태그"
+                        name="interesttag"
+                        value={inputs.interesttag}
                         onChange={handleChangeInputs}
                         max={3}
                         options={[
@@ -266,20 +289,20 @@ const TourFormArea = ({ match }) => {
                     />
 
                     <RatioTypeCheck
-                        label="여행 성향1"
+                        label="내외향성"
                         labelLeft="외향성"
                         labelRight="내향성"
-                        name="typeCharacteristic"
-                        value={inputs.typeCharacteristic}
+                        name="inextroversion"
+                        value={inputs.inextroversion}
                         onChange={handleChangeInputs}
                     />
 
                     <RatioTypeCheck
-                        label="여행 성향2"
+                        label="개방폐쇄성"
                         labelLeft="개방성"
                         labelRight="폐쇄성"
-                        name="typeStyle"
-                        value={inputs.typeStyle}
+                        name="openclose"
+                        value={inputs.openclose}
                         onChange={handleChangeInputs}
                     />
                 </FormSection>
@@ -297,7 +320,7 @@ const TourFormArea = ({ match }) => {
                     onChange={handleChangeInputs}
                     audioMain={inputs.audioMain}
                     handleChangeAudioMain={handleChangeAudioMain}
-                    disabled={inputs.hasAudioMain === "no"}
+                    disabled={inputs.mainaudioYN === "no"}
                 />
             </FormLayout>
         </Content>

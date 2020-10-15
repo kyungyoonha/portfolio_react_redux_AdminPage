@@ -1,11 +1,7 @@
 import React from "react";
 import "./Sidebar.scss";
 import { NavLink } from "react-router-dom";
-
-const user = {
-    name: "하경윤",
-    email: "gkb10a@naver.com",
-};
+import { useSelector } from "react-redux";
 
 const routes = [
     { path: "/dashboard", title: "Dashboard", icon: "chart-pie" },
@@ -20,6 +16,8 @@ const routes = [
 ];
 
 const Sidebar = ({ isOpen, handleClickOpen }) => {
+    const { email, name } = useSelector((state) => state.user);
+
     return (
         <div className={`sidebar ${isOpen && "on"}`}>
             <div className="sidebar__menu">
@@ -30,8 +28,8 @@ const Sidebar = ({ isOpen, handleClickOpen }) => {
 
                 <div className="sidebar__user">
                     <div>
-                        ※ 관리자: <span>{user.name}</span>
-                        <br />※ 이메일: <span>{user.email}</span>
+                        ※ 관리자: <span>{name}</span>
+                        <br />※ 이메일: <span>{email}</span>
                     </div>
                 </div>
                 {routes.map((route) => (

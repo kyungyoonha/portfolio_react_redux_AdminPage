@@ -3,8 +3,8 @@ import "./FormAudio.scss";
 import FormAudioModal from "./FormAudioModal";
 
 const options = [
-    { value: "yes", title: "有" },
-    { value: "no", title: "無" },
+    { value: "Y", title: "有" },
+    { value: "N", title: "無" },
 ];
 
 const FormAudio = ({
@@ -52,17 +52,17 @@ const FormAudio = ({
                                     <input
                                         className="form-check-input"
                                         type="radio"
-                                        name="hasAudio"
+                                        name="subaudioYN"
                                         value={option.value}
                                         checked={
-                                            inputs.hasAudio === option.value
+                                            inputs.subaudioYN === option.value
                                         }
                                         onChange={onChange}
-                                        id={"hasAudio" + option.value}
+                                        id={"subaudioYN" + option.value}
                                     />
                                     <label
                                         className="form-check-label"
-                                        htmlFor={"hasAudio" + option.value}
+                                        htmlFor={"subaudioYN" + option.value}
                                     >
                                         {option.title}
                                     </label>

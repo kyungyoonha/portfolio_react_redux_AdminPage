@@ -1,8 +1,11 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Form.scss";
 import noImg from "../../img/no-img.jpg";
 import ReactDatePicker from "react-datepicker";
 import Map from "../Google/Map";
+import ReactModal from "react-modal";
+import moment from "moment";
+import TimePicker from "../TimePicker/TimePicker";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
@@ -11,21 +14,23 @@ export const FormLayout = ({ children }) => {
 export const FormSection = ({ size, title, children }) => {
     return (
         <React.Fragment>
-            {title && (
-                <tr style={{ textAlign: "center" }}>
-                    <th
-                        colSpan="2"
-                        style={{
-                            background: "#343a40",
-                            color: "white",
-                        }}
-                    >
-                        [공지 추가]
-                    </th>
-                </tr>
-            )}
             <div className={`formSection ${size}`}>
                 <table className="table">
+                    {title && (
+                        <thead style={{ textAlign: "center" }}>
+                            <tr>
+                                <th
+                                    colSpan="2"
+                                    style={{
+                                        background: "#343a40",
+                                        color: "white",
+                                    }}
+                                >
+                                    [{title}]
+                                </th>
+                            </tr>
+                        </thead>
+                    )}
                     <tbody>{children}</tbody>
                 </table>
             </div>
@@ -499,52 +504,32 @@ export const InputDate = ({ label, name, value, onChange, errors }) => {
     );
 };
 
-/* <Input
-                        label="주소"
-                        name="address"
-                        value={inputs.address}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    >
-                        <button
-                            className="btn btn-outline-primary"
-                            type="button"
-                        >
-                            <i className="fas fa-map-marked-alt "></i>
-                        </button>
-                    </Input> */
-
 export const InputAddress = ({
     label,
     name,
     value,
     type = "text",
     onChange,
+    setInputs,
     errors = {},
     disabled,
-    children,
 }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const handleChangeInput = (address) => {
-        onChange({
-            target: {
-                name: "address",
-                value: address.addr,
-            },
-        });
-        onChange({
-            target: {
-                name: "lat",
-                value: address.lat,
-            },
-        });
-        onChange({
-            target: {
-                name: "lng",
-                value: address.lng,
-            },
-        });
+        const { addr, lat, lng } = address;
+        setInputs((state) => ({
+            ...state,
+            address: addr,
+            lat,
+            lng,
+        }));
     };
+
+    const handleClickOpen = () => {
+        setModalOpen(true);
+        handleChangeInput({ addr: "", lat: "", lng: "" });
+    };
+
     return (
         <tr>
             <th>
@@ -562,9 +547,19 @@ export const InputAddress = ({
                         onChange={onChange}
                         autoComplete="off"
                         disabled={disabled}
-                        onClick={() => setModalOpen(true)}
+                        onClick={handleClickOpen}
                     />
-                    <div className="input-group-append">{children}</div>
+                    <div
+                        className="input-group-append"
+                        onClick={handleClickOpen}
+                    >
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                        >
+                            <i className="fas fa-map-marked-alt "></i>
+                        </button>
+                    </div>
                     {errors[name] && (
                         <div className="invalid-feedback">{errors[name]}</div>
                     )}
@@ -577,12 +572,81 @@ export const InputAddress = ({
                     onChange={handleChangeInput}
                     options={{
                         center: {
-                            lat: 33.489,
-                            lng: 126.4983,
+                            lat: 37.4967345,
+                            lng: 126.9779135,
                         },
-                        zoom: 15,
+                        zoom: 11,
                         mapTypeControl: false,
                     }}
+                />
+            </td>
+        </tr>
+    );
+};
+
+export const InputTimeRange = ({
+    value,
+
+    onChange,
+    errors = {},
+    disabled,
+}) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const handleChangeInput = (value) => {
+        onChange({
+            target: {
+                name: "operatingtime",
+                value,
+            },
+        });
+    };
+
+    const handleClickOpen = () => {
+        setModalOpen(true);
+        handleChangeInput("");
+    };
+
+    return (
+        <tr>
+            <th>
+                <label className="col-form-label">※ 운영시간</label>
+            </th>
+            <td>
+                <div className="input-group">
+                    <input
+                        name="operatingtime"
+                        type="text"
+                        value={value}
+                        className={`form-control ${
+                            errors["operatingtime"] && "is-invalid"
+                        }`}
+                        onChange={onChange}
+                        autoComplete="off"
+                        disabled={disabled}
+                        onClick={handleClickOpen}
+                    />
+                    <div
+                        className="input-group-append"
+                        onClick={handleClickOpen}
+                    >
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                        >
+                            <i className="fas fa-clock "></i>
+                        </button>
+                    </div>
+                    {errors["operatingtime"] && (
+                        <div className="invalid-feedback">
+                            {errors["operatingtime"]}
+                        </div>
+                    )}
+                </div>
+
+                <TimePicker
+                    modalOpen={modalOpen}
+                    handleCloseModal={() => setModalOpen(false)}
+                    onChange={handleChangeInput}
                 />
             </td>
         </tr>
