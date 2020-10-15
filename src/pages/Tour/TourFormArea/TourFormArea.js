@@ -11,6 +11,7 @@ import {
     RatioMulti,
     FormLayout,
     FormSection,
+    InputAddress,
 } from "../../../components/Form/Form";
 
 import {
@@ -130,6 +131,7 @@ const TourFormArea = ({ match }) => {
         }
     };
 
+    console.log(inputs.address, inputs.lat, inputs.lng);
     return (
         <Content>
             <ContentNav id={id}>
@@ -194,7 +196,7 @@ const TourFormArea = ({ match }) => {
                         </button>
                     </Input>
 
-                    <Input
+                    <InputAddress
                         label="주소"
                         name="address"
                         value={inputs.address}
@@ -207,7 +209,7 @@ const TourFormArea = ({ match }) => {
                         >
                             <i className="fas fa-map-marked-alt "></i>
                         </button>
-                    </Input>
+                    </InputAddress>
 
                     <Input
                         label="관광지 이름"

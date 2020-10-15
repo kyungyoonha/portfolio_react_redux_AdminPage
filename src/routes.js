@@ -18,7 +18,7 @@ import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
 import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
 import CSFormCstmSvc from './pages/CS/CSFormCstmSvc/CSFormCstmSvc';
 import GoogleSearch from "./components/GoogleSearch";
-import GoogleSearch2 from "./components/GoogleSearch2";
+// import GoogleSearch2 from "./components/GoogleSearch2";
 
 
 const routes = [

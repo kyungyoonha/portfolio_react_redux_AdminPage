@@ -21,9 +21,7 @@ const GoogleSearch2 = () => {
     let searchBox;
     const onLoad = (ref) => (searchBox = ref);
     const onPlacesChanged = () => {
-        console.log(searchBox.getPlaces());
         const result = searchBox.getPlaces();
-        console.log(result);
         if (!result[0]) alert("검색결과가 없습니다.");
         else {
             setCenter({
@@ -34,10 +32,7 @@ const GoogleSearch2 = () => {
         }
     };
 
-    const handleChangeLoc = (e) => {
-        console.log(e.latLng.lat());
-        console.log(e.latLng.lng());
-    };
+    const handleChangeLoc = (e) => {};
 
     return (
         <LoadScript

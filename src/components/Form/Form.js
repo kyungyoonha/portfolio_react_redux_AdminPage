@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import "./Form.scss";
 import noImg from "../../img/no-img.jpg";
 import ReactDatePicker from "react-datepicker";
+import Map from "../Google/Map";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
@@ -493,6 +494,96 @@ export const InputDate = ({ label, name, value, onChange, errors }) => {
                 {errors[name] && (
                     <div className="invalid-feedback">{errors[name]}</div>
                 )}
+            </td>
+        </tr>
+    );
+};
+
+/* <Input
+                        label="주소"
+                        name="address"
+                        value={inputs.address}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                    >
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                        >
+                            <i className="fas fa-map-marked-alt "></i>
+                        </button>
+                    </Input> */
+
+export const InputAddress = ({
+    label,
+    name,
+    value,
+    type = "text",
+    onChange,
+    errors = {},
+    disabled,
+    children,
+}) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const handleChangeInput = (address) => {
+        onChange({
+            target: {
+                name: "address",
+                value: address.addr,
+            },
+        });
+        onChange({
+            target: {
+                name: "lat",
+                value: address.lat,
+            },
+        });
+        onChange({
+            target: {
+                name: "lng",
+                value: address.lng,
+            },
+        });
+    };
+    return (
+        <tr>
+            <th>
+                <label className="col-form-label">※ {label}</label>
+            </th>
+            <td>
+                <div className="input-group">
+                    <input
+                        name={name}
+                        type={type}
+                        value={value}
+                        className={`form-control ${
+                            errors[name] && "is-invalid"
+                        }`}
+                        onChange={onChange}
+                        autoComplete="off"
+                        disabled={disabled}
+                        onClick={() => setModalOpen(true)}
+                    />
+                    <div className="input-group-append">{children}</div>
+                    {errors[name] && (
+                        <div className="invalid-feedback">{errors[name]}</div>
+                    )}
+                </div>
+
+                <Map
+                    id="myMap"
+                    modalOpen={modalOpen}
+                    handleCloseModal={() => setModalOpen(false)}
+                    onChange={handleChangeInput}
+                    options={{
+                        center: {
+                            lat: 33.489,
+                            lng: 126.4983,
+                        },
+                        zoom: 15,
+                        mapTypeControl: false,
+                    }}
+                />
             </td>
         </tr>
     );

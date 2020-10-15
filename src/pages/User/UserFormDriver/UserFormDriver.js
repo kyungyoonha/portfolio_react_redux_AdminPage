@@ -45,6 +45,29 @@ const initialValue = {
     etc: "",
 };
 
+// const initialValue = {
+//     idx: '',
+//     drivername: '',
+//     id: '',
+//     pw: '',
+//     nationtype: '',
+//     nation: '',
+//     sido: '',
+//     area: '',
+//     birthday: '',
+//     telnumber: '',
+//     cartype: '',
+//     carnumber: '',
+//     carlicense: '',
+//     businesstype: '',
+//     grade: '',
+//     etc: '',
+//     regdate: '',
+//     reguser: '',
+//     moddate: '',
+//     moduser: '',
+// }
+
 const initialValueFiles = {
     profile: {},
     carPic: {},
