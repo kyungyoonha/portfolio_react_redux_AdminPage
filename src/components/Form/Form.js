@@ -462,12 +462,13 @@ export const FileSingle = ({ label, name, file, onChange }) => {
     );
 };
 
-export const FileSingle2 = ({
+export const File = ({
     label,
     name,
     filename,
     path,
     handleChangeFile,
+    accept,
 }) => {
     const inputFileRef = useRef(null);
 
@@ -504,6 +505,7 @@ export const FileSingle2 = ({
                         type="file"
                         hidden
                         onChange={handleChangeFile}
+                        accept={accept}
                     />
 
                     <button
@@ -518,6 +520,30 @@ export const FileSingle2 = ({
                 </td>
             </tr>
         </React.Fragment>
+    );
+};
+
+export const InputForm = ({ label, name, value, handleChangeFile }) => {
+    return (
+        <tr>
+            <th>
+                <label>※ {label}</label>
+            </th>
+            <td>
+                <div className="custom-file">
+                    <input
+                        name={name}
+                        type="file"
+                        value={value}
+                        className="custom-file-input"
+                        onChange={handleChangeFile}
+                    />
+                    <label className="custom-file-label" data-browse={label}>
+                        {value}
+                    </label>
+                </div>
+            </td>
+        </tr>
     );
 };
 

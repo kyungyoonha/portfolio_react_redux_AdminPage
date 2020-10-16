@@ -18,10 +18,10 @@ const initialValue = {
     englishname: "",
     code3: "",
     code2: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
 };
 
 //working done;

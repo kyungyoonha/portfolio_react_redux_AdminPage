@@ -4,7 +4,6 @@ import history from "./history";
 import "./App.scss";
 import routes from "./routes";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 
 // pages

@@ -6,14 +6,15 @@ import {
     BOARD_INSERT,
     BOARD_EDIT,
     BOARD_DELETE,
-    BOARD_INITIALIZE,
 } from "../types";
 import axios from "axios";
 
 export const boardAction_fetch = (pageId) => async (dispatch, getState) => {
     const prevPageId = getState().board.pageId;
     try {
-        if (prevPageId === pageId) return;
+        if (prevPageId === pageId) {
+            return;
+        }
         const res = await axios.get(
             `http://localhost:3000/json/${pageId}.json`
             //     ?pageSize=${pageCtrl.pageSize}
@@ -82,10 +83,4 @@ export const boardAction_delete = (pageId, itemId) => async (dispatch) => {
     } catch (e) {
         console.error("boardAction_delete Error", e);
     }
-};
-
-export const boardAction_init = () => {
-    return {
-        type: BOARD_INITIALIZE,
-    };
 };

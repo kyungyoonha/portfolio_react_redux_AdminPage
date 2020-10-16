@@ -15,13 +15,14 @@ import {
     boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
-    boardAction_init,
 } from "../../../redux/actions";
 
 const CSBoard = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { data, totalPage, selectedId } = useSelector((state) => state.board);
+    const { pageId: prevId, data, totalPage, selectedId } = useSelector(
+        (state) => state.board
+    );
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -33,7 +34,6 @@ const CSBoard = ({ match }) => {
 
     useEffect(() => {
         dispatch(boardAction_fetch(pageId));
-        return () => dispatch(boardAction_init());
     }, [dispatch, pageId]);
 
     const handleClickInsert = () => {
@@ -70,12 +70,15 @@ const CSBoard = ({ match }) => {
 
             <ContentBody>
                 <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
-                <Board
-                    pageId={pageId}
-                    data={data}
-                    selectedId={selectedId}
-                    handleSelectedId={handleSelectedId}
-                />
+                {prevId === pageId && (
+                    <Board
+                        pageId={pageId}
+                        data={data}
+                        selectedId={selectedId}
+                        handleSelectedId={handleSelectedId}
+                    />
+                )}
+
                 <BoardFooter
                     totalPage={totalPage}
                     currentPage={pageCtrl.currentPage}

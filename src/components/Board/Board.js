@@ -4,43 +4,54 @@ import pageDataMap from "../../json/pageDataMap.json";
 
 export const Board = ({ pageId, data, selectedId, handleSelectedId }) => {
     const headerList = pageDataMap[pageId].headerList;
-    const makeRowData = (item) => {
-        return headerList.map((col) => {
-            if (col.key === "check") {
-                return (
-                    <td key={col.key}>
-                        <input
-                            type="checkbox"
-                            aria-label="Checkbox"
-                            checked={item.idx === selectedId}
-                            onChange={() => handleSelectedId(item.idx)}
-                        />
-                    </td>
-                );
-            }
 
-            // member, driver, manager
-            else if (col.key === "history" || col.key === "cs") {
-                return <td key={col.key}>{item[col.key].length}건</td>;
-            }
-            // area
-            else if (
-                col.key === "info" ||
-                col.key === "description" ||
-                col.key === "kr" ||
-                col.key === "en"
-            ) {
-                return <td key={col.key}>{item[col.key] ? "O" : "X"}</td>;
-            }
+    const makeRowData2 = (item) => {
+        return (
+            <React.Fragment>
+                <td>
+                    <input
+                        type="checkbox"
+                        aria-label="Checkbox"
+                        checked={item.idx === selectedId}
+                        onChange={() => handleSelectedId(item.idx)}
+                    />
+                </td>
+                {headerList.map((col) => {
+                    if (
+                        col.key === "purchase" ||
+                        col.key === "question" ||
+                        col.key === "drivercomplain" ||
+                        col.key === "trabus"
+                    ) {
+                        return (
+                            <td key={col.key}>
+                                {item[col.key] ? item[col.key].length : 0}건
+                            </td>
+                        );
+                    }
+                    // area
+                    else if (
+                        col.key === "info" ||
+                        col.key === "description" ||
+                        col.key === "kr" ||
+                        col.key === "en"
+                    ) {
+                        return (
+                            <td key={col.key}>{item[col.key] ? "O" : "X"}</td>
+                        );
+                    }
 
-            return <td key={col.key}>{item[col.key]}</td>;
-        });
+                    return <td key={col.key}>{item[col.key]}</td>;
+                })}
+            </React.Fragment>
+        );
     };
 
     return (
         <table className="table table-hover table-bordered">
             <thead>
                 <tr>
+                    <th>#</th>
                     {headerList.map((item) => (
                         <th key={item.key}>{item.title}</th>
                     ))}
@@ -49,7 +60,7 @@ export const Board = ({ pageId, data, selectedId, handleSelectedId }) => {
             <tbody>
                 {data.map((item, idx) => (
                     <tr key={idx} onClick={() => handleSelectedId(item.idx)}>
-                        {makeRowData(item)}
+                        {makeRowData2(item)}
                     </tr>
                 ))}
             </tbody>

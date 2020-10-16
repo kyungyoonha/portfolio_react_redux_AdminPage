@@ -26,7 +26,7 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import history from "../../../history";
-import { validateAll, validateArea } from "../../../util/validate";
+import { validateAll, validatePackage } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 // const initialValue = {
@@ -94,10 +94,10 @@ const initialValue = {
     openclose: "0",
     subaudioYN: "N",
     mainaudioYN: "N",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
 
     imageList: [],
     audioList: [],
@@ -115,7 +115,7 @@ const TourFormPackage = ({ match }) => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
-        validateArea,
+        validatePackage,
         setErrors
     );
 
@@ -154,7 +154,7 @@ const TourFormPackage = ({ match }) => {
     };
 
     const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateArea);
+        const { isValid, checkedErrors } = validateAll(inputs, validatePackage);
 
         // if (!inputs.imageList[0]) {
         //     alert("관광지 사진을 추가해주세요.");
@@ -174,13 +174,6 @@ const TourFormPackage = ({ match }) => {
         } else {
             setErrors(checkedErrors);
         }
-
-        // const formdata = new FormData();
-        // formdata.append("file", files[0].uploadedFile);
-        // formdata.append("text", text);
-        // formdata.append("hotel", hotel);
-        // formdata.append("title", title);
-        // formdata.append("stars", "5");
     };
     return (
         <Content>

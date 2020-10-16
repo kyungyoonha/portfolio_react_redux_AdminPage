@@ -1,142 +1,186 @@
 {
     "totalPage": 20,
     "data": [
-        {
-            "idx": "driver1",
-            "name": "드라이버1",
-            "phone": "+82-10-1111-2222",
-            "email": "info@tripsoda.com",
-            "country": "KOREA",
-            "history": [
+        {   
+            "idx": "1",
+            "drivername": "드라이버1",
+            "id": "1",
+            "pw": "1",
+            "nationtype": "1",
+            "nationcode": "KOREA",
+            "sidocode": "1",
+            "areacode": "1",
+            "birthday": "1",
+            "telnumber": "1",
+            "cartype": "1",
+            "carnumber": "1",
+            "carlicense": "1",
+            "businesstype": "1",
+            "grade": "1",
+            "etc": "1",
+            "regdate": "1",
+            "reguser": "1",
+            "moddate": "1",
+            "moduser": "1",
+            "trabus": [
                 {
-                    "date": "2020-09-09",
-                    "totalTime": "300000",
-                    "customer_id": "package1"
-                },
-                {
-                    "date": "2020-09-10",
-                    "totalTime": "40000",
-                    "customer_id": "package2"
-                },
-                {
-                    "date": "2020-09-11",
-                    "totalTime": "500000",
-                    "customer_id": "package3"
+                    "idx" : "1",
+                    "driveridx" : "드라이버1",
+                    "touridx" : "1",
+                    "regdate" : "1",
+                    "reguser" : "1",
+                    "moddate" : "1",
+                    "moduser" : "1"
+
                 }
             ],
-            "cs": [
+            "drivercomplain": [
                 {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
-                },
-                {
-                    "date": "2020-09-10",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
-                },
-                {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
+                    "idx" : "1",
+                    "driveridx" : "드라이버1",
+                    "complain" : "1",
+                    "useridx" : "1",
+                    "regdate" : "1",
+                    "reguser" : "1",
+                    "moddate" : "1",
+                    "moduser" : "1"
                 }
             ]
         },
-        {
-            "idx": "driver2",
-            "name": "드라이버2",
-            "phone": "+82-10-1111-2222",
-            "email": "info@tripsoda.com",
-            "country": "KOREA",
-            "history": [
+        {   
+            "idx": "2",
+            "drivername": "드라이버2",
+            "id": "2",
+            "pw": "2",
+            "nationtype": "2",
+            "nationcode": "KOREA",
+            "sidocode": "2",
+            "areacode": "2",
+            "birthday": "2",
+            "telnumber": "2",
+            "cartype": "2",
+            "carnumber": "2",
+            "carlicense": "2",
+            "businesstype": "2",
+            "grade": "2",
+            "etc": "2",
+            "regdate": "2",
+            "reguser": "2",
+            "moddate": "2",
+            "moduser": "2",
+            "trabus": [
                 {
-                    "date": "2020-09-09",
-                    "totalTime": "300000",
-                    "customer_id": "package1"
+                    "idx" : "1",
+                    "driveridx" : "드라이버2",
+                    "touridx" : "2",
+                    "regdate" : "2",
+                    "reguser" : "2",
+                    "moddate" : "2",
+                    "moduser" : "2"
+
                 },
                 {
-                    "date": "2020-09-10",
-                    "totalTime": "40000",
-                    "customer_id": "package2"
-                },
-                {
-                    "date": "2020-09-11",
-                    "totalTime": "500000",
-                    "customer_id": "package3"
-                },
-                {
-                    "date": "2020-09-11",
-                    "totalTime": "500000",
-                    "customer_id": "package4"
+                    "idx" : "2",
+                    "driveridx" : "드라이버2",
+                    "touridx" : "2",
+                    "regdate" : "2",
+                    "reguser" : "2",
+                    "moddate" : "2",
+                    "moduser" : "2"
+
                 }
             ],
-            "cs": [
+            "drivercomplain": [
                 {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
+                    "idx" : "1",
+                    "driveridx" : "드라이버2",
+                    "complain" : "2",
+                    "useridx" : "2",
+                    "regdate" : "2",
+                    "reguser" : "2",
+                    "moddate" : "2",
+                    "moduser" : "2"
                 },
                 {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
+                    "idx" : "2",
+                    "driveridx" : "드라이버2",
+                    "complain" : "2",
+                    "useridx" : "2",
+                    "regdate" : "2",
+                    "reguser" : "2",
+                    "moddate" : "2",
+                    "moduser" : "2"
                 }
             ]
         },
-        {
-            "idx": "driver3",
-            "name": "드라이버3",
-            "phone": "+82-10-1111-2222",
-            "email": "info@tripsoda.com",
-            "country": "KOREA",
-            "history": [
+        {   
+            "idx": "3",
+            "drivername": "드라이버3",
+            "id": "3",
+            "pw": "3",
+            "nationtype": "3",
+            "nationcode": "KOREA",
+            "sidocode": "3",
+            "areacode": "3",
+            "birthday": "3",
+            "telnumber": "3",
+            "cartype": "3",
+            "carnumber": "3",
+            "carlicense": "3",
+            "businesstype": "3",
+            "grade": "3",
+            "etc": "3",
+            "regdate": "3",
+            "reguser": "3",
+            "moddate": "3",
+            "moduser": "3",
+            "trabus": [
                 {
-                    "date": "2020-09-09",
-                    "totalTime": "300000",
-                    "customer_id": "package1"
+                    "idx" : "1",
+                    "driveridx" : "드라이버3",
+                    "touridx" : "3",
+                    "regdate" : "3",
+                    "reguser" : "3",
+                    "moddate" : "3",
+                    "moduser" : "3"
+
                 },
                 {
-                    "date": "2020-09-09",
-                    "totalTime": "1300000",
-                    "customer_id": "package1"
-                },
-                {
-                    "date": "2020-09-09",
-                    "totalTime": "2300000",
-                    "customer_id": "package1"
+                    "idx" : "3",
+                    "driveridx" : "드라이버3",
+                    "touridx" : "3",
+                    "regdate" : "3",
+                    "reguser" : "3",
+                    "moddate" : "3",
+                    "moduser" : "3"
+
                 }
             ],
-            "cs": [
+            "drivercomplain": [
                 {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
+                    "idx" : "1",
+                    "driveridx" : "드라이버3",
+                    "complain" : "3",
+                    "useridx" : "3",
+                    "regdate" : "3",
+                    "reguser" : "3",
+                    "moddate" : "3",
+                    "moduser" : "3"
                 },
                 {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
-                },
-                {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
-                },
-                {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
+                    "idx" : "3",
+                    "driveridx" : "드라이버3",
+                    "complain" : "3",
+                    "useridx" : "3",
+                    "regdate" : "3",
+                    "reguser" : "3",
+                    "moddate" : "3",
+                    "moduser" : "3"
                 }
             ]
         }
+
+
+        
     ]
 }

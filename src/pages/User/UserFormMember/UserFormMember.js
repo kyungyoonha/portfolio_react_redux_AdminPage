@@ -4,11 +4,10 @@ import {
     FormLayout,
     FormSection,
     Input,
-    Select,
-    RatioMulti,
     RatioSingle,
     Textarea,
     InputDate,
+    InputAddress,
 } from "../../../components/Form/Form";
 
 import {
@@ -18,6 +17,8 @@ import {
 } from "../../../components/Content/Content";
 import { validateAll, validateMember } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
+import { useDispatch, useSelector } from "react-redux";
+import { boardAction_update } from "../../../redux/actions";
 
 const initialValue = {
     idx: "",
@@ -34,15 +35,18 @@ const initialValue = {
     pushagree: "N",
     etc: "",
     profile: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
+    question: [],
+    purchase: [],
 };
-//working done
+//working [done]
 const UserFormMember = ({ match }) => {
     const pageId = match.url.split("/")[2];
-    // const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -52,14 +56,16 @@ const UserFormMember = ({ match }) => {
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateMember);
-
         if (isValid) {
             console.log("에러 없음");
-            // const result = {
-            //     ...inputs,
-            //     regdate: new Date().toISOString(),
-            //     reguser: user.name,
-            // };
+            dispatch(
+                boardAction_update(pageId, {
+                    ...inputs,
+                    regdate: new Date().toISOString(),
+                    reguser: name,
+                })
+            );
+
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
@@ -129,11 +135,13 @@ const UserFormMember = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <Input
+                    <InputAddress
                         label="주소"
                         name="address"
                         value={inputs.address}
+                        setInputs={setInputs}
                         onChange={handleChangeInputs}
+                        errors={errors}
                     />
                     {/* <Input
                         label="누적투어수"

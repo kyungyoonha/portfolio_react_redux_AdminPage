@@ -4,10 +4,9 @@ import history from "../../../history";
 import queryString from "query-string";
 import useInputs from "../../../Hooks/useInputs";
 import { boardAction_detail, boardAction_update } from "../../../redux/actions";
-import { validateAll, validateNation } from "../../../util/validate";
+import { validateAll, validateArea } from "../../../util/validate";
 import {
-    FileSingle,
-    FileSingle2,
+    File,
     FormLayout,
     FormSection,
     Input,
@@ -29,16 +28,16 @@ const initialValue = {
     sidoname: "",
     areacode: "",
     areaname: "",
-    mainpicYN: "",
+    mainpicYN: "N",
     mainpicfilename: "",
     mainpicpath: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
 };
 
-//working done;
+//working [done]
 const TourFormArea = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const id = match.params.id;
@@ -51,7 +50,7 @@ const TourFormArea = ({ match }) => {
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
-        validateNation,
+        validateArea,
         setErrors
     );
 
@@ -66,7 +65,12 @@ const TourFormArea = ({ match }) => {
     }, [id, setInputs, detail]);
 
     const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateNation);
+        const { isValid, checkedErrors } = validateAll(inputs, validateArea);
+
+        if (!inputs.mainpicpath) {
+            alert("메인 사진을 업로드해주세요.");
+            return;
+        }
 
         if (isValid) {
             console.log("에러 없음");
@@ -84,8 +88,19 @@ const TourFormArea = ({ match }) => {
     };
 
     const handleChangeFile = async (e) => {
-        const res = await uploadCloudinary("image", e.target.files[0]);
-        console.log(res);
+        const file = e.target.files[0];
+
+        try {
+            const res = await uploadCloudinary("image", file);
+            setInputs((state) => ({
+                ...state,
+                mainpicYN: "Y",
+                mainpicfilename: file.name,
+                mainpicpath: res,
+            }));
+        } catch (e) {
+            console.error("TourFormArea Error", e);
+        }
     };
 
     return (
@@ -99,7 +114,7 @@ const TourFormArea = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection>
+                <FormSection size="center" title="지역코드 추가">
                     <Select
                         label="국가 코드"
                         name="nationidx"
@@ -146,20 +161,13 @@ const TourFormArea = ({ match }) => {
                             { value: "N", title: "없음" },
                         ]}
                     />
-                </FormSection>
-                <FormSection>
-                    {/* <FileSingle
-                        label="기사 사진"
-                        name="profile"
-                        file={files.profile}
-                        onChange={handleChangeFile}
-                    /> */}
-                    <FileSingle2
+                    <File
                         label="대표 사진"
                         name="mainpickpath"
-                        filename={inputs.filename}
+                        filename={inputs.mainpicfilename}
                         path={inputs.mainpicpath}
                         handleChangeFile={handleChangeFile}
+                        accept="image/gif, image/jpeg, image/png"
                     />
                 </FormSection>
             </FormLayout>

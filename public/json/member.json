@@ -2,141 +2,207 @@
     "totalPage": 20,
     "data": [
         {
-            "idx": "user1",
-            "name": "유저1",
-            "phone": "+82-10-1111-2222",
-            "email": "info@tripsoda.com",
-            "country": "KOREA",
-            "history": [
+            "idx": "1",
+            "username": "유저1",
+            "id": "11",
+            "pw": "11",
+            "birthday": "1991-10-00",
+            "telnumber": "010-1111-2222",
+            "nickname": "닉네임",
+            "email": "gggg@naver.com",
+            "address": "주소주소",
+            "emailagree": "N",
+            "messageagree": "N",
+            "pushagree": "N",
+            "etc": "기타사항",
+            "profile": "url",
+            "regdate": "2020-10-16",
+            "reguser": "yoon",
+            "moddate": "2020-10-16",
+            "moduser": "yoon",
+            "purchase": [
                 {
-                    "date": "2020-09-09",
-                    "totalPrice": "300000",
-                    "product_id": "package1"
-                },
-                {
-                    "date": "2020-09-10",
-                    "totalPrice": "40000",
-                    "product_id": "package2"
-                },
-                {
-                    "date": "2020-09-11",
-                    "totalPrice": "500000",
-                    "product_id": "package3"
+                    "idx" : "1",
+                    "tourtype" : "A",
+                    "touridx" : "11",
+                    "tourdays" : "4",
+                    "tourstartday" : "2020-03-03",
+                    "tourendday" : "2020-03-03",
+                    "tourmemeber" : "010-1111-2222",
+                    "price" : "300000",
+                    "tourstarttime" : "09:00 am",
+                    "userid" : "유저1",
+                    "purchasecode" : "111",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 }
+
             ],
-            "cs": [
+            "question" : [
                 {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
+                    "idx" : "1",
+                    "userid" : "유저1",
+                    "email" : "ggg@naver.com",
+                    "attachfile" : "file",
+                    "replyyn" : "Y",
+                    "contents" : "fewfew",
+                    "filepath" : "",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 },
                 {
-                    "date": "2020-09-10",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
-                },
-                {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
+                    "idx" : "2",
+                    "userid" : "유저1",
+                    "email" : "ggg@naver.com",
+                    "attachfile" : "file",
+                    "replyyn" : "Y",
+                    "contents" : "fewfew",
+                    "filepath" : "",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 }
+
             ]
         },
         {
-            "idx": "user2",
-            "name": "유저2",
-            "phone": "+82-10-1111-2222",
-            "email": "info@tripsoda.com",
-            "country": "KOREA",
-            "history": [
+            "idx": "2",
+            "username": "유저2",
+            "id": "22",
+            "pw": "22",
+            "birthday": "1991-10-00",
+            "telnumber": "010-1111-2222",
+            "nickname": "닉네임",
+            "email": "gggg@naver.com",
+            "address": "주소주소",
+            "emailagree": "N",
+            "messageagree": "N",
+            "pushagree": "N",
+            "etc": "기타사항",
+            "profile": "url",
+            "regdate": "2020-10-16",
+            "reguser": "yoon",
+            "moddate": "2020-10-16",
+            "moduser": "yoon",
+            "question": [],
+            "purchase": [
                 {
-                    "date": "2020-09-09",
-                    "totalPrice": "300000",
-                    "product_id": "package1"
+                    "idx" : "1",
+                    "tourtype" : "A",
+                    "touridx" : "11",
+                    "tourdays" : "4",
+                    "tourstartday" : "2020-03-03",
+                    "tourendday" : "2020-03-03",
+                    "tourmemeber" : "010-1111-2222",
+                    "price" : "300000",
+                    "tourstarttime" : "09:00 am",
+                    "userid" : "유저1",
+                    "purchasecode" : "111",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 },
                 {
-                    "date": "2020-09-10",
-                    "totalPrice": "40000",
-                    "product_id": "package2"
-                },
-                {
-                    "date": "2020-09-11",
-                    "totalPrice": "500000",
-                    "product_id": "package3"
-                },
-                {
-                    "date": "2020-09-11",
-                    "totalPrice": "500000",
-                    "product_id": "package4"
+                    "idx" : "2",
+                    "tourtype" : "A",
+                    "touridx" : "22",
+                    "tourdays" : "4",
+                    "tourstartday" : "2020-03-03",
+                    "tourendday" : "2020-03-03",
+                    "tourmemeber" : "010-1111-2222",
+                    "price" : "400000",
+                    "tourstarttime" : "09:00 am",
+                    "userid" : "유저1",
+                    "purchasecode" : "111",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 }
-            ],
-            "cs": [
-                {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
-                },
-                {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
-                }
+
             ]
         },
         {
-            "idx": "user3",
-            "name": "유저3",
-            "phone": "+82-10-1111-2222",
-            "email": "info@tripsoda.com",
-            "country": "KOREA",
-            "history": [
+            "idx": "3",
+            "username": "유저3",
+            "id": "33",
+            "pw": "33",
+            "birthday": "1991-10-00",
+            "telnumber": "010-1111-2222",
+            "nickname": "닉네임",
+            "email": "gggg@naver.com",
+            "address": "주소주소",
+            "emailagree": "N",
+            "messageagree": "N",
+            "pushagree": "N",
+            "etc": "기타사항",
+            "profile": "url",
+            "regdate": "2020-10-16",
+            "reguser": "yoon",
+            "moddate": "2020-10-16",
+            "moduser": "yoon",
+            "question": [],
+            "purchase": [
                 {
-                    "date": "2020-09-09",
-                    "totalPrice": "300000",
-                    "product_id": "package1"
+                    "idx" : "1",
+                    "tourtype" : "A",
+                    "touridx" : "11",
+                    "tourdays" : "4",
+                    "tourstartday" : "2020-03-03",
+                    "tourendday" : "2020-03-03",
+                    "tourmemeber" : "010-1111-2222",
+                    "price" : "300000",
+                    "tourstarttime" : "09:00 am",
+                    "userid" : "유저1",
+                    "purchasecode" : "111",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 },
                 {
-                    "date": "2020-09-09",
-                    "totalPrice": "1300000",
-                    "product_id": "package1"
+                    "idx" : "2",
+                    "tourtype" : "A",
+                    "touridx" : "22",
+                    "tourdays" : "4",
+                    "tourstartday" : "2020-03-03",
+                    "tourendday" : "2020-03-03",
+                    "tourmemeber" : "010-1111-2222",
+                    "price" : "400000",
+                    "tourstarttime" : "09:00 am",
+                    "userid" : "유저1",
+                    "purchasecode" : "111",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 },
                 {
-                    "date": "2020-09-09",
-                    "totalPrice": "2300000",
-                    "product_id": "package1"
+                    "idx" : "3",
+                    "tourtype" : "A",
+                    "touridx" : "33",
+                    "tourdays" : "4",
+                    "tourstartday" : "2020-03-03",
+                    "tourendday" : "2020-03-03",
+                    "tourmemeber" : "010-1111-2222",
+                    "price" : "400000",
+                    "tourstarttime" : "09:00 am",
+                    "userid" : "유저1",
+                    "purchasecode" : "111",
+                    "regdate": "2020-10-16",
+                    "reguser": "yoon",
+                    "moddate": "2020-10-16",
+                    "moduser": "yoon"
                 }
-            ],
-            "cs": [
-                {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
-                },
-                {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
-                },
-                {
-                    "date": "2020-09-09",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "false"
-                },
-                {
-                    "date": "2020-09-11",
-                    "content": "문의사항 남깁니다.",
-                    "cs_id": "1",
-                    "anser": "true"
-                }
+
             ]
         }
+        
     ]
 }

@@ -98,7 +98,7 @@ export const validateManager = (name, value) => {
     }
 };
 
-export const validateArea = (name, value) => {
+export const validatePackage = (name, value) => {
     switch (name) {
         case "tourname":
             return isEmpty(value) && "관광지명을 입력해주세요.";
@@ -138,6 +138,22 @@ export const validateNation = (name, value) => {
 
         case "code2":
             return isEmpty(value) && "국가코드 2자리를 입력해주세요.";
+        default:
+            return;
+    }
+};
+
+export const validateArea = (name, value) => {
+    switch (name) {
+        case "nationidx":
+            return isEmpty(value) && "국가코드를 선택해주세요.";
+
+        case "sidocode":
+        case "sidoname":
+        case "areacode":
+        case "areaname":
+            return isEmpty(value) && "입력해주세요.";
+
         default:
             return;
     }
@@ -234,7 +250,8 @@ export const validateCode = (name, value) => {
 
 export const validatePush = (name, value) => {
     switch (name) {
-        case ("pushName", "content"):
+        case "title":
+        case "content":
             if (isEmpty(value)) return "입력해주세요.";
             if (value.length > 50) return "50자까지 입력 가능합니다.";
             return;

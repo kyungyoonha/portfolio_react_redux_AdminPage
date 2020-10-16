@@ -3,49 +3,44 @@
         "title": "회원 정보",
         "navCtg": "user",
         "headerList": [
-            { "key": "check", "title": "#" },
-            { "key": "id", "title": "id" },
-            { "key": "name", "title": "이름" },
-            { "key": "phone", "title": "전화번호" },
+            { "key": "idx", "title": "인덱스" },
+            { "key": "username", "title": "성명" },
+            { "key": "telnumber", "title": "전화번호" },
             { "key": "email", "title": "이메일" },
-            { "key": "country", "title": "국적" },
-            { "key": "history", "title": "구매내역" },
-            { "key": "cs", "title": "문의사항" }
+            { "key": "purchase", "title": "구매내역" },
+            { "key": "question", "title": "문의사항" }
         ]
     },
     "driver": {
         "title": "기사 정보",
         "navCtg": "user",
         "headerList": [
-            { "key": "check", "title": "#" },
-            { "key": "id", "title": "id" },
-            { "key": "name", "title": "이름" },
-            { "key": "phone", "title": "전화번호" },
-            { "key": "email", "title": "이메일" },
-            { "key": "country", "title": "국적" },
-            { "key": "history", "title": "운행내역" },
-            { "key": "cs", "title": "문의사항" }
+            { "key": "drivername", "title": "기사 성명" },
+            { "key": "id", "title": "아이디" },
+            { "key": "nationcode", "title": "국가 코드" },
+            { "key": "telnumber", "title": "연락처" },
+            { "key": "trabus", "title": "운행내역" },
+            { "key": "drivercomplain", "title": "컴플레인" }
         ]
     },
     "manager": {
         "title": "매니저 정보",
         "navCtg": "user",
         "headerList": [
-            { "key": "check", "title": "#" },
-            { "key": "id", "title": "id" },
-            { "key": "name", "title": "이름" },
-            { "key": "phone", "title": "전화번호" },
-            { "key": "email", "title": "이메일" },
-            { "key": "country", "title": "국적" },
-            { "key": "history", "title": "구매내역" },
-            { "key": "cs", "title": "문의사항" }
+            { "key": "username", "title": "성명" },
+            { "key": "id", "title": "아이디" },
+            { "key": "level", "title": "등급" },
+            { "key": "birthday", "title": "생년월일" },
+            { "key": "telnumber", "title": "전화번호" },
+            { "key": "englishname", "title": "영어 이름" },
+            { "key": "address", "title": "주소" },
+            { "key": "entryYear", "title": "입사년도" }
         ]
     },
     "tourpackage": {
         "title": "관광지 코드 관리",
         "navCtg": "tour",
         "headerList": [
-            { "key": "check", "title": "#" },
             { "key": "country", "title": "국가" },
             { "key": "state", "title": "주/도" },
             { "key": "city", "title": "시" },
@@ -62,40 +57,36 @@
         "title": "관광지 코드 관리",
         "navCtg": "tour",
         "headerList": [
-            { "key": "check", "title": "#" },
             { "key": "idx", "title": "idx" },
-            { "key": "koreanname", "title": "국가한글이름" },
-            { "key": "englishname", "title": "국가영어이름" },
-            { "key": "code3", "title": "국가코드 3자리" },
-            { "key": "code2", "title": "국가코드 2자리" }
+            { "key": "koreanname", "title": "국가이름(한글)" },
+            { "key": "englishname", "title": "국가이름(영어)" },
+            { "key": "code3", "title": "국가코드(3자리)" },
+            { "key": "code2", "title": "국가코드(2자리)" }
         ]
     },
     "area": {
         "title": "지역 코드 관리",
         "navCtg": "tour",
         "headerList": [
-            { "key": "check", "title": "#" },
-            { "key": "country", "title": "국가" },
-            { "key": "countryCode", "title": "국가코드" },
-            { "key": "countrySort", "title": "국가정렬" },
-            { "key": "state", "title": "시/도" },
-            { "key": "stateCode", "title": "시/도 코드" },
-            { "key": "stateSort", "title": "시/도 정렬" },
-            { "key": "city", "title": "지역" },
-            { "key": "hasImgMain", "title": "대표사진 유무" },
-            { "key": "cityCode", "title": "지역 코드" },
-            { "key": "citySort", "title": "지역 정렬" },
-            { "key": "editMng", "title": "최근 수정 관리자" },
-            { "key": "editDate", "title": "최근 수정 날짜" },
-            { "key": "makeMng", "title": "생성 관리자" },
-            { "key": "makeDate", "title": "생성 일자" }
+            { "key": "idx", "title": "인덱스" },
+            { "key": "nationidx", "title": "국가 코드" },
+            { "key": "sidocode", "title": "시도 코드" },
+            { "key": "sidoname", "title": "시도명" },
+            { "key": "areacode", "title": "지역 코드" },
+            { "key": "areaname", "title": "지역명" },
+            { "key": "mainpicYN", "title": "대표사진 유무" },
+            { "key": "mainpicfilename", "title": "대표사진 파일명" },
+            { "key": "mainpicpath", "title": "대표사진 파일경로" },
+            { "key": "regdate", "title": "등록일" },
+            { "key": "reguser", "title": "등록자" },
+            { "key": "moddate", "title": "수정일" },
+            { "key": "moduser", "title": "수정자" }
         ]
     },
     "purchinfo": {
         "title": "구매정보 관리",
         "navCtg": "purch",
         "headerList": [
-            { "key": "check", "title": "#" },
             { "key": "date", "title": "날짜/시간" },
             { "key": "guestId", "title": "고객" },
             { "key": "driver", "title": "담당기사" },
@@ -111,7 +102,6 @@
         "title": "구매코드 조회",
         "navCtg": "purch",
         "headerList": [
-            { "key": "check", "title": "#" },
             { "key": "id", "title": "구매 코드" },
             { "key": "tourName", "title": "투어 이름" },
             { "key": "country", "title": "국가" },
@@ -135,21 +125,22 @@
         "title": "알림 관리",
         "navCtg": "cs",
         "headerList": [
-            { "key": "check", "title": "#" },
-            { "key": "pushName", "title": "푸시 이름" },
-            { "key": "content", "title": "내용" },
-            { "key": "connectPage", "title": "연결 페이지" },
-            { "key": "state", "title": "상태" },
-            { "key": "target", "title": "푸시 대상" },
-            { "key": "pushedDate", "title": "마지막 푸시 일자" },
-            { "key": "editDate", "title": "마지막 수정 일자" }
+            { "key": "idx", "title": "인덱스" },
+            { "key": "title", "title": "제목" },
+            { "key": "target", "title": "대상 코드" },
+            { "key": "linkinfo", "title": "연결페이지" },
+            { "key": "contents", "title": "내용" },
+            { "key": "messageyn", "title": "메시지 전송여부" },
+            { "key": "regdate", "title": "등록일" },
+            { "key": "reguser", "title": "등록자" },
+            { "key": "moddate", "title": "수정일" },
+            { "key": "moduser", "title": "수정자" }
         ]
     },
     "notice": {
         "title": "공지사항 관리",
         "navCtg": "cs",
         "headerList": [
-            { "key": "check", "title": "#" },
             { "key": "id", "title": "id" },
             { "key": "date", "title": "날짜" },
             { "key": "title", "title": "제목" },
@@ -163,7 +154,6 @@
         "title": "문의사항 관리",
         "navCtg": "cs",
         "headerList": [
-            { "key": "check", "title": "#" },
             { "key": "doneStatus", "title": "처리 유무" },
             { "key": "createdDate", "title": "등록 날짜" },
             { "key": "guestId", "title": "회원 Id" },

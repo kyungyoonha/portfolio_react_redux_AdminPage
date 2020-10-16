@@ -6,7 +6,10 @@ import {
     FormSection,
     Input,
     RatioMulti,
+    File,
+    RatioSingle,
     Textarea,
+    InputForm,
 } from "../../../components/Form/Form";
 
 import {
@@ -18,18 +21,29 @@ import { validateAll, validateNotice } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
+    // title: "",
+    // createMng: "",
+    // displayOptions: {
+    //     hiddenStatus: true,
+    //     displayTop: true,
+    // },
+    // content: "",
+    // fileImg: {
+    //     src: "",
+    //     filename: "",
+    //     file: "",
+    // },
+    idx: "",
     title: "",
-    createMng: "",
-    displayOptions: {
-        hiddenStatus: true,
-        displayTop: true,
-    },
-    content: "",
-    fileImg: {
-        src: "",
-        filename: "",
-        file: "",
-    },
+    showyn: "",
+    attachfile: "",
+    topYN: "",
+    contents: "",
+    filepath: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
 };
 
 //working
@@ -44,9 +58,6 @@ const CSFormNotice = ({ match }) => {
 
     const handleChangeFile = (e) => {
         const image = e.target.files[0];
-        // const previewSrc = URL.createObjectURL(image);
-        // const formData = new FormData();
-        // formData.append("image", image, image.name);
         setInputs((state) => ({
             ...state,
             fileImg: {
@@ -88,38 +99,47 @@ const CSFormNotice = ({ match }) => {
                         errors={errors}
                     />
 
-                    <Input
-                        label="등록자"
-                        name="createMng"
-                        value={inputs.createMng}
+                    <RatioSingle
+                        label="공개여부"
+                        name="showyn"
+                        value={inputs.showyn}
                         onChange={handleChangeInputs}
                         errors={errors}
-                        disabled={true}
+                        options={[
+                            { value: "Y", title: "공개" },
+                            { value: "N", title: "비공개" },
+                        ]}
                     />
 
-                    <FileUpload
+                    {/* <FileUpload
                         label="첨부 파일"
                         name="file"
                         value={inputs.fileImg.filename}
                         onChange={handleChangeFile}
-                    />
+                    /> */}
 
-                    <RatioMulti
-                        label="노출"
-                        name="displayOptions"
-                        value={inputs.displayOptions}
+                    <InputForm
+                        label="대표 사진"
+                        name="filepath"
+                        filename={inputs.attachfile}
+                        path={inputs.filepath}
+                        handleChangeFile={handleChangeFile}
+                    />
+                    <RatioSingle
+                        label="상단노출"
+                        name="topYN"
+                        value={inputs.topYN}
                         onChange={handleChangeInputs}
-                        max={3}
+                        errors={errors}
                         options={[
-                            { key: "hiddenStatus", title: "공개여부" },
-                            { key: "displayTop", title: "상단노출" },
+                            { value: "Y", title: "상단노출" },
+                            { value: "N", title: "비공개" },
                         ]}
                     />
-
                     <Textarea
                         label="내용"
-                        name="content"
-                        value={inputs.content}
+                        name="contents"
+                        value={inputs.contents}
                         onChange={handleChangeInputs}
                         rows={8}
                         errors={errors}

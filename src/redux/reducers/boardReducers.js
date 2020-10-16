@@ -5,7 +5,6 @@ import {
     BOARD_INSERT,
     BOARD_EDIT,
     BOARD_DELETE,
-    BOARD_INITIALIZE,
 } from "../types";
 import randomKey from "../../util/randomKey";
 
@@ -65,9 +64,6 @@ export default (state = INITIAL_STATE, action) => {
                 data: state.data.filter((item) => item.idx !== action.payload),
                 selectedId: "",
             };
-
-        case BOARD_INITIALIZE:
-            return INITIAL_STATE;
 
         default:
             return state;

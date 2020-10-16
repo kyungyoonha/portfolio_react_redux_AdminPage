@@ -18,6 +18,8 @@ import {
 } from "../../../components/Content/Content";
 import { validateAll, validateManager } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
+import { useDispatch, useSelector } from "react-redux";
+import { boardAction_update } from "../../../redux/actions";
 
 const initialValue = {
     idx: "",
@@ -34,16 +36,17 @@ const initialValue = {
     duty: "",
     department: "",
     etc: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: '',
-    // moduser: '',
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
 };
 
-//working done
+//working [done]
 const UserFormManager = ({ match }) => {
     const pageId = match.url.split("/")[2];
-    // const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -56,12 +59,14 @@ const UserFormManager = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
-            // const result = {
-            //     ...inputs,
-            //     level: Number(inputs.level),
-            //     regdate: new Date().toISOString(),
-            //     reguser: user.name,
-            // };
+            dispatch(
+                boardAction_update(pageId, {
+                    ...inputs,
+                    level: Number(inputs.level),
+                    regdate: new Date().toISOString(),
+                    reguser: name,
+                })
+            );
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
@@ -79,7 +84,7 @@ const UserFormManager = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection>
+                <FormSection size="center" title="매니저 추가">
                     <Input
                         label="이름"
                         name="username"
@@ -154,8 +159,7 @@ const UserFormManager = ({ match }) => {
                             <i className="fas fa-map-marked-alt "></i>
                         </button>
                     </InputAddress>
-                </FormSection>
-                <FormSection>
+
                     <Input
                         label="입사년도"
                         name="entryYear"

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import { useSelector } from "react-redux";
 
 import {
     Content,
@@ -15,7 +14,8 @@ import {
     Select,
     RatioSingle,
     Textarea,
-    FileSingle,
+    InputDate,
+    // FileSingle,
 } from "../../../components/Form/Form";
 
 import {
@@ -25,6 +25,8 @@ import {
 } from "../../../util/options";
 import { validateAll, validateDriver } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
+import { useDispatch, useSelector } from "react-redux";
+import { boardAction_update } from "../../../redux/actions";
 
 const initialValue = {
     idx: "",
@@ -43,56 +45,62 @@ const initialValue = {
     businesstype: "1",
     grade: "",
     etc: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
+    trabus: [],
+    drivercomplain: [],
 };
 
-const initialValueFiles = {
-    profile: {},
-    carPic: {},
-    license: {},
-};
+// const initialValueFiles = {
+//     profile: {},
+//     carPic: {},
+//     license: {},
+// };
+
 //working done
 const UserFormDriver = ({ match }) => {
     const pageId = match.url.split("/")[2];
-    // const user = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
-    const [files, setFiles] = useState(initialValueFiles);
+    // const [files, setFiles] = useState(initialValueFiles);
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validateDriver,
         setErrors
     );
 
-    const handleChangeFile = (e) => {
-        const { name, files } = e.target;
-        setFiles((state) => ({
-            ...state,
-            [name]: {
-                src: URL.createObjectURL(files[0]),
-                filename: files[0].name,
-                file: files[0],
-            },
-        }));
-    };
+    // const handleChangeFile = (e) => {
+    //     const { name, files } = e.target;
+    //     setFiles((state) => ({
+    //         ...state,
+    //         [name]: {
+    //             src: URL.createObjectURL(files[0]),
+    //             filename: files[0].name,
+    //             file: files[0],
+    //         },
+    //     }));
+    // };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateDriver);
 
-        if (!files.profile.src) {
-            alert("기사 사진을 선택해주세요.");
-            return;
-        }
+        // if (!files.profile.src) {
+        //     alert("기사 사진을 선택해주세요.");
+        //     return;
+        // }
 
         if (isValid) {
             console.log("에러 없음");
-            // const result = {
-            //     ...inputs,
-            //     regdate: new Date().toISOString(),
-            //     reguser: user.name,
-            // };
+            dispatch(
+                boardAction_update(pageId, {
+                    ...inputs,
+                    regdate: new Date().toISOString(),
+                    reguser: name,
+                })
+            );
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
@@ -110,7 +118,7 @@ const UserFormDriver = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection>
+                <FormSection size="center" title="기사 회원 등록">
                     <Input
                         label="이름"
                         name="drivername"
@@ -169,11 +177,12 @@ const UserFormDriver = ({ match }) => {
                         errors={errors}
                         options={optionsRegion(inputs.areacode)}
                     />
-                    <Input
+                    <InputDate
                         label="생년월일"
                         name="birthday"
                         value={inputs.birthday}
                         onChange={handleChangeInputs}
+                        errors={errors}
                     />
                     <Input
                         label="전화번호"
@@ -245,7 +254,7 @@ const UserFormDriver = ({ match }) => {
                         rows={6}
                     />
                 </FormSection>
-                <FormSection>
+                {/* <FormSection>
                     <FileSingle
                         label="기사 사진"
                         name="profile"
@@ -266,7 +275,7 @@ const UserFormDriver = ({ match }) => {
                         file={files.carPic}
                         onChange={handleChangeFile}
                     />
-                </FormSection>
+                </FormSection> */}
             </FormLayout>
         </Content>
     );

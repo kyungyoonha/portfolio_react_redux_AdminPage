@@ -22,7 +22,9 @@ import {
 const TourBoard = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { data, totalPage, selectedId } = useSelector((state) => state.board);
+    const { pageId: prevId, data, totalPage, selectedId } = useSelector(
+        (state) => state.board
+    );
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -34,9 +36,6 @@ const TourBoard = ({ match }) => {
 
     useEffect(() => {
         dispatch(boardAction_fetch(pageId));
-        // return () => {
-        //     dispatch(boardAction_init());
-        // };
     }, [dispatch, pageId]);
 
     const handleSelectedId = (id) => {
@@ -58,7 +57,9 @@ const TourBoard = ({ match }) => {
         }
 
         history.push(
-            `/tour/${pageId}/form/${selectedId || "new"}?type=${type}`
+            `/tour/${pageId}/form/${
+                type === "new" ? "new" : selectedId
+            }?type=${type}`
         );
     };
 
@@ -99,13 +100,15 @@ const TourBoard = ({ match }) => {
 
             <ContentBody>
                 <TourBoardTop handleChangePageCtrl={handleChangePageCtrl} />
+                {prevId === pageId && (
+                    <Board
+                        pageId={pageId}
+                        data={data}
+                        selectedId={selectedId}
+                        handleSelectedId={handleSelectedId}
+                    />
+                )}
 
-                <Board
-                    pageId={pageId}
-                    data={data}
-                    selectedId={selectedId}
-                    handleSelectedId={handleSelectedId}
-                />
                 <BoardFooter
                     totalPage={totalPage}
                     currentPage={pageCtrl.currentPage}
