@@ -69,11 +69,6 @@ const RegionModal = ({
             try {
                 // ### 서버저장
                 // await axios.post("http://localhost:8000/region/update", newInputs);
-                console.log({
-                    ...inputs,
-                    id: modalOpen === "edit" ? inputs.id : "",
-                });
-                console.log(modalOpen);
                 handleClickUpdate("region", {
                     ...inputs,
                     id: modalOpen === "edit" ? inputs.id : "",

@@ -19,11 +19,9 @@ import {
 } from "../../../redux/actions";
 
 const CSBoard = ({ match }) => {
-    const id = match.url.split("/")[2];
+    const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { data, totalPage, selectedItem } = useSelector(
-        (state) => state.board
-    );
+    const { data, totalPage, selectedId } = useSelector((state) => state.board);
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -34,23 +32,23 @@ const CSBoard = ({ match }) => {
     });
 
     useEffect(() => {
-        dispatch(boardAction_fetch(id));
+        dispatch(boardAction_fetch(pageId));
         return () => dispatch(boardAction_init());
-    }, [dispatch, id]);
+    }, [dispatch, pageId]);
 
     const handleClickInsert = () => {
-        history.push(`/cs/${id}/form`);
+        history.push(`/cs/${pageId}/form`);
     };
 
-    const handleSelectedItem = (selectedItem) => {
-        dispatch(boardAction_selected(selectedItem));
+    const handleSelectedId = (id) => {
+        dispatch(boardAction_selected(id));
     };
 
     const handleClickDelete = async () => {
-        if (!selectedItem.id) {
+        if (!selectedId) {
             alert("삭제할 행을 선택해주세요");
         } else {
-            dispatch(boardAction_delete(id, selectedItem.id));
+            dispatch(boardAction_delete(pageId, selectedId));
         }
     };
 
@@ -63,7 +61,7 @@ const CSBoard = ({ match }) => {
 
     return (
         <Content>
-            <ContentNav id={id}>
+            <ContentNav pageId={pageId}>
                 <ContentBtn
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={handleClickDelete}
@@ -73,10 +71,10 @@ const CSBoard = ({ match }) => {
             <ContentBody>
                 <BoardTop handleChangePageCtrl={handleChangePageCtrl} />
                 <Board
-                    id={id}
+                    pageId={pageId}
                     data={data}
-                    selectedItem={selectedItem}
-                    handleSelectedItem={handleSelectedItem}
+                    selectedId={selectedId}
+                    handleSelectedId={handleSelectedId}
                 />
                 <BoardFooter
                     totalPage={totalPage}

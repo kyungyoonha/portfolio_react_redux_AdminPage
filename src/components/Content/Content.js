@@ -10,8 +10,9 @@ const navMap = {
         { to: "/user/manager", title: "관리자" },
     ],
     tour: [
-        { to: "/tour/area", title: "관광지 코드 관리" },
-        { to: "/tour/region", title: "지역 코드 관리" },
+        { to: "/tour/tourpackage", title: "관광지 관리" },
+        { to: "/tour/nation", title: "국가 코드 관리" },
+        { to: "/tour/area", title: "지역 코드 관리" },
     ],
     purch: [
         { to: "/purch/purchinfo", title: "구매정보 관리" },
@@ -29,8 +30,8 @@ export const Content = ({ children }) => {
     return <div className="content">{children}</div>;
 };
 
-export const ContentNav = ({ id, children }) => {
-    const { title, navCtg } = pageDataMap[id];
+export const ContentNav = ({ pageId, children }) => {
+    const { title, navCtg } = pageDataMap[pageId];
     const navList = navMap[navCtg];
     return (
         <div className="contentNav">
@@ -54,7 +55,12 @@ export const ContentBody = ({ children }) => {
     return <div className="contentBody">{children}</div>;
 };
 
-export const ContentBtn = ({ type, handleClickInsert, handleClickDelete }) => {
+export const ContentBtn = ({
+    type,
+    handleClickInsert,
+    handleClickDelete,
+    children,
+}) => {
     return (
         <div className="contentButton">
             <button
@@ -62,15 +68,16 @@ export const ContentBtn = ({ type, handleClickInsert, handleClickDelete }) => {
                 className="btn btn-outline-secondary"
                 onClick={handleClickDelete}
             >
-                {type === "form" ? "뒤로가기" : "삭제하기"}
+                {type ? "뒤로가기" : "삭제하기"}
             </button>
             <button
                 type="button"
                 className="btn btn-outline-primary"
                 onClick={handleClickInsert}
             >
-                추가하기
+                {type === "edit" ? "수정하기" : "추가하기"}
             </button>
+            {children}
         </div>
     );
 };

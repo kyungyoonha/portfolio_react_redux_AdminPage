@@ -5,33 +5,19 @@ import queryString from "query-string";
 import useInputs from "../../../Hooks/useInputs";
 import { boardAction_detail, boardAction_update } from "../../../redux/actions";
 import { validateAll, validateNation } from "../../../util/validate";
-import {
-    FileSingle,
-    FileSingle2,
-    FormLayout,
-    FormSection,
-    Input,
-    RatioSingle,
-    Select,
-} from "../../../components/Form/Form";
+import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
 import {
     Content,
     ContentBtn,
     ContentNav,
 } from "../../../components/Content/Content";
-import { optionsCountry } from "../../../util/options";
-import uploadCloudinary from "../../../util/uploadCloudinary";
 
 const initialValue = {
     idx: "",
-    nationidx: "",
-    sidocode: "",
-    sidoname: "",
-    areacode: "",
-    areaname: "",
-    mainpicYN: "",
-    mainpicfilename: "",
-    mainpicpath: "",
+    koreanname: "",
+    englishname: "",
+    code3: "",
+    code2: "",
     // regdate: "",
     // reguser: "",
     // moddate: "",
@@ -39,7 +25,7 @@ const initialValue = {
 };
 
 //working done;
-const TourFormArea = ({ match }) => {
+const TourFormNation = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const id = match.params.id;
     const type = queryString.parse(history.location.search).type;
@@ -70,6 +56,7 @@ const TourFormArea = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
+
             dispatch(
                 boardAction_update(pageId, {
                     ...inputs,
@@ -83,11 +70,6 @@ const TourFormArea = ({ match }) => {
         }
     };
 
-    const handleChangeFile = async (e) => {
-        const res = await uploadCloudinary("image", e.target.files[0]);
-        console.log(res);
-    };
-
     return (
         <Content>
             <ContentNav pageId={pageId}>
@@ -99,67 +81,35 @@ const TourFormArea = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection>
-                    <Select
-                        label="국가 코드"
-                        name="nationidx"
-                        value={inputs.nationidx}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                        options={optionsCountry(inputs.nationidx)}
-                    />
+                <FormSection size="center" title="국가코드 관리">
                     <Input
-                        label="시도 코드"
-                        name="sidocode"
-                        value={inputs.sidocode}
+                        label="국가한국이름"
+                        name="koreanname"
+                        value={inputs.koreanname}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
-                        label="시도명"
-                        name="sidoname"
-                        value={inputs.sidoname}
+                        label="국가영어이름"
+                        name="englishname"
+                        value={inputs.englishname}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
                     <Input
-                        label="지역 코드"
-                        name="areacode"
-                        value={inputs.areacode}
+                        label="국가코드 3자리"
+                        name="code3"
+                        value={inputs.code3}
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
+
                     <Input
-                        label="지역명"
-                        name="areaname"
-                        value={inputs.areaname}
+                        label="국가코드 2자리"
+                        name="code2"
+                        value={inputs.code2}
                         onChange={handleChangeInputs}
                         errors={errors}
-                    />
-                    <RatioSingle
-                        label="대표사진 유무"
-                        name="mainpicYN"
-                        value={inputs.mainpicYN}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "Y", title: "있음" },
-                            { value: "N", title: "없음" },
-                        ]}
-                    />
-                </FormSection>
-                <FormSection>
-                    {/* <FileSingle
-                        label="기사 사진"
-                        name="profile"
-                        file={files.profile}
-                        onChange={handleChangeFile}
-                    /> */}
-                    <FileSingle2
-                        label="대표 사진"
-                        name="mainpickpath"
-                        filename={inputs.filename}
-                        path={inputs.mainpicpath}
-                        handleChangeFile={handleChangeFile}
                     />
                 </FormSection>
             </FormLayout>
@@ -167,4 +117,4 @@ const TourFormArea = ({ match }) => {
     );
 };
 
-export default TourFormArea;
+export default TourFormNation;

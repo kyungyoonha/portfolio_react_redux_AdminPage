@@ -3,6 +3,8 @@ import { Redirect, Router, Route, Switch } from "react-router-dom";
 import history from "./history";
 import "./App.scss";
 import routes from "./routes";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 // pages
@@ -13,10 +15,16 @@ import PageNotFound from "./pages/PageNotFound/PageNotFound";
 // container
 import Layout from "./components/Layout/Layout";
 
+
 const App = () => {
 
     return (
         <div className="app">
+            <ToastContainer
+                autoClose={2500}
+                position="top-right"
+                closeButton={false}
+            />
             <Router history={history}>
                 <Switch>
                     {routes.map((route, idx) => (
@@ -33,7 +41,7 @@ const App = () => {
                         />
                     ))}
                     <Route path="/user" exact render={() => <Redirect to="/user/member" />}/>
-                    <Route path="/tour" exact render={() => <Redirect to="/tour/area" />}/>
+                    <Route path="/tour" exact render={() => <Redirect to="/tour/tourpackage" />}/>
                     <Route path="/purch" exact render={() => <Redirect to="/purch/purchinfo" />}/>
                     <Route path="/purch/purchcode/form" exact render={() => <Redirect to="/purch/purchcodeform" />}/>
                     <Route path="/cs" exact render={() => <Redirect to="/cs/push" />}/>

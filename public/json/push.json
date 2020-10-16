@@ -2,7 +2,7 @@
     "totalPage": 5,
     "data": [
         {
-            "id": "1",
+            "idx": "1",
             "check": "#",
             "pushName": "투어 알림",
             "content": "투어 하루 전 드리는 안내",
@@ -13,7 +13,7 @@
             "editMng": "관리자1"
         },
         {
-            "id": "2",
+            "idx": "2",
             "check": "#",
             "pushName": "할인 안내",
             "content": "10월 한정 이벤트",
@@ -24,7 +24,7 @@
             "editMng": "관리자1"
         },
         {
-            "id": "3",
+            "idx": "3",
             "check": "#",
             "pushName": "공지 안내",
             "content": "10월 공지",

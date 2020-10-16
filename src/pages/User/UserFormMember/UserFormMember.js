@@ -19,23 +19,6 @@ import {
 import { validateAll, validateMember } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
-// const initialValue = {
-//     user_id: "",
-//     password: "",
-//     name: "",
-//     birth: "",
-//     contactNumber: "",
-//     nickname: "",
-//     email: "",
-//     address: "",
-//     tourCnt: "",
-//     characteristic: "extroverted",
-//     tourTags: {},
-//     recieveEmail: "agree",
-//     recieveMessage: "agree",
-//     etc: "",
-// };
-
 const initialValue = {
     idx: "",
     username: "",
@@ -58,7 +41,7 @@ const initialValue = {
 };
 //working done
 const UserFormMember = ({ match }) => {
-    const id = match.url.split("/")[2];
+    const pageId = match.url.split("/")[2];
     // const user = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
@@ -85,7 +68,7 @@ const UserFormMember = ({ match }) => {
 
     return (
         <Content>
-            <ContentNav id={id}>
+            <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

@@ -25,7 +25,7 @@ const initialValue = {
 };
 //working
 const CSFormPush = ({ match }) => {
-    const id = match.url.split("/")[2];
+    const pageId = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -46,7 +46,7 @@ const CSFormPush = ({ match }) => {
 
     return (
         <Content>
-            <ContentNav id={id}>
+            <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

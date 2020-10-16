@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import pageDataMap from "../../json/pageDataMap.json";
 
-export const Board = ({ id, data, selectedItem, handleSelectedItem }) => {
-    const headerList = pageDataMap[id].headerList;
+export const Board = ({ pageId, data, selectedId, handleSelectedId }) => {
+    const headerList = pageDataMap[pageId].headerList;
     const makeRowData = (item) => {
         return headerList.map((col) => {
             if (col.key === "check") {
@@ -12,8 +12,8 @@ export const Board = ({ id, data, selectedItem, handleSelectedItem }) => {
                         <input
                             type="checkbox"
                             aria-label="Checkbox"
-                            checked={item.id === selectedItem.id}
-                            onChange={() => handleSelectedItem(item)}
+                            checked={item.idx === selectedId}
+                            onChange={() => handleSelectedId(item.idx)}
                         />
                     </td>
                 );
@@ -48,7 +48,7 @@ export const Board = ({ id, data, selectedItem, handleSelectedItem }) => {
             </thead>
             <tbody>
                 {data.map((item, idx) => (
-                    <tr key={idx} onClick={() => handleSelectedItem(item)}>
+                    <tr key={idx} onClick={() => handleSelectedId(item.idx)}>
                         {makeRowData(item)}
                     </tr>
                 ))}

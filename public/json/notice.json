@@ -2,7 +2,7 @@
     "totalPage": 5,
     "data": [
         {
-            "id": "1",
+            "idx": "1",
             "check": "#",
             "date": "2020. 10. 05",
             "title": "투어 관련 안내",
@@ -12,7 +12,7 @@
             "hiddenStatus": "X"
         },
         {
-            "id": "2",
+            "idx": "2",
             "check": "#",
             "date": "2020. 10. 08",
             "title": "결제 관련 안내",
@@ -22,7 +22,7 @@
             "hiddenStatus": "X"
         },
         {
-            "id": "3",
+            "idx": "3",
             "check": "#",
             "date": "2020. 10. 06",
             "title": "주의 사항",

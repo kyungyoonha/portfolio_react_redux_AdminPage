@@ -7,7 +7,9 @@ import UserFormDriver from './pages/User/UserFormDriver/UserFormDriver';
 import UserFormManager from './pages/User/UserFormManager/UserFormManager';
 
 import TourBoard from './pages/Tour/TourBoard/TourBoard';
-import TourFormArea from './pages/Tour/TourFormArea/TourFormArea';
+import TourFormPackage from './pages/Tour/TourFormPackage/TourFormPackage';
+import TourFormNation from "./pages/Tour/TourFormNation/TourFormNation";
+import TourFormArea from "./pages/Tour/TourFormArea/TourFormArea";
 
 import PurchBoard from './pages/Purch/PurchBoard/PurchBoard';
 import PurchFormInfo from './pages/Purch/PurchFormInfo/PurchFormInfo';
@@ -20,6 +22,8 @@ import CSFormCstmSvc from './pages/CS/CSFormCstmSvc/CSFormCstmSvc';
 
 
 
+
+
 const routes = [
     { path: "/", exact: true, component: Dashboard },
     { path: "/dashboard", exact: true, component: Dashboard },
@@ -29,10 +33,14 @@ const routes = [
     { path: "/user/driver/form",  component: UserFormDriver },
     { path: "/user/manager", exact: true,  component: UserBoard },
     { path: "/user/manager/form",  component: UserFormManager },
-    
+
+    { path: "/tour/tourpackage", exact: true,  component: TourBoard },
+    { path: "/tour/tourpackage/form",  component: TourFormPackage},
+    { path: "/tour/nation", exact: true,  component: TourBoard },
+    { path: "/tour/nation/form/:id", component: TourFormNation },
     { path: "/tour/area", exact: true,  component: TourBoard },
-    { path: "/tour/area/form",  component: TourFormArea},
-    { path: "/tour/region",  component: TourBoard},
+    { path: "/tour/area/form/:id", component: TourFormArea },
+
 
     { path: "/purch/purchinfo", exact: true,  component: PurchBoard },
     { path: "/purch/purchinfo/form", exact: true,  component: PurchFormInfo },

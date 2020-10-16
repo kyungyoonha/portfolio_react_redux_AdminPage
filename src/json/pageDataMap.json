@@ -41,7 +41,7 @@
             { "key": "cs", "title": "문의사항" }
         ]
     },
-    "area": {
+    "tourpackage": {
         "title": "관광지 코드 관리",
         "navCtg": "tour",
         "headerList": [
@@ -58,7 +58,19 @@
             { "key": "en", "title": "EN" }
         ]
     },
-    "region": {
+    "nation": {
+        "title": "관광지 코드 관리",
+        "navCtg": "tour",
+        "headerList": [
+            { "key": "check", "title": "#" },
+            { "key": "idx", "title": "idx" },
+            { "key": "koreanname", "title": "국가한글이름" },
+            { "key": "englishname", "title": "국가영어이름" },
+            { "key": "code3", "title": "국가코드 3자리" },
+            { "key": "code2", "title": "국가코드 2자리" }
+        ]
+    },
+    "area": {
         "title": "지역 코드 관리",
         "navCtg": "tour",
         "headerList": [

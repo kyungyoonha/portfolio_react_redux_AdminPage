@@ -56,7 +56,7 @@ const initialValueFiles = {
 };
 //working done
 const UserFormDriver = ({ match }) => {
-    const id = match.url.split("/")[2];
+    const pageId = match.url.split("/")[2];
     // const user = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [files, setFiles] = useState(initialValueFiles);
@@ -83,6 +83,7 @@ const UserFormDriver = ({ match }) => {
 
         if (!files.profile.src) {
             alert("기사 사진을 선택해주세요.");
+            return;
         }
 
         if (isValid) {
@@ -100,7 +101,7 @@ const UserFormDriver = ({ match }) => {
 
     return (
         <Content>
-            <ContentNav id={id}>
+            <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

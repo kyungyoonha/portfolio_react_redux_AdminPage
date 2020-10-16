@@ -44,6 +44,7 @@ const TimePicker = ({ modalOpen, onChange, handleCloseModal }) => {
                     " - " +
                     moment(endTime).format("h:mm a")
             );
+            handleCloseModal();
         } else {
             setError("시간을 다시 선택해주세요.");
         }

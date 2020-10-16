@@ -42,7 +42,7 @@ const initialValue = {
 
 //working done
 const UserFormManager = ({ match }) => {
-    const id = match.url.split("/")[2];
+    const pageId = match.url.split("/")[2];
     // const user = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
@@ -70,7 +70,7 @@ const UserFormManager = ({ match }) => {
 
     return (
         <Content>
-            <ContentNav id={id}>
+            <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

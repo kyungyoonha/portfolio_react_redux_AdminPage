@@ -2,7 +2,7 @@
     "totalPage": 20,
     "data": [
         {
-            "id": "manager1",
+            "idx": "manager1",
             "name": "매니저1",
             "phone": "+82-10-1111-2222",
             "email": "info@tripsoda.com",
@@ -46,7 +46,7 @@
             ]
         },
         {
-            "id": "manager2",
+            "idx": "manager2",
             "name": "매니저2",
             "phone": "+82-10-1111-2222",
             "email": "info@tripsoda.com",
@@ -89,7 +89,7 @@
             ]
         },
         {
-            "id": "manager3",
+            "idx": "manager3",
             "name": "매니저3",
             "phone": "+82-10-1111-2222",
             "email": "info@tripsoda.com",

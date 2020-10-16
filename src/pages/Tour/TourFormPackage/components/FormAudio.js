@@ -13,6 +13,7 @@ const FormAudio = ({
     audioList,
     handleChangeAudioList,
     handleDeleteAudioList,
+    disabled,
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedIdx, setSelectedIdx] = useState("");
@@ -76,7 +77,7 @@ const FormAudio = ({
                                 type="button"
                                 className="btn btn-outline-primary btn-block"
                                 onClick={handleClickDelete}
-                                disabled={inputs.hasAudio === "no"}
+                                disabled={disabled}
                             >
                                 (-) 삭제
                             </button>
@@ -88,7 +89,7 @@ const FormAudio = ({
                                 value={inputs.audioSelect}
                                 onChange={handleSelectedIdx}
                                 className="custom-select"
-                                disabled={inputs.hasAudio === "no"}
+                                disabled={disabled}
                             >
                                 <option value="">
                                     {audioList[0]
@@ -108,8 +109,8 @@ const FormAudio = ({
                             <button
                                 type="button"
                                 className="btn btn-outline-primary btn-md btn-block"
-                                disabled={inputs.hasAudio === "no"}
                                 onClick={handleModalOpen}
+                                disabled={disabled}
                             >
                                 (+)추가하기
                             </button>

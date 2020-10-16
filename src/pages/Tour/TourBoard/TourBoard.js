@@ -10,24 +10,19 @@ import {
     ContentBody,
 } from "../../../components/Content/Content";
 
-import TourBoardModal from "./components/TourBoardModal";
-
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import {
     boardAction_fetch,
     boardAction_selected,
-    boardAction_update,
     boardAction_delete,
     boardAction_init,
 } from "../../../redux/actions";
 
 const TourBoard = ({ match }) => {
-    const id = match.url.split("/")[2];
+    const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { data, totalPage, selectedItem } = useSelector(
-        (state) => state.board
-    );
+    const { data, totalPage, selectedId } = useSelector((state) => state.board);
 
     const [pageCtrl, setPageCtrl] = useState({
         pageSize: 4,
@@ -38,28 +33,33 @@ const TourBoard = ({ match }) => {
     });
 
     useEffect(() => {
-        dispatch(boardAction_fetch(id));
-        return () => dispatch(boardAction_init());
-    }, [dispatch, id]);
+        dispatch(boardAction_fetch(pageId));
+        // return () => {
+        //     dispatch(boardAction_init());
+        // };
+    }, [dispatch, pageId]);
 
-    const handleClickUpdate = (id, newData) => {
-        dispatch(boardAction_update(id, newData));
+    const handleSelectedId = (id) => {
+        dispatch(boardAction_selected(id));
     };
 
-    const handleClickInsert = () => {
-        history.push(`/tour/${id}/form`);
-    };
-
-    const handleSelectedItem = (selectedItem) => {
-        dispatch(boardAction_selected(selectedItem));
-    };
-
-    const handleClickDelete = async () => {
-        if (!selectedItem.id) {
+    const handleClickDelete = () => {
+        if (!selectedId) {
             alert("삭제할 행을 선택해주세요");
         } else {
-            dispatch(boardAction_delete(id, selectedItem.id));
+            dispatch(boardAction_delete(pageId, selectedId));
         }
+    };
+
+    const handleClickEditCopy = (type) => {
+        if (!selectedId && type !== "new") {
+            alert("행을 선택해주세요.");
+            return;
+        }
+
+        history.push(
+            `/tour/${pageId}/form/${selectedId || "new"}?type=${type}`
+        );
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -71,29 +71,40 @@ const TourBoard = ({ match }) => {
 
     return (
         <Content>
-            <ContentNav id={id}>
-                {id === "region" ? (
-                    <TourBoardModal
-                        selectedItem={selectedItem}
-                        handleClickDelete={handleClickDelete}
-                        handleClickUpdate={handleClickUpdate}
-                    />
-                ) : (
-                    <ContentBtn
-                        handleClickInsert={handleClickInsert}
-                        handleClickDelete={handleClickDelete}
-                    />
-                )}
+            <ContentNav pageId={pageId}>
+                <ContentBtn
+                    handleClickInsert={() => handleClickEditCopy("new")}
+                    handleClickDelete={handleClickDelete}
+                >
+                    {pageId !== "tourpackage" && (
+                        <React.Fragment>
+                            <button
+                                type="button"
+                                className="btn btn-outline-secondary"
+                                onClick={() => handleClickEditCopy("copy")}
+                            >
+                                복사하기
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-outline-secondary"
+                                onClick={() => handleClickEditCopy("edit")}
+                            >
+                                수정하기
+                            </button>
+                        </React.Fragment>
+                    )}
+                </ContentBtn>
             </ContentNav>
 
             <ContentBody>
                 <TourBoardTop handleChangePageCtrl={handleChangePageCtrl} />
 
                 <Board
-                    id={id}
+                    pageId={pageId}
                     data={data}
-                    selectedItem={selectedItem}
-                    handleSelectedItem={handleSelectedItem}
+                    selectedId={selectedId}
+                    handleSelectedId={handleSelectedId}
                 />
                 <BoardFooter
                     totalPage={totalPage}

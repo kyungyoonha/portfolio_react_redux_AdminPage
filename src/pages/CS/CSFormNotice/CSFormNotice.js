@@ -34,7 +34,7 @@ const initialValue = {
 
 //working
 const CSFormNotice = ({ match }) => {
-    const id = match.url.split("/")[2];
+    const pageId = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -70,7 +70,7 @@ const CSFormNotice = ({ match }) => {
 
     return (
         <Content>
-            <ContentNav id={id}>
+            <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

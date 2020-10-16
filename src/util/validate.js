@@ -125,6 +125,24 @@ export const validateArea = (name, value) => {
     }
 };
 
+export const validateNation = (name, value) => {
+    switch (name) {
+        case "koreanname":
+            return isEmpty(value) && "국가한국이름을 입력해주세요.";
+
+        case "englishname":
+            return isEmpty(value) && "국가영어이름을 입력해주세요.";
+
+        case "code3":
+            return isEmpty(value) && "국가코드 3자리를 입력해주세요.";
+
+        case "code2":
+            return isEmpty(value) && "국가코드 2자리를 입력해주세요.";
+        default:
+            return;
+    }
+};
+
 export const validateRegion = (name, value) => {
     switch (name) {
         case "country":

@@ -1,15 +1,19 @@
 import {
     BOARD_FETCH,
+    BOARD_DETAIL,
     BOARD_SELECTED,
-    BOARD_UPDATE,
+    BOARD_INSERT,
+    BOARD_EDIT,
     BOARD_DELETE,
     BOARD_INITIALIZE,
 } from "../types";
 import randomKey from "../../util/randomKey";
 
 const INITIAL_STATE = {
+    pageId: "",
     data: [],
-    selectedItem: {},
+    detail: {},
+    selectedId: "",
     totalPage: 5,
 };
 
@@ -18,46 +22,48 @@ export default (state = INITIAL_STATE, action) => {
         case BOARD_FETCH:
             return {
                 ...state,
+                pageId: action.payload.pageId,
                 data: action.payload.data,
                 totalPage: action.payload.totalPage,
+            };
+
+        case BOARD_DETAIL:
+            return {
+                ...state,
+                detail: action.payload,
             };
 
         case BOARD_SELECTED:
             return {
                 ...state,
-                selectedItem:
-                    state.selectedItem.id !== action.payload.id
-                        ? action.payload
-                        : {},
+                selectedId:
+                    state.selectedId !== action.payload ? action.payload : "",
             };
 
-        case BOARD_UPDATE:
-            console.log(action.payload.id);
-            if (action.payload.id) {
-                return {
-                    ...state,
-                    data: state.data.map((item) =>
-                        item.id === action.payload.id ? action.payload : item
-                    ),
-                };
-            } else {
-                return {
-                    ...state,
-                    data: [
-                        {
-                            id: randomKey(),
-                            ...action.payload,
-                        },
-                        ...state.data,
-                    ],
-                };
-            }
+        case BOARD_INSERT:
+            return {
+                ...state,
+                data: [
+                    {
+                        ...action.payload,
+                        idx: randomKey(),
+                    },
+                    ...state.data,
+                ],
+            };
+        case BOARD_EDIT:
+            return {
+                ...state,
+                data: state.data.map((item) =>
+                    item.idx === action.payload.id ? action.payload : item
+                ),
+            };
 
         case BOARD_DELETE:
             return {
                 ...state,
-                data: state.data.filter((item) => item.id !== action.payload),
-                selectedItem: {},
+                data: state.data.filter((item) => item.idx !== action.payload),
+                selectedId: "",
             };
 
         case BOARD_INITIALIZE:
