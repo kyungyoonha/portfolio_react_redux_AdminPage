@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../../history";
 import queryString from "query-string";
+import fileAPI from "../../../util/fileAPI";
 import useInputs from "../../../Hooks/useInputs";
 import { boardAction_detail, boardAction_update } from "../../../redux/actions";
 import { validateAll, validateArea } from "../../../util/validate";
@@ -19,7 +20,6 @@ import {
     ContentNav,
 } from "../../../components/Content/Content";
 import { optionsCountry } from "../../../util/options";
-import uploadCloudinary from "../../../util/uploadCloudinary";
 
 const initialValue = {
     idx: "",
@@ -37,7 +37,7 @@ const initialValue = {
     moduser: "",
 };
 
-//working [done]
+//working ###
 const TourFormArea = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const id = match.params.id;
@@ -61,6 +61,7 @@ const TourFormArea = ({ match }) => {
 
     useEffect(() => {
         if (id === "new") return;
+        if (Object.keys(detail).length === 0) return;
         setInputs(detail);
     }, [id, setInputs, detail]);
 
@@ -88,10 +89,14 @@ const TourFormArea = ({ match }) => {
     };
 
     const handleChangeFile = async (e) => {
+        setInputs((state) => ({
+            ...state,
+            mainpicfilename: "",
+            mainpicpath: "",
+        }));
         const file = e.target.files[0];
-
         try {
-            const res = await uploadCloudinary("image", file);
+            const res = await fileAPI.upload("image", file);
             setInputs((state) => ({
                 ...state,
                 mainpicYN: "Y",
@@ -167,7 +172,7 @@ const TourFormArea = ({ match }) => {
                         filename={inputs.mainpicfilename}
                         path={inputs.mainpicpath}
                         handleChangeFile={handleChangeFile}
-                        accept="image/gif, image/jpeg, image/png"
+                        filetype="image"
                     />
                 </FormSection>
             </FormLayout>

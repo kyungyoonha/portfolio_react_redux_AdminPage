@@ -15,7 +15,6 @@ import {
     RatioSingle,
     Textarea,
     InputDate,
-    // FileSingle,
 } from "../../../components/Form/Form";
 
 import {
@@ -53,36 +52,17 @@ const initialValue = {
     drivercomplain: [],
 };
 
-// const initialValueFiles = {
-//     profile: {},
-//     carPic: {},
-//     license: {},
-// };
-
-//working done
+//working ###
 const UserFormDriver = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
-    // const [files, setFiles] = useState(initialValueFiles);
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validateDriver,
         setErrors
     );
-
-    // const handleChangeFile = (e) => {
-    //     const { name, files } = e.target;
-    //     setFiles((state) => ({
-    //         ...state,
-    //         [name]: {
-    //             src: URL.createObjectURL(files[0]),
-    //             filename: files[0].name,
-    //             file: files[0],
-    //         },
-    //     }));
-    // };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateDriver);

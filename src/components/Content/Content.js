@@ -22,7 +22,7 @@ const navMap = {
     cs: [
         { to: "/cs/push", title: "알림 관리" },
         { to: "/cs/notice", title: "공지사항 관리" },
-        { to: "/cs/service", title: "문의사항 관리" },
+        { to: "/cs/question", title: "문의사항 관리" },
     ],
 };
 

@@ -462,13 +462,19 @@ export const FileSingle = ({ label, name, file, onChange }) => {
     );
 };
 
+const filetypeObj = {
+    image: `image/*`,
+    audio: "audio/*",
+    video: "video/*",
+    all: "/*",
+};
 export const File = ({
     label,
     name,
-    filename,
+    value,
     path,
     handleChangeFile,
-    accept,
+    filetype,
 }) => {
     const inputFileRef = useRef(null);
 
@@ -505,7 +511,7 @@ export const File = ({
                         type="file"
                         hidden
                         onChange={handleChangeFile}
-                        accept={accept}
+                        accept={filetypeObj[filetype]}
                     />
 
                     <button
@@ -516,14 +522,20 @@ export const File = ({
                     >
                         이미지 찾기
                     </button>
-                    {filename}
+                    {value}
                 </td>
             </tr>
         </React.Fragment>
     );
 };
 
-export const InputForm = ({ label, name, value, handleChangeFile }) => {
+export const InputForm = ({
+    label,
+    name,
+    value,
+    handleChangeFile,
+    filetype,
+}) => {
     return (
         <tr>
             <th>
@@ -534,9 +546,9 @@ export const InputForm = ({ label, name, value, handleChangeFile }) => {
                     <input
                         name={name}
                         type="file"
-                        value={value}
                         className="custom-file-input"
                         onChange={handleChangeFile}
+                        accept={filetypeObj[filetype]}
                     />
                     <label className="custom-file-label" data-browse={label}>
                         {value}

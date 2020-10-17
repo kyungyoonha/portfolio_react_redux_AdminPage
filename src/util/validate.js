@@ -251,7 +251,7 @@ export const validateCode = (name, value) => {
 export const validatePush = (name, value) => {
     switch (name) {
         case "title":
-        case "content":
+        case "contents":
             if (isEmpty(value)) return "입력해주세요.";
             if (value.length > 50) return "50자까지 입력 가능합니다.";
             return;
@@ -266,7 +266,7 @@ export const validateNotice = (name, value) => {
         case "title":
             return isEmpty(value) && "제목을 입력해주세요.";
 
-        case "content":
+        case "contents":
             return isEmpty(value) && "내용을 입력해주세요.";
 
         default:

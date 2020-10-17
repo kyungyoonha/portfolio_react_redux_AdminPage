@@ -21,7 +21,7 @@ const BreadCrumMap = {
     cs: "공지사항",
     push: "알림 관리",
     notice: "공지사항 관리",
-    service: "문의사항 관리",
+    question: "문의사항 관리",
     form: "추가",
 };
 

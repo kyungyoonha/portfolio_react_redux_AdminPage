@@ -8,6 +8,7 @@ import {
     Textarea,
     InputDate,
     InputAddress,
+    File,
 } from "../../../components/Form/Form";
 
 import {
@@ -19,6 +20,7 @@ import { validateAll, validateMember } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 import { useDispatch, useSelector } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
+import fileAPI from "../../../util/fileAPI";
 
 const initialValue = {
     idx: "",
@@ -42,7 +44,7 @@ const initialValue = {
     question: [],
     purchase: [],
 };
-//working [done]
+//working ###
 const UserFormMember = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
@@ -72,6 +74,23 @@ const UserFormMember = ({ match }) => {
         }
     };
 
+    const handleChangeFile = async (e) => {
+        setInputs((state) => ({
+            ...state,
+            profile: "",
+        }));
+        const file = e.target.files[0];
+        try {
+            const res = await fileAPI.upload("image", file);
+            setInputs((state) => ({
+                ...state,
+                profile: res,
+            }));
+        } catch (e) {
+            console.error("TourFormArea Error", e);
+        }
+    };
+
     return (
         <Content>
             <ContentNav pageId={pageId}>
@@ -83,7 +102,7 @@ const UserFormMember = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="일반회원 추가">
+                <FormSection>
                     <Input
                         label="이름"
                         name="username"
@@ -174,7 +193,6 @@ const UserFormMember = ({ match }) => {
                             { key: "bear", title: "곰돌이" },
                         ]}
                     /> */}
-
                     <RatioSingle
                         label="이메일 수신"
                         name="emailagree"
@@ -213,6 +231,16 @@ const UserFormMember = ({ match }) => {
                         value={inputs.ect}
                         onChange={handleChangeInputs}
                         rows={6}
+                    />
+                </FormSection>
+                <FormSection>
+                    <File
+                        label="프로필"
+                        name="profile"
+                        filename=""
+                        path={inputs.profile}
+                        handleChangeFile={handleChangeFile}
+                        filetype="image"
                     />
                 </FormSection>
             </FormLayout>

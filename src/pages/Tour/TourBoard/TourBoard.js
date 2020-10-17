@@ -16,7 +16,6 @@ import {
     boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
-    boardAction_init,
 } from "../../../redux/actions";
 
 const TourBoard = ({ match }) => {

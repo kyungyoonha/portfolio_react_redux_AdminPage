@@ -150,18 +150,20 @@
             { "key": "hiddenStatus", "title": "숨김 여부" }
         ]
     },
-    "service": {
+    "question": {
         "title": "문의사항 관리",
         "navCtg": "cs",
         "headerList": [
-            { "key": "doneStatus", "title": "처리 유무" },
-            { "key": "createdDate", "title": "등록 날짜" },
-            { "key": "guestId", "title": "회원 Id" },
-            { "key": "email", "title": "이메일" },
-            { "key": "content", "title": "내용" },
-            { "key": "fileName", "title": "첨부파일" },
-            { "key": "charge", "title": "처리자" },
-            { "key": "doneDate", "title": "처리 일시" }
+            { "key": "idx", "title": "인덱스" },
+            { "key": "userid", "title": "등록자" },
+            { "key": "email", "title": "수신 이메일" },
+            { "key": "attachfile", "title": "첨부파일" },
+            { "key": "replyyn", "title": "답변여부" },
+            { "key": "contents", "title": "내용" },
+            { "key": "regdate", "title": "등록일" },
+            { "key": "reguser", "title": "등록자" },
+            { "key": "moddate", "title": "수정일" },
+            { "key": "moduser", "title": "수정자" }
         ]
     }
 }

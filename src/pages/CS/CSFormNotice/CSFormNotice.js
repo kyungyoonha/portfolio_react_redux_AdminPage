@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import history from "../../../history";
+import fileAPI from "../../../util/fileAPI";
 import {
-    FileUpload,
     FormLayout,
     FormSection,
     Input,
-    RatioMulti,
-    File,
     RatioSingle,
     Textarea,
     InputForm,
@@ -21,23 +19,11 @@ import { validateAll, validateNotice } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
-    // title: "",
-    // createMng: "",
-    // displayOptions: {
-    //     hiddenStatus: true,
-    //     displayTop: true,
-    // },
-    // content: "",
-    // fileImg: {
-    //     src: "",
-    //     filename: "",
-    //     file: "",
-    // },
     idx: "",
     title: "",
-    showyn: "",
+    showyn: "N",
     attachfile: "",
-    topYN: "",
+    topYN: "N",
     contents: "",
     filepath: "",
     regdate: "",
@@ -46,7 +32,7 @@ const initialValue = {
     moduser: "",
 };
 
-//working
+//working ###
 const CSFormNotice = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
@@ -55,18 +41,6 @@ const CSFormNotice = ({ match }) => {
         validateNotice,
         setErrors
     );
-
-    const handleChangeFile = (e) => {
-        const image = e.target.files[0];
-        setInputs((state) => ({
-            ...state,
-            fileImg: {
-                src: "",
-                filename: image.name,
-                file: image,
-            },
-        }));
-    };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateNotice);
@@ -79,6 +53,26 @@ const CSFormNotice = ({ match }) => {
         }
     };
 
+    const handleChangeFile = async (e) => {
+        setInputs((state) => ({
+            ...state,
+            attachfile: "",
+            filepath: "",
+        }));
+        const file = e.target.files[0];
+
+        try {
+            const res = await fileAPI.upload("image", file);
+            setInputs((state) => ({
+                ...state,
+                attachfile: file.name,
+                filepath: res,
+            }));
+        } catch (e) {
+            console.error("TourFormArea Error", e);
+        }
+    };
+    console.log(inputs.attachfile);
     return (
         <Content>
             <ContentNav pageId={pageId}>
@@ -90,7 +84,7 @@ const CSFormNotice = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="[공지 추가]">
+                <FormSection size="center" title="공지 추가">
                     <Input
                         label="제목"
                         name="title"
@@ -98,7 +92,6 @@ const CSFormNotice = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-
                     <RatioSingle
                         label="공개여부"
                         name="showyn"
@@ -110,20 +103,12 @@ const CSFormNotice = ({ match }) => {
                             { value: "N", title: "비공개" },
                         ]}
                     />
-
-                    {/* <FileUpload
-                        label="첨부 파일"
-                        name="file"
-                        value={inputs.fileImg.filename}
-                        onChange={handleChangeFile}
-                    /> */}
-
                     <InputForm
-                        label="대표 사진"
+                        label="첨부파일"
                         name="filepath"
-                        filename={inputs.attachfile}
-                        path={inputs.filepath}
+                        value={inputs.attachfile}
                         handleChangeFile={handleChangeFile}
+                        filetype="all"
                     />
                     <RatioSingle
                         label="상단노출"

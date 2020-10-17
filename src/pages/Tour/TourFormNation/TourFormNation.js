@@ -24,7 +24,7 @@ const initialValue = {
     moduser: "",
 };
 
-//working done;
+//working ###
 const TourFormNation = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const id = match.params.id;
@@ -48,6 +48,7 @@ const TourFormNation = ({ match }) => {
 
     useEffect(() => {
         if (id === "new") return;
+        if (Object.keys(detail).length === 0) return;
         setInputs(detail);
     }, [id, setInputs, detail]);
 

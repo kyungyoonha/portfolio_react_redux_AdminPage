@@ -1,5 +1,3 @@
-import React from 'react';
-
 export const optionsCountry = (countryCtg) => {
     switch (countryCtg) {
         case "KOREA":

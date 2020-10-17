@@ -37,7 +37,11 @@ const CSBoard = ({ match }) => {
     }, [dispatch, pageId]);
 
     const handleClickInsert = () => {
-        history.push(`/cs/${pageId}/form`);
+        pageId !== "question"
+            ? history.push(`/cs/${pageId}/form`)
+            : selectedId
+            ? history.push(`/cs/${pageId}/form/${selectedId}`)
+            : alert("행을 선택해주세요.");
     };
 
     const handleSelectedId = (id) => {

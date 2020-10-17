@@ -88,4 +88,17 @@ push
 { "key": "reguser", "title": "등록자" },
 { "key": "moddate", "title": "수정일" },
 { "key": "moduser", "title": "수정자" },
+
+question
+{ "key": "idx", "title": "인덱스" },
+{ "key": "userid", "title": "등록자" },
+{ "key": "email", "title": "수신 이메일" },
+{ "key": "attachfile", "title": "첨부파일" },
+{ "key": "replyyn", "title": "답변여부" },
+{ "key": "contents", "title": "내용" },
+{ "key": "filepath", "title": "첨부파일경로" },
+{ "key": "regdate", "title": "등록일" },
+{ "key": "reguser", "title": "등록자" },
+{ "key": "moddate", "title": "수정일" },
+{ "key": "moduser", "title": "수정자" },
 */

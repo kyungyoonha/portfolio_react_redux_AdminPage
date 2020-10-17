@@ -18,7 +18,7 @@ import PurchFormCode from "./pages/Purch/PurchFormCode/PurchFormCode";
 import CSBoard from './pages/CS/CSBoard/CSBoard';
 import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
 import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
-import CSFormCstmSvc from './pages/CS/CSFormCstmSvc/CSFormCstmSvc';
+import CSFormQuestion from './pages/CS/CSFormQuestion/CSFormQuestion';
 
 
 
@@ -51,8 +51,8 @@ const routes = [
     { path: "/cs/push/form", exact: true, component: CSFormPush },
     { path: "/cs/notice", exact: true, component: CSBoard },
     { path: "/cs/notice/form", exact: true, component: CSFormNotice },
-    { path: "/cs/service", exact: true, component: CSBoard },
-    { path: "/cs/service/form", exact: true, component: CSFormCstmSvc },
+    { path: "/cs/question", exact: true, component: CSBoard },
+    { path: "/cs/question/form/:id", component: CSFormQuestion },
     
 ];
 

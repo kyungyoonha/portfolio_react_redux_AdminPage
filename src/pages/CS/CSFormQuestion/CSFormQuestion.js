@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import history from "../../../history";
+import fileAPI from "../../../util/fileAPI";
+
 import {
     Input,
     Select,
     FormLayout,
     FormSection,
     Textarea,
-    FileUpload,
+    InputForm,
 } from "../../../components/Form/Form";
 
 import {
@@ -16,54 +18,44 @@ import {
 } from "../../../components/Content/Content";
 import { validateAll, validateService } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
+// 리덕스
+import { useSelector, useDispatch } from "react-redux";
+import { boardAction_detail } from "../../../redux/actions";
 
 const initialValue = {
-    name: "",
+    idx: "",
+    userid: "",
     email: "",
-    file: {},
-    content: "",
-    title: "",
-    hiddenStatus: "visible",
-    user: "",
-    sendEmail: "",
-    sendContent: "",
-    fileImg: {
-        src: "",
-        filename: "",
-        file: "",
-    },
-    uploadImg: {
-        src: "",
-        filename: "",
-        file: "",
-    },
+    attachfile: "",
+    replyyn: "",
+    contents: "",
+    filepath: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
 };
-//working
-const PurchFormInfo = ({ match }) => {
+//working ### 이메일 처리
+const CSFormQuestion = ({ match }) => {
     const pageId = match.url.split("/")[2];
+    const id = match.params.id;
     const [errors, setErrors] = useState({});
+    const dispatch = useDispatch();
+    const { detail } = useSelector((state) => state.board);
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validateService,
         setErrors
     );
 
-    const handleChangeFile = (e) => {
-        const target = e.target;
-        const name = target.name;
-        const image = target.files[0];
-        // const previewSrc = URL.createObjectURL(image);
-        // const formData = new FormData();
-        // formData.append("image", image, image.name);
-        setInputs((state) => ({
-            ...state,
-            [name]: {
-                src: "",
-                filename: image.name,
-                file: image,
-            },
-        }));
-    };
+    useEffect(() => {
+        dispatch(boardAction_detail(pageId, id));
+    }, [dispatch, pageId, id]);
+
+    useEffect(() => {
+        if (Object.keys(detail).length === 0) return;
+        setInputs(detail);
+    }, [setInputs, detail]);
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateService);
@@ -73,6 +65,26 @@ const PurchFormInfo = ({ match }) => {
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
+        }
+    };
+
+    const handleChangeFile = async (e) => {
+        setInputs((state) => ({
+            ...state,
+            attachfile: "",
+            filepath: "",
+        }));
+        const file = e.target.files[0];
+
+        try {
+            const res = await fileAPI.upload("image", file);
+            setInputs((state) => ({
+                ...state,
+                attachfile: file.name,
+                filepath: res,
+            }));
+        } catch (e) {
+            console.error("TourFormArea Error", e);
         }
     };
 
@@ -90,32 +102,46 @@ const PurchFormInfo = ({ match }) => {
                 <FormSection>
                     <Input
                         label="등록자"
-                        name="name"
-                        value={inputs.name}
+                        name="userid"
+                        value={inputs.userid}
                         onChange={handleChangeInputs}
-                    />
-
-                    <FileUpload
-                        label="파일 등록"
-                        name="fileImg"
-                        value={inputs.fileImg.filename}
-                        onChange={handleChangeFile}
                         disabled
                     />
-
                     <Input
                         label="수신 이메일"
                         name="email"
                         value={inputs.email}
                         onChange={handleChangeInputs}
+                        disabled
                     />
+
+                    <Input
+                        label="첨부파일"
+                        name="attachfile"
+                        value={inputs.attachfile}
+                        onChange={handleChangeInputs}
+                    >
+                        <button
+                            type="button"
+                            className="btn btn-outline-primary"
+                            onClick={() =>
+                                fileAPI.download(
+                                    inputs.attachfile,
+                                    inputs.filepath
+                                )
+                            }
+                        >
+                            다운로드
+                        </button>
+                    </Input>
 
                     <Textarea
                         label="내용"
-                        name="content"
-                        value={inputs.content}
+                        name="contents"
+                        value={inputs.contents}
                         onChange={handleChangeInputs}
                         rows={15}
+                        disabled
                     />
                 </FormSection>
 
@@ -147,11 +173,12 @@ const PurchFormInfo = ({ match }) => {
                         onChange={handleChangeInputs}
                     />
 
-                    <FileUpload
-                        label="파일 등록"
-                        name="uploadImg"
-                        value={inputs.uploadImg.filename}
-                        onChange={handleChangeFile}
+                    <InputForm
+                        label="첨부파일"
+                        name="filepath"
+                        value={inputs.attachfile}
+                        handleChangeFile={handleChangeFile}
+                        filetype="all"
                     />
 
                     <Input
@@ -176,4 +203,4 @@ const PurchFormInfo = ({ match }) => {
     );
 };
 
-export default PurchFormInfo;
+export default CSFormQuestion;
