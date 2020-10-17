@@ -25,7 +25,7 @@ const initialValue = {
     target: "",
     linkinfo: "",
     contents: "",
-    messageyn: "N",
+    messageYN: "N",
     regdate: "",
     reguser: "",
     moddate: "",
@@ -108,8 +108,8 @@ const CSFormPush = ({ match }) => {
                     />
                     <RatioSingle
                         label="메시지 전송여부"
-                        name="messageyn"
-                        value={inputs.messageyn}
+                        name="messageYN"
+                        value={inputs.messageYN}
                         onChange={handleChangeInputs}
                         options={[
                             { value: "Y", title: "전송" },

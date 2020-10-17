@@ -26,8 +26,8 @@ const initialValue = {
     idx: "",
     userid: "",
     email: "",
-    attachfile: "",
-    replyyn: "",
+    filename: "",
+    replyYN: "",
     contents: "",
     filepath: "",
     regdate: "",
@@ -71,7 +71,7 @@ const CSFormQuestion = ({ match }) => {
     const handleChangeFile = async (e) => {
         setInputs((state) => ({
             ...state,
-            attachfile: "",
+            filename: "",
             filepath: "",
         }));
         const file = e.target.files[0];
@@ -80,7 +80,7 @@ const CSFormQuestion = ({ match }) => {
             const res = await fileAPI.upload("image", file);
             setInputs((state) => ({
                 ...state,
-                attachfile: file.name,
+                filename: file.name,
                 filepath: res,
             }));
         } catch (e) {
@@ -117,8 +117,8 @@ const CSFormQuestion = ({ match }) => {
 
                     <Input
                         label="첨부파일"
-                        name="attachfile"
-                        value={inputs.attachfile}
+                        name="filename"
+                        value={inputs.filename}
                         onChange={handleChangeInputs}
                     >
                         <button
@@ -126,7 +126,7 @@ const CSFormQuestion = ({ match }) => {
                             className="btn btn-outline-primary"
                             onClick={() =>
                                 fileAPI.download(
-                                    inputs.attachfile,
+                                    inputs.filename,
                                     inputs.filepath
                                 )
                             }
@@ -176,7 +176,7 @@ const CSFormQuestion = ({ match }) => {
                     <InputForm
                         label="첨부파일"
                         name="filepath"
-                        value={inputs.attachfile}
+                        value={inputs.filename}
                         handleChangeFile={handleChangeFile}
                         filetype="all"
                     />

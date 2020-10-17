@@ -86,6 +86,8 @@ const initialValue = {
     areacode: "",
     tourcode: "",
     address: "",
+    lat: "",
+    lng: "",
     telnumber: "",
     admissionfee: "",
     operatingtime: "",

@@ -21,8 +21,8 @@ import useInputs from "../../../Hooks/useInputs";
 const initialValue = {
     idx: "",
     title: "",
-    showyn: "N",
-    attachfile: "",
+    showYN: "N",
+    filename: "",
     topYN: "N",
     contents: "",
     filepath: "",
@@ -56,7 +56,7 @@ const CSFormNotice = ({ match }) => {
     const handleChangeFile = async (e) => {
         setInputs((state) => ({
             ...state,
-            attachfile: "",
+            filename: "",
             filepath: "",
         }));
         const file = e.target.files[0];
@@ -65,14 +65,13 @@ const CSFormNotice = ({ match }) => {
             const res = await fileAPI.upload("image", file);
             setInputs((state) => ({
                 ...state,
-                attachfile: file.name,
+                filename: file.name,
                 filepath: res,
             }));
         } catch (e) {
             console.error("TourFormArea Error", e);
         }
     };
-    console.log(inputs.attachfile);
     return (
         <Content>
             <ContentNav pageId={pageId}>
@@ -94,8 +93,8 @@ const CSFormNotice = ({ match }) => {
                     />
                     <RatioSingle
                         label="공개여부"
-                        name="showyn"
-                        value={inputs.showyn}
+                        name="showYN"
+                        value={inputs.showYN}
                         onChange={handleChangeInputs}
                         errors={errors}
                         options={[
@@ -106,7 +105,7 @@ const CSFormNotice = ({ match }) => {
                     <InputForm
                         label="첨부파일"
                         name="filepath"
-                        value={inputs.attachfile}
+                        value={inputs.filename}
                         handleChangeFile={handleChangeFile}
                         filetype="all"
                     />
