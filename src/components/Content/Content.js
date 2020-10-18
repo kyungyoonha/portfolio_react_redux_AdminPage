@@ -4,10 +4,10 @@ import "./Content.scss";
 import pageDataMap from "../../json/pageDataMap.json";
 
 const navMap = {
-    user: [
-        { to: "/user/member", title: "일반 회원" },
-        { to: "/user/driver", title: "기사 회원" },
-        { to: "/user/manager", title: "관리자" },
+    member: [
+        { to: "/member/user", title: "일반 회원" },
+        { to: "/member/driver", title: "기사 회원" },
+        { to: "/member/manager", title: "관리자" },
     ],
     tour: [
         { to: "/tour/tourpackage", title: "관광지 관리" },

@@ -1,10 +1,10 @@
 // pages
 import Dashboard from "./pages/Dashboard/DashBoard";
 
-import UserBoard from './pages/User/UserBoard/UserBoard';
-import UserFormMember from './pages/User/UserFormMember/UserFormMember'
-import UserFormDriver from './pages/User/UserFormDriver/UserFormDriver';
-import UserFormManager from './pages/User/UserFormManager/UserFormManager';
+import MemberBoard from './pages/Member/MemberBoard/MemberBoard';
+import MemberFormUser from './pages/Member/MemberFormUser/MemberFormUser'
+import MemberFormDriver from './pages/Member/MemberFormDriver/MemberFormDriver';
+import MemberFormManager from './pages/Member/MemberFormManager/MemberFormManager';
 
 import TourBoard from './pages/Tour/TourBoard/TourBoard';
 import TourFormPackage from './pages/Tour/TourFormPackage/TourFormPackage';
@@ -20,19 +20,15 @@ import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
 import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
 import CSFormQuestion from './pages/CS/CSFormQuestion/CSFormQuestion';
 
-
-
-
-
 const routes = [
     { path: "/", exact: true, component: Dashboard },
     { path: "/dashboard", exact: true, component: Dashboard },
-    { path: "/user/member", exact: true, component: UserBoard},
-    { path: "/user/member/form",  component: UserFormMember },
-    { path: "/user/driver", exact: true, component: UserBoard },
-    { path: "/user/driver/form",  component: UserFormDriver },
-    { path: "/user/manager", exact: true,  component: UserBoard },
-    { path: "/user/manager/form",  component: UserFormManager },
+    { path: "/member/user", exact: true, component: MemberBoard},
+    { path: "/member/user/form",  component: MemberFormUser },
+    { path: "/member/driver", exact: true, component: MemberBoard },
+    { path: "/member/driver/form",  component: MemberFormDriver },
+    { path: "/member/manager", exact: true,  component: MemberBoard },
+    { path: "/member/manager/form",  component: MemberFormManager },
 
     { path: "/tour/tourpackage", exact: true,  component: TourBoard },
     { path: "/tour/tourpackage/form",  component: TourFormPackage},

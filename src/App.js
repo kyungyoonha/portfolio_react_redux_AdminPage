@@ -39,7 +39,7 @@ const App = () => {
                             )}
                         />
                     ))}
-                    <Route path="/user" exact render={() => <Redirect to="/user/member" />}/>
+                    <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
                     <Route path="/tour" exact render={() => <Redirect to="/tour/tourpackage" />}/>
                     <Route path="/purch" exact render={() => <Redirect to="/purch/purchinfo" />}/>
                     <Route path="/purch/purchcode/form" exact render={() => <Redirect to="/purch/purchcodeform" />}/>

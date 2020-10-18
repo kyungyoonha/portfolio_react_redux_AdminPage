@@ -36,7 +36,7 @@ const UserBoard = ({ match }) => {
     }, [dispatch, pageId]);
 
     const handleClickInsert = () => {
-        history.push(`/user/${pageId}/form`);
+        history.push(`/member/${pageId}/form`);
     };
 
     const handleSelectedId = (selectedId) => {

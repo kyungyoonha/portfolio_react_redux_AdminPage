@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 const routes = [
     { path: "/dashboard", title: "Dashboard", icon: "chart-pie" },
-    { path: "/user", title: "회원정보", icon: "user-cog" },
+    { path: "/member", title: "회원정보", icon: "user-cog" },
     {
         path: "/tour",
         title: "관광지 관리",
