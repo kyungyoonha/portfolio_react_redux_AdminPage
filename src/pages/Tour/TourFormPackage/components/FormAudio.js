@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import "./FormAudio.scss";
 import FormAudioModal from "./FormAudioModal";
 
-const options = [
-    { value: "Y", title: "有" },
-    { value: "N", title: "無" },
-];
-
 const FormAudio = ({
     inputs,
     onChange,
@@ -37,7 +32,7 @@ const FormAudio = ({
     };
 
     return (
-        <div className="formSection formAudio">
+        <div className="formSection formAudio full">
             <table className="table">
                 <tbody>
                     <tr>
@@ -45,7 +40,10 @@ const FormAudio = ({
                             <label>※ 세부 관광지 오디오 가이드</label>
                         </th>
                         <td colSpan="3">
-                            {options.map((option) => (
+                            {[
+                                { value: "Y", title: "있음" },
+                                { value: "N", title: "없음" },
+                            ].map((option) => (
                                 <div
                                     key={option.value}
                                     className="form-check form-check-inline"
@@ -71,7 +69,7 @@ const FormAudio = ({
                             ))}
                         </td>
                     </tr>
-                    <tr className="text-center">
+                    {/* <tr className="text-center">
                         <td>
                             <button
                                 type="button"
@@ -103,16 +101,16 @@ const FormAudio = ({
                                 ))}
                             </select>
                         </td>
-                    </tr>
+                    </tr> */}
                     <tr>
                         <td colSpan="3">
                             <button
                                 type="button"
-                                className="btn btn-outline-primary btn-md btn-block"
+                                className="btn btn-primary btn-md"
                                 onClick={handleModalOpen}
                                 disabled={disabled}
                             >
-                                (+)추가하기
+                                오디오 추가하기(+)
                             </button>
                         </td>
                     </tr>

@@ -1,5 +1,5 @@
 /*
-member
+user
 { "key": "idx", "title": "인덱스" },
 { "key": "username", "title": "성명" },
 { "key": "id", "title": "아이디" },
@@ -101,4 +101,53 @@ question
 { "key": "reguser", "title": "등록자" },
 { "key": "moddate", "title": "수정일" },
 { "key": "moduser", "title": "수정자" },
+
+
+// const initialValue = {
+//     countryCtg: "KOREA",
+//     country: "KOREA",
+//     state: "",
+//     city: "",
+//     placeCode: "",
+//     address: "",
+//     lat: "",
+//     lng: "",
+//     placeName: "",
+//     contactNumber: "",
+//     entranceFee: "",
+//     businessHours: "",
+//     tourTags: {},
+//     typeCharacteristic: "0",
+//     typeStyle: "0",
+//     hasAudio: "no",
+//     hasAudioMain: "no",
+//     imageList: [
+//         // { src: img1, filename: "", file: null },
+//         // { src: img1, filename: "", file: null },
+//         // { src: img1, filename: "", file: null },
+//     ],
+//     audioList: [
+//         // {
+//         //     name: ''
+//         //     inputs: { countryCtg: "KOREA", state: "", city: "", place: "", name: "", content: "", hasAudio: "no" },
+//         //     imageList: [
+//         //         { src: "img1", filename: "", file: null }
+//         //     ],
+//         //     audioMain: {
+//         //         korea: { title: "", script: "", files: [] },
+//         //         english: { title: "", script: "", files: [] },
+//         //         japan: { title: "", script: "", files: [] },
+//         //         china: { title: "", script: "", files: [] },
+//         //     },
+//         // },
+//         // { ... },
+//         // { ... },
+//     ],
+//     audioMain: {
+//         korea: { title: "", script: "", files: [] },
+//         english: { title: "", script: "", files: [] },
+//         japan: { title: "", script: "", files: [] },
+//         china: { title: "", script: "", files: [] },
+//     },
+// };
 */

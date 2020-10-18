@@ -14,7 +14,7 @@ const options = [
 ];
 
 const FormAudioMain = ({
-    size,
+    full,
     inputs,
     onChange,
     audioMain,
@@ -47,7 +47,7 @@ const FormAudioMain = ({
     };
 
     return (
-        <div className={`formSection formAudioMain ${size}`}>
+        <div className={`formSection formAudioMain ${full}`}>
             <table className="table">
                 <tbody>
                     <tr>

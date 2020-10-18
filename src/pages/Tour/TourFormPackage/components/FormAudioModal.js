@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./FormAudioModal.scss";
 import {
-    RatioSingle,
+    RadioSingle,
     Select,
     Input,
     FileuploadCard,
@@ -116,8 +116,8 @@ const FormAudioModal = ({
                     </button>
                 </div>
                 <FormLayout>
-                    <FormSection size="half">
-                        <RatioSingle
+                    <FormSection>
+                        <RadioSingle
                             label="국가 분류"
                             name="nationtype"
                             value={inputs.nationtype || "1"}
@@ -193,7 +193,7 @@ const FormAudioModal = ({
                             errors={errors}
                         />
                     </FormSection>
-                    <FormSection size="half">
+                    <FormSection>
                         <FileuploadCard
                             label="대표 사진"
                             src={imageList[0] ? imageList[0].src : noImg}
@@ -203,7 +203,7 @@ const FormAudioModal = ({
                     </FormSection>
 
                     <FormAudioMain
-                        size="full"
+                        full
                         audioMain={audioMain}
                         handleChangeAudioMain={handleChangeAudioMain}
                         onChange={handleChangeInputs}

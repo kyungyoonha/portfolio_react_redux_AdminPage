@@ -9,3 +9,6 @@ export const BOARD_SELECTED = "board/BOARD_SELECTED";
 export const BOARD_INSERT = "board/BOARD_INSERT";
 export const BOARD_EDIT = "board/BOARD_EDIT";
 export const BOARD_DELETE = "board/BOARD_DELETE";
+
+export const FILE_IMAGE_FETCH = "file/FILE_IMAGE_FETCH";
+export const FILE_AUDIO_FETCH = "file/FILE_AUDIO_FETCH";

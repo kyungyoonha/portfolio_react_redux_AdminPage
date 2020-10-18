@@ -5,7 +5,7 @@ import {
     FormLayout,
     FormSection,
     Input,
-    RatioSingle,
+    RadioSingle,
     Textarea,
     InputForm,
 } from "../../../components/Form/Form";
@@ -83,7 +83,7 @@ const CSFormNotice = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="공지 추가">
+                <FormSection center title="공지 추가">
                     <Input
                         label="제목"
                         name="title"
@@ -91,7 +91,7 @@ const CSFormNotice = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="공개여부"
                         name="showYN"
                         value={inputs.showYN}
@@ -109,7 +109,7 @@ const CSFormNotice = ({ match }) => {
                         handleChangeFile={handleChangeFile}
                         filetype="all"
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="상단노출"
                         name="topYN"
                         value={inputs.topYN}

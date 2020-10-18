@@ -11,7 +11,7 @@ import {
     FormLayout,
     FormSection,
     Input,
-    RatioSingle,
+    RadioSingle,
     Select,
 } from "../../../components/Form/Form";
 import {
@@ -119,7 +119,7 @@ const TourFormArea = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="지역코드 추가">
+                <FormSection center title="지역코드 추가">
                     <Select
                         label="국가 코드"
                         name="nationidx"
@@ -156,7 +156,7 @@ const TourFormArea = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="대표사진 유무"
                         name="mainpicYN"
                         value={inputs.mainpicYN}

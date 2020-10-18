@@ -13,7 +13,7 @@ const Dashboard = () => {
             <ChartsRegion />
             <ChartsMonthly />
             <ChartsWeekly />
-            <CSTable size="full" />
+            <CSTable full />
         </div>
     );
 };

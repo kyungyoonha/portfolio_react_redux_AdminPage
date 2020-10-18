@@ -7,7 +7,7 @@ import {
     Input,
     InputAddress,
     InputDate,
-    RatioSingle,
+    RadioSingle,
     Textarea,
 } from "../../../components/Form/Form";
 
@@ -84,7 +84,7 @@ const UserFormManager = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="매니저 추가">
+                <FormSection center title="매니저 추가">
                     <Input
                         label="이름"
                         name="username"
@@ -106,7 +106,7 @@ const UserFormManager = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="등급"
                         name="level"
                         value={inputs.level}

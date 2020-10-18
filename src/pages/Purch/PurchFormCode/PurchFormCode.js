@@ -3,7 +3,7 @@ import history from "../../../history";
 import {
     Input,
     Select,
-    RatioSingle,
+    RadioSingle,
     FormLayout,
     FormSection,
     SelectMultiCustom,
@@ -136,7 +136,7 @@ const PurchFormInfo = ({ match }) => {
                         errors={errors}
                     />
 
-                    <RatioSingle
+                    <RadioSingle
                         label="국가 분류"
                         name="nationtype"
                         value={inputs.nationtype || "1"}
@@ -172,7 +172,7 @@ const PurchFormInfo = ({ match }) => {
                         options={optionsRegion(inputs.areacode)}
                     />
 
-                    <RatioSingle
+                    <RadioSingle
                         label="투어 구분"
                         name="tourCtg"
                         value={inputs.tourCtg}
@@ -183,7 +183,7 @@ const PurchFormInfo = ({ match }) => {
                         ]}
                     />
 
-                    <RatioSingle
+                    <RadioSingle
                         label="투어 일수"
                         name="tourDayCntCheck"
                         value={inputs.tourDayCntCheck}

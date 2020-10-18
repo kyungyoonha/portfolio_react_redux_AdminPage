@@ -1,8 +1,8 @@
 import React from "react";
 
-const CSBoard = ({ size }) => {
+const CSBoard = ({ full }) => {
     return (
-        <div className={`dashboardCard ${size === "full" && "full"}`}>
+        <div className={`dashboardCard ${full && "full"}`}>
             <div className="card">
                 <div className="card-header bg-white">
                     문의 및 신고 게시판 현황

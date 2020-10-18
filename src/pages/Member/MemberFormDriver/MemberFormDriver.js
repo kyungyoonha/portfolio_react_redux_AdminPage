@@ -12,7 +12,7 @@ import {
     FormSection,
     Input,
     Select,
-    RatioSingle,
+    RadioSingle,
     Textarea,
     InputDate,
 } from "../../../components/Form/Form";
@@ -98,7 +98,7 @@ const UserFormDriver = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="기사 회원 등록">
+                <FormSection center title="기사 회원 등록">
                     <Input
                         label="이름"
                         name="drivername"
@@ -121,7 +121,7 @@ const UserFormDriver = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="국가 분류"
                         name="nationtype"
                         value={inputs.nationtype || "1"}
@@ -190,7 +190,7 @@ const UserFormDriver = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="소속"
                         name="businesstype"
                         value={inputs.businesstype}

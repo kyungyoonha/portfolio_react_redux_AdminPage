@@ -1,18 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormImg from "./components/FormImg";
-import FormAudio from "./components/FormAudio";
-import FormAudioMain from "../components/FormAudioMain";
+import { useSelector, useDispatch } from "react-redux";
+// import FormAudio from "./components/FormAudio";
+// import FormAudioMain from "../components/FormAudioMain";
 
 import {
     Input,
     Select,
-    RatioSingle,
-    RatioTypeCheck,
-    RatioMulti,
+    RadioSingle,
+    RadioTypeCheck,
+    RadioMulti,
     FormLayout,
     FormSection,
     InputAddress,
     InputTimeRange,
+    FormAudioList,
 } from "../../../components/Form/Form";
 
 import {
@@ -28,54 +30,10 @@ import {
 import history from "../../../history";
 import { validateAll, validatePackage } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
-
-// const initialValue = {
-//     countryCtg: "KOREA",
-//     country: "KOREA",
-//     state: "",
-//     city: "",
-//     placeCode: "",
-//     address: "",
-//     lat: "",
-//     lng: "",
-//     placeName: "",
-//     contactNumber: "",
-//     entranceFee: "",
-//     businessHours: "",
-//     tourTags: {},
-//     typeCharacteristic: "0",
-//     typeStyle: "0",
-//     hasAudio: "no",
-//     hasAudioMain: "no",
-//     imageList: [
-//         // { src: img1, filename: "", file: null },
-//         // { src: img1, filename: "", file: null },
-//         // { src: img1, filename: "", file: null },
-//     ],
-//     audioList: [
-//         // {
-//         //     name: ''
-//         //     inputs: { countryCtg: "KOREA", state: "", city: "", place: "", name: "", content: "", hasAudio: "no" },
-//         //     imageList: [
-//         //         { src: "img1", filename: "", file: null }
-//         //     ],
-//         //     audioMain: {
-//         //         korea: { title: "", script: "", files: [] },
-//         //         english: { title: "", script: "", files: [] },
-//         //         japan: { title: "", script: "", files: [] },
-//         //         china: { title: "", script: "", files: [] },
-//         //     },
-//         // },
-//         // { ... },
-//         // { ... },
-//     ],
-//     audioMain: {
-//         korea: { title: "", script: "", files: [] },
-//         english: { title: "", script: "", files: [] },
-//         japan: { title: "", script: "", files: [] },
-//         china: { title: "", script: "", files: [] },
-//     },
-// };
+import {
+    fileAction_getAudios,
+    fileAction_getImages,
+} from "../../../redux/actions";
 
 const initialValue = {
     idx: "",
@@ -121,6 +79,27 @@ const TourFormPackage = ({ match }) => {
         setErrors
     );
 
+    const dispatch = useDispatch();
+    const { audios, audioMain, audioSub } = useSelector((state) => state.file);
+
+    useEffect(() => {
+        dispatch(fileAction_getAudios("1"));
+        // dispatch(fileAction_getImages("1"));
+    }, [dispatch]);
+
+    useEffect(() => {
+        audioMain &&
+            setInputs((state) => ({
+                ...state,
+                mainaudioYN: "Y",
+            }));
+        audioSub &&
+            setInputs((state) => ({
+                ...state,
+                subaudioYN: "Y",
+            }));
+    }, [setInputs, audioMain, audioSub]);
+
     const handleChangeImageList = (newImgList) => {
         setInputs((state) => ({
             ...state,
@@ -128,32 +107,32 @@ const TourFormPackage = ({ match }) => {
         }));
     };
 
-    const handleChangeAudioList = (newAudioList) => {
-        setInputs((state) => ({
-            ...state,
-            audioList: [...state.audioList, newAudioList],
-        }));
-    };
+    // const handleChangeAudioList = (newAudioList) => {
+    //     setInputs((state) => ({
+    //         ...state,
+    //         audioList: [...state.audioList, newAudioList],
+    //     }));
+    // };
 
-    const handleDeleteAudioList = (idx) => {
-        setInputs((state) => ({
-            ...state,
-            audioList: state.audioList.filter((_, i) => String(i) !== idx),
-        }));
-    };
+    // const handleDeleteAudioList = (idx) => {
+    //     setInputs((state) => ({
+    //         ...state,
+    //         audioList: state.audioList.filter((_, i) => String(i) !== idx),
+    //     }));
+    // };
 
-    const handleChangeAudioMain = ({ selected, name, value }) => {
-        setInputs((state) => ({
-            ...state,
-            audioMain: {
-                ...state.audioMain,
-                [selected]: {
-                    ...state.audioMain[selected],
-                    [name]: value,
-                },
-            },
-        }));
-    };
+    // const handleChangeAudioMain = ({ selected, name, value }) => {
+    //     setInputs((state) => ({
+    //         ...state,
+    //         audioMain: {
+    //             ...state.audioMain,
+    //             [selected]: {
+    //                 ...state.audioMain[selected],
+    //                 [name]: value,
+    //             },
+    //         },
+    //     }));
+    // };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validatePackage);
@@ -196,7 +175,7 @@ const TourFormPackage = ({ match }) => {
                         onChange={handleChangeInputs}
                         errors={errors}
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="국가 분류"
                         name="nationtype"
                         value={inputs.nationtype || "1"}
@@ -284,8 +263,8 @@ const TourFormPackage = ({ match }) => {
                     handleChangeImageList={handleChangeImageList}
                 />
 
-                <FormSection size="full">
-                    <RatioMulti
+                <FormSection full>
+                    <RadioMulti
                         label="관심사 태그"
                         name="interesttag"
                         value={inputs.interesttag}
@@ -301,7 +280,7 @@ const TourFormPackage = ({ match }) => {
                         ]}
                     />
 
-                    <RatioTypeCheck
+                    <RadioTypeCheck
                         label="내외향성"
                         labelLeft="외향성"
                         labelRight="내향성"
@@ -310,7 +289,7 @@ const TourFormPackage = ({ match }) => {
                         onChange={handleChangeInputs}
                     />
 
-                    <RatioTypeCheck
+                    <RadioTypeCheck
                         label="개방폐쇄성"
                         labelLeft="개방성"
                         labelRight="폐쇄성"
@@ -320,22 +299,69 @@ const TourFormPackage = ({ match }) => {
                     />
                 </FormSection>
                 {/* 오디오 서브 등록 */}
-                <FormAudio
+                <FormSection full>
+                    <RadioSingle
+                        label="대표 오디오 가이드"
+                        name="mainaudioYN"
+                        value={inputs.mainaudioYN}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        disabled={audioMain.length > 0}
+                        options={[
+                            { value: "Y", title: "있음" },
+                            { value: "N", title: "없음" },
+                        ]}
+                    >
+                        {inputs.mainaudioYN === "Y" && (
+                            <button
+                                type="button"
+                                className="btn btn-primary mt-3"
+                            >
+                                대표 오디오 추가
+                            </button>
+                        )}
+                    </RadioSingle>
+
+                    <RadioSingle
+                        label="세부 오디오 가이드"
+                        name="subaudioYN"
+                        value={inputs.subaudioYN}
+                        onChange={handleChangeInputs}
+                        errors={errors}
+                        disabled={audioSub.length > 0}
+                        options={[
+                            { value: "Y", title: "있음" },
+                            { value: "N", title: "없음" },
+                        ]}
+                    >
+                        {inputs.subaudioYN === "Y" && (
+                            <button
+                                type="button"
+                                className="btn btn-primary mt-3"
+                            >
+                                세부 오디오 추가
+                            </button>
+                        )}
+                    </RadioSingle>
+
+                    <FormAudioList data={audios} />
+                </FormSection>
+                {/* <FormAudio
                     inputs={inputs}
                     onChange={handleChangeInputs}
                     audioList={inputs.audioList}
                     handleChangeAudioList={handleChangeAudioList}
                     handleDeleteAudioList={handleDeleteAudioList}
                     disabled={inputs.subaudioYN === "N"}
-                />
-                {/* 오디오 메인 등록 */}
+                /> */}
+                {/* 오디오 메인 등록
                 <FormAudioMain
                     inputs={inputs}
                     onChange={handleChangeInputs}
                     audioMain={inputs.audioMain}
                     handleChangeAudioMain={handleChangeAudioMain}
                     disabled={inputs.mainaudioYN === "N"}
-                />
+                /> */}
             </FormLayout>
         </Content>
     );

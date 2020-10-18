@@ -5,7 +5,7 @@ import {
     FormLayout,
     FormSection,
     Input,
-    RatioSingle,
+    RadioSingle,
     Textarea,
 } from "../../../components/Form/Form";
 
@@ -72,7 +72,7 @@ const CSFormPush = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="푸쉬 관리">
+                <FormSection center title="푸쉬 관리">
                     <Input
                         label={`푸쉬제목 (${
                             inputs.title ? inputs.title.length : 0
@@ -106,7 +106,7 @@ const CSFormPush = ({ match }) => {
                         rows={8}
                         errors={errors}
                     />
-                    <RatioSingle
+                    <RadioSingle
                         label="메시지 전송여부"
                         name="messageYN"
                         value={inputs.messageYN}

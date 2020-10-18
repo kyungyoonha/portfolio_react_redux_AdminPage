@@ -82,7 +82,7 @@ const TourFormNation = ({ match }) => {
             </ContentNav>
 
             <FormLayout>
-                <FormSection size="center" title="국가코드 관리">
+                <FormSection center title="국가코드 관리">
                     <Input
                         label="국가한국이름"
                         name="koreanname"

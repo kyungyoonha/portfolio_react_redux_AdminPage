@@ -1,20 +1,23 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import "./Form.scss";
 import noImg from "../../img/no-img.jpg";
 import ReactDatePicker from "react-datepicker";
 import Map from "../Google/Map";
-import ReactModal from "react-modal";
-import moment from "moment";
+//import ReactModal from "react-modal";
 import TimePicker from "../TimePicker/TimePicker";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
 };
 
-export const FormSection = ({ size, title, children }) => {
+export const FormSection = ({ full, center, title, children }) => {
     return (
         <React.Fragment>
-            <div className={`formSection ${size}`}>
+            <div
+                className={`formSection ${full && "full"} ${
+                    center && "center"
+                }`}
+            >
                 <table className="table">
                     {title && (
                         <thead style={{ textAlign: "center" }}>
@@ -152,7 +155,7 @@ export const SelectMultiCustom = ({ inputs, onChange, options }) => {
     );
 };
 
-export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
+export const RadioMulti = ({ label, name, value, onChange, max, options }) => {
     const handleChange = (e) => {
         const { checked } = e.target;
         const length = Object.keys(value).filter((key) => value[key]).length;
@@ -194,12 +197,13 @@ export const RatioMulti = ({ label, name, value, onChange, max, options }) => {
     );
 };
 
-export const RatioSingle = ({
+export const RadioSingle = ({
     label,
     name,
     value,
     onChange,
     options,
+    disabled,
     children,
 }) => {
     return (
@@ -222,6 +226,7 @@ export const RatioSingle = ({
                             checked={value === option.value}
                             onChange={onChange}
                             id={name + option.value}
+                            disabled
                         />
                         <label
                             className="form-check-label"
@@ -237,7 +242,7 @@ export const RatioSingle = ({
     );
 };
 
-export const RatioTypeCheck = ({
+export const RadioTypeCheck = ({
     label,
     labelLeft,
     labelRight,
@@ -677,13 +682,7 @@ export const InputAddress = ({
     );
 };
 
-export const InputTimeRange = ({
-    value,
-
-    onChange,
-    errors = {},
-    disabled,
-}) => {
+export const InputTimeRange = ({ value, onChange, errors = {}, disabled }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const handleChangeInput = (value) => {
         onChange({
@@ -745,3 +744,144 @@ export const InputTimeRange = ({
         </tr>
     );
 };
+
+export const FormAudioList = ({ data }) => {
+    return (
+        <tr className="formAudioList">
+            <th>※ 오디오 리스트</th>
+            <td>
+                <div className="formAudioList__container">
+                    {data.map((item, idx) => (
+                        <div key={idx} className="formAudioList__item">
+                            - {item.scripttitle}
+                            <span className="badge badge-success ml-1 mr-1">
+                                {item.audiolanguage}
+                            </span>
+                            {item.mainaudioYN === "Y" && (
+                                <span className="badge badge-primary ml-1 mr-1">
+                                    대표
+                                </span>
+                            )}
+                            <button
+                                type="button"
+                                className="btn btn-outline-danger btn-sm float-right mt-1"
+                            >
+                                삭제
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            </td>
+        </tr>
+    );
+};
+
+// export const FormAudio2 = ({
+//     inputs,
+//     onChange,
+//     audioList,
+//     handleChangeAudioList,
+//     handleDeleteAudioList,
+//     disabled,
+// }) => {
+//     return (
+//         <div className="formSection formAudio full">
+//             <table className="table">
+//                 <tbody>
+//                     <tr>
+//                         <th rowSpan="4" className="formAudio__title">
+//                             <label>※ 세부 관광지 오디오 가이드</label>
+//                         </th>
+//                         <td colSpan="3">
+//                             {[
+//                                 { value: "Y", title: "있음" },
+//                                 { value: "N", title: "없음" },
+//                             ].map((option) => (
+//                                 <div
+//                                     key={option.value}
+//                                     className="form-check form-check-inline"
+//                                 >
+//                                     <input
+//                                         className="form-check-input"
+//                                         type="radio"
+//                                         name="subaudioYN"
+//                                         value={option.value}
+//                                         checked={
+//                                             inputs.subaudioYN === option.value
+//                                         }
+//                                         onChange={onChange}
+//                                         id={"subaudioYN" + option.value}
+//                                     />
+//                                     <label
+//                                         className="form-check-label"
+//                                         htmlFor={"subaudioYN" + option.value}
+//                                     >
+//                                         {option.title}
+//                                     </label>
+//                                 </div>
+//                             ))}
+//                         </td>
+//                     </tr>
+//                     {/* <tr className="text-center">
+//                         <td>
+//                             <button
+//                                 type="button"
+//                                 className="btn btn-outline-primary btn-block"
+//                                 onClick={handleClickDelete}
+//                                 disabled={disabled}
+//                             >
+//                                 (-) 삭제
+//                             </button>
+//                         </td>
+//                         <td>선택</td>
+//                         <td>
+//                             <select
+//                                 name="audioSelect"
+//                                 value={inputs.audioSelect}
+//                                 onChange={handleSelectedIdx}
+//                                 className="custom-select"
+//                                 disabled={disabled}
+//                             >
+//                                 <option value="">
+//                                     {audioList[0]
+//                                         ? "선택해주세요"
+//                                         : "아래 + 버튼으로 추가"}
+//                                 </option>
+//                                 {audioList.map((audio, idx) => (
+//                                     <option key={idx} value={idx}>
+//                                         {audio.inputs.name}
+//                                     </option>
+//                                 ))}
+//                             </select>
+//                         </td>
+//                     </tr> */}
+//                     <tr>
+//                         <td colSpan="3">
+//                             <button
+//                                 type="button"
+//                                 className="btn btn-primary btn-md"
+//                                 // onClick={handleModalOpen}
+//                                 disabled={disabled}
+//                             >
+//                                 오디오 추가하기(+)
+//                             </button>
+//                         </td>
+//                     </tr>
+//                     <tr>
+//                         <td colSpan="3" className="formAudio__list">
+//                             {audioList.map((audio, idx) => (
+//                                 <p key={idx}>{audio.inputs.name}</p>
+//                             ))}
+//                         </td>
+//                     </tr>
+
+//                     {/* <FormAudioModal
+//                         isModalOpen={isModalOpen}
+//                         handleModalClose={handleModalClose}
+//                         handleChangeAudioList={handleChangeAudioList}
+//                     /> */}
+//                 </tbody>
+//             </table>
+//         </div>
+//     );
+// };

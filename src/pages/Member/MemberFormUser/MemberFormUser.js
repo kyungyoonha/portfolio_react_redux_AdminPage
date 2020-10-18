@@ -4,7 +4,7 @@ import {
     FormLayout,
     FormSection,
     Input,
-    RatioSingle,
+    RadioSingle,
     Textarea,
     InputDate,
     InputAddress,
@@ -170,7 +170,7 @@ const UserFormMember = ({ match }) => {
                         errors={errors}
                     />
 
-                    <RatioSingle
+                    <RadioSingle
                         label="외향/내향"
                         name="characteristic"
                         value={inputs.characteristic}
@@ -193,7 +193,7 @@ const UserFormMember = ({ match }) => {
                             { key: "bear", title: "곰돌이" },
                         ]}
                     /> */}
-                    <RatioSingle
+                    <RadioSingle
                         label="이메일 수신"
                         name="emailagree"
                         value={inputs.emailagree}
@@ -204,7 +204,7 @@ const UserFormMember = ({ match }) => {
                         ]}
                     />
 
-                    <RatioSingle
+                    <RadioSingle
                         label="문자 수신"
                         name="messageagree"
                         value={inputs.messageagree}
@@ -215,7 +215,7 @@ const UserFormMember = ({ match }) => {
                         ]}
                     />
 
-                    <RatioSingle
+                    <RadioSingle
                         label="문자 수신"
                         name="pushagree"
                         value={inputs.pushagree}

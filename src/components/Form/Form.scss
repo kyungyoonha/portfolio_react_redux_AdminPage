@@ -105,3 +105,15 @@
 .react-datepicker-wrapper {
     width: 100%;
 }
+
+.formAudioList {
+    .formAudioList__container {
+        height: 200px;
+    }
+
+    .formAudioList__item {
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid $line;
+    }
+}
