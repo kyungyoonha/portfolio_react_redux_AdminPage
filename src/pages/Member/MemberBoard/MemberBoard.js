@@ -3,7 +3,6 @@ import history from "../../../history";
 
 import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
 import {
-    Content,
     ContentBtn,
     ContentNav,
     ContentBody,
@@ -17,7 +16,8 @@ import {
     boardAction_delete,
 } from "../../../redux/actions";
 
-const UserBoard = ({ match }) => {
+// BBB
+const MemberBoard = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { pageId: prevId, data, totalPage, selectedId } = useSelector(
@@ -59,7 +59,7 @@ const UserBoard = ({ match }) => {
     };
 
     return (
-        <Content>
+        <React.Fragment>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     handleClickInsert={handleClickInsert}
@@ -84,8 +84,8 @@ const UserBoard = ({ match }) => {
                     handleChangePageCtrl={handleChangePageCtrl}
                 />
             </ContentBody>
-        </Content>
+        </React.Fragment>
     );
 };
 
-export default UserBoard;
+export default MemberBoard;

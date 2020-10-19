@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
             <Header handleClickOpen={handleClickOpen} />
             <div className="layout__body">
                 <Sidebar isOpen={isOpen} handleClickOpen={handleClickOpen} />
-                {children}
+                <div className="layout__content">{children}</div>
             </div>
         </div>
     );

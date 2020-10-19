@@ -1,0 +1,15 @@
+.contentButton {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    width: 100%;
+    background: white;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    button {
+        margin-left: 15px;
+        width: 300px;
+    }
+}

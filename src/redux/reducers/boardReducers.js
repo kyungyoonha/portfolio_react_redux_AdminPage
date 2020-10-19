@@ -5,6 +5,7 @@ import {
     BOARD_INSERT,
     BOARD_EDIT,
     BOARD_DELETE,
+    BOARD_INSERT_TYPE,
 } from "../types";
 import randomKey from "../../util/randomKey";
 
@@ -13,6 +14,7 @@ const INITIAL_STATE = {
     data: [],
     detail: {},
     selectedId: "",
+    insertType: "",
     totalPage: 5,
 };
 
@@ -63,6 +65,12 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 data: state.data.filter((item) => item.idx !== action.payload),
                 selectedId: "",
+            };
+
+        case BOARD_INSERT_TYPE:
+            return {
+                ...state,
+                insertType: action.payload,
             };
 
         default:

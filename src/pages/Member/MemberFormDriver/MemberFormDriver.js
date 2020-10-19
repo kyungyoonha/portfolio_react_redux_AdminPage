@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import history from "../../../history";
-
+import { validateAll, validateDriver } from "../../../util/validate";
 import {
-    Content,
-    ContentBtn,
-    ContentNav,
-} from "../../../components/Content/Content";
+    optionsCountry,
+    optionsCity,
+    optionsRegion,
+} from "../../../util/options";
 
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { boardAction_update } from "../../../redux/actions";
+
+import useInputs from "../../../Hooks/useInputs";
+import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
     FormSection,
@@ -16,16 +22,6 @@ import {
     Textarea,
     InputDate,
 } from "../../../components/Form/Form";
-
-import {
-    optionsCountry,
-    optionsCity,
-    optionsRegion,
-} from "../../../util/options";
-import { validateAll, validateDriver } from "../../../util/validate";
-import useInputs from "../../../Hooks/useInputs";
-import { useDispatch, useSelector } from "react-redux";
-import { boardAction_update } from "../../../redux/actions";
 
 const initialValue = {
     idx: "",
@@ -53,7 +49,7 @@ const initialValue = {
 };
 
 //working ###
-const UserFormDriver = ({ match }) => {
+const MemberFormDriver = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { name } = useSelector((state) => state.user);
@@ -88,7 +84,7 @@ const UserFormDriver = ({ match }) => {
     };
 
     return (
-        <Content>
+        <FormLayout>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
@@ -96,111 +92,109 @@ const UserFormDriver = ({ match }) => {
                     handleClickDelete={() => history.goBack()}
                 />
             </ContentNav>
+            <FormSection center title="기사 회원 등록">
+                <Input
+                    label="이름"
+                    name="drivername"
+                    value={inputs.drivername}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="아이디"
+                    name="id"
+                    value={inputs.id}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="비밀번호"
+                    type="password"
+                    name="pw"
+                    value={inputs.pw}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <RadioSingle
+                    label="국가 분류"
+                    name="nationtype"
+                    value={inputs.nationtype || "1"}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "1", title: "국내" },
+                        { value: "2", title: "국외" },
+                    ]}
+                />
+                <Select
+                    label="국가 코드"
+                    name="nationcode"
+                    value={inputs.nationcode || "KOREA"}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                    options={optionsCountry(inputs.nationcode)}
+                    disabled={inputs.nationtype === "1"}
+                />
 
-            <FormLayout>
-                <FormSection center title="기사 회원 등록">
-                    <Input
-                        label="이름"
-                        name="drivername"
-                        value={inputs.drivername}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="아이디"
-                        name="id"
-                        value={inputs.id}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="비밀번호"
-                        type="password"
-                        name="pw"
-                        value={inputs.pw}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <RadioSingle
-                        label="국가 분류"
-                        name="nationtype"
-                        value={inputs.nationtype || "1"}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "1", title: "국내" },
-                            { value: "2", title: "국외" },
-                        ]}
-                    />
-                    <Select
-                        label="국가 코드"
-                        name="nationcode"
-                        value={inputs.nationcode || "KOREA"}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                        options={optionsCountry(inputs.nationcode)}
-                        disabled={inputs.nationtype === "1"}
-                    />
-
-                    <Select
-                        label="시도 코드"
-                        name="sidocode"
-                        value={inputs.sidocode}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                        options={optionsCity(inputs.sidocode)}
-                    />
-                    <Select
-                        label="지역 코드"
-                        name="areacode"
-                        value={inputs.areacode}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                        options={optionsRegion(inputs.areacode)}
-                    />
-                    <InputDate
-                        label="생년월일"
-                        name="birthday"
-                        value={inputs.birthday}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="전화번호"
-                        name="telnumber"
-                        value={inputs.telnumber}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="차종"
-                        name="cartype"
-                        value={inputs.cartype}
-                        onChange={handleChangeInputs}
-                    />
-                    <Input
-                        label="차량번호"
-                        name="carnumber"
-                        value={inputs.carnumber}
-                        onChange={handleChangeInputs}
-                    />
-                    <Input
-                        label="면허증 번호"
-                        name="carlicense"
-                        value={inputs.carlicense}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <RadioSingle
-                        label="소속"
-                        name="businesstype"
-                        value={inputs.businesstype}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "1", title: "개인" },
-                            { value: "2", title: "사업자" },
-                        ]}
-                    />
-                    {/* <Input
+                <Select
+                    label="시도 코드"
+                    name="sidocode"
+                    value={inputs.sidocode}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                    options={optionsCity(inputs.sidocode)}
+                />
+                <Select
+                    label="지역 코드"
+                    name="areacode"
+                    value={inputs.areacode}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                    options={optionsRegion(inputs.areacode)}
+                />
+                <InputDate
+                    label="생년월일"
+                    name="birthday"
+                    value={inputs.birthday}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="전화번호"
+                    name="telnumber"
+                    value={inputs.telnumber}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="차종"
+                    name="cartype"
+                    value={inputs.cartype}
+                    onChange={handleChangeInputs}
+                />
+                <Input
+                    label="차량번호"
+                    name="carnumber"
+                    value={inputs.carnumber}
+                    onChange={handleChangeInputs}
+                />
+                <Input
+                    label="면허증 번호"
+                    name="carlicense"
+                    value={inputs.carlicense}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <RadioSingle
+                    label="소속"
+                    name="businesstype"
+                    value={inputs.businesstype}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "1", title: "개인" },
+                        { value: "2", title: "사업자" },
+                    ]}
+                />
+                {/* <Input
                         label="회사명"
                         name="companyName"
                         value={inputs.companyName}
@@ -220,21 +214,21 @@ const UserFormDriver = ({ match }) => {
                         value={inputs.complain}
                         onChange={handleChangeInputs}
                     /> */}
-                    <Input
-                        label="평점"
-                        name="grade"
-                        value={inputs.grade}
-                        onChange={handleChangeInputs}
-                    />
-                    <Textarea
-                        label="기타"
-                        name="etc"
-                        value={inputs.etc}
-                        onChange={handleChangeInputs}
-                        rows={6}
-                    />
-                </FormSection>
-                {/* <FormSection>
+                <Input
+                    label="평점"
+                    name="grade"
+                    value={inputs.grade}
+                    onChange={handleChangeInputs}
+                />
+                <Textarea
+                    label="기타"
+                    name="etc"
+                    value={inputs.etc}
+                    onChange={handleChangeInputs}
+                    rows={6}
+                />
+            </FormSection>
+            {/* <FormSection>
                     <FileSingle
                         label="기사 사진"
                         name="profile"
@@ -256,9 +250,8 @@ const UserFormDriver = ({ match }) => {
                         onChange={handleChangeFile}
                     />
                 </FormSection> */}
-            </FormLayout>
-        </Content>
+        </FormLayout>
     );
 };
 
-export default UserFormDriver;
+export default MemberFormDriver;

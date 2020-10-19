@@ -3,9 +3,14 @@ import { useSelector, useDispatch } from "react-redux";
 import history from "../../../history";
 import queryString from "query-string";
 import fileAPI from "../../../util/fileAPI";
-import useInputs from "../../../Hooks/useInputs";
+import { optionsCountry } from "../../../util/options";
+
+// redux
 import { boardAction_detail, boardAction_update } from "../../../redux/actions";
 import { validateAll, validateArea } from "../../../util/validate";
+
+import useInputs from "../../../Hooks/useInputs";
+import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     File,
     FormLayout,
@@ -14,12 +19,6 @@ import {
     RadioSingle,
     Select,
 } from "../../../components/Form/Form";
-import {
-    Content,
-    ContentBtn,
-    ContentNav,
-} from "../../../components/Content/Content";
-import { optionsCountry } from "../../../util/options";
 
 const initialValue = {
     idx: "",
@@ -109,7 +108,7 @@ const TourFormArea = ({ match }) => {
     };
 
     return (
-        <Content>
+        <FormLayout>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     type={id === "new" ? "form" : type}
@@ -117,66 +116,63 @@ const TourFormArea = ({ match }) => {
                     handleClickDelete={() => history.goBack()}
                 />
             </ContentNav>
-
-            <FormLayout>
-                <FormSection center title="지역코드 추가">
-                    <Select
-                        label="국가 코드"
-                        name="nationidx"
-                        value={inputs.nationidx}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                        options={optionsCountry(inputs.nationidx)}
-                    />
-                    <Input
-                        label="시도 코드"
-                        name="sidocode"
-                        value={inputs.sidocode}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="시도명"
-                        name="sidoname"
-                        value={inputs.sidoname}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="지역 코드"
-                        name="areacode"
-                        value={inputs.areacode}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="지역명"
-                        name="areaname"
-                        value={inputs.areaname}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <RadioSingle
-                        label="대표사진 유무"
-                        name="mainpicYN"
-                        value={inputs.mainpicYN}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "Y", title: "있음" },
-                            { value: "N", title: "없음" },
-                        ]}
-                    />
-                    <File
-                        label="대표 사진"
-                        name="mainpickpath"
-                        filename={inputs.mainpicfilename}
-                        path={inputs.mainpicpath}
-                        handleChangeFile={handleChangeFile}
-                        filetype="image"
-                    />
-                </FormSection>
-            </FormLayout>
-        </Content>
+            <FormSection center title="지역코드 추가">
+                <Select
+                    label="국가 코드"
+                    name="nationidx"
+                    value={inputs.nationidx}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                    options={optionsCountry(inputs.nationidx)}
+                />
+                <Input
+                    label="시도 코드"
+                    name="sidocode"
+                    value={inputs.sidocode}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="시도명"
+                    name="sidoname"
+                    value={inputs.sidoname}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="지역 코드"
+                    name="areacode"
+                    value={inputs.areacode}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="지역명"
+                    name="areaname"
+                    value={inputs.areaname}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <RadioSingle
+                    label="대표사진 유무"
+                    name="mainpicYN"
+                    value={inputs.mainpicYN}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "Y", title: "있음" },
+                        { value: "N", title: "없음" },
+                    ]}
+                />
+                <File
+                    label="대표 사진"
+                    name="mainpickpath"
+                    filename={inputs.mainpicfilename}
+                    path={inputs.mainpicpath}
+                    handleChangeFile={handleChangeFile}
+                    filetype="image"
+                />
+            </FormSection>
+        </FormLayout>
     );
 };
 

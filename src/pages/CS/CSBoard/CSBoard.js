@@ -3,7 +3,6 @@ import history from "../../../history";
 
 import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
 import {
-    Content,
     ContentBtn,
     ContentNav,
     ContentBody,
@@ -17,6 +16,7 @@ import {
     boardAction_delete,
 } from "../../../redux/actions";
 
+// BBB
 const CSBoard = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
@@ -64,7 +64,7 @@ const CSBoard = ({ match }) => {
     };
 
     return (
-        <Content>
+        <React.Fragment>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     handleClickInsert={handleClickInsert}
@@ -89,7 +89,7 @@ const CSBoard = ({ match }) => {
                     handleChangePageCtrl={handleChangePageCtrl}
                 />
             </ContentBody>
-        </Content>
+        </React.Fragment>
     );
 };
 

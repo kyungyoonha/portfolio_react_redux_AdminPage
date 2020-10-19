@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import history from "../../../history";
 import fileAPI from "../../../util/fileAPI";
+import { validateAll, validateNotice } from "../../../util/validate";
+
+import useInputs from "../../../Hooks/useInputs";
+import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
     FormSection,
@@ -9,14 +13,6 @@ import {
     Textarea,
     InputForm,
 } from "../../../components/Form/Form";
-
-import {
-    Content,
-    ContentBtn,
-    ContentNav,
-} from "../../../components/Content/Content";
-import { validateAll, validateNotice } from "../../../util/validate";
-import useInputs from "../../../Hooks/useInputs";
 
 const initialValue = {
     idx: "",
@@ -73,7 +69,7 @@ const CSFormNotice = ({ match }) => {
         }
     };
     return (
-        <Content>
+        <FormLayout>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
@@ -82,55 +78,53 @@ const CSFormNotice = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout>
-                <FormSection center title="공지 추가">
-                    <Input
-                        label="제목"
-                        name="title"
-                        value={inputs.title}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <RadioSingle
-                        label="공개여부"
-                        name="showYN"
-                        value={inputs.showYN}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                        options={[
-                            { value: "Y", title: "공개" },
-                            { value: "N", title: "비공개" },
-                        ]}
-                    />
-                    <InputForm
-                        label="첨부파일"
-                        name="filepath"
-                        value={inputs.filename}
-                        handleChangeFile={handleChangeFile}
-                        filetype="all"
-                    />
-                    <RadioSingle
-                        label="상단노출"
-                        name="topYN"
-                        value={inputs.topYN}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                        options={[
-                            { value: "Y", title: "상단노출" },
-                            { value: "N", title: "비공개" },
-                        ]}
-                    />
-                    <Textarea
-                        label="내용"
-                        name="contents"
-                        value={inputs.contents}
-                        onChange={handleChangeInputs}
-                        rows={8}
-                        errors={errors}
-                    />
-                </FormSection>
-            </FormLayout>
-        </Content>
+            <FormSection center title="공지 추가">
+                <Input
+                    label="제목"
+                    name="title"
+                    value={inputs.title}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <RadioSingle
+                    label="공개여부"
+                    name="showYN"
+                    value={inputs.showYN}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                    options={[
+                        { value: "Y", title: "공개" },
+                        { value: "N", title: "비공개" },
+                    ]}
+                />
+                <InputForm
+                    label="첨부파일"
+                    name="filepath"
+                    value={inputs.filename}
+                    handleChangeFile={handleChangeFile}
+                    filetype="all"
+                />
+                <RadioSingle
+                    label="상단노출"
+                    name="topYN"
+                    value={inputs.topYN}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                    options={[
+                        { value: "Y", title: "상단노출" },
+                        { value: "N", title: "비공개" },
+                    ]}
+                />
+                <Textarea
+                    label="내용"
+                    name="contents"
+                    value={inputs.contents}
+                    onChange={handleChangeInputs}
+                    rows={8}
+                    errors={errors}
+                />
+            </FormSection>
+        </FormLayout>
     );
 };
 

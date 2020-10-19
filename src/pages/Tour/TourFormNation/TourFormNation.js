@@ -6,11 +6,7 @@ import useInputs from "../../../Hooks/useInputs";
 import { boardAction_detail, boardAction_update } from "../../../redux/actions";
 import { validateAll, validateNation } from "../../../util/validate";
 import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
-import {
-    Content,
-    ContentBtn,
-    ContentNav,
-} from "../../../components/Content/Content";
+import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 
 const initialValue = {
     idx: "",
@@ -72,7 +68,7 @@ const TourFormNation = ({ match }) => {
     };
 
     return (
-        <Content>
+        <FormLayout>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     type={id === "new" ? "form" : type}
@@ -81,40 +77,38 @@ const TourFormNation = ({ match }) => {
                 />
             </ContentNav>
 
-            <FormLayout>
-                <FormSection center title="국가코드 관리">
-                    <Input
-                        label="국가한국이름"
-                        name="koreanname"
-                        value={inputs.koreanname}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="국가영어이름"
-                        name="englishname"
-                        value={inputs.englishname}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="국가코드 3자리"
-                        name="code3"
-                        value={inputs.code3}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
+            <FormSection center title="국가코드 관리">
+                <Input
+                    label="국가한국이름"
+                    name="koreanname"
+                    value={inputs.koreanname}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="국가영어이름"
+                    name="englishname"
+                    value={inputs.englishname}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="국가코드 3자리"
+                    name="code3"
+                    value={inputs.code3}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
 
-                    <Input
-                        label="국가코드 2자리"
-                        name="code2"
-                        value={inputs.code2}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                </FormSection>
-            </FormLayout>
-        </Content>
+                <Input
+                    label="국가코드 2자리"
+                    name="code2"
+                    value={inputs.code2}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+            </FormSection>
+        </FormLayout>
     );
 };
 

@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import history from "../../../history";
+import { validateAll, validateMember } from "../../../util/validate";
+import fileAPI from "../../../util/fileAPI";
+
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { boardAction_update } from "../../../redux/actions";
+
+import useInputs from "../../../Hooks/useInputs";
+import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
     FormSection,
@@ -10,17 +19,6 @@ import {
     InputAddress,
     File,
 } from "../../../components/Form/Form";
-
-import {
-    Content,
-    ContentBtn,
-    ContentNav,
-} from "../../../components/Content/Content";
-import { validateAll, validateMember } from "../../../util/validate";
-import useInputs from "../../../Hooks/useInputs";
-import { useDispatch, useSelector } from "react-redux";
-import { boardAction_update } from "../../../redux/actions";
-import fileAPI from "../../../util/fileAPI";
 
 const initialValue = {
     idx: "",
@@ -45,7 +43,7 @@ const initialValue = {
     purchase: [],
 };
 //working ###
-const UserFormMember = ({ match }) => {
+const MemberFormUser = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { name } = useSelector((state) => state.user);
@@ -92,7 +90,7 @@ const UserFormMember = ({ match }) => {
     };
 
     return (
-        <Content>
+        <FormLayout>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     type="form"
@@ -100,69 +98,67 @@ const UserFormMember = ({ match }) => {
                     handleClickDelete={() => history.goBack()}
                 />
             </ContentNav>
+            <FormSection>
+                <Input
+                    label="이름"
+                    name="username"
+                    value={inputs.username}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="id"
+                    name="id"
+                    value={inputs.id}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="비밀번호"
+                    type="password"
+                    name="pw"
+                    value={inputs.pw}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
 
-            <FormLayout>
-                <FormSection>
-                    <Input
-                        label="이름"
-                        name="username"
-                        value={inputs.username}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="id"
-                        name="id"
-                        value={inputs.id}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="비밀번호"
-                        type="password"
-                        name="pw"
-                        value={inputs.pw}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-
-                    <InputDate
-                        label="생년월일"
-                        name="birthday"
-                        value={inputs.birthday}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="전화번호"
-                        name="telnumber"
-                        value={inputs.telnumber}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="별명"
-                        name="nickname"
-                        value={inputs.nickname}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <Input
-                        label="이메일"
-                        name="email"
-                        value={inputs.email}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    <InputAddress
-                        label="주소"
-                        name="address"
-                        value={inputs.address}
-                        setInputs={setInputs}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-                    {/* <Input
+                <InputDate
+                    label="생년월일"
+                    name="birthday"
+                    value={inputs.birthday}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="전화번호"
+                    name="telnumber"
+                    value={inputs.telnumber}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="별명"
+                    name="nickname"
+                    value={inputs.nickname}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
+                    label="이메일"
+                    name="email"
+                    value={inputs.email}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <InputAddress
+                    label="주소"
+                    name="address"
+                    value={inputs.address}
+                    setInputs={setInputs}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                {/* <Input
                         label="누적투어수"
                         name="tourCnt"
                         value={inputs.tourCnt}
@@ -193,59 +189,58 @@ const UserFormMember = ({ match }) => {
                             { key: "bear", title: "곰돌이" },
                         ]}
                     /> */}
-                    <RadioSingle
-                        label="이메일 수신"
-                        name="emailagree"
-                        value={inputs.emailagree}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "Y", title: "수신" },
-                            { value: "N", title: "미수신" },
-                        ]}
-                    />
+                <RadioSingle
+                    label="이메일 수신"
+                    name="emailagree"
+                    value={inputs.emailagree}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "Y", title: "수신" },
+                        { value: "N", title: "미수신" },
+                    ]}
+                />
 
-                    <RadioSingle
-                        label="문자 수신"
-                        name="messageagree"
-                        value={inputs.messageagree}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "Y", title: "수신" },
-                            { value: "N", title: "미수신" },
-                        ]}
-                    />
+                <RadioSingle
+                    label="문자 수신"
+                    name="messageagree"
+                    value={inputs.messageagree}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "Y", title: "수신" },
+                        { value: "N", title: "미수신" },
+                    ]}
+                />
 
-                    <RadioSingle
-                        label="문자 수신"
-                        name="pushagree"
-                        value={inputs.pushagree}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "Y", title: "수신" },
-                            { value: "N", title: "미수신" },
-                        ]}
-                    />
-                    <Textarea
-                        label="기타"
-                        name="etc"
-                        value={inputs.ect}
-                        onChange={handleChangeInputs}
-                        rows={6}
-                    />
-                </FormSection>
-                <FormSection>
-                    <File
-                        label="프로필"
-                        name="profile"
-                        filename=""
-                        path={inputs.profile}
-                        handleChangeFile={handleChangeFile}
-                        filetype="image"
-                    />
-                </FormSection>
-            </FormLayout>
-        </Content>
+                <RadioSingle
+                    label="문자 수신"
+                    name="pushagree"
+                    value={inputs.pushagree}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "Y", title: "수신" },
+                        { value: "N", title: "미수신" },
+                    ]}
+                />
+                <Textarea
+                    label="기타"
+                    name="etc"
+                    value={inputs.ect}
+                    onChange={handleChangeInputs}
+                    rows={6}
+                />
+            </FormSection>
+            <FormSection>
+                <File
+                    label="프로필"
+                    name="profile"
+                    filename=""
+                    path={inputs.profile}
+                    handleChangeFile={handleChangeFile}
+                    filetype="image"
+                />
+            </FormSection>
+        </FormLayout>
     );
 };
 
-export default UserFormMember;
+export default MemberFormUser;

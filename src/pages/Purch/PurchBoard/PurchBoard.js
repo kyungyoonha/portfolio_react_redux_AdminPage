@@ -4,7 +4,6 @@ import history from "../../../history";
 import InfoTop from "./components/InfoTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
 import {
-    Content,
     ContentBtn,
     ContentNav,
     ContentBody,
@@ -18,6 +17,7 @@ import {
     boardAction_delete,
 } from "../../../redux/actions";
 
+// BBB
 const PurchBoard = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
@@ -61,7 +61,7 @@ const PurchBoard = ({ match }) => {
     };
 
     return (
-        <Content>
+        <React.Fragment>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     handleClickInsert={handleClickInsert}
@@ -86,7 +86,7 @@ const PurchBoard = ({ match }) => {
                     handleChangePageCtrl={handleChangePageCtrl}
                 />
             </ContentBody>
-        </Content>
+        </React.Fragment>
     );
 };
 

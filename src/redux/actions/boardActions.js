@@ -6,6 +6,7 @@ import {
     BOARD_INSERT,
     BOARD_EDIT,
     BOARD_DELETE,
+    BOARD_INSERT_TYPE,
 } from "../types";
 import axios from "axios";
 
@@ -83,4 +84,11 @@ export const boardAction_delete = (pageId, itemId) => async (dispatch) => {
     } catch (e) {
         console.error("boardAction_delete Error", e);
     }
+};
+
+export const boardAction_insertType = (type) => {
+    return {
+        type: BOARD_INSERT_TYPE,
+        payload: type,
+    };
 };

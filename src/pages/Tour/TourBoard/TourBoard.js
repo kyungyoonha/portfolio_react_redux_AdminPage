@@ -4,7 +4,6 @@ import history from "../../../history";
 import TourBoardTop from "./components/TourBoardTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
 import {
-    Content,
     ContentBtn,
     ContentNav,
     ContentBody,
@@ -18,6 +17,7 @@ import {
     boardAction_delete,
 } from "../../../redux/actions";
 
+// BBB
 const TourBoard = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
@@ -70,7 +70,7 @@ const TourBoard = ({ match }) => {
     };
 
     return (
-        <Content>
+        <React.Fragment>
             <ContentNav pageId={pageId}>
                 <ContentBtn
                     handleClickInsert={() => handleClickEditCopy("new")}
@@ -114,7 +114,7 @@ const TourBoard = ({ match }) => {
                     handleChangePageCtrl={handleChangePageCtrl}
                 />
             </ContentBody>
-        </Content>
+        </React.Fragment>
     );
 };
 
