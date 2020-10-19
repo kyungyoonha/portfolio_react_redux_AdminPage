@@ -226,7 +226,7 @@ export const RadioSingle = ({
                             checked={value === option.value}
                             onChange={onChange}
                             id={name + option.value}
-                            disabled
+                            disabled={disabled}
                         />
                         <label
                             className="form-check-label"
@@ -534,7 +534,7 @@ export const File = ({
     );
 };
 
-export const InputForm = ({
+export const InputFile = ({
     label,
     name,
     value,
@@ -745,15 +745,15 @@ export const InputTimeRange = ({ value, onChange, errors = {}, disabled }) => {
     );
 };
 
-export const FormAudioList = ({ data }) => {
+export const FormAudioList = ({ data, children, handleDeleteAudio }) => {
     return (
         <tr className="formAudioList">
-            <th>※ 오디오 리스트</th>
+            <th>※ 오디오 리스트 {children}</th>
             <td>
                 <div className="formAudioList__container">
                     {data.map((item, idx) => (
                         <div key={idx} className="formAudioList__item">
-                            - {item.scripttitle}
+                            {idx + 1 + " " + item.scripttitle}
                             <span className="badge badge-success ml-1 mr-1">
                                 {item.audiolanguage}
                             </span>
@@ -765,6 +765,7 @@ export const FormAudioList = ({ data }) => {
                             <button
                                 type="button"
                                 className="btn btn-outline-danger btn-sm float-right mt-1"
+                                onClick={() => handleDeleteAudio(idx)}
                             >
                                 삭제
                             </button>

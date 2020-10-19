@@ -297,6 +297,13 @@ export const validateService = (name, value) => {
     }
 };
 
+export const validateAudio = (name, value) => {
+    switch (name) {
+        default:
+            return;
+    }
+};
+
 const isEmpty = (input) => {
     if (String(input).trim() === "") return true;
     else return false;

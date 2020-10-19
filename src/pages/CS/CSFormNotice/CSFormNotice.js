@@ -11,7 +11,7 @@ import {
     Input,
     RadioSingle,
     Textarea,
-    InputForm,
+    InputFile,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -97,7 +97,7 @@ const CSFormNotice = ({ match }) => {
                         { value: "N", title: "비공개" },
                     ]}
                 />
-                <InputForm
+                <InputFile
                     label="첨부파일"
                     name="filepath"
                     value={inputs.filename}

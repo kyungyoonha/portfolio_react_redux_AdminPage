@@ -26,10 +26,11 @@ import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import history from "../../../history";
 import { validateAll, validatePackage } from "../../../util/validate";
 import useInputs from "../../../Hooks/useInputs";
-import {
-    fileAction_getAudios,
-    fileAction_getImages,
-} from "../../../redux/actions";
+// import {
+//     fileAction_getAudios,
+//     fileAction_getImages,
+// } from "../../../redux/actions";
+import TourModalAudio from "./TourModalAudio/TourModalAudio";
 
 const initialValue = {
     idx: "",
@@ -69,32 +70,35 @@ const initialValue = {
 const TourFormPackage = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
+    const [audios, setAudios] = useState([]);
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validatePackage,
         setErrors
     );
 
-    const dispatch = useDispatch();
-    const { audios, audioMain, audioSub } = useSelector((state) => state.file);
+    // const dispatch = useDispatch();
+    // //const { audios, audioMain, audioSub } = useSelector((state) => state.file);
+
+    // useEffect(() => {
+    //     dispatch(fileAction_getAudios("1"));
+    //     // dispatch(fileAction_getImages("1"));
+    // }, [dispatch]);
 
     useEffect(() => {
-        dispatch(fileAction_getAudios("1"));
-        // dispatch(fileAction_getImages("1"));
-    }, [dispatch]);
-
-    useEffect(() => {
-        audioMain &&
+        let audioMain = audios.filter((item) => item.mainaudioYN === "Y");
+        let audioSub = audios.filter((item) => item.mainaudioYN === "N");
+        audioMain.length &&
             setInputs((state) => ({
                 ...state,
                 mainaudioYN: "Y",
             }));
-        audioSub &&
+        audioSub.length &&
             setInputs((state) => ({
                 ...state,
                 subaudioYN: "Y",
             }));
-    }, [setInputs, audioMain, audioSub]);
+    }, [setInputs, audios]);
 
     const handleChangeImageList = (newImgList) => {
         setInputs((state) => ({
@@ -102,33 +106,6 @@ const TourFormPackage = ({ match }) => {
             imageList: newImgList,
         }));
     };
-
-    // const handleChangeAudioList = (newAudioList) => {
-    //     setInputs((state) => ({
-    //         ...state,
-    //         audioList: [...state.audioList, newAudioList],
-    //     }));
-    // };
-
-    // const handleDeleteAudioList = (idx) => {
-    //     setInputs((state) => ({
-    //         ...state,
-    //         audioList: state.audioList.filter((_, i) => String(i) !== idx),
-    //     }));
-    // };
-
-    // const handleChangeAudioMain = ({ selected, name, value }) => {
-    //     setInputs((state) => ({
-    //         ...state,
-    //         audioMain: {
-    //             ...state.audioMain,
-    //             [selected]: {
-    //                 ...state.audioMain[selected],
-    //                 [name]: value,
-    //             },
-    //         },
-    //     }));
-    // };
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validatePackage);
@@ -152,6 +129,15 @@ const TourFormPackage = ({ match }) => {
             setErrors(checkedErrors);
         }
     };
+
+    const handleChangeAudio = (audio) => {
+        setAudios((state) => [audio, ...state]);
+    };
+
+    const handleDeleteAudio = (idx) => {
+        setAudios((state) => state.filter((_, i) => i !== idx));
+    };
+
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>
@@ -298,18 +284,12 @@ const TourFormPackage = ({ match }) => {
                     value={inputs.mainaudioYN}
                     onChange={handleChangeInputs}
                     errors={errors}
-                    disabled={audioMain.length > 0}
+                    disabled={true}
                     options={[
                         { value: "Y", title: "있음" },
                         { value: "N", title: "없음" },
                     ]}
-                >
-                    {inputs.mainaudioYN === "Y" && (
-                        <button type="button" className="btn btn-primary mt-3">
-                            대표 오디오 추가
-                        </button>
-                    )}
-                </RadioSingle>
+                />
 
                 <RadioSingle
                     label="세부 오디오 가이드"
@@ -317,37 +297,23 @@ const TourFormPackage = ({ match }) => {
                     value={inputs.subaudioYN}
                     onChange={handleChangeInputs}
                     errors={errors}
-                    disabled={audioSub.length > 0}
+                    disabled={true}
                     options={[
                         { value: "Y", title: "있음" },
                         { value: "N", title: "없음" },
                     ]}
-                >
-                    {inputs.subaudioYN === "Y" && (
-                        <button type="button" className="btn btn-primary mt-3">
-                            세부 오디오 추가
-                        </button>
-                    )}
-                </RadioSingle>
+                />
 
-                <FormAudioList data={audios} />
+                <FormAudioList
+                    data={audios}
+                    handleDeleteAudio={handleDeleteAudio}
+                >
+                    <TourModalAudio
+                        title="오디오 추가하기(+)"
+                        handleChangeAudio={handleChangeAudio}
+                    />
+                </FormAudioList>
             </FormSection>
-            {/* <FormAudio
-                    inputs={inputs}
-                    onChange={handleChangeInputs}
-                    audioList={inputs.audioList}
-                    handleChangeAudioList={handleChangeAudioList}
-                    handleDeleteAudioList={handleDeleteAudioList}
-                    disabled={inputs.subaudioYN === "N"}
-                /> */}
-            {/* 오디오 메인 등록
-                <FormAudioMain
-                    inputs={inputs}
-                    onChange={handleChangeInputs}
-                    audioMain={inputs.audioMain}
-                    handleChangeAudioMain={handleChangeAudioMain}
-                    disabled={inputs.mainaudioYN === "N"}
-                /> */}
         </FormLayout>
     );
 };

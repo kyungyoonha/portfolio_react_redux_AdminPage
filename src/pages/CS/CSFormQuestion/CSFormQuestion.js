@@ -15,7 +15,7 @@ import {
     FormLayout,
     FormSection,
     Textarea,
-    InputForm,
+    InputFile,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -164,7 +164,7 @@ const CSFormQuestion = ({ match }) => {
                     onChange={handleChangeInputs}
                 />
 
-                <InputForm
+                <InputFile
                     label="첨부파일"
                     name="filepath"
                     value={inputs.filename}

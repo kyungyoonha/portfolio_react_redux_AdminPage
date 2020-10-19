@@ -45,7 +45,6 @@ const TourFormArea = ({ match }) => {
     const dispatch = useDispatch();
     const { detail } = useSelector((state) => state.board);
     const { name } = useSelector((state) => state.user);
-
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,

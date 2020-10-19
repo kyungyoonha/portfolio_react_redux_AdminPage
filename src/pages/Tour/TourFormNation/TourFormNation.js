@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
 import history from "../../../history";
 import queryString from "query-string";
 import useInputs from "../../../Hooks/useInputs";
-import { boardAction_detail, boardAction_update } from "../../../redux/actions";
 import { validateAll, validateNation } from "../../../util/validate";
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { boardAction_detail, boardAction_update } from "../../../redux/actions";
+
 import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 
