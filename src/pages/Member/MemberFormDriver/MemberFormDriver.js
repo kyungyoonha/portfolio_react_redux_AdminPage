@@ -21,6 +21,7 @@ import {
     RadioSingle,
     Textarea,
     InputDate,
+    // File,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -83,6 +84,7 @@ const MemberFormDriver = ({ match }) => {
         }
     };
 
+    //const handleChangeFile = () => {};
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>
@@ -229,27 +231,31 @@ const MemberFormDriver = ({ match }) => {
                 />
             </FormSection>
             {/* <FormSection>
-                    <FileSingle
-                        label="기사 사진"
-                        name="profile"
-                        file={files.profile}
-                        onChange={handleChangeFile}
-                    />
-
-                    <FileSingle
-                        label="면허증 사진"
-                        name="license"
-                        file={files.license}
-                        onChange={handleChangeFile}
-                    />
-
-                    <FileSingle
-                        label="차량 사진"
-                        name="carPic"
-                        file={files.carPic}
-                        onChange={handleChangeFile}
-                    />
-                </FormSection> */}
+                <File
+                    label="기사 사진"
+                    name="driverpath"
+                    filename={inputs.drivername}
+                    path={inputs.driverpath}
+                    handleChangeFile={handleChangeFile}
+                    filetype="image"
+                />
+                <File
+                    label="면허증 사진"
+                    name="licensepath"
+                    filename={inputs.licensename}
+                    path={inputs.licensepath}
+                    handleChangeFile={handleChangeFile}
+                    filetype="image"
+                />
+                <File
+                    label="차량 사진"
+                    name="carpath"
+                    filename={inputs.carname}
+                    path={inputs.carpath}
+                    handleChangeFile={handleChangeFile}
+                    filetype="image"
+                />
+            </FormSection> */}
         </FormLayout>
     );
 };

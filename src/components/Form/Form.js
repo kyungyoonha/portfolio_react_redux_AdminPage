@@ -5,6 +5,7 @@ import ReactDatePicker from "react-datepicker";
 import Map from "../Google/Map";
 //import ReactModal from "react-modal";
 import TimePicker from "../TimePicker/TimePicker";
+import ModalNumRange from "../Modal/ModalNumRange";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
@@ -112,44 +113,6 @@ export const Select = ({
                 {errors[name] && (
                     <div className="invalid-feedback">{errors[name]}</div>
                 )}
-            </td>
-        </tr>
-    );
-};
-
-export const SelectMultiCustom = ({ inputs, onChange, options }) => {
-    return (
-        <tr className="selectMultiCustom">
-            <th>
-                <label className="col-form-label">※ 인원</label>
-            </th>
-            <td>
-                <label className="col-form-label">최소:</label>
-                <select
-                    name="guestNumMin"
-                    value={inputs.guestNumMin}
-                    onChange={onChange}
-                    className="custom-select"
-                >
-                    {options.map((item) => (
-                        <option key={item.value} value={item.value}>
-                            {item.title}
-                        </option>
-                    ))}
-                </select>
-                <label className="col-form-label">최대:</label>
-                <select
-                    name="guestNumMax"
-                    value={inputs.guestNumMax}
-                    onChange={onChange}
-                    className="custom-select"
-                >
-                    {options.map((item) => (
-                        <option key={item.value} value={item.value}>
-                            {item.title}
-                        </option>
-                    ))}
-                </select>
             </td>
         </tr>
     );
@@ -309,161 +272,6 @@ export const Textarea = ({
                 )}
             </td>
         </tr>
-    );
-};
-
-export const FileUpload = ({ label, name, value, onChange, ctg, disabled }) => {
-    return (
-        <tr>
-            <th>
-                <label>※ {label}</label>
-            </th>
-            <td>
-                <div className="custom-file">
-                    <input
-                        type="file"
-                        className="custom-file-input"
-                        name={name}
-                        onChange={(e) => onChange(e, ctg)}
-                        disabled={disabled}
-                    />
-                    <label className="custom-file-label" data-browse={label}>
-                        {value}
-                    </label>
-                </div>
-            </td>
-        </tr>
-    );
-};
-
-export const FileUploadMany = ({
-    label,
-    name,
-    files,
-    onChange,
-    multiple,
-    disabled,
-}) => {
-    return (
-        <tr>
-            <th>
-                <label>※ {label}</label>
-            </th>
-            <td>
-                <div className="custom-file">
-                    <input
-                        type="file"
-                        className="custom-file-input"
-                        name={name}
-                        onChange={onChange}
-                        multiple={multiple}
-                        disabled={disabled}
-                    />
-                    <label className="custom-file-label" data-browse={label}>
-                        {files.map((file) => file.name)}
-                    </label>
-                </div>
-            </td>
-        </tr>
-    );
-};
-
-export const FileuploadCard = ({ label, src, onChange, ctg }) => {
-    const inputFileRef = useRef(null);
-
-    const handleBtnClick = () => {
-        inputFileRef.current.click();
-    };
-    return (
-        <React.Fragment>
-            <tr>
-                <th rowSpan="2" style={{ verticalAlign: "middle" }}>
-                    <label>※ {label}</label>
-                </th>
-                <td className="text-center">
-                    <img
-                        src={src || noImg}
-                        alt={label}
-                        style={{
-                            height: "300px",
-                            width: "100%",
-                            objectFit: "contain",
-                        }}
-                    />
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <input
-                        ref={inputFileRef}
-                        type="file"
-                        hidden
-                        onChange={(e) => onChange(e, ctg)}
-                    />
-                    <button
-                        type="button"
-                        className="btn btn-primary btn-md"
-                        onClick={handleBtnClick}
-                    >
-                        이미지 찾기
-                    </button>
-                </td>
-            </tr>
-        </React.Fragment>
-    );
-};
-
-export const FileSingle = ({ label, name, file, onChange }) => {
-    const inputFileRef = useRef(null);
-
-    return (
-        <React.Fragment>
-            <tr>
-                <th
-                    rowSpan="2"
-                    style={{
-                        verticalAlign: "middle",
-                        borderBottom: "1px solid #dee2e6",
-                    }}
-                >
-                    <label>※ {label}</label>
-                </th>
-                <td className="text-center">
-                    <img
-                        src={file.src || noImg}
-                        alt={label}
-                        style={{
-                            height: "300px",
-                            width: "100%",
-                            objectFit: "contain",
-                        }}
-                    />
-                </td>
-            </tr>
-
-            <tr style={{ borderBottom: "1px solid #dee2e6" }}>
-                <td>
-                    <input
-                        ref={inputFileRef}
-                        name={name}
-                        type="file"
-                        hidden
-                        onChange={(e) => onChange(e)}
-                    />
-
-                    <button
-                        type="button"
-                        className="btn btn-primary btn-md"
-                        onClick={() => inputFileRef.current.click()}
-                        style={{ marginRight: "15px" }}
-                    >
-                        이미지 찾기
-                    </button>
-                    {file.filename}
-                </td>
-            </tr>
-        </React.Fragment>
     );
 };
 
@@ -820,5 +628,106 @@ export const FormImageList = ({ images, children }) => {
                 <td colSpan="3">{children}</td>
             </tr>
         </React.Fragment>
+    );
+};
+
+export const SelectMultiCustom = ({ inputs, onChange, options }) => {
+    return (
+        <tr className="selectMultiCustom">
+            <th>
+                <label className="col-form-label">※ 인원</label>
+            </th>
+            <td>
+                <label className="col-form-label">최소:</label>
+                <select
+                    name="guestNumMin"
+                    value={inputs.guestNumMin}
+                    onChange={onChange}
+                    className="custom-select"
+                >
+                    {options.map((item) => (
+                        <option key={item.value} value={item.value}>
+                            {item.title}
+                        </option>
+                    ))}
+                </select>
+                <label className="col-form-label">최대:</label>
+                <select
+                    name="guestNumMax"
+                    value={inputs.guestNumMax}
+                    onChange={onChange}
+                    className="custom-select"
+                >
+                    {options.map((item) => (
+                        <option key={item.value} value={item.value}>
+                            {item.title}
+                        </option>
+                    ))}
+                </select>
+            </td>
+        </tr>
+    );
+};
+
+export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const handleChangeInput = (value) => {
+        onChange({
+            target: {
+                name: "tourmemeber",
+                value,
+            },
+        });
+    };
+
+    const handleClickOpen = () => {
+        setModalOpen(true);
+        handleChangeInput("");
+    };
+
+    return (
+        <tr>
+            <th>
+                <label className="col-form-label">※ 투어 인원수</label>
+            </th>
+            <td>
+                <div className="input-group">
+                    <input
+                        name="tourmemeber"
+                        type="text"
+                        value={value}
+                        className={`form-control ${
+                            errors["tourmemeber"] && "is-invalid"
+                        }`}
+                        onChange={onChange}
+                        autoComplete="off"
+                        disabled={disabled}
+                        onClick={handleClickOpen}
+                    />
+                    <div
+                        className="input-group-append"
+                        onClick={handleClickOpen}
+                    >
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                        >
+                            <i className="fas fa-users "></i>
+                        </button>
+                    </div>
+                    {errors["tourmemeber"] && (
+                        <div className="invalid-feedback">
+                            {errors["tourmemeber"]}
+                        </div>
+                    )}
+                </div>
+
+                <ModalNumRange
+                    modalOpen={modalOpen}
+                    handleCloseModal={() => setModalOpen(false)}
+                    onChange={handleChangeInput}
+                />
+            </td>
+        </tr>
     );
 };

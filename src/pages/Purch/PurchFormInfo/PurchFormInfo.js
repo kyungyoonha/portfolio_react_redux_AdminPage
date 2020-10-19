@@ -17,6 +17,7 @@ import {
     FormLayout,
     FormSection,
     SelectMultiCustom,
+    InputNumRange,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -208,6 +209,11 @@ const PurchFormInfo = ({ match }) => {
                         { value: 4, title: "4명" },
                         { value: 5, title: "5명" },
                     ]}
+                />
+                <InputNumRange
+                    value={inputs.tourmember}
+                    onChange={handleChangeInputs}
+                    errors={errors}
                 />
                 <Input
                     label="가격"
