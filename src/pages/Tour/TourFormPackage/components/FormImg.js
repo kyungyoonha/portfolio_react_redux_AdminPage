@@ -3,7 +3,7 @@ import "./FormImg.scss";
 import FormImgModal from "./FormImgModal";
 import noImg from "../../../../img/no-img.jpg";
 
-const FormImg = ({ imageList, handleChangeImageList }) => {
+const FormImg = ({ images, handleChangeImageList, children }) => {
     return (
         <div className="formSection formImg">
             <table className="table">
@@ -21,7 +21,7 @@ const FormImg = ({ imageList, handleChangeImageList }) => {
                                 </span>
                             </h3>
                             <img
-                                src={imageList[0] ? imageList[0].src : noImg}
+                                src={images[0] ? images[0].src : noImg}
                                 alt="대표사진"
                             />
                         </td>
@@ -32,8 +32,8 @@ const FormImg = ({ imageList, handleChangeImageList }) => {
                                 <td key={idx}>
                                     <img
                                         src={
-                                            imageList[idx]
-                                                ? imageList[idx].src
+                                            images[idx]
+                                                ? images[idx].src
                                                 : noImg
                                         }
                                         alt="대표사진"
@@ -43,12 +43,7 @@ const FormImg = ({ imageList, handleChangeImageList }) => {
                         })}
                     </tr>
                     <tr>
-                        <td colSpan="3">
-                            <FormImgModal
-                                handleChangeImageList={handleChangeImageList}
-                                imageList={imageList}
-                            />
-                        </td>
+                        <td colSpan="3">{children}</td>
                     </tr>
                 </tbody>
             </table>

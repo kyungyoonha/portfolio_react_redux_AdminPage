@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
-import FormImg from "./components/FormImg";
-import { useSelector, useDispatch } from "react-redux";
-// import FormAudio from "./components/FormAudio";
-// import FormAudioMain from "../components/FormAudioMain";
+import history from "../../../history";
+import { validateAll, validatePackage } from "../../../util/validate";
+import {
+    optionsCountry,
+    optionsCity,
+    optionsRegion,
+} from "../../../util/options";
 
+// redux
+import { boardAction_update } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+
+import useInputs from "../../../Hooks/useInputs";
+import { ContentBtn, ContentNav } from "../../../components/Content/Content";
+import TourModalAudio from "./TourModalAudio/TourModalAudio";
+import TourModalImage from "./TourModalImage/TourModalImage";
 import {
     Input,
     Select,
@@ -15,22 +26,8 @@ import {
     InputAddress,
     InputTimeRange,
     FormAudioList,
+    FormImageList,
 } from "../../../components/Form/Form";
-
-import {
-    optionsCountry,
-    optionsCity,
-    optionsRegion,
-} from "../../../util/options";
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
-import history from "../../../history";
-import { validateAll, validatePackage } from "../../../util/validate";
-import useInputs from "../../../Hooks/useInputs";
-// import {
-//     fileAction_getAudios,
-//     fileAction_getImages,
-// } from "../../../redux/actions";
-import TourModalAudio from "./TourModalAudio/TourModalAudio";
 
 const initialValue = {
     idx: "",
@@ -55,49 +52,33 @@ const initialValue = {
     reguser: "",
     moddate: "",
     moduser: "",
-
-    imageList: [],
-    audioList: [],
-    audioMain: {
-        korea: { title: "", script: "", files: [] },
-        english: { title: "", script: "", files: [] },
-        japan: { title: "", script: "", files: [] },
-        china: { title: "", script: "", files: [] },
-    },
 };
 
 //working 이미지
 const TourFormPackage = ({ match }) => {
     const pageId = match.url.split("/")[2];
+    const dispatch = useDispatch();
+    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [audios, setAudios] = useState([]);
+    const [images, setImages] = useState([]);
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validatePackage,
         setErrors
     );
 
-    // const dispatch = useDispatch();
-    // //const { audios, audioMain, audioSub } = useSelector((state) => state.file);
-
-    // useEffect(() => {
-    //     dispatch(fileAction_getAudios("1"));
-    //     // dispatch(fileAction_getImages("1"));
-    // }, [dispatch]);
-
     useEffect(() => {
         let audioMain = audios.filter((item) => item.mainaudioYN === "Y");
         let audioSub = audios.filter((item) => item.mainaudioYN === "N");
-        audioMain.length &&
-            setInputs((state) => ({
-                ...state,
-                mainaudioYN: "Y",
-            }));
-        audioSub.length &&
-            setInputs((state) => ({
-                ...state,
-                subaudioYN: "Y",
-            }));
+        let mainaudioYN = audioMain.length ? "Y" : "N";
+        let subaudioYN = audioSub.length ? "Y" : "N";
+
+        setInputs((state) => ({
+            ...state,
+            mainaudioYN,
+            subaudioYN,
+        }));
     }, [setInputs, audios]);
 
     const handleChangeImageList = (newImgList) => {
@@ -110,20 +91,27 @@ const TourFormPackage = ({ match }) => {
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validatePackage);
 
-        // if (!inputs.imageList[0]) {
-        //     alert("관광지 사진을 추가해주세요.");
-        //     return;
-        // }
+        if (!images.length) {
+            alert("관광지 사진을 추가해주세요.");
+            return;
+        }
 
         if (isValid) {
             console.log("에러 없음");
-            // const result = {
-            //     ...inputs,
-            //     inextroversion: Number(inputs.inextroversion),
-            //     openclose: Number(inputs.openclose),
-            //     regdate: new Date().toISOString(),
-            //     reguser: user.name,
-            // };
+            dispatch(
+                boardAction_update(
+                    pageId,
+                    {
+                        ...inputs,
+                        inextroversion: Number(inputs.inextroversion),
+                        openclose: Number(inputs.openclose),
+                        regdate: new Date().toISOString(),
+                        reguser: name,
+                    },
+                    images,
+                    audios
+                )
+            );
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
@@ -136,6 +124,10 @@ const TourFormPackage = ({ match }) => {
 
     const handleDeleteAudio = (idx) => {
         setAudios((state) => state.filter((_, i) => i !== idx));
+    };
+
+    const handleChangeImage = (images) => {
+        setImages(images);
     };
 
     return (
@@ -235,12 +227,19 @@ const TourFormPackage = ({ match }) => {
                     errors={errors}
                 />
             </FormSection>
-
-            <FormImg
-                imageList={inputs.imageList}
-                handleChangeImageList={handleChangeImageList}
-            />
-
+            {/* 이미지 리스트 */}
+            <FormSection>
+                <FormImageList
+                    images={images}
+                    handleChangeImageList={handleChangeImageList}
+                >
+                    <TourModalImage
+                        images={images}
+                        handleChangeImage={handleChangeImage}
+                    />
+                </FormImageList>
+            </FormSection>
+            {/* 오디오 리스트 */}
             <FormSection full>
                 <RadioMulti
                     label="관심사 태그"
@@ -276,7 +275,6 @@ const TourFormPackage = ({ match }) => {
                     onChange={handleChangeInputs}
                 />
             </FormSection>
-            {/* 오디오 서브 등록 */}
             <FormSection full>
                 <RadioSingle
                     label="대표 오디오 가이드"

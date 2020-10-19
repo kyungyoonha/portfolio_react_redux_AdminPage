@@ -60,9 +60,25 @@ export const boardAction_selected = (id) => {
     };
 };
 
-export const boardAction_update = (pageId, newData) => async (dispatch) => {
+export const boardAction_update = (pageId, newData, images, audios) => async (
+    dispatch
+) => {
     try {
-        // await axios.post(`http://localhost:8000/${pageId}/update`, id);
+        // const touridx = await axios.post(
+        //     `http://localhost:8000/${pageId}/update`,
+        //     newData
+        // );
+        // 이미지 전송
+        // images && await axios.post(`http://localhost:8000/${pageId}/images`, {
+        //     ...images,
+        //     touridx,
+        // });
+        // 오디오 전송
+        // audios && await axios.post(`http://localhost:8000/${pageId}/audios`, {
+        //     ...audios,
+        //     touridx,
+        // });
+
         dispatch({
             type: newData.idx ? BOARD_EDIT : BOARD_INSERT,
             payload: newData,
@@ -76,7 +92,7 @@ export const boardAction_update = (pageId, newData) => async (dispatch) => {
 
 export const boardAction_delete = (pageId, itemId) => async (dispatch) => {
     try {
-        // await axios.post(`http://localhost:8000/${pageId}/delete`, id);
+        // await axios.post(`http://localhost:8000/${pageId}/delete`, itemId);
         dispatch({
             type: BOARD_DELETE,
             payload: itemId,

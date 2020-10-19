@@ -777,112 +777,48 @@ export const FormAudioList = ({ data, children, handleDeleteAudio }) => {
     );
 };
 
-// export const FormAudio2 = ({
-//     inputs,
-//     onChange,
-//     audioList,
-//     handleChangeAudioList,
-//     handleDeleteAudioList,
-//     disabled,
-// }) => {
-//     return (
-//         <div className="formSection formAudio full">
-//             <table className="table">
-//                 <tbody>
-//                     <tr>
-//                         <th rowSpan="4" className="formAudio__title">
-//                             <label>※ 세부 관광지 오디오 가이드</label>
-//                         </th>
-//                         <td colSpan="3">
-//                             {[
-//                                 { value: "Y", title: "있음" },
-//                                 { value: "N", title: "없음" },
-//                             ].map((option) => (
-//                                 <div
-//                                     key={option.value}
-//                                     className="form-check form-check-inline"
-//                                 >
-//                                     <input
-//                                         className="form-check-input"
-//                                         type="radio"
-//                                         name="subaudioYN"
-//                                         value={option.value}
-//                                         checked={
-//                                             inputs.subaudioYN === option.value
-//                                         }
-//                                         onChange={onChange}
-//                                         id={"subaudioYN" + option.value}
-//                                     />
-//                                     <label
-//                                         className="form-check-label"
-//                                         htmlFor={"subaudioYN" + option.value}
-//                                     >
-//                                         {option.title}
-//                                     </label>
-//                                 </div>
-//                             ))}
-//                         </td>
-//                     </tr>
-//                     {/* <tr className="text-center">
-//                         <td>
-//                             <button
-//                                 type="button"
-//                                 className="btn btn-outline-primary btn-block"
-//                                 onClick={handleClickDelete}
-//                                 disabled={disabled}
-//                             >
-//                                 (-) 삭제
-//                             </button>
-//                         </td>
-//                         <td>선택</td>
-//                         <td>
-//                             <select
-//                                 name="audioSelect"
-//                                 value={inputs.audioSelect}
-//                                 onChange={handleSelectedIdx}
-//                                 className="custom-select"
-//                                 disabled={disabled}
-//                             >
-//                                 <option value="">
-//                                     {audioList[0]
-//                                         ? "선택해주세요"
-//                                         : "아래 + 버튼으로 추가"}
-//                                 </option>
-//                                 {audioList.map((audio, idx) => (
-//                                     <option key={idx} value={idx}>
-//                                         {audio.inputs.name}
-//                                     </option>
-//                                 ))}
-//                             </select>
-//                         </td>
-//                     </tr> */}
-//                     <tr>
-//                         <td colSpan="3">
-//                             <button
-//                                 type="button"
-//                                 className="btn btn-primary btn-md"
-//                                 // onClick={handleModalOpen}
-//                                 disabled={disabled}
-//                             >
-//                                 오디오 추가하기(+)
-//                             </button>
-//                         </td>
-//                     </tr>
-//                     <tr>
-//                         <td colSpan="3" className="formAudio__list">
-//                             {audioList.map((audio, idx) => (
-//                                 <p key={idx}>{audio.inputs.name}</p>
-//                             ))}
-//                         </td>
-//                     </tr>
-
-//                     {/* <FormAudioModal
-//                         isModalOpen={isModalOpen}
-//                         handleModalClose={handleModalClose}
-//                         handleChangeAudioList={handleChangeAudioList}
-//                     /> */}
-//                 </tbody>
-//             </table>
-//         </div>
-//     );
-// };
+export const FormImageList = ({ images, children }) => {
+    return (
+        <React.Fragment>
+            <tr className="formImageList__mainImg">
+                <th rowSpan="3" className="formImageList__title">
+                    <label className="col-form-label">※ 사진 관리</label>
+                </th>
+                <td colSpan="3">
+                    <h3 className="formImageList__label">
+                        <span className="badge badge-danger">대표사진</span>
+                    </h3>
+                    <img
+                        src={
+                            images[0]
+                                ? URL.createObjectURL(images[0].filepath)
+                                : noImg
+                        }
+                        alt="대표사진"
+                    />
+                </td>
+            </tr>
+            <tr className="formImageList__subImg">
+                {[...new Array(4)].map((_, idx) => {
+                    return idx === 0 ? null : (
+                        <td key={idx}>
+                            <img
+                                src={
+                                    images[idx]
+                                        ? URL.createObjectURL(
+                                              images[idx].filepath
+                                          )
+                                        : noImg
+                                }
+                                alt="대표사진"
+                            />
+                        </td>
+                    );
+                })}
+            </tr>
+            <tr>
+                <td colSpan="3">{children}</td>
+            </tr>
+        </React.Fragment>
+    );
+};
