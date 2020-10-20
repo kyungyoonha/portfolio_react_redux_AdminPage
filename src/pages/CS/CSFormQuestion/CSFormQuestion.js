@@ -38,7 +38,7 @@ const CSFormQuestion = ({ match }) => {
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const { detail } = useSelector((state) => state.board);
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
+    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
         validateService,
         setErrors
@@ -61,26 +61,6 @@ const CSFormQuestion = ({ match }) => {
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
-        }
-    };
-
-    const handleChangeFile = async (e) => {
-        setInputs((state) => ({
-            ...state,
-            filename: "",
-            filepath: "",
-        }));
-        const file = e.target.files[0];
-
-        try {
-            const res = await fileAPI.upload("image", file);
-            setInputs((state) => ({
-                ...state,
-                filename: file.name,
-                filepath: res,
-            }));
-        } catch (e) {
-            console.error("TourFormArea Error", e);
         }
     };
 
@@ -166,10 +146,10 @@ const CSFormQuestion = ({ match }) => {
 
                 <InputFile
                     label="첨부파일"
-                    name="filepath"
-                    value={inputs.filename}
+                    name="file"
+                    filename={inputs.filename}
                     handleChangeFile={handleChangeFile}
-                    filetype="all"
+                    filetype="raw"
                 />
 
                 <Input

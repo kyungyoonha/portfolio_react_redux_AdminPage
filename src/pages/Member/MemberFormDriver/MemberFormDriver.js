@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import history from "../../../history";
 import { validateAll, validateDriver } from "../../../util/validate";
+import fileAPI from "../../../util/fileAPI";
 import {
     optionsCountry,
     optionsCity,
@@ -21,7 +22,7 @@ import {
     RadioSingle,
     Textarea,
     InputDate,
-    // File,
+    File,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -45,8 +46,8 @@ const initialValue = {
     reguser: "",
     moddate: "",
     moduser: "",
-    trabus: [],
-    drivercomplain: [],
+
+    businessname: "",
 };
 
 //working ###
@@ -55,7 +56,7 @@ const MemberFormDriver = ({ match }) => {
     const dispatch = useDispatch();
     const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
+    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
         validateDriver,
         setErrors
@@ -84,7 +85,6 @@ const MemberFormDriver = ({ match }) => {
         }
     };
 
-    //const handleChangeFile = () => {};
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>
@@ -196,26 +196,14 @@ const MemberFormDriver = ({ match }) => {
                         { value: "2", title: "사업자" },
                     ]}
                 />
-                {/* <Input
-                        label="회사명"
-                        name="companyName"
-                        value={inputs.companyName}
-                        onChange={handleChangeInputs}
-                        disabled={inputs.belong === "private"}
-                    />
+                <Input
+                    label="회사명"
+                    name="businessname"
+                    value={inputs.businessname}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
 
-                    <Input
-                        label="운행 횟수"
-                        name="scheduleCount"
-                        value={inputs.scheduleCount}
-                        onChange={handleChangeInputs} 
-                    />
-                    <Input
-                        label="컴플레인"
-                        name="complain"
-                        value={inputs.complain}
-                        onChange={handleChangeInputs}
-                    /> */}
                 <Input
                     label="평점"
                     name="grade"
@@ -230,32 +218,32 @@ const MemberFormDriver = ({ match }) => {
                     rows={6}
                 />
             </FormSection>
-            {/* <FormSection>
+            <FormSection>
                 <File
                     label="기사 사진"
-                    name="driverpath"
+                    name="driver"
                     filename={inputs.drivername}
-                    path={inputs.driverpath}
+                    filepath={inputs.driverpath}
                     handleChangeFile={handleChangeFile}
                     filetype="image"
                 />
                 <File
                     label="면허증 사진"
-                    name="licensepath"
+                    name="license"
                     filename={inputs.licensename}
-                    path={inputs.licensepath}
+                    filepath={inputs.licensepath}
                     handleChangeFile={handleChangeFile}
                     filetype="image"
                 />
                 <File
                     label="차량 사진"
-                    name="carpath"
+                    name="car"
                     filename={inputs.carname}
-                    path={inputs.carpath}
+                    filepath={inputs.carpath}
                     handleChangeFile={handleChangeFile}
                     filetype="image"
                 />
-            </FormSection> */}
+            </FormSection>
         </FormLayout>
     );
 };

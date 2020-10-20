@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import history from "../../../history";
 import { validateAll, validateMember } from "../../../util/validate";
 import fileAPI from "../../../util/fileAPI";
+import axios from "axios";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +19,8 @@ import {
     InputDate,
     InputAddress,
     File,
+    RadioTypeCheck,
+    RadioMulti,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -34,13 +37,14 @@ const initialValue = {
     messageagree: "N",
     pushagree: "N",
     etc: "",
-    profile: "",
     regdate: "",
     reguser: "",
     moddate: "",
     moduser: "",
-    question: [],
-    purchase: [],
+
+    profilename: "",
+    profilepath: "",
+    inextroversion: "0",
 };
 //working ###
 const MemberFormUser = ({ match }) => {
@@ -48,16 +52,37 @@ const MemberFormUser = ({ match }) => {
     const dispatch = useDispatch();
     const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
+    const [tripTag, setTripTag] = useState({});
+    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
         validateMember,
         setErrors
     );
 
-    const handleClickInsert = () => {
+    const handleClickInsert = async () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateMember);
         if (isValid) {
-            console.log("에러 없음");
+            // const res = await axios.post(
+            //     `http://localhost:8000/${pageId}/update`,
+            //     {
+            //         ...inputs,
+            //         regdate: new Date().toISOString(),
+            //         reguser: name,
+            //     }
+            // );
+
+            // const tagList = Object.keys(tripTag).filter((tag) => tripTag[tag]);
+            // tagList.forEach(async (tag) => {
+            //     await axios.post(`http://localhost:8000/triptag`, {
+            //         idx: "",
+            //         useridx: res.idx,
+            //         tag: tag,
+            //         regdate: res.regdate,
+            //         reguser: res.reguser,
+            //     });
+            // });
+
+            // dispatch(boardAction_update(pageId, res));
             dispatch(
                 boardAction_update(pageId, {
                     ...inputs,
@@ -65,28 +90,18 @@ const MemberFormUser = ({ match }) => {
                     reguser: name,
                 })
             );
-
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
         }
     };
 
-    const handleChangeFile = async (e) => {
-        setInputs((state) => ({
+    const handleChangeTags = (e) => {
+        const { value, checked } = e.target;
+        setTripTag((state) => ({
             ...state,
-            profile: "",
+            [value]: checked,
         }));
-        const file = e.target.files[0];
-        try {
-            const res = await fileAPI.upload("image", file);
-            setInputs((state) => ({
-                ...state,
-                profile: res,
-            }));
-        } catch (e) {
-            console.error("TourFormArea Error", e);
-        }
     };
 
     return (
@@ -158,37 +173,6 @@ const MemberFormUser = ({ match }) => {
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                {/* <Input
-                        label="누적투어수"
-                        name="tourCnt"
-                        value={inputs.tourCnt}
-                        onChange={handleChangeInputs}
-                        errors={errors}
-                    />
-
-                    <RadioSingle
-                        label="외향/내향"
-                        name="characteristic"
-                        value={inputs.characteristic}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { value: "extroverted", title: "외향" },
-                            { value: "introverted", title: "내향" },
-                        ]}
-                    />
-
-                    <RatioMulti
-                        label="여행태그"
-                        name="tourTags"
-                        value={inputs.tourTags}
-                        onChange={handleChangeInputs}
-                        options={[
-                            { key: "tiger", title: "호랑이" },
-                            { key: "dog", title: "강아지" },
-                            { key: "monkey", title: "원숭이" },
-                            { key: "bear", title: "곰돌이" },
-                        ]}
-                    /> */}
                 <RadioSingle
                     label="이메일 수신"
                     name="emailagree"
@@ -233,10 +217,35 @@ const MemberFormUser = ({ match }) => {
                 <File
                     label="프로필"
                     name="profile"
-                    filename=""
-                    path={inputs.profile}
+                    filename={inputs.profilename}
+                    filepath={inputs.profilepath}
                     handleChangeFile={handleChangeFile}
                     filetype="image"
+                />
+            </FormSection>
+            <FormSection full>
+                <RadioTypeCheck
+                    label="내외향성"
+                    labelLeft="외향성"
+                    labelRight="내향성"
+                    name="inextroversion"
+                    value={inputs.inextroversion}
+                    onChange={handleChangeInputs}
+                />
+                <RadioMulti
+                    label="관심사 태그"
+                    name="tripTag"
+                    value={tripTag}
+                    onChange={handleChangeTags}
+                    max={3}
+                    options={[
+                        { key: "picture", title: "사진광" },
+                        { key: "sports", title: "스포츠 마니아" },
+                        { key: "shopping", title: "쇼핑왕" },
+                        { key: "enjoy", title: "흥폭발" },
+                        { key: "study", title: "학구파" },
+                        { key: "nature", title: "자연인" },
+                    ]}
                 />
             </FormSection>
         </FormLayout>

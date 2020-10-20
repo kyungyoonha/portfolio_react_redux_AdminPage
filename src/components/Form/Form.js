@@ -11,13 +11,13 @@ export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
 };
 
-export const FormSection = ({ full, center, title, children }) => {
+export const FormSection = ({ full, center, title, scroll, children }) => {
     return (
         <React.Fragment>
             <div
                 className={`formSection ${full && "full"} ${
                     center && "center"
-                }`}
+                } ${scroll && "scroll"}`}
             >
                 <table className="table">
                     {title && (
@@ -49,6 +49,7 @@ export const Input = ({
     type = "text",
     onChange,
     errors = {},
+    placeholder = "",
     disabled,
     children,
 }) => {
@@ -67,6 +68,7 @@ export const Input = ({
                             errors[name] && "is-invalid"
                         }`}
                         onChange={onChange}
+                        placeholder={placeholder}
                         autoComplete="off"
                         disabled={disabled}
                     />
@@ -284,8 +286,8 @@ const filetypeObj = {
 export const File = ({
     label,
     name,
-    value,
-    path,
+    filename,
+    filepath,
     handleChangeFile,
     filetype,
 }) => {
@@ -305,7 +307,7 @@ export const File = ({
                 </th>
                 <td className="text-center">
                     <img
-                        src={path || noImg}
+                        src={filepath || noImg}
                         alt={label}
                         style={{
                             height: "300px",
@@ -323,7 +325,7 @@ export const File = ({
                         name={name}
                         type="file"
                         hidden
-                        onChange={handleChangeFile}
+                        onChange={(e) => handleChangeFile(e, filetype)}
                         accept={filetypeObj[filetype]}
                     />
 
@@ -335,7 +337,7 @@ export const File = ({
                     >
                         이미지 찾기
                     </button>
-                    {value}
+                    {filename}
                 </td>
             </tr>
         </React.Fragment>
@@ -345,7 +347,7 @@ export const File = ({
 export const InputFile = ({
     label,
     name,
-    value,
+    filename,
     handleChangeFile,
     filetype,
 }) => {
@@ -360,11 +362,11 @@ export const InputFile = ({
                         name={name}
                         type="file"
                         className="custom-file-input"
-                        onChange={handleChangeFile}
+                        onChange={(e) => handleChangeFile(e, filetype)}
                         accept={filetypeObj[filetype]}
                     />
                     <label className="custom-file-label" data-browse={label}>
-                        {value}
+                        {filename}
                     </label>
                 </div>
             </td>
@@ -400,6 +402,44 @@ export const InputDate = ({ label, name, value, onChange, errors }) => {
                         showYearDropdown
                         showMonthDropdown
                         dropdownMode="select"
+                    />
+                </div>
+                {errors[name] && (
+                    <div className="invalid-feedback">{errors[name]}</div>
+                )}
+            </td>
+        </tr>
+    );
+};
+
+export const InputTime = ({ label, name, value, onChange, errors }) => {
+    const handleChangeDate = (date) => {
+        onChange({
+            target: { name, value: date },
+        });
+    };
+    return (
+        <tr>
+            <th>
+                <label className="col-form-label">
+                    {label && `※ ${label}`}
+                </label>
+            </th>
+
+            <td className="">
+                <div className={`input-group ${errors[name] && "is-invalid"}`}>
+                    <ReactDatePicker
+                        locale="ko"
+                        selected={value}
+                        className={`custom-select ${
+                            errors[name] && "is-invalid"
+                        }`}
+                        onChange={handleChangeDate}
+                        dateFormat="h:mm aa"
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        timeCaption="Time"
                     />
                 </div>
                 {errors[name] && (
@@ -674,7 +714,7 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
     const handleChangeInput = (value) => {
         onChange({
             target: {
-                name: "tourmemeber",
+                name: "tourmember",
                 value,
             },
         });
@@ -693,11 +733,11 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
             <td>
                 <div className="input-group">
                     <input
-                        name="tourmemeber"
+                        name="tourmember"
                         type="text"
                         value={value}
                         className={`form-control ${
-                            errors["tourmemeber"] && "is-invalid"
+                            errors["tourmember"] && "is-invalid"
                         }`}
                         onChange={onChange}
                         autoComplete="off"
@@ -715,9 +755,9 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
                             <i className="fas fa-users "></i>
                         </button>
                     </div>
-                    {errors["tourmemeber"] && (
+                    {errors["tourmember"] && (
                         <div className="invalid-feedback">
-                            {errors["tourmemeber"]}
+                            {errors["tourmember"]}
                         </div>
                     )}
                 </div>
@@ -729,5 +769,110 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
                 />
             </td>
         </tr>
+    );
+};
+
+// 모달 검색 후 추가
+// 테이블 형태로 보여줌
+export const SelectMulti = ({
+    purchasetour,
+    handleChangePurchasetour,
+    children,
+}) => {
+    return (
+        <React.Fragment>
+            <tr>
+                <td colSpan="2">
+                    <button type="button" className="btn btn-primary" disabled>
+                        관광지 장소 추가
+                    </button>
+                </td>
+            </tr>
+
+            {purchasetour.map((item) => {
+                return (
+                    <Select
+                        key={item.seq}
+                        label={`${item.seq}번째 관광지 추가`}
+                        name="data"
+                        value={item.value}
+                        onChange={handleChangePurchasetour}
+                        errors={[]}
+                        options={[
+                            { value: "", title: "선택해주세요" },
+                            { value: "code2", title: "코드2" },
+                            { value: "code3", title: "코드3" },
+                            { value: "S", title: "코드4" },
+                        ]}
+                    />
+                );
+            })}
+            <tr>
+                <td colSpan="2">
+                    <button
+                        className="btn btn-block btn-outline-primary"
+                        type="button"
+                    >
+                        (+)
+                    </button>
+                </td>
+            </tr>
+        </React.Fragment>
+    );
+};
+
+export const PurchaseCode = ({ purchaseCode, children, errors = {} }) => {
+    return (
+        <React.Fragment>
+            <tr>
+                <td colSpan="2">{children}</td>
+            </tr>
+            <Input
+                label="구매코드"
+                name="idx"
+                value={purchaseCode.idx}
+                errors={errors}
+                disabled={true}
+            />
+            <Input
+                label="구매일자"
+                name="purchasedate"
+                value={purchaseCode.purchasedate}
+                errors={errors}
+                disabled={true}
+            />
+            <Select
+                label="구매방식"
+                name="purchasetype"
+                value={purchaseCode.purchasetype}
+                errors={errors}
+                disabled={true}
+                options={[
+                    { value: "1", title: "직접구매" },
+                    { value: "3", title: "관광지 구매" },
+                ]}
+            />
+            <Input
+                label="구매코드번호"
+                name="codenumber"
+                value={purchaseCode.codenumber}
+                errors={errors}
+                disabled={true}
+            />
+            <Input
+                label="가격"
+                name="price"
+                value={purchaseCode.price}
+                errors={errors}
+                disabled={true}
+            />
+            <Input
+                label="구매자id"
+                name="purchaseuser"
+                value={purchaseCode.purchaseuser}
+                errors={errors}
+                disabled={true}
+            />
+        </React.Fragment>
     );
 };

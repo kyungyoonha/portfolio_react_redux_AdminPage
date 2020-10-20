@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../../history";
 import queryString from "query-string";
-import fileAPI from "../../../util/fileAPI";
 import { optionsCountry } from "../../../util/options";
 
 // redux
@@ -28,7 +27,7 @@ const initialValue = {
     areacode: "",
     areaname: "",
     mainpicYN: "N",
-    mainpicfilename: "",
+    mainpicname: "",
     mainpicpath: "",
     regdate: "",
     reguser: "",
@@ -46,7 +45,7 @@ const TourFormArea = ({ match }) => {
     const { detail } = useSelector((state) => state.board);
     const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
+    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
         validateArea,
         setErrors
@@ -62,6 +61,15 @@ const TourFormArea = ({ match }) => {
         if (Object.keys(detail).length === 0) return;
         setInputs(detail);
     }, [id, setInputs, detail]);
+
+    useEffect(() => {
+        let mainpicYN = inputs.mainpicpath ? "Y" : "N";
+
+        setInputs((state) => ({
+            ...state,
+            mainpicYN,
+        }));
+    }, [setInputs, inputs.mainpicpath]);
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateArea);
@@ -83,26 +91,6 @@ const TourFormArea = ({ match }) => {
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);
-        }
-    };
-
-    const handleChangeFile = async (e) => {
-        setInputs((state) => ({
-            ...state,
-            mainpicfilename: "",
-            mainpicpath: "",
-        }));
-        const file = e.target.files[0];
-        try {
-            const res = await fileAPI.upload("image", file);
-            setInputs((state) => ({
-                ...state,
-                mainpicYN: "Y",
-                mainpicfilename: file.name,
-                mainpicpath: res,
-            }));
-        } catch (e) {
-            console.error("TourFormArea Error", e);
         }
     };
 
@@ -157,6 +145,7 @@ const TourFormArea = ({ match }) => {
                     name="mainpicYN"
                     value={inputs.mainpicYN}
                     onChange={handleChangeInputs}
+                    disabled={true}
                     options={[
                         { value: "Y", title: "있음" },
                         { value: "N", title: "없음" },
@@ -164,9 +153,9 @@ const TourFormArea = ({ match }) => {
                 />
                 <File
                     label="대표 사진"
-                    name="mainpickpath"
-                    filename={inputs.mainpicfilename}
-                    path={inputs.mainpicpath}
+                    name="mainpic"
+                    filename={inputs.mainpicname}
+                    filepath={inputs.mainpicpath}
                     handleChangeFile={handleChangeFile}
                     filetype="image"
                 />

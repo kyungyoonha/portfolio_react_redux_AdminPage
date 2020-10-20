@@ -34,7 +34,6 @@ export const fileAction_getAudios = (id) => async (dispatch) => {
             },
         });
     } catch (e) {
-        console.log("???");
         console.error("fileAction_getAudios Error", e);
     }
 };

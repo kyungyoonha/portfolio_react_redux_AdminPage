@@ -54,6 +54,10 @@
             border-bottom: 1px solid $line;
         }
     }
+
+    &.scroll {
+        overflow-y: scroll;
+    }
     table {
         margin-bottom: 0 !important;
         // border-bottom: 1px solid $line;

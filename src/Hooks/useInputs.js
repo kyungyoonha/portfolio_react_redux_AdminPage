@@ -1,4 +1,5 @@
 import { useCallback, useState } from "react";
+import fileAPI from "../util/fileAPI";
 
 export default (initialValue, validateFunc, setErrors) => {
     const [inputs, setInputs] = useState(initialValue);
@@ -66,5 +67,28 @@ export default (initialValue, validateFunc, setErrors) => {
         [setErrors, validateFunc]
     );
 
-    return [inputs, setInputs, handleChangeInputs];
+    const handleChangeFile = useCallback(async (e, type) => {
+        const { name, files } = e.target;
+        setInputs((state) => ({
+            ...state,
+            [name + "name"]: "",
+            [name + "path"]: "",
+        }));
+        const file = e.target.files[0];
+        try {
+            const res = await fileAPI.upload(
+                type === "audio" ? "video" : type,
+                file
+            );
+            setInputs((state) => ({
+                ...state,
+                [name + "name"]: files[0].name,
+                [name + "path"]: res,
+            }));
+        } catch (e) {
+            console.error(e);
+        }
+    }, []);
+
+    return [inputs, setInputs, handleChangeInputs, handleChangeFile];
 };

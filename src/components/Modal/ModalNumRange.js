@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import ReactModal from "react-modal";
 import "./ModalNumRange.scss";
-import { Select } from "../Form/Form";
+import { FormSection, Input } from "../Form/Form";
+import { checkNumber } from "../../util/validate";
 
 const modalStyle = {
     content: {
@@ -27,7 +28,9 @@ const ModalNumRange = ({ modalOpen, onChange, handleCloseModal }) => {
     const [maxNum, setMaxNum] = useState("1");
 
     useEffect(() => {
-        if (Number(minNum) > Number(maxNum)) {
+        if (checkNumber(minNum) || checkNumber(maxNum)) {
+            setError("숫자만 입력가능합니다.");
+        } else if (Number(minNum) > Number(maxNum)) {
             setError("최소인원보다 더 큰 수만 선택 가능합니다.");
         } else {
             setError("");
@@ -50,9 +53,9 @@ const ModalNumRange = ({ modalOpen, onChange, handleCloseModal }) => {
             style={modalStyle}
             onRequestClose={handleCloseModal}
         >
-            <div className="timePicker">
-                <div className="timePicker__title">
-                    <h4>운영 시간</h4>
+            <div className="modalNumRange">
+                <div className="modalNumRange__title">
+                    <h4>투어 인원수</h4>
                     <button
                         className="btn btn-primary"
                         type="button"
@@ -61,39 +64,37 @@ const ModalNumRange = ({ modalOpen, onChange, handleCloseModal }) => {
                         사용하기
                     </button>
                 </div>
-                <div className="timePicker__body">
-                    <label className="col-form-label">시작시간:</label>
-                    <Select
-                        label="최소 인원"
-                        name="minNum"
-                        value={minNum}
-                        onChange={(e) => setMinNum(e.target.value)}
-                        options={[...new Array(30)].map((_, i) => ({
-                            value: i + 1,
-                            title: i + 1 + "명",
-                        }))}
-                    />
-                    <label className="col-form-label">종료시간:</label>
-                    <Select
-                        label="최대 인원"
-                        name="maxNum"
-                        value={maxNum}
-                        onChange={(e) => setMaxNum(e.target.value)}
-                        options={[...new Array(30)].map((_, i) => ({
-                            value: i + 1,
-                            title: i + 1 + "명",
-                        }))}
-                    />
+                <div className="modalNumRange__body">
+                    <FormSection full>
+                        <Input
+                            label="최소 인원"
+                            name="minNum"
+                            value={minNum}
+                            onChange={(e) => setMinNum(e.target.value)}
+                        />
+                        <Input
+                            label="최대 인원"
+                            name="maxNum"
+                            value={maxNum}
+                            onChange={(e) => setMaxNum(e.target.value)}
+                        />
+                        <tr>
+                            <td colSpan="2">
+                                <div className="modalNumRange__footer">
+                                    {minNum} 명 ~ {maxNum} 명
+                                </div>
+                                <div style={{ height: "30px" }}>
+                                    {error && (
+                                        <p className="modalNumRange__error float-left">
+                                            <i className="fas fa-exclamation-circle"></i>
+                                            {error}
+                                        </p>
+                                    )}
+                                </div>
+                            </td>
+                        </tr>
+                    </FormSection>
                 </div>
-                <div className="timePicker__footer">
-                    {minNum} 명 ~ {maxNum} 명
-                </div>
-                {error && (
-                    <p className="timePicker__error float-left">
-                        <i className="fas fa-exclamation-circle"></i>
-                        {error}
-                    </p>
-                )}
                 <button
                     type="button"
                     className="btn btn-secondary float-right"

@@ -1,7 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 
-const modalStyle = {
+const defaultStyle = {
     content: {
         top: "50%",
         left: "50%",
@@ -22,7 +22,12 @@ const modalStyle = {
 
 ReactModal.setAppElement("#root");
 
-const Modal = ({ isModalOpen, title, handleModalClose, children }) => {
+const Modal = ({
+    isModalOpen,
+    modalStyle = defaultStyle,
+    handleModalClose,
+    children,
+}) => {
     return (
         <ReactModal
             isOpen={isModalOpen}
@@ -30,7 +35,6 @@ const Modal = ({ isModalOpen, title, handleModalClose, children }) => {
             style={modalStyle}
             onRequestClose={handleModalClose}
         >
-            <h4>{title}</h4>
             {children}
         </ReactModal>
     );

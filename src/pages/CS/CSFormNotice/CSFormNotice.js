@@ -32,7 +32,7 @@ const initialValue = {
 const CSFormNotice = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
+    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
         validateNotice,
         setErrors
@@ -49,25 +49,6 @@ const CSFormNotice = ({ match }) => {
         }
     };
 
-    const handleChangeFile = async (e) => {
-        setInputs((state) => ({
-            ...state,
-            filename: "",
-            filepath: "",
-        }));
-        const file = e.target.files[0];
-
-        try {
-            const res = await fileAPI.upload("image", file);
-            setInputs((state) => ({
-                ...state,
-                filename: file.name,
-                filepath: res,
-            }));
-        } catch (e) {
-            console.error("TourFormArea Error", e);
-        }
-    };
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>
@@ -99,10 +80,10 @@ const CSFormNotice = ({ match }) => {
                 />
                 <InputFile
                     label="첨부파일"
-                    name="filepath"
-                    value={inputs.filename}
+                    name="file"
+                    filename={inputs.filename}
                     handleChangeFile={handleChangeFile}
-                    filetype="all"
+                    filetype="raw"
                 />
                 <RadioSingle
                     label="상단노출"

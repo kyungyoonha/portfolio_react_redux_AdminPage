@@ -74,11 +74,8 @@ const TourModalAudio = ({ title, handleChangeAudio }) => {
                 {title}
             </button>
 
-            <Modal
-                isModalOpen={openModal}
-                title="오디오 가이드 추가하기"
-                handleModalClose={handleModalClose}
-            >
+            <Modal isModalOpen={openModal} handleModalClose={handleModalClose}>
+                <h4>오디오 가이드 추가하기</h4>
                 <div className="tourModalAudio">
                     <div className="tourModalAudio__buttonContainer">
                         <button
@@ -128,8 +125,8 @@ const TourModalAudio = ({ title, handleChangeAudio }) => {
                             />
                             <InputFile
                                 label="오디오파일"
-                                name="audiofilepath"
-                                value={inputs.audiofilename}
+                                name="audiofile"
+                                filename={inputs.audiofilename}
                                 handleChangeFile={handleChangeFile}
                                 filetype="audio"
                             />

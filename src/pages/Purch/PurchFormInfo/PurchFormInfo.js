@@ -1,11 +1,6 @@
 import React, { useState } from "react";
 import history from "../../../history";
 import { validateAll, validateInfo } from "../../../util/validate";
-import {
-    optionsCity,
-    optionsCountry,
-    optionsRegion,
-} from "../../../util/options";
 
 import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
@@ -18,28 +13,30 @@ import {
     FormSection,
     SelectMultiCustom,
     InputNumRange,
+    InputDate,
+    InputTime,
+    SelectMulti,
+    PurchaseCode,
 } from "../../../components/Form/Form";
+import ModalSearch from "../../../components/Modal/ModalSearch";
 
 const initialValue = {
-    tourName: "",
-    countryCtg: "KOREA",
-    country: "KOREA",
-    state: "",
-    city: "",
-    tourCtg: "normal",
-    tourDayCntCheck: "one",
-    tourDayCnt: 1,
-    guestNumMin: "1",
-    guestNumMax: "1",
-    totalPrice: "",
-    tourStartTime: "",
-    tourEndTime: "",
-    purchCode: "",
-    purchDate: "",
-    purchWay: "",
-    guestId: "",
-    guestName: "",
-    tourCnt: "",
+    idx: "",
+    tourtype: "",
+    touridx: "",
+    tourdays: "",
+    tourstartday: "",
+    tourendday: "",
+    tourmember: "",
+    price: "",
+    tourstarttime: "",
+    userid: "",
+    purchasecode: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
+
     multiInfo: {
         tour: [
             { seq: 1, value: "" },
@@ -60,11 +57,17 @@ const initialValue = {
 const PurchFormInfo = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
+    const [purchasetour, setPurchasetour] = useState([]);
+    const [purchaseCode, setPurchaseCode] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validateInfo,
         setErrors
     );
+
+    const handleChangePurchasetour = (tour) => setPurchasetour(tour);
+
+    const handleChangePurchaseCode = (code) => setPurchaseCode(code);
 
     const handleChangeMultiInfo = (e, selected, seq) => {
         const { value } = e.target;
@@ -116,7 +119,7 @@ const PurchFormInfo = ({ match }) => {
             setErrors(checkedErrors);
         }
     };
-
+    console.log(purchasetour);
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>
@@ -127,88 +130,44 @@ const PurchFormInfo = ({ match }) => {
                 />
             </ContentNav>
             <FormSection>
+                <RadioSingle
+                    label="투어 종류"
+                    name="tourtype"
+                    value={inputs.tourtype}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "A", title: "모든 투어" },
+                        { value: "T", title: "택시 투어" },
+                        { value: "E", title: "기타 투어" },
+                    ]}
+                />
                 <Input
-                    label="투어 이름"
-                    name="tourName"
-                    value={inputs.tourName}
+                    label="관광지 코드"
+                    name="touridx"
+                    value={inputs.touridx}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                <RadioSingle
-                    label="국가 분류"
-                    name="nationtype"
-                    value={inputs.nationtype || "1"}
-                    onChange={handleChangeInputs}
-                    options={[
-                        { value: "1", title: "국내" },
-                        { value: "2", title: "국외" },
-                    ]}
-                />
-
-                <Select
-                    label="국가코드"
-                    name="nationcode"
-                    value={inputs.nationcode || "KOREA"}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsCountry(inputs.nationcode)}
-                    disabled={inputs.nationtype === "1"}
-                />
-                <Select
-                    label="시도 코드"
-                    name="sidocode"
-                    value={inputs.sidocode}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsCity(inputs.sidocode)}
-                />
-                <Select
-                    label="지역 코드"
-                    name="areacode"
-                    value={inputs.areacode}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsRegion(inputs.areacode)}
-                />
-
-                <RadioSingle
-                    label="투어 구분"
-                    name="tourCtg"
-                    value={inputs.tourCtg}
-                    onChange={handleChangeInputs}
-                    options={[
-                        { value: "taxi", title: "택시 투어" },
-                        { value: "normal", title: "일반 투어" },
-                    ]}
-                />
-                <RadioSingle
+                <Input
                     label="투어 일수"
-                    name="tourDayCntCheck"
-                    value={inputs.tourDayCntCheck}
-                    onChange={handleChangeInputs}
-                    options={[
-                        { value: "one", title: "당일" },
-                        { value: "range", title: "기간설정" },
-                    ]}
-                />
-                <Input
-                    label="(기간 설정)"
-                    name="tourDayCnt"
-                    value={inputs.tourDayCnt}
+                    name="tourdays"
+                    value={inputs.tourdays}
                     onChange={handleChangeInputs}
                     errors={errors}
-                    disabled={inputs.tourDayCntCheck === "one"}
                 />
-                <SelectMultiCustom
-                    inputs={inputs}
+                <InputDate
+                    label="투어 시작일"
+                    name="tourstartday"
+                    value={inputs.tourstartday}
                     onChange={handleChangeInputs}
-                    options={[
-                        { value: 1, title: "1명" },
-                        { value: 2, title: "2명" },
-                        { value: 3, title: "3명" },
-                        { value: 4, title: "4명" },
-                        { value: 5, title: "5명" },
-                    ]}
+                    errors={errors}
+                />
+                <InputDate
+                    label="투어 종료일"
+                    name="tourendday"
+                    value={inputs.tourendday}
+                    onChange={handleChangeInputs}
+                    errors={errors}
                 />
                 <InputNumRange
                     value={inputs.tourmember}
@@ -217,33 +176,35 @@ const PurchFormInfo = ({ match }) => {
                 />
                 <Input
                     label="가격"
-                    name="totalPrice"
-                    value={inputs.totalPrice}
+                    name="price"
+                    value={inputs.price}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <InputTime
+                    label="투어 시작시간"
+                    name="tourstarttime"
+                    value={inputs.tourstarttime}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+
+                <Input
+                    label="투어 구매자"
+                    name="userid"
+                    value={inputs.userid}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
                 <Input
-                    label="투어시작 시간"
-                    name="tourStartTime"
-                    value={inputs.tourStartTime}
+                    label="구매 코드"
+                    name="purchasecode"
+                    value={inputs.purchasecode}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                <Input
-                    label="투어종료 시간"
-                    name="tourEndTime"
-                    value={inputs.tourEndTime}
-                    onChange={handleChangeInputs}
-                />
             </FormSection>
-            <FormSection>
-                <SectionMultiSelect
-                    multiInfo={inputs.multiInfo}
-                    handleChangeMultiInfo={handleChangeMultiInfo}
-                    handleAddRow={handleAddRow}
-                />
-            </FormSection>
-            <FormSection>
+            {/* <FormSection>
                 <Input
                     label="구매 코드"
                     name="purchCode"
@@ -281,6 +242,28 @@ const PurchFormInfo = ({ match }) => {
                     value={inputs.guestName}
                     onChange={handleChangeInputs}
                     errors={errors}
+                />
+            </FormSection> */}
+            {/* <FormSection full>
+                <SelectMulti
+                    purchasetour={purchasetour}
+                    handleChangePurchasetour={handleChangePurchasetour}
+                    // handleAddRow={handleAddRow}
+                />
+            </FormSection> */}
+            <FormSection>
+                <PurchaseCode purchaseCode={purchaseCode}>
+                    <ModalSearch
+                        label="구매코드검색"
+                        handleChangePurchaseCode={handleChangePurchaseCode}
+                    />
+                </PurchaseCode>
+            </FormSection>
+            <FormSection full>
+                <SectionMultiSelect
+                    multiInfo={inputs.multiInfo}
+                    handleChangeMultiInfo={handleChangeMultiInfo}
+                    handleAddRow={handleAddRow}
                 />
             </FormSection>
         </FormLayout>

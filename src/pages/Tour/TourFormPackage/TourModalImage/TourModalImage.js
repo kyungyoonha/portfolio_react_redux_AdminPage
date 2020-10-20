@@ -5,6 +5,7 @@ import Slider from "../../../../components/Slider/Slider";
 import Modal from "../../../../components/Modal/Modal";
 import noImg from "../../../../img/no-img.jpg";
 
+// ### 제출시 파일도 한번에 업로드
 const TourModalImage = ({ handleChangeImage, images }) => {
     const [showIdx, setShowIdx] = useState(0);
     const [imageList, setImageList] = useState([]);

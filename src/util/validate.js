@@ -304,26 +304,26 @@ export const validateAudio = (name, value) => {
     }
 };
 
-const isEmpty = (input) => {
+export const isEmpty = (input) => {
     if (String(input).trim() === "") return true;
     else return false;
 };
 
-const checkNumber = (input) => {
+export const checkNumber = (input) => {
     const regexp = /^[0-9]*$/;
     if (!regexp.test(input)) return true;
     else return false;
 };
 
 // true 일때 에러 / false
-const checkEmail = (input) => {
+export const checkEmail = (input) => {
     if (!input) return false;
     const regexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
     if (!regexp.test(input)) return true;
     else return false;
 };
 
-const checkRegPassword = (password) => {
+export const checkRegPassword = (password) => {
     const numbers = /[0-9]/;
     const spellings = /[a-zA-Z]/;
     const specialCharacters = /[~!@#$%&*]/;

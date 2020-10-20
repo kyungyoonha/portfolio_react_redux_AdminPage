@@ -8,7 +8,11 @@ const navObj = {
     hobby: "취미/관심사",
 };
 
-const SectionMultiSelect = ({ multiInfo, handleChangeMultiInfo, handleAddRow }) => {
+const SectionMultiSelect = ({
+    multiInfo,
+    handleChangeMultiInfo,
+    handleAddRow,
+}) => {
     const [selected, setSelected] = useState("tour");
     const handleClickNav = (keyword) => {
         setSelected(keyword);
@@ -52,7 +56,10 @@ const SectionMultiSelect = ({ multiInfo, handleChangeMultiInfo, handleAddRow }) 
         <React.Fragment>
             <tr>
                 <td colSpan="2">
-                    <ul className="nav nav-pills nav-fill">
+                    <button type="button" className="btn btn-primary" disabled>
+                        관광지 장소 추가
+                    </button>
+                    {/* <ul className="nav nav-pills nav-fill">
                         {Object.keys(navObj).map((key) => (
                             <li
                                 className="nav-item"
@@ -74,7 +81,7 @@ const SectionMultiSelect = ({ multiInfo, handleChangeMultiInfo, handleAddRow }) 
                                 </span>
                             </li>
                         ))}
-                    </ul>
+                    </ul> */}
                 </td>
             </tr>
 
@@ -85,7 +92,9 @@ const SectionMultiSelect = ({ multiInfo, handleChangeMultiInfo, handleAddRow }) 
                         label={`${item.seq}번째 (${navObj[selected]})`}
                         name="data"
                         value={item.value}
-                        onChange={(e) => handleChangeMultiInfo(e, selected, item.seq)}
+                        onChange={(e) =>
+                            handleChangeMultiInfo(e, selected, item.seq)
+                        }
                         errors={[]}
                         options={[
                             { value: "", title: "선택해주세요" },
