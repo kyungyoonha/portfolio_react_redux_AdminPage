@@ -48,7 +48,7 @@ export const Board = ({ pageId, data, selectedId, handleSelectedId }) => {
     };
 
     return (
-        <table className="table table-hover table-bordered">
+        <table className="table table-hover table-bordered board">
             <thead>
                 <tr>
                     <th>#</th>

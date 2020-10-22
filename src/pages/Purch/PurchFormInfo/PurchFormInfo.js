@@ -4,19 +4,16 @@ import { validateAll, validateInfo } from "../../../util/validate";
 
 import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
-import SectionMultiSelect from "../components/SectionMultiSelect";
 import {
     Input,
-    Select,
     RadioSingle,
     FormLayout,
     FormSection,
-    SelectMultiCustom,
     InputNumRange,
     InputDate,
     InputTime,
-    SelectMulti,
-    PurchaseCode,
+    Purchasetour,
+    Purchasecode,
 } from "../../../components/Form/Form";
 import ModalSearch from "../../../components/Modal/ModalSearch";
 
@@ -36,21 +33,19 @@ const initialValue = {
     reguser: "",
     moddate: "",
     moduser: "",
+};
 
-    multiInfo: {
-        tour: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-        driver: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-        hobby: [
-            { seq: 1, value: "" },
-            { seq: 2, value: "" },
-        ],
-    },
+const initialValuePurchasecode = {
+    idx: "",
+    purchasedate: "",
+    purchasetype: "",
+    codenumber: "",
+    price: "",
+    purchaseuser: "",
+    regdate: "",
+    reguser: "",
+    moddate: "",
+    moduser: "",
 };
 
 //working
@@ -58,57 +53,16 @@ const PurchFormInfo = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const [errors, setErrors] = useState({});
     const [purchasetour, setPurchasetour] = useState([]);
-    const [purchaseCode, setPurchaseCode] = useState({});
+    const [purchasecode, setPurchasecode] = useState(initialValuePurchasecode);
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
         validateInfo,
         setErrors
     );
 
-    const handleChangePurchasetour = (tour) => setPurchasetour(tour);
-
-    const handleChangePurchaseCode = (code) => setPurchaseCode(code);
-
-    const handleChangeMultiInfo = (e, selected, seq) => {
-        const { value } = e.target;
-        setInputs((state) => ({
-            ...state,
-            multiInfo: {
-                ...state.multiInfo,
-                [selected]: [
-                    ...state.multiInfo[selected].map((item) =>
-                        item.seq === seq
-                            ? {
-                                  seq: item.seq,
-                                  value,
-                              }
-                            : item
-                    ),
-                ],
-            },
-        }));
-    };
-
-    const handleAddRow = (selected) => {
-        setInputs((state) => ({
-            ...state,
-            multiInfo: {
-                ...state.multiInfo,
-                [selected]: [
-                    ...state.multiInfo[selected],
-                    {
-                        seq:
-                            state.multiInfo[selected].reduce(
-                                (pre, cur) => Math.max(pre, cur.seq),
-                                0
-                            ) + 1,
-                        value: "",
-                    },
-                ],
-            },
-        }));
-    };
-
+    const handlePurchasecode = (code) => setPurchasecode(code);
+    const handlePurchasetour = (tour) =>
+        setPurchasetour((state) => [...state, tour]);
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateInfo);
 
@@ -119,7 +73,7 @@ const PurchFormInfo = ({ match }) => {
             setErrors(checkedErrors);
         }
     };
-    console.log(purchasetour);
+
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>
@@ -204,67 +158,24 @@ const PurchFormInfo = ({ match }) => {
                     errors={errors}
                 />
             </FormSection>
-            {/* <FormSection>
-                <Input
-                    label="구매 코드"
-                    name="purchCode"
-                    value={inputs.purchCode}
-                    onChange={handleChangeInputs}
-                />
-                <Input
-                    label="구매 일자"
-                    name="purchDate"
-                    value={inputs.purchDate}
-                    onChange={handleChangeInputs}
-                />
-                <Input
-                    label="구매 방식"
-                    name="purchWay"
-                    value={inputs.purchWay}
-                    onChange={handleChangeInputs}
-                />
-                <Input
-                    label="가격"
-                    name="purchPrice"
-                    value={inputs.purchPrice}
-                    onChange={handleChangeInputs}
-                />
-                <Input
-                    label="구매자 Id"
-                    name="guestId"
-                    value={inputs.guestId}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                />
-                <Input
-                    label="이름"
-                    name="guestName"
-                    value={inputs.guestName}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                />
-            </FormSection> */}
-            {/* <FormSection full>
-                <SelectMulti
-                    purchasetour={purchasetour}
-                    handleChangePurchasetour={handleChangePurchasetour}
-                    // handleAddRow={handleAddRow}
-                />
-            </FormSection> */}
+
             <FormSection>
-                <PurchaseCode purchaseCode={purchaseCode}>
+                <Purchasecode purchasecode={purchasecode}>
                     <ModalSearch
+                        searchId="purchasecode"
                         label="구매코드검색"
-                        handleChangePurchaseCode={handleChangePurchaseCode}
+                        onChangeData={handlePurchasecode}
                     />
-                </PurchaseCode>
+                </Purchasecode>
             </FormSection>
             <FormSection full>
-                <SectionMultiSelect
-                    multiInfo={inputs.multiInfo}
-                    handleChangeMultiInfo={handleChangeMultiInfo}
-                    handleAddRow={handleAddRow}
-                />
+                <Purchasetour purchasetour={purchasetour}>
+                    <ModalSearch
+                        searchId="tourpackage"
+                        label="관광지 추가"
+                        onChangeData={handlePurchasetour}
+                    />
+                </Purchasetour>
             </FormSection>
         </FormLayout>
     );

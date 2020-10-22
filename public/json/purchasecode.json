@@ -1,95 +1,97 @@
-[
-    {
-        "idx" : "1",
-        "purchasedate" : "2020-10-20",
-        "purchasetype" : "1",
-        "codenumber" : "111",
-        "price" : "200000",
-        "purchaseuser" : "yoon",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    },
-    {
-        "idx" : "2",
-        "purchasedate" : "2020-10-21",
-        "purchasetype" : "1",
-        "codenumber" : "111",
-        "price" : "500000",
-        "purchaseuser" : "Jack",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    },
-    {
-        "idx" : "3",
-        "purchasedate" : "2020-10-20",
-        "purchasetype" : "1",
-        "codenumber" : "111",
-        "price" : "400000",
-        "purchaseuser" : "Kim",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    },
-    {
-        "idx" : "4",
-        "purchasedate" : "2020-10-20",
-        "purchasetype" : "1",
-        "codenumber" : "222",
-        "price" : "300000",
-        "purchaseuser" : "Dong",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    },
-    {
-        "idx" : "5",
-        "purchasedate" : "2020-10-20",
-        "purchasetype" : "1",
-        "codenumber" : "222",
-        "price" : "300000",
-        "purchaseuser" : "Dong",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    },{
-        "idx" : "6",
-        "purchasedate" : "2020-10-20",
-        "purchasetype" : "1",
-        "codenumber" : "222",
-        "price" : "300000",
-        "purchaseuser" : "Dong",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    },{
-        "idx" : "7",
-        "purchasedate" : "2020-10-20",
-        "purchasetype" : "1",
-        "codenumber" : "222",
-        "price" : "300000",
-        "purchaseuser" : "Dong",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    },{
-        "idx" : "8",
-        "purchasedate" : "2020-10-20",
-        "purchasetype" : "1",
-        "codenumber" : "222",
-        "price" : "300000",
-        "purchaseuser" : "Dong",
-        "regdate" : "2020-10-20",
-        "reguser" : "yoon",
-        "moddate" : "2020-10-20",
-        "moduser" : "yoon"
-    }
-]
+{
+    "data": [
+        {
+            "idx" : "1",
+            "purchasedate" : "2020-10-20",
+            "purchasetype" : "1",
+            "codenumber" : "111",
+            "price" : "200000",
+            "purchaseuser" : "yoon",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        },
+        {
+            "idx" : "2",
+            "purchasedate" : "2020-10-21",
+            "purchasetype" : "1",
+            "codenumber" : "111",
+            "price" : "500000",
+            "purchaseuser" : "Jack",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        },
+        {
+            "idx" : "3",
+            "purchasedate" : "2020-10-20",
+            "purchasetype" : "1",
+            "codenumber" : "111",
+            "price" : "400000",
+            "purchaseuser" : "Kim",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        },
+        {
+            "idx" : "4",
+            "purchasedate" : "2020-10-20",
+            "purchasetype" : "1",
+            "codenumber" : "222",
+            "price" : "300000",
+            "purchaseuser" : "Dong",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        },
+        {
+            "idx" : "5",
+            "purchasedate" : "2020-10-20",
+            "purchasetype" : "1",
+            "codenumber" : "222",
+            "price" : "300000",
+            "purchaseuser" : "Dong",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        },{
+            "idx" : "6",
+            "purchasedate" : "2020-10-20",
+            "purchasetype" : "1",
+            "codenumber" : "222",
+            "price" : "300000",
+            "purchaseuser" : "Dong",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        },{
+            "idx" : "7",
+            "purchasedate" : "2020-10-20",
+            "purchasetype" : "1",
+            "codenumber" : "222",
+            "price" : "300000",
+            "purchaseuser" : "Dong",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        },{
+            "idx" : "8",
+            "purchasedate" : "2020-10-20",
+            "purchasetype" : "1",
+            "codenumber" : "222",
+            "price" : "300000",
+            "purchaseuser" : "Dong",
+            "regdate" : "2020-10-20",
+            "reguser" : "yoon",
+            "moddate" : "2020-10-20",
+            "moduser" : "yoon"
+        }
+    ]
+}

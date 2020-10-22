@@ -30,7 +30,11 @@
             width: 100%;
         }
     }
-
+    .modalSearch__board {
+        width: 100%;
+        height: 400px;
+        overflow-y: scroll;
+    }
     .modalSearch__footer {
         margin-bottom: 10px;
         width: 100%;

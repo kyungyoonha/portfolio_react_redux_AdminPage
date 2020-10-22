@@ -9,14 +9,13 @@ import {
 
 import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
-import SectionMultiSelect from "../components/SectionMultiSelect";
+
 import {
     Input,
     Select,
     RadioSingle,
     FormLayout,
     FormSection,
-    SelectMultiCustom,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -198,7 +197,7 @@ const PurchFormInfo = ({ match }) => {
                     disabled={inputs.tourDayCntCheck === "one"}
                 />
 
-                <SelectMultiCustom
+                {/* <SelectMultiCustom
                     inputs={inputs}
                     onChange={handleChangeInputs}
                     options={[
@@ -208,7 +207,7 @@ const PurchFormInfo = ({ match }) => {
                         { value: 4, title: "4명" },
                         { value: 5, title: "5명" },
                     ]}
-                />
+                /> */}
 
                 <Input
                     label="가격"
@@ -255,13 +254,6 @@ const PurchFormInfo = ({ match }) => {
                     value={inputs.purchCode}
                     onChange={handleChangeInputs}
                     errors={errors}
-                />
-            </FormSection>
-            <FormSection>
-                <SectionMultiSelect
-                    multiInfo={inputs.multiInfo}
-                    handleChangeMultiInfo={handleChangeMultiInfo}
-                    handleAddRow={handleAddRow}
                 />
             </FormSection>
         </FormLayout>

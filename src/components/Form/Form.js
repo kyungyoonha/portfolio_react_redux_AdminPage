@@ -774,54 +774,34 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
 
 // 모달 검색 후 추가
 // 테이블 형태로 보여줌
-export const SelectMulti = ({
-    purchasetour,
-    handleChangePurchasetour,
-    children,
-}) => {
+export const Purchasetour = ({ purchasetour, errors = {}, children }) => {
     return (
         <React.Fragment>
+            {purchasetour.map((item, idx) => (
+                <Input
+                    key={item.idx}
+                    label={`${idx + 1}번째 관광지명`}
+                    name="tourname"
+                    value={item.tourname}
+                    onChange={() => {}}
+                    errors={errors}
+                />
+            ))}
+            {/* {!purchasetour.length && (
+                <Input
+                    label="1번째 관광지명"
+                    placeholder="관광지를 추가해주세요"
+                    disabled
+                />
+            )} */}
             <tr>
-                <td colSpan="2">
-                    <button type="button" className="btn btn-primary" disabled>
-                        관광지 장소 추가
-                    </button>
-                </td>
-            </tr>
-
-            {purchasetour.map((item) => {
-                return (
-                    <Select
-                        key={item.seq}
-                        label={`${item.seq}번째 관광지 추가`}
-                        name="data"
-                        value={item.value}
-                        onChange={handleChangePurchasetour}
-                        errors={[]}
-                        options={[
-                            { value: "", title: "선택해주세요" },
-                            { value: "code2", title: "코드2" },
-                            { value: "code3", title: "코드3" },
-                            { value: "S", title: "코드4" },
-                        ]}
-                    />
-                );
-            })}
-            <tr>
-                <td colSpan="2">
-                    <button
-                        className="btn btn-block btn-outline-primary"
-                        type="button"
-                    >
-                        (+)
-                    </button>
-                </td>
+                <td colSpan="2">{children}</td>
             </tr>
         </React.Fragment>
     );
 };
 
-export const PurchaseCode = ({ purchaseCode, children, errors = {} }) => {
+export const Purchasecode = ({ purchasecode, errors = {}, children }) => {
     return (
         <React.Fragment>
             <tr>
@@ -830,21 +810,21 @@ export const PurchaseCode = ({ purchaseCode, children, errors = {} }) => {
             <Input
                 label="구매코드"
                 name="idx"
-                value={purchaseCode.idx}
+                value={purchasecode.idx}
                 errors={errors}
                 disabled={true}
             />
             <Input
                 label="구매일자"
                 name="purchasedate"
-                value={purchaseCode.purchasedate}
+                value={purchasecode.purchasedate}
                 errors={errors}
                 disabled={true}
             />
             <Select
                 label="구매방식"
                 name="purchasetype"
-                value={purchaseCode.purchasetype}
+                value={purchasecode.purchasetype}
                 errors={errors}
                 disabled={true}
                 options={[
@@ -855,21 +835,21 @@ export const PurchaseCode = ({ purchaseCode, children, errors = {} }) => {
             <Input
                 label="구매코드번호"
                 name="codenumber"
-                value={purchaseCode.codenumber}
+                value={purchasecode.codenumber}
                 errors={errors}
                 disabled={true}
             />
             <Input
                 label="가격"
                 name="price"
-                value={purchaseCode.price}
+                value={purchasecode.price}
                 errors={errors}
                 disabled={true}
             />
             <Input
                 label="구매자id"
                 name="purchaseuser"
-                value={purchaseCode.purchaseuser}
+                value={purchasecode.purchaseuser}
                 errors={errors}
                 disabled={true}
             />

@@ -102,6 +102,43 @@ question
 { "key": "moddate", "title": "수정일" },
 { "key": "moduser", "title": "수정자" },
 
+tourpackage
+{ "key": "idx", "title": "인덱스" },
+{ "key": "tourname", "title": "관광지명" },
+{ "key": "nationtype", "title": "국가분류" },
+{ "key": "nationcode", "title": "국가코드" },
+{ "key": "sidocode", "title": "시도코드" },
+
+{ "key": "areacode", "title": "지역코드" },
+{ "key": "tourcode", "title": "관과지코드" },
+{ "key": "address", "title": "주소" },
+{ "key": "telnumber", "title": "전화번호" },
+{ "key": "admissionfee", "title": "입장료" },
+
+{ "key": "operatingtime", "title": "운영시간" },
+{ "key": "interesttag", "title": "관심사태그" },
+{ "key": "inextroversion", "title": "내외향성" },
+{ "key": "openclose", "title": "개방폐쇄성" },
+{ "key": "subaudioYN", "title": "세부관광지 오디오 가이드 유무" },
+
+{ "key": "mainaudioYN", "title": "대표관광지 오디오 가이드 유무" },
+{ "key": "regdate", "title": "등록일" },
+{ "key": "reguser", "title": "등록자" },
+{ "key": "moddate", "title": "수정일" },
+{ "key": "moduser", "title": "수정자" },
+
+purchasecode
+{ "key": "idx", "title": "인덱스" },
+{ "key": "purchasedate", "title": "구매일자" },
+{ "key": "purchasetype", "title": "구매방식" },
+{ "key": "codenumber", "title": "구매코드번호" },
+{ "key": "price", "title": "가격" },
+
+{ "key": "purchaseuser", "title": "구매자id" },
+{ "key": "regdate", "title": "등록일" },
+{ "key": "reguser", "title": "등록자" },
+{ "key": "moddate", "title": "수정일" },
+{ "key": "moduser", "title": "수정자" },
 
 // const initialValue = {
 //     countryCtg: "KOREA",

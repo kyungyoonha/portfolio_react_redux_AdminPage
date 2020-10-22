@@ -41,16 +41,14 @@
         "title": "관광지 코드 관리",
         "navCtg": "tour",
         "headerList": [
-            { "key": "country", "title": "국가" },
-            { "key": "state", "title": "주/도" },
-            { "key": "city", "title": "시" },
-            { "key": "category", "title": "분류" },
-            { "key": "number", "title": "순번" },
-            { "key": "placeName", "title": "관광지명" },
-            { "key": "info", "title": "기본정보" },
-            { "key": "description", "title": "설명" },
-            { "key": "kr", "title": "KR" },
-            { "key": "en", "title": "EN" }
+            { "key": "tourname", "title": "관광지명" },
+            { "key": "nationtype", "title": "국가분류" },
+            { "key": "nationcode", "title": "국가코드" },
+            { "key": "sidocode", "title": "시도코드" },
+            { "key": "areacode", "title": "지역코드" },
+            { "key": "tourcode", "title": "관광지코드" },
+            { "key": "telnumber", "title": "전화번호" },
+            { "key": "operatingtime", "title": "운영시간" }
         ]
     },
     "nation": {
@@ -98,23 +96,21 @@
             { "key": "done", "title": "완료" }
         ]
     },
-    "purchcode": {
+    "purchasecode": {
         "title": "구매코드 조회",
         "navCtg": "purch",
         "headerList": [
-            { "key": "id", "title": "구매 코드" },
-            { "key": "tourName", "title": "투어 이름" },
-            { "key": "country", "title": "국가" },
-            { "key": "state", "title": "시/도" },
-            { "key": "city", "title": "지역" },
-            { "key": "tourCtg", "title": "투어 구분" },
-            { "key": "tourDayCnt", "title": "투어 일수" },
-            { "key": "guestNumMin", "title": "최소 인원" },
-            { "key": "guestNumMax", "title": "최대 인원" },
+            { "key": "idx", "title": "인덱스" },
+            { "key": "purchasedate", "title": "구매일자" },
+            { "key": "purchasetype", "title": "구매방식" },
+            { "key": "codenumber", "title": "구매코드번호" },
             { "key": "price", "title": "가격" },
-            { "key": "guestName", "title": "구매자명" },
-            { "key": "phone", "title": "전화번호" },
-            { "key": "tourStartTime", "title": "투어시작 시간" }
+
+            { "key": "purchaseuser", "title": "구매자id" },
+            { "key": "regdate", "title": "등록일" },
+            { "key": "reguser", "title": "등록자" },
+            { "key": "moddate", "title": "수정일" },
+            { "key": "moduser", "title": "수정자" }
         ]
     },
     "purchcodeform": {

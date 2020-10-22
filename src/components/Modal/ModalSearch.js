@@ -3,6 +3,8 @@ import "./ModalSearch.scss";
 import { FormSection, Input } from "../Form/Form";
 import Modal from "./Modal";
 import axios from "axios";
+import pageDataMap from "../../json/pageDataMap.json";
+import { Board } from "../Board/Board";
 
 const modalStyle = {
     content: {
@@ -22,40 +24,53 @@ const modalStyle = {
     },
 };
 
-const ModalSearch = ({ label, handleChangePurchaseCode }) => {
+const ModalSearch = ({ searchId, label, onChangeData }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [keyword, setKeyword] = useState("");
     const [results, setResults] = useState([]);
-    const [selected, setSelected] = useState("");
+    const [selectedId, setSelectedId] = useState("");
 
-    useEffect(() => {
-        const getSearchData = async () => {
-            // if (!keyword) return;
-            const res = await axios.get(
-                "http://localhost:3000/json/purchasecode.json"
-            );
-            const result = res.data.filter(
-                (item) =>
-                    item.codenumber.toLowerCase().indexOf(keyword) > -1 ||
-                    item.purchaseuser.toLowerCase().indexOf(keyword) > -1
-            );
-            setResults(result);
-        };
+    const searchMap = {
+        purchasecode: {
+            column: ["codenumber", "purchaseuser"],
+            placeholder: "구매코드 번호 또는 구매자id를 입력해주세요.",
+        },
+        tourpackage: {
+            column: ["tourcode", "tourname"],
+            placeholder: "관광지코드 또는 관광지명을 입력해주세요",
+        },
+    };
 
-        // 시간이 지난 후에 한번만 코드를 실행 시킨다.
-        const delay = setTimeout(() => getSearchData(), 2000);
+    const handleClickSearch = async () => {
+        // if (!keyword) return;
+        const res = await axios.get(
+            `http://localhost:3000/json/${searchId}.json`
+        );
 
-        return () => clearTimeout(delay);
-    }, [keyword]);
+        const result = res.data.data.filter(
+            (item) =>
+                item[searchMap[searchId].column[0]]
+                    .toLowerCase()
+                    .indexOf(keyword) > -1 ||
+                item[searchMap[searchId].column[1]]
+                    .toLowerCase()
+                    .indexOf(keyword) > -1
+        );
 
-    const handleClickSelected = (item) => {
-        setSelected(selected.idx === item.idx ? "" : item);
+        setResults(result);
+    };
+
+    const handleSelectedId = (idx) => {
+        setSelectedId(selectedId === idx ? "" : idx);
     };
 
     const handleClickSave = () => {
-        if (selected) {
-            handleChangePurchaseCode(selected);
+        if (selectedId) {
+            onChangeData(results.find((item) => item.idx === selectedId));
             setModalOpen(false);
+            setResults([]);
+            setKeyword("");
+            setSelectedId("");
         }
     };
     return (
@@ -66,7 +81,8 @@ const ModalSearch = ({ label, handleChangePurchaseCode }) => {
                     className="btn btn-primary"
                     onClick={() => setModalOpen(true)}
                 >
-                    {label}
+                    {label + "  "}
+                    <i className="fas fa-search"></i>
                 </button>
             </div>
             <Modal
@@ -76,7 +92,7 @@ const ModalSearch = ({ label, handleChangePurchaseCode }) => {
             >
                 <div className="modalSearch">
                     <div className="modalSearch__title">
-                        <h4>구매 코드 검색</h4>
+                        <h4>{label}</h4>
                         <button
                             className="btn btn-primary"
                             type="button"
@@ -86,58 +102,49 @@ const ModalSearch = ({ label, handleChangePurchaseCode }) => {
                         </button>
                     </div>
                     <div className="modalSearch__body">
-                        <FormSection full title="구매코드 검색">
-                            <Input
-                                label="구매 코드 검색"
-                                name="minNum"
+                        <FormSection full title={label}>
+                            {/* <Input
+                                label={label}
                                 value={keyword}
                                 onChange={(e) =>
                                     setKeyword(e.target.value.toLowerCase())
                                 }
-                                placeholder={
-                                    "구매코드 번호 또는 구매자id를 입력해주세요."
-                                }
-                            />
+                                placeholder={searchMap[searchId].placeholder}
+                            /> */}
+                            <tr>
+                                <td className="input-group">
+                                    <input
+                                        type="input"
+                                        value={keyword}
+                                        className="form-control"
+                                        onChange={(e) =>
+                                            setKeyword(e.target.value)
+                                        }
+                                    />
+                                    <div
+                                        className="input-group-append"
+                                        onClick={handleClickSearch}
+                                    >
+                                        <button
+                                            className="btn btn-outline-primary"
+                                            type="button"
+                                        >
+                                            검색{" "}
+                                            <i className="fas fa-map-search "></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
                         </FormSection>
                         <br />
-                        <FormSection full scroll>
-                            <tr>
-                                <th>#</th>
-                                <th>구매코드</th>
-                                <th>구매일자</th>
-                                <th>구매방식</th>
-                                <th>구매코드번호</th>
-                                <th>가격</th>
-                                <th>구매자id</th>
-                                <th>등록일</th>
-                                <th>수정일</th>
-                            </tr>
-                            {results.map((item, idx) => (
-                                <tr
-                                    key={idx}
-                                    onClick={() => handleClickSelected(item)}
-                                >
-                                    <td>
-                                        <input
-                                            type="checkbox"
-                                            aria-label="Checkbox"
-                                            checked={item.idx === selected.idx}
-                                            onChange={() =>
-                                                handleClickSelected(item)
-                                            }
-                                        />
-                                    </td>
-                                    <td>{item.idx}</td>
-                                    <td>{item.purchasedate}</td>
-                                    <td>{item.purchasetype}</td>
-                                    <td>{item.codenumber}</td>
-                                    <td>{item.price}</td>
-                                    <td>{item.purchaseuser}</td>
-                                    <td>{item.regdate}</td>
-                                    <td>{item.moddate}</td>
-                                </tr>
-                            ))}
-                        </FormSection>
+                        <div className="modalSearch__board">
+                            <Board
+                                pageId={searchId}
+                                data={results}
+                                selectedId={selectedId}
+                                handleSelectedId={handleSelectedId}
+                            />
+                        </div>
                     </div>
                 </div>
             </Modal>

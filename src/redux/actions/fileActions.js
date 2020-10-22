@@ -9,7 +9,7 @@ export const fileAction_getImages = (id) => async (dispatch) => {
 
         dispatch({
             type: FILE_IMAGE_FETCH,
-            payload: res.data.filter((item) => item.touridx === id),
+            payload: res.data.data.filter((item) => item.touridx === id),
         });
     } catch (e) {
         console.error("fileAction_getImages Error", e);
@@ -24,11 +24,11 @@ export const fileAction_getAudios = (id) => async (dispatch) => {
         dispatch({
             type: FILE_AUDIO_FETCH,
             payload: {
-                audios: res.data.filter((item) => item.touridx === id),
-                main: res.data.filter(
+                audios: res.data.data.filter((item) => item.touridx === id),
+                main: res.data.data.filter(
                     (item) => item.touridx === id && item.mainaudioYN === "Y"
                 ),
-                sub: res.data.filter(
+                sub: res.data.data.filter(
                     (item) => item.touridx === id && item.mainaudioYN === "N"
                 ),
             },

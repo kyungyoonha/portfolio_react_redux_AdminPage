@@ -1,53 +1,77 @@
 {
     "totalPage": 5,
     "data": [
-        {
-            "idx": "randomCode1",
-            "check": "#",
-            "tourName": "투어이름1",
-            "country": "대한민국",
-            "state": "강원도",
-            "city": "영월",
-            "tourCtg": "택시 투어",
-            "tourDayCnt": "7",
-            "guestNumMin": "4",
-            "guestNumMax": "8",
+        {  
+            "idx" : "1",
+            "purchasedate": "2020-10-22",
+            "purchasetype": "3",
+            "codenumber": "3218878",
             "price": "300000",
-            "guestName": "홍길동",
-            "phone": "01099991111",
-            "tourStartTime": "오전 7시"
+            "purchaseuser": "yoon",
+            "regdate": "2020-10-22",
+            "reguser": "yoon",
+            "moddate": "2020-10-22",
+            "moduser": "yoon"
         },
-        {
-            "idx": "randomCode2",
-            "check": "#",
-            "tourName": "투어이름2",
-            "country": "대한민국",
-            "state": "강원도",
-            "city": "영월",
-            "tourCtg": "택시 투어",
-            "tourDayCnt": "7",
-            "guestNumMin": "4",
-            "guestNumMax": "8",
+        {  
+            "idx" : "2",
+            "purchasedate": "2020-10-22",
+            "purchasetype": "3",
+            "codenumber": "3218878",
             "price": "300000",
-            "guestName": "홍길동",
-            "phone": "01099991111",
-            "tourStartTime": "오전 7시"
+            "purchaseuser": "yoon",
+            "regdate": "2020-10-22",
+            "reguser": "yoon",
+            "moddate": "2020-10-22",
+            "moduser": "yoon"
         },
-        {
-            "idx": "randomCode3",
-            "check": "#",
-            "tourName": "투어이름3",
-            "country": "대한민국",
-            "state": "강원도",
-            "city": "영월",
-            "tourCtg": "택시 투어",
-            "tourDayCnt": "7",
-            "guestNumMin": "4",
-            "guestNumMax": "8",
+        {  
+            "idx" : "3",
+            "purchasedate": "2020-10-22",
+            "purchasetype": "3",
+            "codenumber": "3218878",
             "price": "300000",
-            "guestName": "홍길동",
-            "phone": "01099991111",
-            "tourStartTime": "오전 7시"
+            "purchaseuser": "yoon",
+            "regdate": "2020-10-22",
+            "reguser": "yoon",
+            "moddate": "2020-10-22",
+            "moduser": "yoon"
+        },
+        {  
+            "idx" : "4",
+            "purchasedate": "2020-10-22",
+            "purchasetype": "3",
+            "codenumber": "3218878",
+            "price": "300000",
+            "purchaseuser": "jack",
+            "regdate": "2020-10-22",
+            "reguser": "jack",
+            "moddate": "2020-10-22",
+            "moduser": "jack"
+        },
+        {  
+            "idx" : "5",
+            "purchasedate": "2020-10-22",
+            "purchasetype": "3",
+            "codenumber": "3218878",
+            "price": "300000",
+            "purchaseuser": "jack",
+            "regdate": "2020-10-22",
+            "reguser": "jack",
+            "moddate": "2020-10-22",
+            "moduser": "jack"
+        },
+        {  
+            "idx" : "6",
+            "purchasedate": "2020-10-22",
+            "purchasetype": "3",
+            "codenumber": "3218878",
+            "price": "300000",
+            "purchaseuser": "jack",
+            "regdate": "2020-10-22",
+            "reguser": "jack",
+            "moddate": "2020-10-22",
+            "moduser": "jack"
         }
     ]
 }
