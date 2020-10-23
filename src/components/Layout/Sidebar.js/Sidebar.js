@@ -7,11 +7,11 @@ const routes = [
     { path: "/dashboard", title: "Dashboard", icon: "chart-pie" },
     { path: "/member", title: "회원정보", icon: "user-cog" },
     {
-        path: "/tour",
+        path: "/package",
         title: "관광지 관리",
         icon: "map-marked-alt",
     },
-    { path: "/purch", title: "구매 관리", icon: "route" },
+    { path: "/order", title: "구매 관리", icon: "route" },
     { path: "/cs", title: "공지사항", icon: "bell" },
 ];
 

@@ -17,16 +17,16 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     title: "",
     target: "",
     linkinfo: "",
     contents: "",
     messageYN: "N",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
 //working ###
 const CSFormPush = ({ match }) => {

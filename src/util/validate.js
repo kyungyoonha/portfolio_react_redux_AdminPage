@@ -1,3 +1,12 @@
+// 필수는 아니지만 입력했을때 형식에 맞아야 되는 경우
+// 특정 name은 무조건 체크함
+
+// 들어왔을때 이 값이 필수 인지 체크
+// 필수라면 isEmpty 적용
+
+// 오류 메시지?
+//
+
 export const validateAll = (inputs, checkFunc) => {
     let isValid = false;
     let checkedErrors = {};
@@ -15,7 +24,7 @@ export const validateAll = (inputs, checkFunc) => {
     return { isValid, checkedErrors };
 };
 
-export const validateMember = (name, value) => {
+export const validateUser = (name, value) => {
     switch (name) {
         case "username":
             return isEmpty(value) && "이름을 입력해주세요.";
@@ -39,9 +48,6 @@ export const validateMember = (name, value) => {
         case "nickname":
             return isEmpty(value) && "별명을 입력해주세요.";
 
-        // case "tourCnt":
-        //     return checkNumber(value) && "숫자만 입력해주세요.";
-
         case "email":
             return checkEmail(value) && "이메일 형식에 맞게 작성해주세요.";
 
@@ -49,6 +55,13 @@ export const validateMember = (name, value) => {
             return;
     }
 };
+
+// ###
+// email, id, pw
+// const reqiredMap = {
+//     user: ['username','id','pw','birthday', 'telnumber', 'nickname'],
+//     driver: ['drivername','id','pw', 'birthday', 'telnumber'],
+// }
 
 export const validateDriver = (name, value) => {
     switch (name) {

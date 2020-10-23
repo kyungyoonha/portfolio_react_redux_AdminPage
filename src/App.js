@@ -40,8 +40,8 @@ const App = () => {
                         />
                     ))}
                     <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
-                    <Route path="/tour" exact render={() => <Redirect to="/tour/tourpackage" />}/>
-                    <Route path="/purch" exact render={() => <Redirect to="/purch/purchinfo" />}/>
+                    <Route path="/package" exact render={() => <Redirect to="/package/tour" />}/>
+                    <Route path="/order" exact render={() => <Redirect to="/order/purchase" />}/>
                     <Route path="/cs" exact render={() => <Redirect to="/cs/push" />}/>
                     <Route path="/pages/signup" title="회원가입" component={Signup} />
                     <Route path="/pages/login" title="로그인" component={Login} />

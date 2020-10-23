@@ -19,17 +19,17 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     userid: "",
     email: "",
     filename: "",
     replyYN: "",
     contents: "",
     filepath: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
 //working ### 이메일 처리
 const CSFormQuestion = ({ match }) => {

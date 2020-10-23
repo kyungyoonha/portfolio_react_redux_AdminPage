@@ -16,20 +16,20 @@ import {
     InputDate,
 } from "../../../components/Form/Form";
 const initialValue = {
-    idx: "",
+    // idx: "",
     purchasedate: "",
     purchasetype: "",
     codenumber: "",
     price: "",
     purchaseuser: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
 
 //working
-const PurchFormInfo = ({ match }) => {
+const OrderFormPurchaseCode = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { name } = useSelector((state) => state.user);
@@ -112,4 +112,4 @@ const PurchFormInfo = ({ match }) => {
     );
 };
 
-export default PurchFormInfo;
+export default OrderFormPurchaseCode;

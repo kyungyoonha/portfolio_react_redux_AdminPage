@@ -26,6 +26,8 @@ export default (state = INITIAL_STATE, action) => {
                 pageId: action.payload.pageId,
                 data: action.payload.data,
                 totalPage: action.payload.totalPage,
+                selectedId: "",
+                insertType: "",
             };
 
         case BOARD_DETAIL:

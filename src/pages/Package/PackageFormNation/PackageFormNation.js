@@ -11,19 +11,19 @@ import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     koreanname: "",
     englishname: "",
     code3: "",
     code2: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
 
 //working ###
-const TourFormNation = ({ match }) => {
+const PackageFormNation = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const id = match.params.id;
     const type = queryString.parse(history.location.search).type;
@@ -38,17 +38,16 @@ const TourFormNation = ({ match }) => {
         validateNation,
         setErrors
     );
-
     useEffect(() => {
-        if (id === "new") return;
+        if (type === "insert") return;
         dispatch(boardAction_detail(pageId, id));
-    }, [dispatch, pageId, id]);
+    }, [dispatch, pageId, type, id]);
 
     useEffect(() => {
-        if (id === "new") return;
+        if (type === "insert") return;
         if (Object.keys(detail).length === 0) return;
         setInputs(detail);
-    }, [id, setInputs, detail]);
+    }, [type, setInputs, detail]);
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateNation);
@@ -73,7 +72,7 @@ const TourFormNation = ({ match }) => {
         <FormLayout>
             <ContentNav pageId={pageId}>
                 <ContentBtn
-                    type={id === "new" ? "form" : type}
+                    type={type}
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={() => history.goBack()}
                 />
@@ -114,4 +113,4 @@ const TourFormNation = ({ match }) => {
     );
 };
 
-export default TourFormNation;
+export default PackageFormNation;

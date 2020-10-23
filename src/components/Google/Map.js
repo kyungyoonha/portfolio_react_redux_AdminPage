@@ -33,8 +33,8 @@ const Map = ({ id, options, modalOpen, handleCloseModal, onChange }) => {
     // 검색어(주소) 자동완성 이벤트
     // [Places API] 사용
     const onEventSearchBox = useCallback((map, marker) => {
-        const input = document.getElementById(inputId);
-        const searchBox = new window.google.maps.places.SearchBox(input);
+        let input = document.getElementById(inputId);
+        let searchBox = new window.google.maps.places.SearchBox(input);
 
         map.addListener("bounds_changed", () => {
             searchBox.setBounds(map.getBounds());

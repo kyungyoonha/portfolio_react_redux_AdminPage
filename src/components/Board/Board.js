@@ -86,10 +86,10 @@ export const BoardTop = ({ handleChangePageCtrl }) => {
         }
     };
 
-    const onChangePageCtrl = (e) => {
-        const { name, value } = e.target;
-        handleChangePageCtrl(name, value);
-    };
+    // const onChangePageCtrl = (e) => {
+    //     const { name, value } = e.target;
+    //     handleChangePageCtrl(name, value);
+    // };
 
     //
     const [nation, setNation] = useState("");

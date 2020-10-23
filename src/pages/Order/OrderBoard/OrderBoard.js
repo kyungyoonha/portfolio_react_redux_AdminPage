@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import history from "../../../history";
 
-import TourBoardTop from "./components/TourBoardTop";
+import InfoTop from "./components/InfoTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
 import {
     ContentBtn,
@@ -18,7 +18,7 @@ import {
 } from "../../../redux/actions";
 
 // BBB
-const TourBoard = ({ match }) => {
+const OrderBoard = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
     const { pageId: prevId, data, totalPage, selectedId } = useSelector(
@@ -37,29 +37,20 @@ const TourBoard = ({ match }) => {
         dispatch(boardAction_fetch(pageId));
     }, [dispatch, pageId]);
 
+    const handleClickInsert = () => {
+        history.push(`/order/${pageId}/form`);
+    };
+
     const handleSelectedId = (id) => {
         dispatch(boardAction_selected(id));
     };
 
-    const handleClickDelete = () => {
+    const handleClickDelete = async () => {
         if (!selectedId) {
             alert("삭제할 행을 선택해주세요");
         } else {
             dispatch(boardAction_delete(pageId, selectedId));
         }
-    };
-
-    const handleClickEditCopy = (type) => {
-        if (!selectedId && type !== "new") {
-            alert("행을 선택해주세요.");
-            return;
-        }
-
-        history.push(
-            `/tour/${pageId}/form/${
-                type === "new" ? "new" : selectedId
-            }?type=${type}`
-        );
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -73,32 +64,13 @@ const TourBoard = ({ match }) => {
         <React.Fragment>
             <ContentNav pageId={pageId}>
                 <ContentBtn
-                    handleClickInsert={() => handleClickEditCopy("new")}
+                    handleClickInsert={handleClickInsert}
                     handleClickDelete={handleClickDelete}
-                >
-                    {pageId !== "tourpackage" && (
-                        <React.Fragment>
-                            <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={() => handleClickEditCopy("copy")}
-                            >
-                                복사하기
-                            </button>
-                            <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={() => handleClickEditCopy("edit")}
-                            >
-                                수정하기
-                            </button>
-                        </React.Fragment>
-                    )}
-                </ContentBtn>
+                />
             </ContentNav>
 
             <ContentBody>
-                <TourBoardTop handleChangePageCtrl={handleChangePageCtrl} />
+                <InfoTop handleChangePageCtrl={handleChangePageCtrl} />
                 {prevId === pageId && (
                     <Board
                         pageId={pageId}
@@ -118,4 +90,4 @@ const TourBoard = ({ match }) => {
     );
 };
 
-export default TourBoard;
+export default OrderBoard;

@@ -19,7 +19,7 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     username: "",
     id: "",
     pw: "",
@@ -33,10 +33,10 @@ const initialValue = {
     duty: "",
     department: "",
     etc: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
 
 //working ###

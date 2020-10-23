@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import history from "../../../history";
 import queryString from "query-string";
-import { optionsCountry } from "../../../util/options";
 
 // redux
 import { boardAction_detail, boardAction_update } from "../../../redux/actions";
@@ -16,12 +15,11 @@ import {
     FormSection,
     Input,
     RadioSingle,
-    Select,
     SelectAPI,
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     nationcodeidx: "",
     sidocode: "",
     sidoname: "",
@@ -30,14 +28,14 @@ const initialValue = {
     mainpicYN: "N",
     mainpicname: "",
     mainpicpath: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
 
 //working ###
-const TourFormArea = ({ match }) => {
+const PackageFormArea = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const id = match.params.id;
     const type = queryString.parse(history.location.search).type;
@@ -51,17 +49,16 @@ const TourFormArea = ({ match }) => {
         validateArea,
         setErrors
     );
-
     useEffect(() => {
-        if (id === "new") return;
+        if (type === "insert") return;
         dispatch(boardAction_detail(pageId, id));
-    }, [dispatch, pageId, id]);
+    }, [dispatch, pageId, type, id]);
 
     useEffect(() => {
-        if (id === "new") return;
+        if (type === "insert") return;
         if (Object.keys(detail).length === 0) return;
         setInputs(detail);
-    }, [id, setInputs, detail]);
+    }, [setInputs, detail, type]);
 
     useEffect(() => {
         let mainpicYN = inputs.mainpicpath ? "Y" : "N";
@@ -99,7 +96,7 @@ const TourFormArea = ({ match }) => {
         <FormLayout>
             <ContentNav pageId={pageId}>
                 <ContentBtn
-                    type={id === "new" ? "form" : type}
+                    type={type}
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={() => history.goBack()}
                 />
@@ -166,4 +163,4 @@ const TourFormArea = ({ match }) => {
     );
 };
 
-export default TourFormArea;
+export default PackageFormArea;

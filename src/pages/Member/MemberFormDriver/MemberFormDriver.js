@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import history from "../../../history";
 import { validateAll, validateDriver } from "../../../util/validate";
-import { optionsCity, optionsRegion } from "../../../util/options";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +20,7 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     drivername: "",
     id: "",
     pw: "",
@@ -36,11 +35,10 @@ const initialValue = {
     businesstype: "1",
     grade: "",
     etc: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
-
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
     businessname: "",
 };
 
@@ -55,7 +53,6 @@ const MemberFormDriver = ({ match }) => {
         validateDriver,
         setErrors
     );
-
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateDriver);
 
@@ -79,7 +76,6 @@ const MemberFormDriver = ({ match }) => {
         }
     };
 
-    console.log("nationcode", inputs.nationcode);
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>

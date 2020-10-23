@@ -38,9 +38,9 @@
             { "key": "entryYear", "title": "입사년도" }
         ]
     },
-    "tourpackage": {
+    "tour": {
         "title": "관광지 코드 관리",
-        "navCtg": "tour",
+        "navCtg": "package",
         "headerList": [
             { "key": "tourname", "title": "관광지명" },
             { "key": "nationtype", "title": "국가분류" },
@@ -53,7 +53,7 @@
     },
     "nationcode": {
         "title": "관광지 코드 관리",
-        "navCtg": "tour",
+        "navCtg": "package",
         "headerList": [
             { "key": "idx", "title": "idx" },
             { "key": "koreanname", "title": "국가이름(한글)" },
@@ -64,7 +64,7 @@
     },
     "areacode": {
         "title": "지역 코드 관리",
-        "navCtg": "tour",
+        "navCtg": "package",
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "nationidx", "title": "국가 코드" },
@@ -81,9 +81,9 @@
             { "key": "moduser", "title": "수정자" }
         ]
     },
-    "purchinfo": {
+    "purchase": {
         "title": "구매정보 관리",
-        "navCtg": "purch",
+        "navCtg": "order",
         "headerList": [
             { "key": "date", "title": "날짜/시간" },
             { "key": "guestId", "title": "고객" },
@@ -98,7 +98,7 @@
     },
     "purchasecode": {
         "title": "구매코드 조회",
-        "navCtg": "purch",
+        "navCtg": "order",
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "purchasedate", "title": "구매일자" },

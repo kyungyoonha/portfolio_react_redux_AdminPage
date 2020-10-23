@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from "react";
 import history from "../../../history";
 import { validateAll, validatePackage } from "../../../util/validate";
-import {
-    optionsCountry,
-    optionsCity,
-    optionsRegion,
-} from "../../../util/options";
-
 // redux
 import { boardAction_update } from "../../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,7 +11,6 @@ import TourModalAudio from "./TourModalAudio/TourModalAudio";
 import TourModalImage from "./TourModalImage/TourModalImage";
 import {
     Input,
-    Select,
     RadioSingle,
     RadioTypeCheck,
     RadioMulti,
@@ -31,7 +24,7 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     tourname: "",
     nationtype: "1",
     nationcode: "KOREA",
@@ -49,10 +42,10 @@ const initialValue = {
     openclose: "0",
     subaudioYN: "N",
     mainaudioYN: "N",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
 };
 
 //working ###
@@ -68,7 +61,6 @@ const TourFormPackage = ({ match }) => {
         validatePackage,
         setErrors
     );
-
     useEffect(() => {
         let audioMain = audios.filter((item) => item.mainaudioYN === "Y");
         let audioSub = audios.filter((item) => item.mainaudioYN === "N");
@@ -130,7 +122,6 @@ const TourFormPackage = ({ match }) => {
     const handleChangeImage = (images) => {
         setImages(images);
     };
-
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>

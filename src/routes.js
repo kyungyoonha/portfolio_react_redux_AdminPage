@@ -6,14 +6,14 @@ import MemberFormUser from './pages/Member/MemberFormUser/MemberFormUser'
 import MemberFormDriver from './pages/Member/MemberFormDriver/MemberFormDriver';
 import MemberFormManager from './pages/Member/MemberFormManager/MemberFormManager';
 
-import TourBoard from './pages/Tour/TourBoard/TourBoard';
-import TourFormPackage from './pages/Tour/TourFormPackage/TourFormPackage';
-import TourFormNation from "./pages/Tour/TourFormNation/TourFormNation";
-import TourFormArea from "./pages/Tour/TourFormArea/TourFormArea";
+import PackageBoard from './pages/Package/PackageBoard/PackageBoard';
+import PackageFormTour from './pages/Package/PackageFormTour/PackageFormTour';
+import PackageFormNation from "./pages/Package/PackageFormNation/PackageFormNation";
+import PackageFormArea from "./pages/Package/PackageFormArea/PackageFormArea";
 
-import PurchBoard from './pages/Purch/PurchBoard/PurchBoard';
-import PurchFormInfo from './pages/Purch/PurchFormInfo/PurchFormInfo';
-import PurchFormCode from "./pages/Purch/PurchFormCode/PurchFormCode";
+import OrderBoard from './pages/Order/OrderBoard/OrderBoard';
+import OrderFormPurchase from './pages/Order/OrderFormPurchase/OrderFormPurchase';
+import OrderFormPurchaseCode from "./pages/Order/OrderFormPurchaseCode/OrderFormPurchaseCode";
 
 import CSBoard from './pages/CS/CSBoard/CSBoard';
 import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
@@ -30,18 +30,18 @@ const routes = [
     { path: "/member/manager", exact: true,  component: MemberBoard },
     { path: "/member/manager/form",  component: MemberFormManager },
 
-    { path: "/tour/tourpackage", exact: true,  component: TourBoard },
-    { path: "/tour/tourpackage/form",  component: TourFormPackage},
-    { path: "/tour/nationcode", exact: true,  component: TourBoard },
-    { path: "/tour/nationcode/form/:id", component: TourFormNation },
-    { path: "/tour/areacode", exact: true,  component: TourBoard },
-    { path: "/tour/areacode/form/:id", component: TourFormArea },
+    { path: "/package/tour", exact: true,  component: PackageBoard },
+    { path: "/package/tour/form",  component: PackageFormTour},
+    { path: "/package/nationcode", exact: true,  component: PackageBoard },
+    { path: "/package/nationcode/form/:id", component: PackageFormNation },
+    { path: "/package/areacode", exact: true,  component: PackageBoard },
+    { path: "/package/areacode/form/:id", component: PackageFormArea },
 
 
-    { path: "/purch/purchinfo", exact: true,  component: PurchBoard },
-    { path: "/purch/purchinfo/form", exact: true,  component: PurchFormInfo },
-    { path: "/purch/purchasecode", exact: true,  component: PurchBoard },
-    { path: "/purch/purchasecode/form", exact: true,  component: PurchFormCode },
+    { path: "/order/purchase", exact: true,  component: OrderBoard },
+    { path: "/order/purchase/form", exact: true,  component: OrderFormPurchase },
+    { path: "/order/purchasecode", exact: true,  component: OrderBoard },
+    { path: "/order/purchasecode/form", exact: true,  component: OrderFormPurchaseCode },
 
     { path: "/cs/push", exact: true, component: CSBoard },
     { path: "/cs/push/form", exact: true, component: CSFormPush },

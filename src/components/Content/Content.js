@@ -9,14 +9,14 @@ const navMap = {
         { to: "/member/driver", title: "기사 회원" },
         { to: "/member/manager", title: "관리자" },
     ],
-    tour: [
-        { to: "/tour/tourpackage", title: "관광지 관리" },
-        { to: "/tour/nationcode", title: "국가 코드 관리" },
-        { to: "/tour/areacode", title: "지역 코드 관리" },
+    package: [
+        { to: "/package/tour", title: "관광지 관리" },
+        { to: "/package/nationcode", title: "국가 코드 관리" },
+        { to: "/package/areacode", title: "지역 코드 관리" },
     ],
-    purch: [
-        { to: "/purch/purchinfo", title: "구매정보 관리" },
-        { to: "/purch/purchasecode", title: "구매코드 조회" },
+    order: [
+        { to: "/order/purchase", title: "구매정보 관리" },
+        { to: "/order/purchasecode", title: "구매코드 조회" },
     ],
     cs: [
         { to: "/cs/push", title: "알림 관리" },

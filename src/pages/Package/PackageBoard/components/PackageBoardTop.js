@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TourBoardTop = ({ handleChangePageCtrl }) => {
+const PackageBoardTop = ({ handleChangePageCtrl }) => {
     const [input, setInput] = useState("");
 
     const onChangeInput = (e) => {
@@ -91,4 +91,4 @@ const TourBoardTop = ({ handleChangePageCtrl }) => {
     );
 };
 
-export default TourBoardTop;
+export default PackageBoardTop;

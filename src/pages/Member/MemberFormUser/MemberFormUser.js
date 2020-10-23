@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import history from "../../../history";
-import { validateAll, validateMember } from "../../../util/validate";
+import { validateAll, validateUser } from "../../../util/validate";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +22,7 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    idx: "",
+    // idx: "",
     username: "",
     id: "",
     pw: "",
@@ -35,11 +35,10 @@ const initialValue = {
     messageagree: "N",
     pushagree: "N",
     etc: "",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
-
+    // regdate: "",
+    // reguser: "",
+    // moddate: "",
+    // moduser: "",
     profilename: "",
     profilepath: "",
     inextroversion: "0",
@@ -53,12 +52,12 @@ const MemberFormUser = ({ match }) => {
     const [tripTag, setTripTag] = useState({});
     const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
-        validateMember,
+        validateUser,
         setErrors
     );
 
     const handleClickInsert = async () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateMember);
+        const { isValid, checkedErrors } = validateAll(inputs, validateUser);
         if (isValid) {
             // const res = await axios.post(
             //     `http://localhost:8000/${pageId}/update`,
