@@ -6,6 +6,7 @@ import Map from "../Google/Map";
 //import ReactModal from "react-modal";
 import TimePicker from "../TimePicker/TimePicker";
 import ModalNumRange from "../Modal/ModalNumRange";
+import ReactSelect from "../Select/ReactSelect";
 
 export const FormLayout = ({ children }) => {
     return <form className="formLayout">{children}</form>;
@@ -114,6 +115,39 @@ export const Select = ({
                 </select>
                 {errors[name] && (
                     <div className="invalid-feedback">{errors[name]}</div>
+                )}
+            </td>
+        </tr>
+    );
+};
+
+export const SelectAPI = ({
+    label,
+    searchId,
+    value,
+    searchItems,
+    onChange,
+    errors = {},
+    disabled,
+}) => {
+    return (
+        <tr>
+            <th>
+                <label className="col-form-label">
+                    {label && `※ ${label}`}
+                </label>
+            </th>
+            <td>
+                <ReactSelect
+                    value={value}
+                    searchId={searchId}
+                    searchItems={searchItems}
+                    onChange={onChange}
+                    placeholder={label}
+                    disabled={disabled}
+                />
+                {errors[searchId] && (
+                    <div className="errorMessage">{errors[searchId]}</div>
                 )}
             </td>
         </tr>
@@ -668,44 +702,6 @@ export const FormImageList = ({ images, children }) => {
                 <td colSpan="3">{children}</td>
             </tr>
         </React.Fragment>
-    );
-};
-
-export const SelectMultiCustom = ({ inputs, onChange, options }) => {
-    return (
-        <tr className="selectMultiCustom">
-            <th>
-                <label className="col-form-label">※ 인원</label>
-            </th>
-            <td>
-                <label className="col-form-label">최소:</label>
-                <select
-                    name="guestNumMin"
-                    value={inputs.guestNumMin}
-                    onChange={onChange}
-                    className="custom-select"
-                >
-                    {options.map((item) => (
-                        <option key={item.value} value={item.value}>
-                            {item.title}
-                        </option>
-                    ))}
-                </select>
-                <label className="col-form-label">최대:</label>
-                <select
-                    name="guestNumMax"
-                    value={inputs.guestNumMax}
-                    onChange={onChange}
-                    className="custom-select"
-                >
-                    {options.map((item) => (
-                        <option key={item.value} value={item.value}>
-                            {item.title}
-                        </option>
-                    ))}
-                </select>
-            </td>
-        </tr>
     );
 };
 

@@ -103,9 +103,8 @@ export const validatePackage = (name, value) => {
         case "tourname":
             return isEmpty(value) && "관광지명을 입력해주세요.";
 
-        case "nationcode":
-        case "sidocode":
-        case "areacode":
+        case "nationcodeidx":
+        case "areacodeidx":
         case "tourcode":
         case "operatingtime":
             return isEmpty(value) && "선택해주세요";
@@ -145,7 +144,7 @@ export const validateNation = (name, value) => {
 
 export const validateArea = (name, value) => {
     switch (name) {
-        case "nationidx":
+        case "nationcodeidx":
             return isEmpty(value) && "국가코드를 선택해주세요.";
 
         case "sidocode":
@@ -173,40 +172,19 @@ export const validateRegion = (name, value) => {
 
 export const validateInfo = (name, value) => {
     switch (name) {
-        case "tourName":
-            if (isEmpty(value)) return "투어명을 입력해주세요.";
-            return;
-
-        case "country":
-        case "city":
-        case "state":
-            return isEmpty(value) && "선택해주세요";
-
-        case "tourCtg":
+        case "tourtype":
             return isEmpty(value) && "투어 종류를 선택해주세요.";
 
-        case "tourDayCnt":
+        case "touridx":
+            return isEmpty(value) && "관광지코드를 입력해주세요.";
+
+        case "tourdays":
             if (isEmpty(value)) return "투어 일수를 입력해주세요.";
             if (checkNumber(value)) return "숫자만 입력 가능합니다.";
             return;
 
-        case "guestNumMax":
-            return isEmpty(value) && "최대 인원수를 입력해주세요.";
-
-        case "price":
-            if (isEmpty(value)) return "가격을 입력해주세요.";
-            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
-            return;
-
-        case "tourStartTime":
-            return isEmpty(value) && "투어 시작시간을 선택해주세요.";
-
-        case "guestId":
-            return isEmpty(value) && "구매자 Id를 입력해주세요.";
-
-        case "guestName":
-            return isEmpty(value) && "구매자명을 입력해주세요.";
-
+        case "tourstartday":
+            return isEmpty(value) && "관광지코드를 입력해주세요.";
         default:
             return;
     }
@@ -214,34 +192,19 @@ export const validateInfo = (name, value) => {
 
 export const validateCode = (name, value) => {
     switch (name) {
-        case "tourName":
-            if (isEmpty(value)) return "투어명을 입력해주세요.";
+        case "purchasedate":
+            if (isEmpty(value)) return "구매일자를 선택해주세요";
             return;
-
-        case "country":
-        case "city":
-        case "state":
-            return isEmpty(value) && "선택해주세요";
-
-        case "tourCtg":
-            return isEmpty(value) && "투어 종류를 선택해주세요.";
-
-        case "tourDayCnt":
-            if (isEmpty(value)) return "투어 일수를 입력해주세요.";
+        case "purchasetype":
+            if (isEmpty(value)) return "구매방식을 선택해주세요";
+            return;
+        case "price":
+            if (isEmpty(value)) return "금액을 입력해주세요.";
             if (checkNumber(value)) return "숫자만 입력 가능합니다.";
             return;
-
-        case "guestNumMax":
-            return isEmpty(value) && "최대 인원수를 입력해주세요.";
-
-        case "price":
-            return isEmpty(value) && "가격을 입력해주세요.";
-
-        case "guestName":
-            return isEmpty(value) && "구매자명을 입력해주세요.";
-
-        case "tourStartTime":
-            return isEmpty(value) && "투어 시작시간을 선택해주세요.";
+        case "purchaseuser":
+            if (isEmpty(value)) return "구매자id를 입력해주세요";
+            return;
 
         default:
             return;

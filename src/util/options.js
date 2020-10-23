@@ -1,4 +1,6 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from "axios";
+
 export const optionsCountry = (countryCtg) => {
     switch (countryCtg) {
         case "KOREA":
@@ -41,3 +43,22 @@ export const optionsRegion = (region) => {
         ];
     }
 };
+
+
+export const Options = React.memo(() => {
+    const [data, setData] = useState([]);
+    useEffect(() => {
+        const getData = async () => {
+            const res = await axios.get('http://localhost:3000/json/nationcode.json')
+            setData(res.data.data)
+        }
+        getData();
+    }, [])
+    console.log(data)
+    return (
+        <React.Fragment>
+            {data.map(item => <option value={item.code3}>{item.koreanname}</option>)}
+        </React.Fragment>
+    )
+    
+})

@@ -32,16 +32,16 @@ const routes = [
 
     { path: "/tour/tourpackage", exact: true,  component: TourBoard },
     { path: "/tour/tourpackage/form",  component: TourFormPackage},
-    { path: "/tour/nation", exact: true,  component: TourBoard },
-    { path: "/tour/nation/form/:id", component: TourFormNation },
-    { path: "/tour/area", exact: true,  component: TourBoard },
-    { path: "/tour/area/form/:id", component: TourFormArea },
+    { path: "/tour/nationcode", exact: true,  component: TourBoard },
+    { path: "/tour/nationcode/form/:id", component: TourFormNation },
+    { path: "/tour/areacode", exact: true,  component: TourBoard },
+    { path: "/tour/areacode/form/:id", component: TourFormArea },
 
 
     { path: "/purch/purchinfo", exact: true,  component: PurchBoard },
     { path: "/purch/purchinfo/form", exact: true,  component: PurchFormInfo },
-    { path: "/purch/purchcode", exact: true,  component: PurchBoard },
-    { path: "/purch/purchcodeform", exact: true,  component: PurchFormCode },
+    { path: "/purch/purchasecode", exact: true,  component: PurchBoard },
+    { path: "/purch/purchasecode/form", exact: true,  component: PurchFormCode },
 
     { path: "/cs/push", exact: true, component: CSBoard },
     { path: "/cs/push/form", exact: true, component: CSFormPush },

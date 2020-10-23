@@ -24,7 +24,7 @@ export default (initialValue, validateFunc, setErrors) => {
                 if (name === "nationtype") {
                     setInputs((state) => ({
                         ...state,
-                        nationcode: value === "1" ? "KOREA" : "",
+                        nationcodeidx: value === "1" ? "1" : "",
                     }));
                 }
                 // 소속

@@ -27,6 +27,7 @@ import {
     InputTimeRange,
     FormAudioList,
     FormImageList,
+    SelectAPI,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -158,30 +159,28 @@ const TourFormPackage = ({ match }) => {
                         { value: "2", title: "국외" },
                     ]}
                 />
-                <Select
+                <SelectAPI
                     label="국가 코드"
-                    name="nationcode"
-                    value={inputs.nationcode || "KOREA"}
+                    searchId="nationcode"
+                    value={inputs.nationcodeidx}
+                    searchItems={["koreanname", "code2"]}
                     onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsCountry(inputs.nationcode)}
                     disabled={inputs.nationtype === "1"}
+                    error={errors["nationcodeidx"]}
                 />
-                <Select
+
+                <SelectAPI
                     label="시도 코드"
-                    name="sidocode"
-                    value={inputs.sidocode}
+                    searchId="areacode"
+                    value={inputs.areacodeidx}
+                    searchItems={[
+                        "sidoname",
+                        "sidocode",
+                        "areaname",
+                        "areacode",
+                    ]}
                     onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsCity(inputs.sidocode)}
-                />
-                <Select
-                    label="지역 코드"
-                    name="areacode"
-                    value={inputs.areacode}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsRegion(inputs.areacode)}
+                    error={errors["areacodeidx"]}
                 />
 
                 <Input

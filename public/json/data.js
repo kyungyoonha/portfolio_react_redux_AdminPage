@@ -31,9 +31,8 @@ driver
 { "key": "pw", "title": "비밀번호" },
 { "key": "nationtype", "title": "국가분류" },
 
-{ "key": "nationcode", "title": "국가 코드" },
-{ "key": "sidocode", "title": "시도 코드" },
-{ "key": "areacode", "title": "지역 코드" },
+{ "key": "nationcodeidx", "title": "국가 코드" },
+{ "key": "areacodeidx", "title": "지역 코드" },
 { "key": "birthday", "title": "생년월일" },
 { "key": "telnumber", "title": "연락처" },
 

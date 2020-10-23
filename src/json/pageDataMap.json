@@ -17,7 +17,8 @@
         "headerList": [
             { "key": "drivername", "title": "기사 성명" },
             { "key": "id", "title": "아이디" },
-            { "key": "nationcode", "title": "국가 코드" },
+            { "key": "nationcodeidx", "title": "국가 코드" },
+            { "key": "areacodeidx", "title": "시도 코드" },
             { "key": "telnumber", "title": "연락처" },
             { "key": "trabus", "title": "운행내역" },
             { "key": "drivercomplain", "title": "컴플레인" }
@@ -43,15 +44,14 @@
         "headerList": [
             { "key": "tourname", "title": "관광지명" },
             { "key": "nationtype", "title": "국가분류" },
-            { "key": "nationcode", "title": "국가코드" },
-            { "key": "sidocode", "title": "시도코드" },
-            { "key": "areacode", "title": "지역코드" },
+            { "key": "nationcodeidx", "title": "국가코드" },
+            { "key": "areacodeidx", "title": "지역코드" },
             { "key": "tourcode", "title": "관광지코드" },
             { "key": "telnumber", "title": "전화번호" },
             { "key": "operatingtime", "title": "운영시간" }
         ]
     },
-    "nation": {
+    "nationcode": {
         "title": "관광지 코드 관리",
         "navCtg": "tour",
         "headerList": [
@@ -62,7 +62,7 @@
             { "key": "code2", "title": "국가코드(2자리)" }
         ]
     },
-    "area": {
+    "areacode": {
         "title": "지역 코드 관리",
         "navCtg": "tour",
         "headerList": [
@@ -112,10 +112,6 @@
             { "key": "moddate", "title": "수정일" },
             { "key": "moduser", "title": "수정자" }
         ]
-    },
-    "purchcodeform": {
-        "title": "구매코드 조회",
-        "navCtg": "purch"
     },
     "push": {
         "title": "알림 관리",

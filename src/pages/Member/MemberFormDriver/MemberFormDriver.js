@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import history from "../../../history";
 import { validateAll, validateDriver } from "../../../util/validate";
-import fileAPI from "../../../util/fileAPI";
-import {
-    optionsCountry,
-    optionsCity,
-    optionsRegion,
-} from "../../../util/options";
+import { optionsCity, optionsRegion } from "../../../util/options";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -18,11 +13,11 @@ import {
     FormLayout,
     FormSection,
     Input,
-    Select,
     RadioSingle,
     Textarea,
     InputDate,
     File,
+    SelectAPI,
 } from "../../../components/Form/Form";
 
 const initialValue = {
@@ -31,9 +26,8 @@ const initialValue = {
     id: "",
     pw: "",
     nationtype: "1",
-    nationcode: "KOREA",
-    sidocode: "",
-    areacode: "",
+    nationcodeidx: "1",
+    areacodeidx: "",
     birthday: "",
     telnumber: "",
     cartype: "",
@@ -85,6 +79,7 @@ const MemberFormDriver = ({ match }) => {
         }
     };
 
+    console.log("nationcode", inputs.nationcode);
     return (
         <FormLayout>
             <ContentNav pageId={pageId}>
@@ -127,31 +122,28 @@ const MemberFormDriver = ({ match }) => {
                         { value: "2", title: "국외" },
                     ]}
                 />
-                <Select
+                <SelectAPI
                     label="국가 코드"
-                    name="nationcode"
-                    value={inputs.nationcode || "KOREA"}
+                    searchId="nationcode"
+                    value={inputs.nationcodeidx}
+                    searchItems={["koreanname", "code2"]}
                     onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsCountry(inputs.nationcode)}
                     disabled={inputs.nationtype === "1"}
+                    error={errors["nationcodeidx"]}
                 />
 
-                <Select
+                <SelectAPI
                     label="시도 코드"
-                    name="sidocode"
-                    value={inputs.sidocode}
+                    searchId="areacode"
+                    value={inputs.areacodeidx}
+                    searchItems={[
+                        "sidoname",
+                        "sidocode",
+                        "areaname",
+                        "areacode",
+                    ]}
                     onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsCity(inputs.sidocode)}
-                />
-                <Select
-                    label="지역 코드"
-                    name="areacode"
-                    value={inputs.areacode}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsRegion(inputs.areacode)}
+                    error={errors["areacodeidx"]}
                 />
                 <InputDate
                     label="생년월일"

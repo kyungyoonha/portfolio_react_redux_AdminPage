@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import history from "../../../history";
 import { validateAll, validateMember } from "../../../util/validate";
-import fileAPI from "../../../util/fileAPI";
-import axios from "axios";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";

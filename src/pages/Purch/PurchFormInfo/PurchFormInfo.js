@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import history from "../../../history";
 import { validateAll, validateInfo } from "../../../util/validate";
 
+// redux
+import { useSelector, useDispatch } from "react-redux";
+import { boardAction_update } from "../../../redux/actions";
+
 import useInputs from "../../../Hooks/useInputs";
+import ModalSearch from "../../../components/Modal/ModalSearch";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     Input,
@@ -15,7 +20,6 @@ import {
     Purchasetour,
     Purchasecode,
 } from "../../../components/Form/Form";
-import ModalSearch from "../../../components/Modal/ModalSearch";
 
 const initialValue = {
     idx: "",
@@ -48,9 +52,11 @@ const initialValuePurchasecode = {
     moduser: "",
 };
 
-//working
+//working ###
 const PurchFormInfo = ({ match }) => {
     const pageId = match.url.split("/")[2];
+    const dispatch = useDispatch();
+    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [purchasetour, setPurchasetour] = useState([]);
     const [purchasecode, setPurchasecode] = useState(initialValuePurchasecode);
@@ -68,6 +74,13 @@ const PurchFormInfo = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
+            dispatch(
+                boardAction_update(pageId, {
+                    ...inputs,
+                    regdate: new Date().toISOString(),
+                    reguser: name,
+                })
+            );
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);

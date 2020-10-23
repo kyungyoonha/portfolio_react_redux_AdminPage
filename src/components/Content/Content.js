@@ -11,13 +11,12 @@ const navMap = {
     ],
     tour: [
         { to: "/tour/tourpackage", title: "관광지 관리" },
-        { to: "/tour/nation", title: "국가 코드 관리" },
-        { to: "/tour/area", title: "지역 코드 관리" },
+        { to: "/tour/nationcode", title: "국가 코드 관리" },
+        { to: "/tour/areacode", title: "지역 코드 관리" },
     ],
     purch: [
         { to: "/purch/purchinfo", title: "구매정보 관리" },
-        { to: "/purch/purchcodeform", title: "구매코드 발급" },
-        { to: "/purch/purchcode", title: "구매코드 조회" },
+        { to: "/purch/purchasecode", title: "구매코드 조회" },
     ],
     cs: [
         { to: "/cs/push", title: "알림 관리" },

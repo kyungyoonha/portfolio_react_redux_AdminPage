@@ -17,11 +17,12 @@ import {
     Input,
     RadioSingle,
     Select,
+    SelectAPI,
 } from "../../../components/Form/Form";
 
 const initialValue = {
     idx: "",
-    nationidx: "",
+    nationcodeidx: "",
     sidocode: "",
     sidoname: "",
     areacode: "",
@@ -104,13 +105,14 @@ const TourFormArea = ({ match }) => {
                 />
             </ContentNav>
             <FormSection center title="지역코드 추가">
-                <Select
+                <SelectAPI
                     label="국가 코드"
-                    name="nationidx"
-                    value={inputs.nationidx}
+                    searchId="nationcode"
+                    value={inputs.nationcodeidx}
+                    searchItems={["koreanname", "code2"]}
                     onChange={handleChangeInputs}
-                    errors={errors}
-                    options={optionsCountry(inputs.nationidx)}
+                    disabled={inputs.nationtype === "1"}
+                    error={errors["nationcodeidx"]}
                 />
                 <Input
                     label="시도 코드"

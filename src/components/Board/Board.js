@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
 import pageDataMap from "../../json/pageDataMap.json";
+import ReactSelect from "../Select/ReactSelect";
 
 export const Board = ({ pageId, data, selectedId, handleSelectedId }) => {
     const headerList = pageDataMap[pageId].headerList;
@@ -90,21 +91,22 @@ export const BoardTop = ({ handleChangePageCtrl }) => {
         handleChangePageCtrl(name, value);
     };
 
+    //
+    const [nation, setNation] = useState("");
+    const handleChange = (e) => {
+        console.log(e);
+    };
+
     return (
         <div>
             <div className=" float-left" style={{ width: "250px" }}>
-                <select
-                    name="countryCtg"
-                    className="custom-select"
-                    required
-                    onChange={onChangePageCtrl}
-                >
-                    <option value="KOREA">대한민국</option>
-                    <option value="THAILAND">태국</option>
-                    <option value="VIETNAM">베트남</option>
-                    <option value="EGYPT">이집트</option>
-                    <option value="MYANMAR">미안마</option>
-                </select>
+                <ReactSelect
+                    value={nation}
+                    onChange={handleChange}
+                    searchId="nationcode"
+                    searchItems={["koreanname", "code2"]}
+                    placeholder="국가 코드"
+                />
             </div>
 
             <div>

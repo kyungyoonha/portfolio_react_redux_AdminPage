@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./ModalSearch.scss";
-import { FormSection, Input } from "../Form/Form";
+import { FormSection } from "../Form/Form";
 import Modal from "./Modal";
 import axios from "axios";
-import pageDataMap from "../../json/pageDataMap.json";
 import { Board } from "../Board/Board";
 
 const modalStyle = {

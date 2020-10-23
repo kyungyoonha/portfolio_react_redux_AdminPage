@@ -78,12 +78,10 @@ export const boardAction_update = (pageId, newData, images, audios) => async (
         //     ...audios,
         //     touridx,
         // });
-
         dispatch({
             type: newData.idx ? BOARD_EDIT : BOARD_INSERT,
             payload: newData,
         });
-
         history.goBack();
     } catch (e) {
         console.error("boardAction_update Error", e);
