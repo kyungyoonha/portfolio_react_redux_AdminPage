@@ -3,7 +3,7 @@ import history from "../../../history";
 import { validateAll, validatePush } from "../../../util/validate";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
 
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
@@ -17,22 +17,16 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     title: "",
     target: "",
     linkinfo: "",
     contents: "",
     messageYN: "N",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 //working ###
 const CSFormPush = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -45,13 +39,7 @@ const CSFormPush = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    regdate: new Date().toISOString(),
-                    reguser: name,
-                })
-            );
+            dispatch(boardAction_update(pageId, inputs));
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);

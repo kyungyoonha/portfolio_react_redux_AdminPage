@@ -3,7 +3,7 @@ import history from "../../../history";
 import { validateAll, validateUser } from "../../../util/validate";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
 
 import useInputs from "../../../Hooks/useInputs";
@@ -22,7 +22,6 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     username: "",
     id: "",
     pw: "",
@@ -35,10 +34,6 @@ const initialValue = {
     messageagree: "N",
     pushagree: "N",
     etc: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
     profilename: "",
     profilepath: "",
     inextroversion: "0",
@@ -47,7 +42,6 @@ const initialValue = {
 const MemberFormUser = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [tripTag, setTripTag] = useState({});
     const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
@@ -80,13 +74,7 @@ const MemberFormUser = ({ match }) => {
             // });
 
             // dispatch(boardAction_update(pageId, res));
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    regdate: new Date().toISOString(),
-                    reguser: name,
-                })
-            );
+            dispatch(boardAction_update(pageId, inputs));
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);

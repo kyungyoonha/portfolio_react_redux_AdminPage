@@ -14,8 +14,6 @@ export const boardAction_fetch = (pageId) => async (dispatch, getState) => {
     const prevPageId = getState().board.pageId;
     try {
         if (prevPageId === pageId) {
-            // dispatch(boardAction_selected(""));
-            // dispatch(boardAction_insertType(""));
             return;
         }
         const res = await axios.get(

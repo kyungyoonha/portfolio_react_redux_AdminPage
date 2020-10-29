@@ -3,7 +3,7 @@ import history from "../../../history";
 import { validateAll, validateManager } from "../../../util/validate";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
 
 import useInputs from "../../../Hooks/useInputs";
@@ -19,7 +19,6 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     username: "",
     id: "",
     pw: "",
@@ -33,17 +32,12 @@ const initialValue = {
     duty: "",
     department: "",
     etc: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 //working ###
-const MemberFormManager = ({ match }) => {
+const MemberFormAdmin = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -60,8 +54,6 @@ const MemberFormManager = ({ match }) => {
                 boardAction_update(pageId, {
                     ...inputs,
                     level: Number(inputs.level),
-                    regdate: new Date().toISOString(),
-                    reguser: name,
                 })
             );
             setInputs(initialValue);
@@ -184,4 +176,4 @@ const MemberFormManager = ({ match }) => {
     );
 };
 
-export default MemberFormManager;
+export default MemberFormAdmin;

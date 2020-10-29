@@ -5,7 +5,7 @@ import "./Layout.scss";
 import Sidebar from "./Sidebar.js/Sidebar";
 import Header from "./Header/Header";
 
-const Layout = ({ children }) => {
+const Layout = ({ route, children }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const handleClickOpen = () => {

@@ -24,7 +24,7 @@
             { "key": "drivercomplain", "title": "컴플레인" }
         ]
     },
-    "manager": {
+    "admin": {
         "title": "매니저 정보",
         "navCtg": "member",
         "headerList": [

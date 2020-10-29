@@ -1,14 +1,16 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import Layout from "../components/Layout";
+import Layout from "./Layout";
 
-const DefaultLayout = ({ component: Component, ...rest }) => {
+const DefaultLayout = ({ route }) => {
     return (
         <Route
-            {...rest}
+            path={route.path}
+            exact={route.exact}
+            title={route.title}
             render={(props) => (
                 <Layout>
-                    <Component {...props} />
+                    <route.component {...props} />
                 </Layout>
             )}
         />

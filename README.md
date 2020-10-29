@@ -1,50 +1,58 @@
-### search
+## ※ 관리자 페이지 [React + Redux]
 
-https://www.npmjs.com/package/google-maps-react
-https://simplehanlab.github.io/react/google-map-react/
-https://futurists.tistory.com/90
+### 프로졕트 목적
 
-https://serversideup.net/uploading-files-vuejs-axios/#:~:text=Implement%20submitFiles()%20method&text=We%20are%20now%20ready%20to,%2Ddata'%20%7D%20%7D%20).
-https://stackoverflow.com/questions/49478991/post-file-along-with-form-data-vue-axios
+-   프로토타입의 초기 기획서로 Admin 페이지 구현
 
-## 업로드
+### 설치 및 실행
 
-##
+```js
+$ git clone https://github.com/kyungyoonha/portfolio_react_redux_AdminPage.git
+$ git install
+$ cd portfolio_react_redux_AdminPage
+$ npm start
 
-https://www.zerocho.com/category/NodeJS/post/5950a6c4f7934c001894ea83
-node js form fields and files at the same time
-https://stackoverflow.com/questions/48732027/how-to-send-fields-and-files-in-the-same-form-submit-in-nodejs-multer
-https://stackoverflow.com/questions/63232403/upload-file-image-and-data-at-the-same-time-with-react-and-node
+// [.env] 루트에 파일 필요
+// <YOUR_CLOUD_PRESET> => Cloudinary 홈페이지 > 설정 > upload > Unsigned -> enabled
+REACT_APP_API_KEY=<GOOGLE MAP API>
+REACT_APP_CLOUDINARY_URL=https://api.cloudinary.com/v1_1/<YOUR_CLOUD_NAME>
+REACT_APP_CLOUDINARY_PRESET=<YOUR_CLOUD_PRESET>
 
-## 파일 업로드 처리
-
-### 잘못 업로드 된 파일 삭제
-
--   https://bin-repository.tistory.com/127
--   첨부 파일만 등록하고 게시물을 등록하지 않았을 때
--   데이터 베이스에서는 파일이 삭제되었지만 실제 폴더에는 남아있는 경우
--   https://stackoverflow.com/questions/59014876/how-can-i-make-multer-parse-a-client-request-sent-with-form-data-properly
-
-```jsx
-const handleSubmit = (e) => {
-    e.preventDefault();
-    const myHeaders = new Headers();
-
-    myHeaders.append("Authorization", localStorage.getItem("kakao-token"));
-
-    const formdata = new FormData();
-    formdata.append("file", files[0].uploadedFile);
-    formdata.append("text", text);
-    formdata.append("hotel", hotel);
-    formdata.append("title", title);
-    formdata.append("stars", "5");
-
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: formdata,
-    };
-
-    fetch(`${hotelListUrl}/review`, requestOptions);
-};
 ```
+
+-   [파일 업로드]
+-   Cloudinary 이용하여 이미지, 오디오, 텍스트 파일 저장
+
+### 프로젝트 기능
+
+-   대쉬보드 페이지
+    -   Google Map API
+    -   @nivo
+-   이미지, 오디오, 텍스트 파일 업로드
+-   실제 db 구조
+
+#
+
+#### Front-End
+
+-   Custom CSS for styling
+-   API (Movie list)
+-   LNB & GNB 3 depth MENU
+-   Board CRUD
+-   Slider & Carousel
+-   Responsive Page for desktop and tablet
+
+#### Back-End
+
+-   NodeJS
+-   Bcrypt
+-   JWT
+-   Facebook Social Login
+-   pagination
+-   MongoDB
+
+#### Next Step
+
+-   styled-components
+-   fullpage scroll
+-   MySQL

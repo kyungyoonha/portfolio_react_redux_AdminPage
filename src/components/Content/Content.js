@@ -7,7 +7,7 @@ const navMap = {
     member: [
         { to: "/member/user", title: "일반 회원" },
         { to: "/member/driver", title: "기사 회원" },
-        { to: "/member/manager", title: "관리자" },
+        { to: "/member/admin", title: "관리자" },
     ],
     package: [
         { to: "/package/tour", title: "관광지 관리" },

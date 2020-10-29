@@ -4,21 +4,19 @@
 
     .sidebar__user {
         position: relative;
-        padding-left: 15px;
-        height: 100px;
+        padding: 20px 15px;
+        height: auto;
         color: #7d8798;
         font-size: 0.8rem;
 
-        > div {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            line-height: 30px;
-        }
-        > div > span {
+        span {
             margin-left: 5px;
             color: white;
             font-size: 0.9rem;
+        }
+
+        button {
+            margin-top: 20px;
         }
     }
 

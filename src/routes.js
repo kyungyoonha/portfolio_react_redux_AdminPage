@@ -1,10 +1,13 @@
+import React from 'react'
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import history from './history';
 // pages
 import Dashboard from "./pages/Dashboard/DashBoard";
-
+import PageNotFound from './pages/PageNotFound/PageNotFound';
 import MemberBoard from './pages/Member/MemberBoard/MemberBoard';
 import MemberFormUser from './pages/Member/MemberFormUser/MemberFormUser'
 import MemberFormDriver from './pages/Member/MemberFormDriver/MemberFormDriver';
-import MemberFormManager from './pages/Member/MemberFormManager/MemberFormManager';
+import MemberFormAdmin from './pages/Member/MemberFormAdmin/MemberFormAdmin';
 
 import PackageBoard from './pages/Package/PackageBoard/PackageBoard';
 import PackageFormTour from './pages/Package/PackageFormTour/PackageFormTour';
@@ -20,6 +23,8 @@ import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
 import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
 import CSFormQuestion from './pages/CS/CSFormQuestion/CSFormQuestion';
 
+import Layout from './components/Layout/Layout';
+
 const routes = [
     { path: "/", exact: true, component: Dashboard },
     { path: "/dashboard", exact: true, component: Dashboard },
@@ -27,8 +32,8 @@ const routes = [
     { path: "/member/user/form",  component: MemberFormUser },
     { path: "/member/driver", exact: true, component: MemberBoard },
     { path: "/member/driver/form",  component: MemberFormDriver },
-    { path: "/member/manager", exact: true,  component: MemberBoard },
-    { path: "/member/manager/form",  component: MemberFormManager },
+    { path: "/member/admin", exact: true,  component: MemberBoard },
+    { path: "/member/admin/form",  component: MemberFormAdmin },
 
     { path: "/package/tour", exact: true,  component: PackageBoard },
     { path: "/package/tour/form",  component: PackageFormTour},
@@ -36,7 +41,6 @@ const routes = [
     { path: "/package/nationcode/form/:id", component: PackageFormNation },
     { path: "/package/areacode", exact: true,  component: PackageBoard },
     { path: "/package/areacode/form/:id", component: PackageFormArea },
-
 
     { path: "/order/purchase", exact: true,  component: OrderBoard },
     { path: "/order/purchase/form", exact: true,  component: OrderFormPurchase },
@@ -52,4 +56,29 @@ const routes = [
     
 ];
 
-export default routes;
+
+const Routes = () => (
+    <Router history={history}>
+        <Switch>
+            {routes.map((route, idx) => (
+                <Route
+                    key={idx}
+                    path={route.path}
+                    exact={route.exact}
+                    title={route.title}
+                    render={(props) => (
+                        <Layout>
+                            <route.component {...props} />
+                        </Layout>
+                    )}
+                />
+            ))}
+            <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
+            <Route path="/package" exact render={() => <Redirect to="/package/tour" />}/>
+            <Route path="/order" exact render={() => <Redirect to="/order/purchase" />}/>
+            <Route path="/cs" exact render={() => <Redirect to="/cs/push" />}/>
+            <Route component={PageNotFound} />
+        </Switch>
+    </Router>
+)
+export default Routes;

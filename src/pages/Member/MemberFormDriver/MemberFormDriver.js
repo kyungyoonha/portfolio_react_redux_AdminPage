@@ -3,7 +3,7 @@ import history from "../../../history";
 import { validateAll, validateDriver } from "../../../util/validate";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
 
 import useInputs from "../../../Hooks/useInputs";
@@ -20,7 +20,6 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     drivername: "",
     id: "",
     pw: "",
@@ -35,10 +34,6 @@ const initialValue = {
     businesstype: "1",
     grade: "",
     etc: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
     businessname: "",
 };
 
@@ -46,7 +41,6 @@ const initialValue = {
 const MemberFormDriver = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
@@ -63,13 +57,7 @@ const MemberFormDriver = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    regdate: new Date().toISOString(),
-                    reguser: name,
-                })
-            );
+            dispatch(boardAction_update(pageId, inputs));
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);

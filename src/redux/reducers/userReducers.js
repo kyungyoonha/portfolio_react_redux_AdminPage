@@ -1,12 +1,7 @@
 import { USER_GET, USER_SIGN_IN, USER_SIGN_UP, USER_SIGN_OUT } from "../types";
 
 const localUser = JSON.parse(localStorage.getItem("user"));
-const initialState = localUser
-    ? localUser
-    : {
-          name: "하경윤",
-          email: "gkb10a@naver.com",
-      };
+const initialState = localUser ? localUser : {};
 
 export default (state = initialState, action) => {
     switch (action.type) {

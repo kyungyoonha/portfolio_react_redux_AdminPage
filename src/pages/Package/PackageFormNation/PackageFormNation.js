@@ -11,15 +11,10 @@ import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 
 const initialValue = {
-    // idx: "",
     koreanname: "",
     englishname: "",
     code3: "",
     code2: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 //working ###
@@ -30,7 +25,6 @@ const PackageFormNation = ({ match }) => {
 
     const dispatch = useDispatch();
     const { detail } = useSelector((state) => state.board);
-    const { name } = useSelector((state) => state.user);
 
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
@@ -55,13 +49,7 @@ const PackageFormNation = ({ match }) => {
         if (isValid) {
             console.log("에러 없음");
 
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    regdate: new Date().toISOString(),
-                    reguser: name,
-                })
-            );
+            dispatch(boardAction_update(pageId, inputs));
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);

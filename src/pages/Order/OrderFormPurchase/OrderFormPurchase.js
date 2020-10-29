@@ -3,7 +3,7 @@ import history from "../../../history";
 import { validateAll, validateInfo } from "../../../util/validate";
 
 // redux
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
 
 import useInputs from "../../../Hooks/useInputs";
@@ -22,7 +22,6 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     tourtype: "",
     touridx: "",
     tourdays: "",
@@ -33,30 +32,20 @@ const initialValue = {
     tourstarttime: "",
     userid: "",
     purchasecode: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 const initialValuePurchasecode = {
-    // idx: "",
     purchasedate: "",
     purchasetype: "",
     codenumber: "",
     price: "",
     purchaseuser: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 //working ###
 const OrderFormPurchase = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [purchasetour, setPurchasetour] = useState([]);
     const [purchasecode, setPurchasecode] = useState(initialValuePurchasecode);
@@ -74,13 +63,7 @@ const OrderFormPurchase = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    regdate: new Date().toISOString(),
-                    reguser: name,
-                })
-            );
+            dispatch(boardAction_update(pageId, inputs));
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);

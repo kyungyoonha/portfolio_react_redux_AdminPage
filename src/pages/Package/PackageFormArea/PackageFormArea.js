@@ -19,7 +19,6 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     nationcodeidx: "",
     sidocode: "",
     sidoname: "",
@@ -28,10 +27,6 @@ const initialValue = {
     mainpicYN: "N",
     mainpicname: "",
     mainpicpath: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 //working ###
@@ -42,7 +37,6 @@ const PackageFormArea = ({ match }) => {
 
     const dispatch = useDispatch();
     const { detail } = useSelector((state) => state.board);
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
         initialValue,
@@ -79,13 +73,7 @@ const PackageFormArea = ({ match }) => {
 
         if (isValid) {
             console.log("에러 없음");
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    regdate: new Date().toISOString(),
-                    reguser: name,
-                })
-            );
+            dispatch(boardAction_update(pageId, inputs));
             setInputs(initialValue);
         } else {
             setErrors(checkedErrors);

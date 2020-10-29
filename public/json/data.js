@@ -51,7 +51,7 @@ driver
 { "key": "trabus", "title": "운행내역" },
 { "key": "drivercomplain", "title": "컴플레인" },
 
-manager
+admin
 { "key": "idx", "title": "인덱스" },
 { "key": "username", "title": "성명" },
 { "key": "id", "title": "아이디" },

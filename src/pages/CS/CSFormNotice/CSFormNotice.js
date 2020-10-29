@@ -14,17 +14,12 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     title: "",
     showYN: "N",
     filename: "",
     topYN: "N",
     contents: "",
     filepath: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 //working ###

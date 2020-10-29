@@ -55,6 +55,20 @@ export const validateUser = (name, value) => {
             return;
     }
 };
+export const validateLogin = (name, value) => {
+    switch (name) {
+        case "id":
+            return value.length < 4 && "아이디는 5자 이상 입력해주세요";
+
+        // case "password":
+        //     return (
+        //         checkRegPassword(value) &&
+        //         "비밀번호는 8자이상이며 숫자, 영어, 특수문자가 포함되어야 합니다."
+        //     );
+        default:
+            return;
+    }
+};
 
 // ###
 // email, id, pw

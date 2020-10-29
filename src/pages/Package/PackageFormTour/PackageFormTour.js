@@ -24,7 +24,6 @@ import {
 } from "../../../components/Form/Form";
 
 const initialValue = {
-    // idx: "",
     tourname: "",
     nationtype: "1",
     nationcode: "KOREA",
@@ -42,17 +41,12 @@ const initialValue = {
     openclose: "0",
     subaudioYN: "N",
     mainaudioYN: "N",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 //working ###
 const TourFormPackage = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [audios, setAudios] = useState([]);
     const [images, setImages] = useState([]);
@@ -98,8 +92,6 @@ const TourFormPackage = ({ match }) => {
                         ...inputs,
                         inextroversion: Number(inputs.inextroversion),
                         openclose: Number(inputs.openclose),
-                        regdate: new Date().toISOString(),
-                        reguser: name,
                     },
                     images,
                     audios

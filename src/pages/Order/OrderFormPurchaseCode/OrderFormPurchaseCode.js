@@ -5,7 +5,7 @@ import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
 
 import {
@@ -16,23 +16,17 @@ import {
     InputDate,
 } from "../../../components/Form/Form";
 const initialValue = {
-    // idx: "",
     purchasedate: "",
     purchasetype: "",
     codenumber: "",
     price: "",
     purchaseuser: "",
-    // regdate: "",
-    // reguser: "",
-    // moddate: "",
-    // moduser: "",
 };
 
 //working
 const OrderFormPurchaseCode = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { name } = useSelector((state) => state.user);
     const [errors, setErrors] = useState({});
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
@@ -44,13 +38,7 @@ const OrderFormPurchaseCode = ({ match }) => {
         const { isValid, checkedErrors } = validateAll(inputs, validateCode);
 
         if (isValid) {
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    regdate: new Date().toISOString(),
-                    reguser: name,
-                })
-            );
+            dispatch(boardAction_update(pageId, inputs));
 
             setInputs(initialValue);
         } else {
