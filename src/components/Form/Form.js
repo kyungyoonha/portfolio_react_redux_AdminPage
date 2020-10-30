@@ -490,19 +490,15 @@ export const InputAddress = ({
     value,
     type = "text",
     onChange,
-    setInputs,
     errors = {},
     disabled,
 }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const handleChangeInput = (address) => {
         const { addr, lat, lng } = address;
-        setInputs((state) => ({
-            ...state,
-            address: addr,
-            lat,
-            lng,
-        }));
+        onChange({ target: { name: "address", value: addr } });
+        onChange({ target: { name: "lat", value: lat } });
+        onChange({ target: { name: "lng", value: lng } });
     };
 
     const handleClickOpen = () => {

@@ -2,6 +2,7 @@
     "user": {
         "title": "회원 정보",
         "navCtg": "member",
+        "validate": ["username", "id", "pw", "birthday", "telnumber", "nickname"],
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "username", "title": "성명" },
@@ -14,6 +15,7 @@
     "driver": {
         "title": "기사 정보",
         "navCtg": "member",
+        "validate": ["drivername", "id", "pw", "birthday", "telnumber"],
         "headerList": [
             { "key": "drivername", "title": "기사 성명" },
             { "key": "id", "title": "아이디" },
@@ -27,6 +29,7 @@
     "admin": {
         "title": "매니저 정보",
         "navCtg": "member",
+        "validate": ["username", "id", "pw", "email", "level"],
         "headerList": [
             { "key": "username", "title": "성명" },
             { "key": "id", "title": "아이디" },
@@ -41,6 +44,7 @@
     "tour": {
         "title": "관광지 코드 관리",
         "navCtg": "package",
+        "validate": ["tourname", "nationcodeidx", "areacodeidx", "tourcode", "operatingtime", "address", "telnumber", "admissionfee"],
         "headerList": [
             { "key": "tourname", "title": "관광지명" },
             { "key": "nationtype", "title": "국가분류" },
@@ -54,6 +58,7 @@
     "nationcode": {
         "title": "관광지 코드 관리",
         "navCtg": "package",
+        "validate": ["koreanname", "englishname", "code3", "code2"],
         "headerList": [
             { "key": "idx", "title": "idx" },
             { "key": "koreanname", "title": "국가이름(한글)" },
@@ -65,6 +70,7 @@
     "areacode": {
         "title": "지역 코드 관리",
         "navCtg": "package",
+        "validate": ["nationcodeidx", "areacodeidx", "sidocode" , "sidoname", "areacode", "areaname"],
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "nationidx", "title": "국가 코드" },
@@ -84,6 +90,7 @@
     "purchase": {
         "title": "구매정보 관리",
         "navCtg": "order",
+        "validate": ["tourtype", "touridx", "tourdays", "tourstartday"],
         "headerList": [
             { "key": "date", "title": "날짜/시간" },
             { "key": "guestId", "title": "고객" },
@@ -99,6 +106,7 @@
     "purchasecode": {
         "title": "구매코드 조회",
         "navCtg": "order",
+        "validate": ["purchasedate", "purchasetype", "price", "purchaseuser"],
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "purchasedate", "title": "구매일자" },
@@ -116,6 +124,7 @@
     "push": {
         "title": "알림 관리",
         "navCtg": "cs",
+        "validate": ["title", "contents"],
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "title", "title": "제목" },
@@ -132,6 +141,7 @@
     "notice": {
         "title": "공지사항 관리",
         "navCtg": "cs",
+        "validate": ["title", "contents"],
         "headerList": [
             { "key": "id", "title": "id" },
             { "key": "date", "title": "날짜" },
@@ -145,6 +155,7 @@
     "question": {
         "title": "문의사항 관리",
         "navCtg": "cs",
+        "validate": ["title", "contactNumber", "sendEmail", "sendContent"],
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "userid", "title": "등록자" },
@@ -157,5 +168,8 @@
             { "key": "moddate", "title": "수정일" },
             { "key": "moduser", "title": "수정자" }
         ]
+    },
+    "login": {
+        "validate": ["id", "password"]
     }
 }

@@ -1,12 +1,15 @@
 import history from "../../history";
+import api from "../../services";
+
 import {
     BOARD_FETCH,
     BOARD_DETAIL,
     BOARD_SELECTED,
     BOARD_INSERT,
-    BOARD_EDIT,
+    BOARD_UPDATE,
     BOARD_DELETE,
     BOARD_INSERT_TYPE,
+    BOARD_ERRORS,
 } from "../types";
 import axios from "axios";
 
@@ -79,12 +82,41 @@ export const boardAction_update = (pageId, newData, images, audios) => async (
         //     touridx,
         // });
         dispatch({
-            type: newData.idx ? BOARD_EDIT : BOARD_INSERT,
+            type: newData.idx ? BOARD_UPDATE : BOARD_INSERT,
             payload: newData,
         });
         history.goBack();
     } catch (e) {
         console.error("boardAction_update Error", e);
+    }
+};
+
+export const boardAction_update222 = (pageCtg, pageId, data) => async (
+    dispatch
+) => {
+    try {
+        let res, type;
+        if (!data.idx) {
+            res = await api.boardAPI.insertData(pageCtg, pageId, data);
+            type = BOARD_INSERT;
+        } else {
+            res = await api.boardAPI.updateData(pageCtg, pageId, data);
+            type = BOARD_UPDATE;
+        }
+        console.log(res.data);
+        dispatch({
+            type,
+            payload: res.data,
+        });
+    } catch (e) {
+        console.log("에러");
+        // dispatch({
+        //     type: BOARD_ERRORS,
+        // });
+
+        console.log(e);
+        console.log(e.response);
+        console.log(e.response.data.message);
     }
 };
 
@@ -104,5 +136,11 @@ export const boardAction_insertType = (type) => {
     return {
         type: BOARD_INSERT_TYPE,
         payload: type,
+    };
+};
+
+export const boardAction_errors = () => {
+    return {
+        type: BOARD_ERRORS,
     };
 };

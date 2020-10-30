@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import useInputs from "../../Hooks/useInputs";
-import { validateLogin } from "../../util/validate";
-import { useDispatch } from "react-redux";
+import { validate } from "../../util/validate";
+import { useDispatch, useSelector } from "react-redux";
 import "./Login.scss";
-import { userAction_logIn } from "../../redux/actions";
+import { authAction_errors, authAction_logIn } from "../../redux/actions";
 
 const initialValue = {
     id: "",
@@ -12,16 +11,25 @@ const initialValue = {
 
 const Login = () => {
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
-        initialValue,
-        validateLogin,
-        setErrors
-    );
+
+    const { errors } = useSelector((state) => state.auth);
+    const [inputs, setInputs] = useState(initialValue);
+
+    const handleChangeInputs = (e) => {
+        const { name, value } = e.target;
+        const errorMessage = validate("login", name, value);
+
+        dispatch(authAction_errors({ [name]: errorMessage }));
+
+        setInputs((state) => ({
+            ...state,
+            [name]: value,
+        }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(userAction_logIn(inputs));
+        dispatch(authAction_logIn(inputs));
     };
 
     return (

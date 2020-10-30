@@ -25,7 +25,7 @@ const initialValue = {
     username: "",
     id: "",
     pw: "",
-    birthday: "",
+    birthday: new Date("1900-01-01"),
     telnumber: "",
     nickname: "",
     email: "",

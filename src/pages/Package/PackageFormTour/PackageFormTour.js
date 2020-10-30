@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import history from "../../../history";
-import { validateAll, validatePackage } from "../../../util/validate";
+import { validateAll, validateTour } from "../../../util/validate";
 // redux
 import { boardAction_update } from "../../../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
@@ -44,7 +44,7 @@ const initialValue = {
 };
 
 //working ###
-const TourFormPackage = ({ match }) => {
+const PackageFormTour = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({});
@@ -52,7 +52,7 @@ const TourFormPackage = ({ match }) => {
     const [images, setImages] = useState([]);
     const [inputs, setInputs, handleChangeInputs] = useInputs(
         initialValue,
-        validatePackage,
+        validateTour,
         setErrors
     );
     useEffect(() => {
@@ -76,7 +76,7 @@ const TourFormPackage = ({ match }) => {
     };
 
     const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validatePackage);
+        const { isValid, checkedErrors } = validateAll(inputs, validateTour);
 
         if (!images.length) {
             alert("관광지 사진을 추가해주세요.");
@@ -298,4 +298,4 @@ const TourFormPackage = ({ match }) => {
     );
 };
 
-export default TourFormPackage;
+export default PackageFormTour;

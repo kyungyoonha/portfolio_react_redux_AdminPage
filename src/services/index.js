@@ -1,3 +1,4 @@
-import { authAPI } from "./auth";
+import { authAPI } from "./authAPI";
+import { boardAPI } from "./boardAPI";
 
-export default { authAPI };
+export default { authAPI, boardAPI };

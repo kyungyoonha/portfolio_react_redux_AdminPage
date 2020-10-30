@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import Login from "./pages/Login/Login";
 
 const App = () => {
-    const user = useSelector((state) => state.user);
+    const user = useSelector((state) => state.auth.user);
     return (
         <div className="app">
             <ToastContainer

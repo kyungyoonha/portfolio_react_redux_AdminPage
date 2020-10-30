@@ -1,66 +1,65 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import history from "../../../history";
-import { validateAll, validateManager } from "../../../util/validate";
+// import { validate, validateAll, validateManager } from "../../../util/validate";
 
 // redux
-import { useDispatch } from "react-redux";
-import { boardAction_update } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
-import useInputs from "../../../Hooks/useInputs";
+// import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
     FormSection,
     Input,
+    Select,
     InputAddress,
     InputDate,
     RadioSingle,
     Textarea,
 } from "../../../components/Form/Form";
+import {
+    formAction_changeValue,
+    formAction_init,
+    formAction_submit,
+} from "../../../redux/actions/formActions";
 
 const initialValue = {
     username: "",
     id: "",
     pw: "",
     level: "2",
-    birthday: "",
+    birthday: new Date("1900-01-01"),
     telnumber: "",
     email: "",
     englishname: "",
     address: "",
     entryYear: "",
-    duty: "",
-    department: "",
+    duty: "1",
+    department: "1",
     etc: "",
 };
 
-//working ###
+//working done ###
 const MemberFormAdmin = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
-        initialValue,
-        validateManager,
-        setErrors
-    );
+    const { inputs, errors } = useSelector((state) => state.form);
 
-    const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateManager);
+    useEffect(() => {
+        dispatch(formAction_init(match, initialValue));
+        return () => dispatch(formAction_init());
+    }, [dispatch, match]);
 
-        if (isValid) {
-            console.log("에러 없음");
-            dispatch(
-                boardAction_update(pageId, {
-                    ...inputs,
-                    level: Number(inputs.level),
-                })
-            );
-            setInputs(initialValue);
-        } else {
-            setErrors(checkedErrors);
-        }
+    const handleChangeInputs = (e) => {
+        dispatch(formAction_changeValue(e));
     };
+
+    const handleClickInsert = (e) => {
+        e.preventDefault();
+        dispatch(formAction_submit());
+    };
+
+    if (!Object.keys(inputs).length) return null;
 
     return (
         <FormLayout>
@@ -136,7 +135,6 @@ const MemberFormAdmin = ({ match }) => {
                     name="address"
                     value={inputs.address}
                     onChange={handleChangeInputs}
-                    setInputs={setInputs}
                     errors={errors}
                 >
                     <button className="btn btn-outline-primary" type="button">
@@ -150,18 +148,36 @@ const MemberFormAdmin = ({ match }) => {
                     value={inputs.entryYear}
                     onChange={handleChangeInputs}
                 />
-                <Input
+
+                <Select
                     label="직무"
                     name="duty"
                     value={inputs.duty}
                     onChange={handleChangeInputs}
+                    errors={errors}
+                    options={[
+                        { value: "1", title: "팀원" },
+                        { value: "2", title: "매니저" },
+                        { value: "3", title: "팀장" },
+                        { value: "4", title: "부장" },
+                        { value: "5", title: "기타" },
+                    ]}
                 />
 
-                <Input
+                <Select
                     label="부서"
                     name="department"
                     value={inputs.department}
                     onChange={handleChangeInputs}
+                    errors={errors}
+                    options={[
+                        { value: "1", title: "해외팀" },
+                        { value: "2", title: "영업" },
+                        { value: "3", title: "마케팅" },
+                        { value: "4", title: "개발" },
+                        { value: "5", title: "생산" },
+                        { value: "6", title: "기타" },
+                    ]}
                 />
 
                 <Textarea

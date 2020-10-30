@@ -26,7 +26,7 @@ const initialValue = {
     nationtype: "1",
     nationcodeidx: "1",
     areacodeidx: "",
-    birthday: "",
+    birthday: new Date("1900-01-01"),
     telnumber: "",
     cartype: "",
     carnumber: "",
