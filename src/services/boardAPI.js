@@ -1,9 +1,9 @@
-import defaultAPI from "./defaultAPI";
+import axios from "axios";
 
 export const boardAPI = {
     async getData(pageCtg, pageId) {
         try {
-            const res = await defaultAPI.get(`/${pageCtg}/${pageId}`);
+            const res = await axios.get(`/${pageCtg}/${pageId}`);
             return res.data;
         } catch (e) {
             console.error(e);
@@ -11,12 +11,12 @@ export const boardAPI = {
     },
 
     async insertData(apiurl, data) {
-        const res = await defaultAPI.post(`${apiurl}/insert`, data);
+        const res = await axios.post(`${apiurl}/insert`, data);
         return res.data;
     },
 
     async updateData(apiurl, data) {
-        const res = await defaultAPI.post(`${apiurl}/update`, data);
+        const res = await axios.post(`${apiurl}/update`, data);
         return res.data;
     },
 };

@@ -24,6 +24,7 @@ import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
 import CSFormQuestion from './pages/CS/CSFormQuestion/CSFormQuestion';
 
 import Layout from './components/Layout/Layout';
+import Login from './pages/Login/Login';
 
 const routes = [
     { path: "/", exact: true, component: Dashboard },
@@ -73,6 +74,7 @@ const Routes = () => (
                     )}
                 />
             ))}
+            <Route path="/login" exact component={Login} />
             <Route path="/member" exact render={() => <Redirect to="/member/user" />}/>
             <Route path="/package" exact render={() => <Redirect to="/package/tour" />}/>
             <Route path="/order" exact render={() => <Redirect to="/order/purchase" />}/>

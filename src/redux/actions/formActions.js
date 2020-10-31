@@ -9,12 +9,18 @@ import {
 import { validate, validateAll222 } from "../../util/validate";
 import fileAPI from "../../util/fileAPI";
 import api from "../../services";
+import history from "../../history";
+import { toast } from "react-toastify";
 
-export const formAction_init = (match, initialValue) => async (dispatch) => {
-    const urlSplit = match.url.split("/");
+export const formAction_init = (url, initialValue) => async (
+    dispatch,
+    getState
+) => {
+    const urlSplit = url.split("/");
     const apiurl = `/${urlSplit[1]}/${urlSplit[2]}`;
+    //const prevApiurl = getState().form.apiurl;
 
-    let inputs = initialValue;
+    let inputs = { ...initialValue };
     //const id = match.params.id;
 
     // if (id) {
@@ -96,18 +102,20 @@ export const formAction_submit = () => async (dispatch, getState) => {
                 type = BOARD_UPDATE;
             }
             dispatch({ type, payload: res.data });
+            history.goBack();
         } else {
             dispatch({ type: FORM_ERRORS, payload: checkedErrors });
         }
     } catch (e) {
-        //console.log(e.response.data.);
-        dispatch({ type: FORM_ERRORS, payload: e.response.data.errors });
+        toast.error(e.response.data.error);
+        //dispatch({ type: FORM_ERRORS, payload: e.response.data.errors });
     }
 };
 
-export const formAction_initialize = () => {
+export const formAction_initialize = (initialValue) => {
     return {
         type: FORM_INITIALIZE,
+        payload: initialValue,
     };
 };
 

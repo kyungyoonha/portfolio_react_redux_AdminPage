@@ -1,16 +1,20 @@
-import defaultAPI from "./defaultAPI";
+import axios from "axios";
 
 // 로그인 성공시 토큰반환
 // user = { email: '', name: '', token: ''}
 export const authAPI = {
+    async getMyInfo() {
+        const resUser = await axios.get("/auth/me");
+        return resUser.data.user;
+    },
     async login(inputs) {
-        const res = await defaultAPI.post("/auth/login", inputs);
-        const user = res.data;
+        const resToken = await axios.post("/auth/login", inputs);
 
-        defaultAPI.defaults.headers.common["Authorization"] =
-            "Bearer " + user.token;
+        const token = resToken.data.token;
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+        localStorage.setItem("token", JSON.stringify(token));
 
-        localStorage.setItem("user", JSON.stringify(user));
+        const user = this.getMyInfo();
         return user;
     },
 };

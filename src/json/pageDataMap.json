@@ -29,7 +29,7 @@
     "admin": {
         "title": "매니저 정보",
         "navCtg": "member",
-        "validate": ["username", "id", "pw", "email", "level"],
+        "validate": ["username", "id", "pw", "level"],
         "headerList": [
             { "key": "username", "title": "성명" },
             { "key": "id", "title": "아이디" },

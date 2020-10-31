@@ -1,10 +1,26 @@
 import {
+    AUTH_GET,
     AUTH_SIGN_IN,
-    AUTH_SIGN_UP,
     AUTH_SIGN_OUT,
     AUTH_ERRORS,
+    FORM_INITIALIZE,
 } from "../types";
 import api from "../../services";
+import history from "../../history";
+import { toast } from "react-toastify";
+
+export const authAction_getMyInfo = () => async (dispatch) => {
+    try {
+        const user = await api.authAPI.getMyInfo();
+
+        dispatch({
+            type: AUTH_GET,
+            payload: user,
+        });
+    } catch (e) {
+        toast.error(e.response.data.error);
+    }
+};
 
 export const authAction_logIn = (data) => async (dispatch) => {
     try {
@@ -13,31 +29,17 @@ export const authAction_logIn = (data) => async (dispatch) => {
             type: AUTH_SIGN_IN,
             payload: user,
         });
+        history.push("/");
     } catch (e) {
-        dispatch({
-            type: AUTH_ERRORS,
-            payload: e.response.data.errors,
-        });
+        toast.error(e.response.data.error);
     }
 };
 
-export const authAction_logOut = () => {
-    localStorage.removeItem("user");
-    return { type: AUTH_SIGN_OUT };
-};
-
-export const userAction_signUp = (data) => {
-    const { email, name } = data; // pw
-
-    // handle validate
-
-    return {
-        type: AUTH_SIGN_UP,
-        payload: {
-            email,
-            name,
-        },
-    };
+export const authAction_logout = () => async (dispatch) => {
+    localStorage.removeItem("token");
+    dispatch({ type: FORM_INITIALIZE });
+    dispatch({ type: AUTH_SIGN_OUT });
+    history.push("/login");
 };
 
 export const authAction_errors = (errors) => {

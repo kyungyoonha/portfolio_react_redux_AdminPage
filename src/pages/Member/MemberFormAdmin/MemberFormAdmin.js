@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import history from "../../../history";
-// import { validate, validateAll, validateManager } from "../../../util/validate";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
 
-// import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
@@ -20,6 +18,7 @@ import {
 import {
     formAction_changeValue,
     formAction_init,
+    formAction_initialize,
     formAction_submit,
 } from "../../../redux/actions/formActions";
 
@@ -46,9 +45,9 @@ const MemberFormAdmin = ({ match }) => {
     const { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
-        dispatch(formAction_init(match, initialValue));
-        return () => dispatch(formAction_init());
-    }, [dispatch, match]);
+        dispatch(formAction_init(match.url, initialValue));
+        return () => dispatch(formAction_initialize(initialValue));
+    }, [dispatch, match.url]);
 
     const handleChangeInputs = (e) => {
         dispatch(formAction_changeValue(e));

@@ -6,7 +6,7 @@ import { authAction_errors, authAction_logIn } from "../../redux/actions";
 
 const initialValue = {
     id: "",
-    password: "",
+    pw: "",
 };
 
 const Login = () => {
@@ -63,16 +63,16 @@ const Login = () => {
                             <label>비밀번호</label>
                             <input
                                 type="password"
-                                name="password"
-                                value={inputs.password}
+                                name="pw"
+                                value={inputs.pw}
                                 onChange={handleChangeInputs}
                                 className={`form-control ${
-                                    errors.password && "is-invalid"
+                                    errors.pw && "is-invalid"
                                 }`}
                             />
-                            {errors.password && (
+                            {errors.pw && (
                                 <div className="invalid-feedback">
-                                    {errors.password}
+                                    {errors.pw}
                                 </div>
                             )}
                         </div>

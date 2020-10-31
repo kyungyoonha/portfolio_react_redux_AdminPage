@@ -2,7 +2,7 @@ import React from "react";
 import "./Sidebar.scss";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { authAction_logOut } from "../../../redux/actions";
+import { authAction_logout } from "../../../redux/actions";
 
 const routes = [
     { path: "/dashboard", title: "Dashboard", icon: "chart-pie" },
@@ -21,7 +21,7 @@ const Sidebar = ({ isOpen, handleClickOpen }) => {
     const { email, username } = useSelector((state) => state.auth.user);
 
     const handleLogout = () => {
-        dispatch(authAction_logOut());
+        dispatch(authAction_logout());
     };
     return (
         <div className={`sidebar ${isOpen && "on"}`}>

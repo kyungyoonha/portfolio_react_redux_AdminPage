@@ -1,6 +1,5 @@
 export const AUTH_GET = "user/AUTH_GET";
 export const AUTH_SIGN_IN = "user/AUTH_SIGN_IN";
-export const AUTH_SIGN_UP = "user/AUTH_SIGN_UP";
 export const AUTH_SIGN_OUT = "user/AUTH_SIGN_OUT";
 export const AUTH_ERRORS = "user/AUTH_ERRORS";
 

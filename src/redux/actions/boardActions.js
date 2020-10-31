@@ -103,20 +103,15 @@ export const boardAction_update222 = (pageCtg, pageId, data) => async (
             res = await api.boardAPI.updateData(pageCtg, pageId, data);
             type = BOARD_UPDATE;
         }
-        console.log(res.data);
+
         dispatch({
             type,
             payload: res.data,
         });
     } catch (e) {
-        console.log("에러");
         // dispatch({
         //     type: BOARD_ERRORS,
         // });
-
-        console.log(e);
-        console.log(e.response);
-        console.log(e.response.data.message);
     }
 };
 
