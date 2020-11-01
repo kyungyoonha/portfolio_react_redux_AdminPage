@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import history from "../../../history";
-import fileAPI from "../../../util/fileAPI";
+import api from "../../../services";
 import { validateAll, validateService } from "../../../util/validate";
 
 // 리덕스
@@ -94,7 +94,10 @@ const CSFormQuestion = ({ match }) => {
                         type="button"
                         className="btn btn-outline-primary"
                         onClick={() =>
-                            fileAPI.download(inputs.filename, inputs.filepath)
+                            api.fileAPI.download(
+                                inputs.filename,
+                                inputs.filepath
+                            )
                         }
                     >
                         다운로드

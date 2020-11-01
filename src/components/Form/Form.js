@@ -252,7 +252,7 @@ export const RadioTypeCheck = ({
     return (
         <tr>
             <th>
-                <label className="col-form-label">{label}</label>
+                <label className="col-form-label">※{" " + label}</label>
             </th>
 
             <td className="d-flex justify-content-between">
@@ -326,7 +326,6 @@ export const File = ({
     filetype,
 }) => {
     const inputFileRef = useRef(null);
-
     return (
         <React.Fragment>
             <tr>
@@ -372,6 +371,59 @@ export const File = ({
                         이미지 찾기
                     </button>
                     {filename}
+                </td>
+            </tr>
+        </React.Fragment>
+    );
+};
+export const File222 = ({ label, name, value, onChange, filetype }) => {
+    const inputFileRef = useRef(null);
+    const imageUrl = value ? window.URL.createObjectURL(value) : noImg;
+    return (
+        <React.Fragment>
+            <tr>
+                <th
+                    rowSpan="2"
+                    style={{
+                        verticalAlign: "middle",
+                        borderBottom: "1px solid #dee2e6",
+                    }}
+                >
+                    <label>※ {label}</label>
+                </th>
+                <td className="text-center">
+                    <img
+                        src={imageUrl}
+                        alt={label}
+                        style={{
+                            height: "300px",
+                            width: "100%",
+                            objectFit: "contain",
+                        }}
+                    />
+                </td>
+            </tr>
+
+            <tr style={{ borderBottom: "1px solid #dee2e6" }}>
+                <td>
+                    <input
+                        ref={inputFileRef}
+                        name={name}
+                        type="file"
+                        hidden
+                        onChange={onChange}
+                        accept={filetypeObj[filetype]}
+                    />
+
+                    <button
+                        type="button"
+                        className="btn btn-primary btn-md"
+                        onClick={() => inputFileRef.current.click()}
+                        style={{ marginRight: "15px" }}
+                    >
+                        이미지 찾기
+                    </button>
+                    {value.name}
                 </td>
             </tr>
         </React.Fragment>

@@ -17,7 +17,8 @@ export const validateAll = (inputs, checkFunc) => {
     return { isValid, checkedErrors };
 };
 
-export const validateAll222 = (pageId, inputs) => {
+export const validateAll222 = (apiurl, inputs) => {
+    const pageId = apiurl.split("/")[2];
     let isValid = false;
     let checkedErrors = {};
 

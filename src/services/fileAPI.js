@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default Object.freeze({
+export const fileAPI = Object.freeze({
     async upload(resourceType, file) {
         const formData = new FormData();
         formData.append(

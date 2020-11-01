@@ -1,12 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import history from "../../../history";
-import { validateAll, validateUser } from "../../../util/validate";
+
+//"validate": ["username", "id", "pw", "birthday", "telnumber", "nickname"],
 
 // redux
-import { useDispatch } from "react-redux";
-import { boardAction_update } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    formAction_changeValue,
+    formAction_init,
+    formAction_initialize,
+    formAction_submit,
+} from "../../../redux/actions/formActions";
 
-import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
@@ -16,7 +21,7 @@ import {
     Textarea,
     InputDate,
     InputAddress,
-    File,
+    File222,
     RadioTypeCheck,
     RadioMulti,
 } from "../../../components/Form/Form";
@@ -25,7 +30,7 @@ const initialValue = {
     username: "",
     id: "",
     pw: "",
-    birthday: new Date("1900-01-01"),
+    birthday: new Date("1990-01-01"),
     telnumber: "",
     nickname: "",
     email: "",
@@ -34,60 +39,35 @@ const initialValue = {
     messageagree: "N",
     pushagree: "N",
     etc: "",
-    profilename: "",
-    profilepath: "",
+    profile: "",
     inextroversion: "0",
+    tripTag: {},
 };
 //working ###
 const MemberFormUser = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState({});
-    const [tripTag, setTripTag] = useState({});
-    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
-        initialValue,
-        validateUser,
-        setErrors
-    );
+    const { inputs, errors } = useSelector((state) => state.form);
 
-    const handleClickInsert = async () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateUser);
-        if (isValid) {
-            // const res = await axios.post(
-            //     `http://localhost:8000/${pageId}/update`,
-            //     {
-            //         ...inputs,
-            //         regdate: new Date().toISOString(),
-            //         reguser: name,
-            //     }
-            // );
+    useEffect(() => {
+        dispatch(formAction_init(match.url, initialValue));
+        return () => dispatch(formAction_initialize());
+    }, [dispatch, match.url]);
 
-            // const tagList = Object.keys(tripTag).filter((tag) => tripTag[tag]);
-            // tagList.forEach(async (tag) => {
-            //     await axios.post(`http://localhost:8000/triptag`, {
-            //         idx: "",
-            //         useridx: res.idx,
-            //         tag: tag,
-            //         regdate: res.regdate,
-            //         reguser: res.reguser,
-            //     });
-            // });
+    const handleChangeInputs = (e) => {
+        dispatch(formAction_changeValue(e));
+    };
 
-            // dispatch(boardAction_update(pageId, res));
-            dispatch(boardAction_update(pageId, inputs));
-            setInputs(initialValue);
-        } else {
-            setErrors(checkedErrors);
+    const handleClickInsert = (e) => {
+        e.preventDefault();
+        if (!inputs.profile) {
+            alert("프로필 이미지를 추가해주세요.");
+            return;
         }
+        dispatch(formAction_submit(["profile"]));
     };
 
-    const handleChangeTags = (e) => {
-        const { value, checked } = e.target;
-        setTripTag((state) => ({
-            ...state,
-            [value]: checked,
-        }));
-    };
+    if (!Object.keys(inputs).length) return null;
 
     return (
         <FormLayout>
@@ -154,9 +134,17 @@ const MemberFormUser = ({ match }) => {
                     label="주소"
                     name="address"
                     value={inputs.address}
-                    setInputs={setInputs}
                     onChange={handleChangeInputs}
                     errors={errors}
+                />
+            </FormSection>
+            <FormSection>
+                <File222
+                    label="프로필"
+                    name="profile"
+                    value={inputs.profile}
+                    onChange={handleChangeInputs}
+                    filetype="image"
                 />
                 <RadioSingle
                     label="이메일 수신"
@@ -190,38 +178,13 @@ const MemberFormUser = ({ match }) => {
                         { value: "N", title: "미수신" },
                     ]}
                 />
-                <Textarea
-                    label="기타"
-                    name="etc"
-                    value={inputs.ect}
-                    onChange={handleChangeInputs}
-                    rows={6}
-                />
-            </FormSection>
-            <FormSection>
-                <File
-                    label="프로필"
-                    name="profile"
-                    filename={inputs.profilename}
-                    filepath={inputs.profilepath}
-                    handleChangeFile={handleChangeFile}
-                    filetype="image"
-                />
             </FormSection>
             <FormSection full>
-                <RadioTypeCheck
-                    label="내외향성"
-                    labelLeft="외향성"
-                    labelRight="내향성"
-                    name="inextroversion"
-                    value={inputs.inextroversion}
-                    onChange={handleChangeInputs}
-                />
                 <RadioMulti
                     label="관심사 태그"
                     name="tripTag"
-                    value={tripTag}
-                    onChange={handleChangeTags}
+                    value={inputs.tripTag}
+                    onChange={handleChangeInputs}
                     max={3}
                     options={[
                         { key: "picture", title: "사진광" },
@@ -231,6 +194,22 @@ const MemberFormUser = ({ match }) => {
                         { key: "study", title: "학구파" },
                         { key: "nature", title: "자연인" },
                     ]}
+                />
+                <RadioTypeCheck
+                    label="내외향성"
+                    labelLeft="외향성"
+                    labelRight="내향성"
+                    name="inextroversion"
+                    value={inputs.inextroversion}
+                    onChange={handleChangeInputs}
+                />
+
+                <Textarea
+                    label="기타"
+                    name="etc"
+                    value={inputs.ect}
+                    onChange={handleChangeInputs}
+                    rows={6}
                 />
             </FormSection>
         </FormLayout>

@@ -12,7 +12,6 @@ import { toast } from "react-toastify";
 export const authAction_getMyInfo = () => async (dispatch) => {
     try {
         const user = await api.authAPI.getMyInfo();
-
         dispatch({
             type: AUTH_GET,
             payload: user,

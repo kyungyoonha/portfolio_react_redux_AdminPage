@@ -1,14 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import history from "../../../history";
+import { validateAll, validateDriver } from "../../../util/validate";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import {
-    formAction_changeValue,
-    formAction_init,
-    formAction_initialize,
-    formAction_submit,
-} from "../../../redux/actions/formActions";
+import { useDispatch } from "react-redux";
+import { boardAction_update } from "../../../redux/actions";
+
+import useInputs from "../../../Hooks/useInputs";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
@@ -17,7 +15,7 @@ import {
     RadioSingle,
     Textarea,
     InputDate,
-    File222,
+    File,
     SelectAPI,
 } from "../../../components/Form/Form";
 
@@ -43,23 +41,28 @@ const initialValue = {
 const MemberFormDriver = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    const { inputs, errors } = useSelector((state) => state.form);
+    const [errors, setErrors] = useState({});
+    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
+        initialValue,
+        validateDriver,
+        setErrors
+    );
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateDriver);
 
-    useEffect(() => {
-        dispatch(formAction_init(match.url, initialValue));
-        return () => dispatch(formAction_initialize());
-    }, [dispatch, match.url]);
+        // if (!files.profile.src) {
+        //     alert("기사 사진을 선택해주세요.");
+        //     return;
+        // }
 
-    const handleChangeInputs = (e) => {
-        dispatch(formAction_changeValue(e));
+        if (isValid) {
+            console.log("에러 없음");
+            dispatch(boardAction_update(pageId, inputs));
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
     };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        dispatch(formAction_submit());
-    };
-
-    if (!Object.keys(inputs).length) return null;
 
     return (
         <FormLayout>
@@ -192,25 +195,28 @@ const MemberFormDriver = ({ match }) => {
                 />
             </FormSection>
             <FormSection>
-                <File222
+                <File
                     label="기사 사진"
                     name="driver"
-                    value={inputs.driver}
-                    onChange={handleChangeInputs}
+                    filename={inputs.drivername}
+                    filepath={inputs.driverpath}
+                    handleChangeFile={handleChangeFile}
                     filetype="image"
                 />
-                <File222
+                <File
                     label="면허증 사진"
                     name="license"
-                    value={inputs.license}
-                    onChange={handleChangeInputs}
+                    filename={inputs.licensename}
+                    filepath={inputs.licensepath}
+                    handleChangeFile={handleChangeFile}
                     filetype="image"
                 />
-                <File222
+                <File
                     label="차량 사진"
                     name="car"
-                    value={inputs.car}
-                    onChange={handleChangeInputs}
+                    filename={inputs.carname}
+                    filepath={inputs.carpath}
+                    handleChangeFile={handleChangeFile}
                     filetype="image"
                 />
             </FormSection>

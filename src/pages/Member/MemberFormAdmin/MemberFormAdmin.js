@@ -3,6 +3,12 @@ import history from "../../../history";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
+import {
+    formAction_changeValue,
+    formAction_init,
+    formAction_initialize,
+    formAction_submit,
+} from "../../../redux/actions/formActions";
 
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
@@ -15,19 +21,13 @@ import {
     RadioSingle,
     Textarea,
 } from "../../../components/Form/Form";
-import {
-    formAction_changeValue,
-    formAction_init,
-    formAction_initialize,
-    formAction_submit,
-} from "../../../redux/actions/formActions";
 
 const initialValue = {
     username: "",
     id: "",
     pw: "",
     level: "2",
-    birthday: new Date("1900-01-01"),
+    birthday: new Date("1990-01-01"),
     telnumber: "",
     email: "",
     englishname: "",
@@ -46,7 +46,7 @@ const MemberFormAdmin = ({ match }) => {
 
     useEffect(() => {
         dispatch(formAction_init(match.url, initialValue));
-        return () => dispatch(formAction_initialize(initialValue));
+        return () => dispatch(formAction_initialize());
     }, [dispatch, match.url]);
 
     const handleChangeInputs = (e) => {
@@ -135,11 +135,7 @@ const MemberFormAdmin = ({ match }) => {
                     value={inputs.address}
                     onChange={handleChangeInputs}
                     errors={errors}
-                >
-                    <button className="btn btn-outline-primary" type="button">
-                        <i className="fas fa-map-marked-alt "></i>
-                    </button>
-                </InputAddress>
+                />
 
                 <Input
                     label="입사년도"

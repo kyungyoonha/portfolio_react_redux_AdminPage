@@ -7,10 +7,10 @@ import {
     FORM_ERRORS,
 } from "../types";
 import { validate, validateAll222 } from "../../util/validate";
-import fileAPI from "../../util/fileAPI";
 import api from "../../services";
 import history from "../../history";
 import { toast } from "react-toastify";
+import { changeInputToFormData } from "../../util/helperFunc";
 
 export const formAction_init = (url, initialValue) => async (
     dispatch,
@@ -41,10 +41,12 @@ export const formAction_init = (url, initialValue) => async (
 export const formAction_changeValue = (e) => async (dispatch, getState) => {
     let { apiurl, inputs } = getState().form;
     const pageId = apiurl.split("/")[2];
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, checked, files } = e.target;
 
     if (type === "checkbox") {
         inputs[name] = { ...inputs[name], [value]: checked };
+    } else if (type === "file") {
+        inputs[name] = files[0];
     } else {
         inputs[name] = value;
 
@@ -72,7 +74,7 @@ export const formAction_upload = (e, type) => async (dispatch, getState) => {
     dispatch({ type: FORM_CHANGE, payload: inputs });
 
     try {
-        const res = await fileAPI.upload(
+        const res = await api.fileAPI.upload(
             type === "audio" ? "video" : type,
             file
         );
@@ -86,36 +88,43 @@ export const formAction_upload = (e, type) => async (dispatch, getState) => {
 };
 
 // 폼 제출시
-export const formAction_submit = () => async (dispatch, getState) => {
+export const formAction_submit = (fileList = [], multi = false) => async (
+    dispatch,
+    getState
+) => {
     try {
-        let { apiurl, inputs } = getState().form;
-        const pageId = apiurl.split("/")[2];
-        const { isValid, checkedErrors } = validateAll222(pageId, inputs);
-        let res, type;
+        const { apiurl, inputs } = getState().form;
+        const { isValid, checkedErrors } = validateAll222(apiurl, inputs);
 
-        if (isValid) {
-            if (!inputs.idx) {
-                res = await api.boardAPI.insertData(apiurl, inputs);
-                type = BOARD_INSERT;
-            } else {
-                res = await api.boardAPI.updateData(apiurl, inputs);
-                type = BOARD_UPDATE;
-            }
-            dispatch({ type, payload: res.data });
-            history.goBack();
-        } else {
+        if (!isValid) {
             dispatch({ type: FORM_ERRORS, payload: checkedErrors });
+            return;
         }
+
+        // image or audio file
+        const sendData = fileList.length
+            ? changeInputToFormData(inputs, fileList, multi)
+            : inputs;
+
+        // for (var key of sendData.entries()) {
+        //     console.log(key[0] + ", " + key[1]);
+        // }
+        let res = !inputs.idx
+            ? await api.boardAPI.insertData(apiurl, sendData)
+            : await api.boardAPI.updateData(apiurl, sendData);
+
+        let type = !inputs.idx ? BOARD_INSERT : BOARD_UPDATE;
+
+        dispatch({ type, payload: res.data });
+        history.goBack();
     } catch (e) {
         toast.error(e.response.data.error);
-        //dispatch({ type: FORM_ERRORS, payload: e.response.data.errors });
     }
 };
 
-export const formAction_initialize = (initialValue) => {
+export const formAction_initialize = () => {
     return {
         type: FORM_INITIALIZE,
-        payload: initialValue,
     };
 };
 

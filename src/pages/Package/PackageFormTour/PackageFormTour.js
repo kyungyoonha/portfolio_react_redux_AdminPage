@@ -43,7 +43,15 @@ const initialValue = {
     mainaudioYN: "N",
 };
 
-//working ###
+// working ###
+// mainaudioYN, subaudioYN 삭제
+// 파일저장. json 저장   => mainaudioYn, subaudioYN 추가
+// 파일저장. json 저장   => id 값 가져옴
+// 파일저장. 오디오 저장 => 한개씩 해도 됌
+// 파일저장. 오디오 저장 => 오디오 라우터 => formData로 처리
+// 파일저장. 이미지 저장 => 여러개, 순서까지
+
+// 관광지 코드는 어디다가 쓰는건지? 중복체크 해줘야하나
 const PackageFormTour = ({ match }) => {
     const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();

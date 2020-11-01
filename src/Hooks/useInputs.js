@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import fileAPI from "../util/fileAPI";
+import api from "../services";
 
 export default (initialValue, validateFunc, setErrors) => {
     const [inputs, setInputs] = useState(initialValue);
@@ -76,7 +76,7 @@ export default (initialValue, validateFunc, setErrors) => {
         }));
         const file = e.target.files[0];
         try {
-            const res = await fileAPI.upload(
+            const res = await api.fileAPI.upload(
                 type === "audio" ? "video" : type,
                 file
             );
