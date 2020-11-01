@@ -96,6 +96,12 @@ export const validate = (pageId, name, value) => {
 
         case "contents":
             return value.length > 50 && "50자까지 입력 가능합니다.";
+
+        case "grade":
+            return (
+                (value < 0 || value > 10) && "0 ~ 9.99까지만 입력 가능합니다."
+            );
+
         case "contactNumber":
         case "tourdays":
         case "price":

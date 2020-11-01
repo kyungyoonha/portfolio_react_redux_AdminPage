@@ -34,9 +34,13 @@ const initialValue = {
     carnumber: "",
     carlicense: "",
     businesstype: "1",
-    grade: "",
+    grade: 0,
     etc: "",
     businessname: "",
+    // image
+    driver: "",
+    license: "",
+    car: "",
 };
 
 //working ###
@@ -56,7 +60,11 @@ const MemberFormDriver = ({ match }) => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formAction_submit());
+        if (!inputs.license) {
+            alert("면허증 이미지를 추가해주세요.");
+            return;
+        }
+        dispatch(formAction_submit(["driver", "car", "license"]));
     };
 
     if (!Object.keys(inputs).length) return null;
@@ -70,7 +78,7 @@ const MemberFormDriver = ({ match }) => {
                     handleClickDelete={() => history.goBack()}
                 />
             </ContentNav>
-            <FormSection center title="기사 회원 등록">
+            <FormSection>
                 <Input
                     label="이름"
                     name="drivername"
@@ -182,6 +190,7 @@ const MemberFormDriver = ({ match }) => {
                     name="grade"
                     value={inputs.grade}
                     onChange={handleChangeInputs}
+                    errors={errors}
                 />
                 <Textarea
                     label="기타"

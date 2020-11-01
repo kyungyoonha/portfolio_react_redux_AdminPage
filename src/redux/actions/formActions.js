@@ -109,14 +109,15 @@ export const formAction_submit = (fileList = [], multi = false) => async (
         // for (var key of sendData.entries()) {
         //     console.log(key[0] + ", " + key[1]);
         // }
+
         let res = !inputs.idx
             ? await api.boardAPI.insertData(apiurl, sendData)
             : await api.boardAPI.updateData(apiurl, sendData);
 
         let type = !inputs.idx ? BOARD_INSERT : BOARD_UPDATE;
 
-        dispatch({ type, payload: res.data });
-        history.goBack();
+        // dispatch({ type, payload: res.data });
+        // history.goBack();
     } catch (e) {
         toast.error(e.response.data.error);
     }
