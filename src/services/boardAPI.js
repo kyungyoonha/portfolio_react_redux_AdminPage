@@ -1,13 +1,9 @@
 import axios from "axios";
 
 export const boardAPI = {
-    async getData(pageCtg, pageId) {
-        try {
-            const res = await axios.get(`/${pageCtg}/${pageId}`);
-            return res.data;
-        } catch (e) {
-            console.error(e);
-        }
+    async getData(apiurl) {
+        const res = await axios.get(apiurl);
+        return res.data;
     },
 
     async insertData(apiurl, data) {

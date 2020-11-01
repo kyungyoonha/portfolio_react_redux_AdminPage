@@ -15,7 +15,6 @@ import {
     boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
-    boardAction_insertType,
 } from "../../../redux/actions";
 
 // BBB
@@ -54,12 +53,9 @@ const PackageBoard = ({ match }) => {
             alert("행을 선택해주세요.");
             return;
         }
-        dispatch(boardAction_insertType(type));
-        history.push(
-            `/package/${pageId}/form/${
-                type === "insert" ? "new" : selectedId
-            }?type=${type}`
-        );
+
+        const id = type === "insert" ? "" : selectedId;
+        history.push(`/package/${pageId}/form?type=${type}&id=${id}`);
     };
 
     const handleChangePageCtrl = (name, value) => {
@@ -71,7 +67,7 @@ const PackageBoard = ({ match }) => {
 
     return (
         <React.Fragment>
-            <ContentNav pageId={pageId}>
+            <ContentNav>
                 <ContentBtn
                     handleClickInsert={() => handleClickEditCopy("insert")}
                     handleClickDelete={handleClickDelete}

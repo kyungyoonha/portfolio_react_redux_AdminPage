@@ -31,6 +31,7 @@ const initialValue = {
 
 //working ###
 const PackageFormArea = ({ match }) => {
+    console.log(match);
     const pageId = match.url.split("/")[2];
     const id = match.params.id;
     const type = queryString.parse(history.location.search).type;
@@ -82,7 +83,7 @@ const PackageFormArea = ({ match }) => {
 
     return (
         <FormLayout>
-            <ContentNav pageId={pageId}>
+            <ContentNav>
                 <ContentBtn
                     type={type}
                     handleClickInsert={handleClickInsert}

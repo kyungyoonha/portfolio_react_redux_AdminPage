@@ -62,7 +62,7 @@ const OrderBoard = ({ match }) => {
 
     return (
         <React.Fragment>
-            <ContentNav pageId={pageId}>
+            <ContentNav>
                 <ContentBtn
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={handleClickDelete}

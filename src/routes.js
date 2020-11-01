@@ -39,9 +39,11 @@ const routes = [
     { path: "/package/tour", exact: true,  component: PackageBoard },
     { path: "/package/tour/form",  component: PackageFormTour},
     { path: "/package/nationcode", exact: true,  component: PackageBoard },
-    { path: "/package/nationcode/form/:id", component: PackageFormNation },
+    { path: "/package/nationcode/form", component: PackageFormNation },
+    //{ path: "/package/nationcode/form/:id", component: PackageFormNation },
     { path: "/package/areacode", exact: true,  component: PackageBoard },
-    { path: "/package/areacode/form/:id", component: PackageFormArea },
+    { path: "/package/areacode/form", component: PackageFormArea },
+    //{ path: "/package/areacode/:id/form", component: PackageFormArea },
 
     { path: "/order/purchase", exact: true,  component: OrderBoard },
     { path: "/order/purchase/form", exact: true,  component: OrderFormPurchase },

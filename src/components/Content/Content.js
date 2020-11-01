@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Content.scss";
 import pageDataMap from "../../json/pageDataMap.json";
+import history from "../../history";
 
 const navMap = {
     member: [
@@ -29,7 +30,8 @@ export const Content = ({ children }) => {
     return <div className="content">{children}</div>;
 };
 
-export const ContentNav = ({ pageId, children }) => {
+export const ContentNav = ({ children }) => {
+    const pageId = history.location.pathname.split("/")[2];
     const { title, navCtg } = pageDataMap[pageId];
     const navList = navMap[navCtg];
     return (

@@ -39,15 +39,14 @@ const initialValue = {
 };
 
 //working done ###
-const MemberFormAdmin = ({ match }) => {
-    const pageId = match.url.split("/")[2];
+const MemberFormAdmin = () => {
     const dispatch = useDispatch();
     const { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
-        dispatch(formAction_init(match.url, initialValue));
+        dispatch(formAction_init(initialValue));
         return () => dispatch(formAction_initialize());
-    }, [dispatch, match.url]);
+    }, [dispatch]);
 
     const handleChangeInputs = (e) => {
         dispatch(formAction_changeValue(e));
@@ -62,7 +61,7 @@ const MemberFormAdmin = ({ match }) => {
 
     return (
         <FormLayout>
-            <ContentNav pageId={pageId}>
+            <ContentNav>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

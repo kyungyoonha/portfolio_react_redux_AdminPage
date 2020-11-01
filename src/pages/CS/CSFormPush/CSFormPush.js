@@ -48,7 +48,7 @@ const CSFormPush = ({ match }) => {
 
     return (
         <FormLayout>
-            <ContentNav pageId={pageId}>
+            <ContentNav>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

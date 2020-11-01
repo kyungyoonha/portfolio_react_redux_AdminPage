@@ -56,3 +56,9 @@ REACT_APP_CLOUDINARY_PRESET=<YOUR_CLOUD_PRESET>
 -   styled-components
 -   fullpage scroll
 -   MySQL
+
+### 파일 업로드
+
+https://jamong-icetea.tistory.com/243
+https://right-hot.tistory.com/entry/nodeJS-multer%EB%A5%BC-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%97%85%EB%A1%9C%EB%93%9C
+https://okky.kr/article/580517

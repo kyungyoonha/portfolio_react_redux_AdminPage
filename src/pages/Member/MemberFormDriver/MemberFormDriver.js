@@ -44,15 +44,14 @@ const initialValue = {
 };
 
 //working ###
-const MemberFormDriver = ({ match }) => {
-    const pageId = match.url.split("/")[2];
+const MemberFormDriver = () => {
     const dispatch = useDispatch();
     const { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
-        dispatch(formAction_init(match.url, initialValue));
+        dispatch(formAction_init(initialValue));
         return () => dispatch(formAction_initialize());
-    }, [dispatch, match.url]);
+    }, [dispatch]);
 
     const handleChangeInputs = (e) => {
         dispatch(formAction_changeValue(e));
@@ -71,7 +70,7 @@ const MemberFormDriver = ({ match }) => {
 
     return (
         <FormLayout>
-            <ContentNav pageId={pageId}>
+            <ContentNav>
                 <ContentBtn
                     type="form"
                     handleClickInsert={handleClickInsert}

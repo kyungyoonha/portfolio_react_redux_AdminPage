@@ -11,31 +11,35 @@ import api from "../../services";
 import history from "../../history";
 import { toast } from "react-toastify";
 import { changeInputToFormData } from "../../util/helperFunc";
+import queryString from "query-string";
 
-export const formAction_init = (url, initialValue) => async (
-    dispatch,
-    getState
-) => {
-    const urlSplit = url.split("/");
-    const apiurl = `/${urlSplit[1]}/${urlSplit[2]}`;
-    //const prevApiurl = getState().form.apiurl;
+export const formAction_init = (initialValue) => async (dispatch, getState) => {
+    try {
+        const { id, type } = queryString.parse(history.location.search);
+        const apiurl = history.location.pathname.split("/form")[0];
+        //const prevApiurl = getState().form.apiurl;
 
-    let inputs = { ...initialValue };
-    //const id = match.params.id;
+        let inputs = { ...initialValue };
+        if (id) {
+            const res = await api.boardAPI.getData(`${apiurl}/${id}`);
+            inputs = res;
+        }
 
-    // if (id) {
-    //     const res = await axios.get(`${apiurl}/id`);
-    //     inputs = res.data;
-    // }
+        if (type === "copy") {
+            delete inputs.idx;
+        }
 
-    dispatch({
-        type: FORM_INIT,
-        payload: {
-            apiurl,
-            inputs,
-            errors: {},
-        },
-    });
+        dispatch({
+            type: FORM_INIT,
+            payload: {
+                apiurl,
+                inputs,
+                errors: {},
+            },
+        });
+    } catch (e) {
+        toast.error(e.response.data.error);
+    }
 };
 
 export const formAction_changeValue = (e) => async (dispatch, getState) => {
@@ -63,30 +67,6 @@ export const formAction_changeValue = (e) => async (dispatch, getState) => {
     dispatch({ type: FORM_ERRORS, payload: { [name]: errorMessage } });
 };
 
-export const formAction_upload = (e, type) => async (dispatch, getState) => {
-    // 체크 ###
-    // 파일 올릴때 기존파일 초기화
-    let { inputs } = getState().form;
-    const { name, files } = e.target;
-    const file = e.target.files[0];
-    inputs[name + "name"] = "";
-    inputs[name + "path"] = "";
-    dispatch({ type: FORM_CHANGE, payload: inputs });
-
-    try {
-        const res = await api.fileAPI.upload(
-            type === "audio" ? "video" : type,
-            file
-        );
-        inputs[name + "name"] = files[0].name;
-        inputs[name + "path"] = res;
-    } catch (e) {
-        console.error(e);
-    }
-
-    dispatch({ type: FORM_CHANGE, payload: inputs });
-};
-
 // 폼 제출시
 export const formAction_submit = (fileList = [], multi = false) => async (
     dispatch,
@@ -109,6 +89,9 @@ export const formAction_submit = (fileList = [], multi = false) => async (
         // for (var key of sendData.entries()) {
         //     console.log(key[0] + ", " + key[1]);
         // }
+
+        const query = queryString.parse(window.location.search).type;
+        console.log(query);
 
         let res = !inputs.idx
             ? await api.boardAPI.insertData(apiurl, sendData)

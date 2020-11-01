@@ -1,15 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import history from "../../../history";
 import queryString from "query-string";
-
+import useInputs from "../../../Hooks/useInputs";
+import { validateAll, validateNation } from "../../../util/validate";
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import {
-    formAction_changeValue,
-    formAction_init,
-    formAction_initialize,
-    formAction_submit,
-} from "../../../redux/actions/formActions";
+import { useSelector, useDispatch } from "react-redux";
+import { boardAction_detail, boardAction_update } from "../../../redux/actions";
 
 import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
 import { ContentBtn, ContentNav } from "../../../components/Content/Content";
@@ -22,27 +18,43 @@ const initialValue = {
 };
 
 //working ###
-const PackageFormNation = () => {
+const PackageFormNation = ({ match }) => {
+    const pageId = match.url.split("/")[2];
+    const id = match.params.id;
     const type = queryString.parse(history.location.search).type;
+
     const dispatch = useDispatch();
-    const { inputs, errors } = useSelector((state) => state.form);
+    const { detail } = useSelector((state) => state.board);
+
+    const [errors, setErrors] = useState({});
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateNation,
+        setErrors
+    );
+    useEffect(() => {
+        if (type === "insert") return;
+        dispatch(boardAction_detail(pageId, id));
+    }, [dispatch, pageId, type, id]);
 
     useEffect(() => {
-        dispatch(formAction_init(initialValue));
+        if (type === "insert") return;
+        if (Object.keys(detail).length === 0) return;
+        setInputs(detail);
+    }, [type, setInputs, detail]);
 
-        return () => dispatch(formAction_initialize());
-    }, [dispatch]);
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateNation);
 
-    const handleChangeInputs = (e) => {
-        dispatch(formAction_changeValue(e));
+        if (isValid) {
+            console.log("에러 없음");
+
+            dispatch(boardAction_update(pageId, inputs));
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
     };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        dispatch(formAction_submit());
-    };
-
-    if (!Object.keys(inputs).length) return null;
 
     return (
         <FormLayout>
@@ -84,7 +96,6 @@ const PackageFormNation = () => {
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                <tr style={{ height: "200px" }}></tr>
             </FormSection>
         </FormLayout>
     );
