@@ -3,11 +3,7 @@ import history from "../../../history";
 
 import PackageBoardTop from "./components/PackageBoardTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
-import {
-    ContentBoardBtn,
-    ContentNav,
-    ContentBody,
-} from "../../../components/Content/Content";
+import { ContentBody, ContentNav } from "../../../components/Content/Content";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
@@ -67,31 +63,19 @@ const PackageBoard = ({ match }) => {
 
     return (
         <React.Fragment>
-            <ContentNav>
-                <ContentBoardBtn
-                    handleClickInsert={() => handleClickEditCopy("insert")}
-                    handleClickDelete={handleClickDelete}
-                >
-                    {pageId !== "tour" && (
-                        <React.Fragment>
-                            <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={() => handleClickEditCopy("copy")}
-                            >
-                                복사하기
-                            </button>
-                            <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={() => handleClickEditCopy("edit")}
-                            >
-                                수정하기
-                            </button>
-                        </React.Fragment>
-                    )}
-                </ContentBoardBtn>
-            </ContentNav>
+            {pageId === "tour" ? (
+                <ContentNav
+                    onClickInsert={() => handleClickEditCopy("insert")}
+                    onClickDelete={() => handleClickDelete}
+                />
+            ) : (
+                <ContentNav
+                    onClickInsert={() => handleClickEditCopy("insert")}
+                    onClickEdit={() => handleClickEditCopy("edit")}
+                    onClickCopy={() => handleClickEditCopy("copy")}
+                    onClickDelete={() => handleClickDelete}
+                />
+            )}
 
             <ContentBody>
                 <PackageBoardTop handleChangePageCtrl={handleChangePageCtrl} />

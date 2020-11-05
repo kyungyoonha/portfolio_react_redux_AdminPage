@@ -171,5 +171,8 @@
     },
     "login": {
         "validate": ["id", "password"]
+    },
+    "sendEmail": {
+        "validate": ["title", "hiddenStatus", "sendEmail", "sendContent"]
     }
 }

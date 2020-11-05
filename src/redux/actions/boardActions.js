@@ -66,20 +66,6 @@ export const boardAction_update = (pageId, newData, images, audios) => async (
     dispatch
 ) => {
     try {
-        // const touridx = await axios.post(
-        //     `http://localhost:8000/${pageId}/update`,
-        //     newData
-        // );
-        // 이미지 전송
-        // images && await axios.post(`http://localhost:8000/${pageId}/images`, {
-        //     ...images,
-        //     touridx,
-        // });
-        // 오디오 전송
-        // audios && await axios.post(`http://localhost:8000/${pageId}/audios`, {
-        //     ...audios,
-        //     touridx,
-        // });
         dispatch({
             type: newData.idx ? BOARD_UPDATE : BOARD_INSERT,
             payload: newData,

@@ -90,7 +90,7 @@ export const formAction_submit = (
         //     console.log(key[0] + ", " + key[1]);
         // }
 
-        const query = queryString.parse(window.location.search).type;
+        //const query = queryString.parse(window.location.search).type;
 
         let res = !inputs.idx
             ? await api.boardAPI.insertData(apiurl, sendData)

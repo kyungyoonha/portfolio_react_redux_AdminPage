@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import history from "../../../history";
 
 import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
-import {
-    ContentBoardBtn,
-    ContentNav,
-    ContentBody,
-} from "../../../components/Content/Content";
+import { ContentBody, ContentNav } from "../../../components/Content/Content";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
@@ -35,14 +31,6 @@ const CSBoard = ({ match }) => {
     useEffect(() => {
         dispatch(boardAction_fetch(pageId));
     }, [dispatch, pageId]);
-
-    const handleClickInsert = () => {
-        pageId !== "question"
-            ? history.push(`/cs/${pageId}/form`)
-            : selectedId
-            ? history.push(`/cs/${pageId}/form/${selectedId}`)
-            : alert("행을 선택해주세요.");
-    };
 
     const handleSelectedId = (id) => {
         dispatch(boardAction_selected(id));
@@ -75,24 +63,18 @@ const CSBoard = ({ match }) => {
 
     return (
         <React.Fragment>
-            <ContentNav>
-                <ContentBoardBtn
-                    handleClickInsert={() => handleClickEditCopy("insert")}
-                    handleClickDelete={handleClickDelete}
-                >
-                    {pageId !== "question" && (
-                        <React.Fragment>
-                            <button
-                                type="button"
-                                className="btn btn-outline-secondary"
-                                onClick={() => handleClickEditCopy("edit")}
-                            >
-                                수정하기
-                            </button>
-                        </React.Fragment>
-                    )}
-                </ContentBoardBtn>
-            </ContentNav>
+            {pageId === "question" ? (
+                <ContentNav
+                    onClickSend={() => handleClickEditCopy("edit")}
+                    onClickDelete={() => handleClickDelete}
+                />
+            ) : (
+                <ContentNav
+                    onClickInsert={() => handleClickEditCopy("insert")}
+                    onClickEdit={() => handleClickEditCopy("edit")}
+                    onClickDelete={() => handleClickDelete}
+                />
+            )}
 
             <ContentBody>
                 <BoardTop handleChangePageCtrl={handleChangePageCtrl} />

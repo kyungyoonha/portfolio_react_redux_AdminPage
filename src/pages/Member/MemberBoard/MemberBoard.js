@@ -2,11 +2,7 @@ import React, { useEffect, useState } from "react";
 import history from "../../../history";
 
 import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
-import {
-    ContentBoardBtn,
-    ContentNav,
-    ContentBody,
-} from "../../../components/Content/Content";
+import { ContentBody, ContentNav } from "../../../components/Content/Content";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
@@ -60,12 +56,10 @@ const MemberBoard = ({ match }) => {
 
     return (
         <React.Fragment>
-            <ContentNav>
-                <ContentBoardBtn
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={handleClickDelete}
-                />
-            </ContentNav>
+            <ContentNav
+                onClickInsert={handleClickInsert}
+                onClickDelete={handleClickDelete}
+            />
 
             <ContentBody>
                 <BoardTop handleChangePageCtrl={handleChangePageCtrl} />

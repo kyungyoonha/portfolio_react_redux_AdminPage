@@ -7,12 +7,12 @@ import Map from "../Google/Map";
 import TimePicker from "../TimePicker/TimePicker";
 import ModalNumRange from "../Modal/ModalNumRange";
 import ReactSelect from "../Select/ReactSelect";
-import { ContentNav222 } from "../Content/Content";
+import { ContentNav } from "../Content/Content";
 
 export const FormLayout = ({ children, ...rest }) => {
     return (
         <form className="formLayout">
-            <ContentNav222 {...rest} />
+            <ContentNav {...rest} />
             {children}
         </form>
     );

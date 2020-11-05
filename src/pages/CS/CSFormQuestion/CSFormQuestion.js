@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import history from "../../../history";
 import api from "../../../services";
-import { validateAll, validateService } from "../../../util/validate";
 
 // 리덕스
-import { useSelector, useDispatch } from "react-redux";
-import { boardAction_detail } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    formAction_changeValue,
+    formAction_init,
+    formAction_initialize,
+} from "../../../redux/actions/formActions";
 
-import useInputs from "../../../Hooks/useInputs";
 import {
     Input,
     Select,
@@ -16,88 +18,120 @@ import {
     Textarea,
     InputFile,
 } from "../../../components/Form/Form";
+import { validate, validateAll222 } from "../../../util/validate";
+import { toast } from "react-toastify";
 
 const initialValue = {
-    userid: "",
+    useridx: "",
     email: "",
-    filename: "",
-    replyYN: "",
+    replyYN: "N",
     contents: "",
+    file: "",
+    filename: "",
     filepath: "",
 };
+
+const initialValueSender = {
+    title: "",
+    heddenStatus: "",
+    user: "",
+    file: "",
+    sendEmail: "",
+    sendContent: "",
+};
 //working ### 이메일 처리
-const CSFormQuestion = ({ match }) => {
-    const pageId = match.url.split("/")[2];
-    const id = match.params.id;
-    const [errors, setErrors] = useState({});
+const CSFormQuestion = () => {
     const dispatch = useDispatch();
-    const { detail } = useSelector((state) => state.board);
-    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
-        initialValue,
-        validateService,
-        setErrors
-    );
+    let { inputs } = useSelector((state) => state.form);
+    let [sendInputs, setSendInputs] = useState(initialValueSender);
+    let [errors, setErrors] = useState({});
 
     useEffect(() => {
-        dispatch(boardAction_detail(pageId, id));
-    }, [dispatch, pageId, id]);
+        dispatch(formAction_init(initialValue));
+        return () => dispatch(formAction_initialize());
+    }, [dispatch]);
 
-    // useEffect(() => {
-    //     if (Object.keys(detail).length === 0) return;
-    //     setInputs(detail);
-    // }, [setInputs, detail]);
+    const handleChangeInputs = (e) => {
+        dispatch(formAction_changeValue(e));
+    };
 
-    const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateService);
+    const handleChangeSendInputs = (e) => {
+        const { name, value } = e.target;
+        const errorMessage = validate("sendEmail", name, value);
+        setErrors((state) => ({
+            ...state,
+            [name]: errorMessage,
+        }));
 
-        if (isValid) {
-            console.log("에러 없음");
-            setInputs(initialValue);
-        } else {
+        setSendInputs((state) => ({
+            ...state,
+            [name]: value,
+        }));
+    };
+
+    const handleChangeFile = (e) => {
+        const { name, files } = e.target;
+        setSendInputs((state) => ({
+            ...state,
+            [name]: files,
+        }));
+    };
+
+    const handleSendEmail = async () => {
+        const { isValid, checkedErrors } = validateAll222(
+            "/uploaod/sendEmail",
+            sendInputs
+        );
+
+        if (!isValid) {
             setErrors(checkedErrors);
+            return;
+        }
+        try {
+            await api.fileAPI.sendEmail({
+                to: inputs.email,
+                subject: sendInputs.title,
+                contents: sendInputs.sendContent,
+                file: sendInputs.file,
+            });
+        } catch (e) {
+            e.response && toast.error(e.response.data.error);
         }
     };
 
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
+
     return (
         <FormLayout
-            onClickSend={handleClickInsert}
+            onClickSend={handleSendEmail}
             onClickBack={() => history.goBack()}
         >
             <FormSection>
                 <Input
                     label="등록자"
-                    name="userid"
-                    value={inputs.userid}
+                    name="useridx"
+                    value={inputs.useridx}
                     onChange={handleChangeInputs}
-                    disabled
+                    // disabled
                 />
                 <Input
                     label="수신 이메일"
                     name="email"
                     value={inputs.email}
                     onChange={handleChangeInputs}
-                    disabled
+                    // disabled
                 />
 
-                <Input
+                <InputFile // Done
                     label="첨부파일"
-                    name="filename"
-                    value={inputs.filename}
+                    name="file"
+                    value={inputs.file}
+                    filename={inputs.filename}
                     onChange={handleChangeInputs}
-                >
-                    <button
-                        type="button"
-                        className="btn btn-outline-primary"
-                        onClick={() =>
-                            api.fileAPI.download(
-                                inputs.filename,
-                                inputs.filepath
-                            )
-                        }
-                    >
-                        다운로드
-                    </button>
-                </Input>
+                    filetype="raw"
+                />
 
                 <Textarea
                     label="내용"
@@ -105,7 +139,7 @@ const CSFormQuestion = ({ match }) => {
                     value={inputs.contents}
                     onChange={handleChangeInputs}
                     rows={15}
-                    disabled
+                    // disabled
                 />
             </FormSection>
 
@@ -113,16 +147,16 @@ const CSFormQuestion = ({ match }) => {
                 <Input
                     label="제목"
                     name="title"
-                    value={inputs.title}
-                    onChange={handleChangeInputs}
+                    value={sendInputs.title}
+                    onChange={handleChangeSendInputs}
                     errors={errors}
                 />
 
                 <Select
                     label="공개 여부"
                     name="hiddenStatus"
-                    value={inputs.hiddenStatus}
-                    onChange={handleChangeInputs}
+                    value={sendInputs.hiddenStatus}
+                    onChange={handleChangeSendInputs}
                     errors={errors}
                     options={[
                         { value: "visible", title: "공개" },
@@ -130,34 +164,28 @@ const CSFormQuestion = ({ match }) => {
                     ]}
                 />
 
-                <Input
-                    label="등록자"
-                    name="user"
-                    value={inputs.user}
-                    onChange={handleChangeInputs}
-                />
-
-                <InputFile
+                <InputFile // Done
                     label="첨부파일"
                     name="file"
-                    filename={inputs.filename}
-                    handleChangeFile={handleChangeFile}
+                    value={sendInputs.file}
+                    filename={sendInputs.filename}
+                    onChange={handleChangeFile}
                     filetype="raw"
                 />
 
                 <Input
                     label="발신 이메일"
                     name="sendEmail"
-                    value={inputs.sendEmail}
-                    onChange={handleChangeInputs}
+                    value={sendInputs.sendEmail}
+                    onChange={handleChangeSendInputs}
                     errors={errors}
                 />
 
                 <Textarea
                     label="내용"
                     name="sendContent"
-                    value={inputs.sendContent}
-                    onChange={handleChangeInputs}
+                    value={sendInputs.sendContent}
+                    onChange={handleChangeSendInputs}
                     rows={8}
                     errors={errors}
                 />

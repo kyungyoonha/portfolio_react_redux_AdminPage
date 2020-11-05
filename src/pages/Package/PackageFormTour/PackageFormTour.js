@@ -9,7 +9,6 @@ import {
     formAction_submit,
 } from "../../../redux/actions/formActions";
 
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import TourModalAudio from "./TourModalAudio/TourModalAudio";
 import TourModalImage from "./TourModalImage/TourModalImage";
 import {

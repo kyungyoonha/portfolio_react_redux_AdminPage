@@ -1,4 +1,4 @@
-import pageDataMap from "../json/pageDataMap.json";
+import tableConfig from "../siteConfig/tableConfig.json";
 
 export const validateAll = (inputs, checkFunc) => {
     let isValid = false;
@@ -73,10 +73,11 @@ const errorMessageObj = {
     sidoname: "시도 이름을 입력해주세요",
     areacode: "지역 코드를 입력해주세요",
     areaname: "지역 이름을 입력해주세요.",
+    sendEmail: "이메일을 입력해주세요.",
 };
 
 export const validate = (pageId, name, value) => {
-    const checkList = pageDataMap[pageId].validate;
+    const checkList = tableConfig[pageId].validate;
 
     if (checkList.indexOf(name) > -1 && isEmpty(value)) {
         return errorMessageObj[name];

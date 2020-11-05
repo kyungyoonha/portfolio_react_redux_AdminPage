@@ -1,5 +1,6 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { changeInputToFormData } from "../util/helperFunc";
 
 export const fileAPI = Object.freeze({
     async upload(resourceType, file) {
@@ -45,5 +46,23 @@ export const fileAPI = Object.freeze({
         link.download = path;
         document.body.appendChild(link);
         link.click();
+    },
+
+    async sendEmail(inputs) {
+        let sendData;
+        if (inputs.file) {
+            sendData = changeInputToFormData(inputs, ["file"]);
+        } else {
+            console.log(inputs);
+            const formData = new FormData();
+            formData.append("jsonData", JSON.stringify(inputs));
+            sendData = formData;
+        }
+
+        // for (var key of sendData.entries()) {
+        //     console.log(key[0] + ", " + key[1]);
+        // }
+
+        await axios.post("/cs/email", sendData);
     },
 });

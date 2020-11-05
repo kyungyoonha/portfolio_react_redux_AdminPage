@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import pageDataMap from "../../json/pageDataMap.json";
+import tableConfig from "../../siteConfig/tableConfig.json";
 import ReactSelect from "../Select/ReactSelect";
 import history from "../../history";
 
 export const Board = ({ data, selectedId, handleSelectedId }) => {
     const pageId = history.location.pathname.split("/")[2];
-    const headerList = pageDataMap[pageId].headerList;
+    const headerList = tableConfig[pageId].headerList;
 
     const makeRowData2 = (item) => {
         return (

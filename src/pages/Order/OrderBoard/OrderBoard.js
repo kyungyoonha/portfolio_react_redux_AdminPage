@@ -3,11 +3,7 @@ import history from "../../../history";
 
 import InfoTop from "./components/InfoTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
-import {
-    ContentBoardBtn,
-    ContentNav,
-    ContentBody,
-} from "../../../components/Content/Content";
+import { ContentBody, ContentNav } from "../../../components/Content/Content";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
@@ -62,12 +58,10 @@ const OrderBoard = ({ match }) => {
 
     return (
         <React.Fragment>
-            <ContentNav>
-                <ContentBoardBtn
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={handleClickDelete}
-                />
-            </ContentNav>
+            <ContentNav
+                onClickInsert={handleClickInsert}
+                onClickDelete={handleClickDelete}
+            />
 
             <ContentBody>
                 <InfoTop handleChangePageCtrl={handleChangePageCtrl} />

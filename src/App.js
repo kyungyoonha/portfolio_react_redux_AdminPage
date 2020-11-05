@@ -2,11 +2,8 @@ import React from "react";
 import "./App.scss";
 import Routes from "./routes";
 import { ToastContainer } from "react-toastify";
-import { useSelector } from "react-redux";
 
 const App = () => {
-    const router = useSelector((state) => state.router);
-    console.log(router);
     return (
         <div className="app">
             <ToastContainer

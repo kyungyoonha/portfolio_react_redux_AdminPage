@@ -6,7 +6,6 @@ import { validateAll, validatePush } from "../../../util/validate";
 import { useDispatch } from "react-redux";
 import { boardAction_update } from "../../../redux/actions";
 
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import useInputs from "../../../Hooks/useInputs";
 import {
     FormLayout,

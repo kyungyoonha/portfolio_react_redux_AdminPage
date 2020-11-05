@@ -8,7 +8,6 @@ import { boardAction_update } from "../../../redux/actions";
 
 import useInputs from "../../../Hooks/useInputs";
 import ModalSearch from "../../../components/Modal/ModalSearch";
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     Input,
     RadioSingle,
