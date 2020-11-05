@@ -3,7 +3,7 @@ export const changeInputToFormData = (inputs, fileList, multi) => {
 
     for (let fileKey of fileList) {
         if (!multi) {
-            formData.append(fileKey, inputs[fileKey]);
+            formData.append(fileKey, inputs[fileKey][0]);
         } else {
             for (let i = 0; i < inputs[fileKey].length; i++) {
                 formData.append(fileKey, inputs[fileKey][i]);

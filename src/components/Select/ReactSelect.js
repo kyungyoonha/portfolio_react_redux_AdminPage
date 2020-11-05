@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
-
+import api from "../../services";
 import AsyncSelect from "react-select/async";
 
 const ReactSelect = ({
@@ -15,6 +14,7 @@ const ReactSelect = ({
     // 필터
     const filterOptions = (options, inputValue) => {
         if (!options.length) return;
+
         return options.filter((item) => {
             return (
                 item.value.toLowerCase().includes(inputValue.toLowerCase()) ||
@@ -23,19 +23,18 @@ const ReactSelect = ({
         });
     };
 
+    // ###☆ nationcode 데이터로 변경
     const loadOptions = async (inputValue) => {
-        const res = await axios.get(
-            `http://localhost:3000/json/${searchId}.json`
-        );
+        const data = await api.boardAPI.getData(`/package/${searchId}`);
 
-        const result = res.data.data.map((item) => {
+        const result = data.map((item) => {
             let label = "";
             searchItems.forEach((key) => {
                 label += item[key] + " | ";
             });
 
             return {
-                value: item.idx,
+                value: String(item.idx),
                 label,
                 //label: `${item[searchItems[0]]} (${item[searchItems[1]]})`,
                 name: searchId + "idx",

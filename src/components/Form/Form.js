@@ -7,9 +7,15 @@ import Map from "../Google/Map";
 import TimePicker from "../TimePicker/TimePicker";
 import ModalNumRange from "../Modal/ModalNumRange";
 import ReactSelect from "../Select/ReactSelect";
+import { ContentNav222 } from "../Content/Content";
 
-export const FormLayout = ({ children }) => {
-    return <form className="formLayout">{children}</form>;
+export const FormLayout = ({ children, ...rest }) => {
+    return (
+        <form className="formLayout">
+            <ContentNav222 {...rest} />
+            {children}
+        </form>
+    );
 };
 
 export const FormSection = ({ full, center, title, scroll, children }) => {
@@ -376,9 +382,22 @@ export const File = ({
         </React.Fragment>
     );
 };
-export const File222 = ({ label, name, value, onChange, filetype }) => {
+export const File222 = ({
+    label,
+    name,
+    value,
+    filename,
+    filepath,
+    onChange,
+    filetype,
+}) => {
     const inputFileRef = useRef(null);
-    const imageUrl = value ? window.URL.createObjectURL(value) : noImg;
+    const imageUrl = value[0]
+        ? window.URL.createObjectURL(value[0])
+        : filepath
+        ? process.env.REACT_APP_BACKEND_URL + filepath
+        : noImg;
+
     return (
         <React.Fragment>
             <tr>
@@ -423,7 +442,7 @@ export const File222 = ({ label, name, value, onChange, filetype }) => {
                     >
                         이미지 찾기
                     </button>
-                    {value.name}
+                    {value ? value[0].name : filename ? filename : ""}
                 </td>
             </tr>
         </React.Fragment>
@@ -433,8 +452,9 @@ export const File222 = ({ label, name, value, onChange, filetype }) => {
 export const InputFile = ({
     label,
     name,
+    value,
     filename,
-    handleChangeFile,
+    onChange,
     filetype,
 }) => {
     return (
@@ -448,11 +468,11 @@ export const InputFile = ({
                         name={name}
                         type="file"
                         className="custom-file-input"
-                        onChange={(e) => handleChangeFile(e, filetype)}
+                        onChange={(e) => onChange(e, filetype)}
                         accept={filetypeObj[filetype]}
                     />
                     <label className="custom-file-label" data-browse={label}>
-                        {filename}
+                        {value ? value[0].name : filename ? filename : ""}
                     </label>
                 </div>
             </td>

@@ -71,14 +71,10 @@ const OrderFormPurchase = ({ match }) => {
     };
 
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type="form"
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection>
                 <RadioSingle
                     label="투어 종류"

@@ -106,6 +106,9 @@ const TourModalImage = ({ handleChangeImage, images }) => {
     // 이미지 저장
     const handleClickSave = () => {
         const result = imageList.map((image, i) => ({ ...image, seq: i }));
+        if (!result.length) return alert("이미지를 추가해주세요.");
+
+        result[0].mainpicYN = "Y";
         handleChangeImage(result);
         handleModalClose();
     };

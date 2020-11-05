@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import history from "../../../history";
-import { validateAll, validateNotice } from "../../../util/validate";
 
-import useInputs from "../../../Hooks/useInputs";
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import {
+    formAction_changeValue,
+    formAction_init,
+    formAction_initialize,
+    formAction_submit,
+} from "../../../redux/actions/formActions";
+
 import {
     FormLayout,
     FormSection,
@@ -16,42 +22,39 @@ import {
 const initialValue = {
     title: "",
     showYN: "N",
-    filename: "",
     topYN: "N",
     contents: "",
-    filepath: "",
+    file: "",
 };
 
 //working ###
 const CSFormNotice = () => {
-    const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
-        initialValue,
-        validateNotice,
-        setErrors
-    );
+    const dispatch = useDispatch();
+    let { inputs, errors } = useSelector((state) => state.form);
 
-    const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateNotice);
+    useEffect(() => {
+        dispatch(formAction_init(initialValue));
+        return () => dispatch(formAction_initialize());
+    }, [dispatch]);
 
-        if (isValid) {
-            console.log("에러 없음");
-            setInputs(initialValue);
-        } else {
-            setErrors(checkedErrors);
-        }
+    const handleChangeInputs = (e) => {
+        dispatch(formAction_changeValue(e));
     };
 
-    return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type="form"
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+    const handleClickInsert = (e) => {
+        e.preventDefault();
+        dispatch(formAction_submit(inputs, ["file"]));
+    };
 
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
+
+    return (
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection center title="공지 추가">
                 <Input
                     label="제목"
@@ -74,8 +77,9 @@ const CSFormNotice = () => {
                 <InputFile
                     label="첨부파일"
                     name="file"
+                    value={inputs.file}
                     filename={inputs.filename}
-                    handleChangeFile={handleChangeFile}
+                    onChange={handleChangeInputs}
                     filetype="raw"
                 />
                 <RadioSingle

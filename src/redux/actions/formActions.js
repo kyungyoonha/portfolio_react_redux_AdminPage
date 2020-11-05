@@ -17,7 +17,6 @@ export const formAction_init = (initialValue) => async (dispatch, getState) => {
     try {
         const { id, type } = queryString.parse(history.location.search);
         const apiurl = history.location.pathname.split("/form")[0];
-        //const prevApiurl = getState().form.apiurl;
 
         let inputs = { ...initialValue };
         if (id) {
@@ -50,7 +49,7 @@ export const formAction_changeValue = (e) => async (dispatch, getState) => {
     if (type === "checkbox") {
         inputs[name] = { ...inputs[name], [value]: checked };
     } else if (type === "file") {
-        inputs[name] = files[0];
+        inputs[name] = files;
     } else {
         inputs[name] = value;
 
@@ -68,12 +67,13 @@ export const formAction_changeValue = (e) => async (dispatch, getState) => {
 };
 
 // 폼 제출시
-export const formAction_submit = (fileList = [], multi = false) => async (
-    dispatch,
-    getState
-) => {
+export const formAction_submit = (
+    inputs,
+    fileList = [],
+    multi = false
+) => async (dispatch, getState) => {
     try {
-        const { apiurl, inputs } = getState().form;
+        const { apiurl } = getState().form;
         const { isValid, checkedErrors } = validateAll222(apiurl, inputs);
 
         if (!isValid) {
@@ -91,7 +91,6 @@ export const formAction_submit = (fileList = [], multi = false) => async (
         // }
 
         const query = queryString.parse(window.location.search).type;
-        console.log(query);
 
         let res = !inputs.idx
             ? await api.boardAPI.insertData(apiurl, sendData)
@@ -99,8 +98,8 @@ export const formAction_submit = (fileList = [], multi = false) => async (
 
         let type = !inputs.idx ? BOARD_INSERT : BOARD_UPDATE;
 
-        // dispatch({ type, payload: res.data });
-        // history.goBack();
+        dispatch({ type, payload: res.data });
+        history.goBack();
     } catch (e) {
         toast.error(e.response.data.error);
     }

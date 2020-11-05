@@ -18,10 +18,6 @@ export default (state = initialState, action) => {
             };
 
         case FORM_INITIALIZE:
-            // return {
-            //     ...state,
-            //     inputs: action.payload,
-            // };
             return initialState;
 
         case FORM_ERRORS:

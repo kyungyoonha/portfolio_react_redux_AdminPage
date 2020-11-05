@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
 import history from "../../../history";
-import queryString from "query-string";
 
 // redux
-import { boardAction_detail, boardAction_update } from "../../../redux/actions";
-import { validateAll, validateArea } from "../../../util/validate";
-
-import useInputs from "../../../Hooks/useInputs";
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
+import { useDispatch, useSelector } from "react-redux";
 import {
-    File,
+    formAction_changeValue,
+    formAction_init,
+    formAction_initialize,
+    formAction_submit,
+} from "../../../redux/actions/formActions";
+
+import {
+    File222,
     FormLayout,
     FormSection,
     Input,
-    RadioSingle,
     SelectAPI,
 } from "../../../components/Form/Form";
 
@@ -24,72 +24,52 @@ const initialValue = {
     sidoname: "",
     areacode: "",
     areaname: "",
-    mainpicYN: "N",
+    mainpic: "",
     mainpicname: "",
     mainpicpath: "",
 };
 
 //working ###
-const PackageFormArea = ({ match }) => {
-    console.log(match);
-    const pageId = match.url.split("/")[2];
-    const id = match.params.id;
-    const type = queryString.parse(history.location.search).type;
-
+const PackageFormArea = () => {
     const dispatch = useDispatch();
-    const { detail } = useSelector((state) => state.board);
-    const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs, handleChangeFile] = useInputs(
-        initialValue,
-        validateArea,
-        setErrors
-    );
-    useEffect(() => {
-        if (type === "insert") return;
-        dispatch(boardAction_detail(pageId, id));
-    }, [dispatch, pageId, type, id]);
+    let { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
-        if (type === "insert") return;
-        if (Object.keys(detail).length === 0) return;
-        setInputs(detail);
-    }, [setInputs, detail, type]);
+        dispatch(formAction_init(initialValue));
+        return () => dispatch(formAction_initialize());
+    }, [dispatch]);
 
-    useEffect(() => {
-        let mainpicYN = inputs.mainpicpath ? "Y" : "N";
+    const handleChangeInputs = (e) => {
+        dispatch(formAction_changeValue(e));
+    };
 
-        setInputs((state) => ({
-            ...state,
-            mainpicYN,
-        }));
-    }, [setInputs, inputs.mainpicpath]);
-
-    const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateArea);
-
-        if (!inputs.mainpicpath) {
-            alert("메인 사진을 업로드해주세요.");
+    const handleClickInsert = (e) => {
+        e.preventDefault();
+        if (!inputs.mainpic) {
+            alert("프로필 이미지를 추가해주세요.");
             return;
         }
 
-        if (isValid) {
-            console.log("에러 없음");
-            dispatch(boardAction_update(pageId, inputs));
-            setInputs(initialValue);
-        } else {
-            setErrors(checkedErrors);
-        }
+        const fileList = ["mainpic"];
+        dispatch(
+            formAction_submit(
+                {
+                    ...inputs,
+                    mainpicYN: "Y",
+                },
+                fileList
+            )
+        );
     };
 
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type={type}
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection center title="지역코드 추가">
                 <SelectAPI
                     label="국가 코드"
@@ -128,23 +108,13 @@ const PackageFormArea = ({ match }) => {
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                <RadioSingle
-                    label="대표사진 유무"
-                    name="mainpicYN"
-                    value={inputs.mainpicYN}
-                    onChange={handleChangeInputs}
-                    disabled={true}
-                    options={[
-                        { value: "Y", title: "있음" },
-                        { value: "N", title: "없음" },
-                    ]}
-                />
-                <File
+                <File222
                     label="대표 사진"
                     name="mainpic"
+                    value={inputs.mainpic}
                     filename={inputs.mainpicname}
                     filepath={inputs.mainpicpath}
-                    handleChangeFile={handleChangeFile}
+                    onChange={handleChangeInputs}
                     filetype="image"
                 />
             </FormSection>

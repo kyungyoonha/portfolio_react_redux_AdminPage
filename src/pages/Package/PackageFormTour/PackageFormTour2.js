@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 import history from "../../../history";
+import { validateAll, validateTour } from "../../../util/validate";
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import {
-    formAction_changeValue,
-    formAction_init,
-    formAction_initialize,
-    formAction_submit,
-} from "../../../redux/actions/formActions";
+import { boardAction_update } from "../../../redux/actions";
+import { useDispatch } from "react-redux";
 
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
+import useInputs from "../../../Hooks/useInputs";
 import TourModalAudio from "./TourModalAudio/TourModalAudio";
 import TourModalImage from "./TourModalImage/TourModalImage";
 import {
@@ -48,91 +44,71 @@ const initialValue = {
 
 // working ###
 // mainaudioYN, subaudioYN 삭제
+// 파일저장. json 저장   => mainaudioYn, subaudioYN 추가
+// 파일저장. json 저장   => id 값 가져옴
+// 파일저장. 오디오 저장 => 한개씩 해도 됌
+// 파일저장. 오디오 저장 => 오디오 라우터 => formData로 처리
+// 파일저장. 이미지 저장 => 여러개, 순서까지
 
 // 관광지 코드는 어디다가 쓰는건지? 중복체크 해줘야하나
 const PackageFormTour = ({ match }) => {
+    const pageId = match.url.split("/")[2];
     const dispatch = useDispatch();
-    let { inputs, errors } = useSelector((state) => state.form);
-
+    const [errors, setErrors] = useState({});
+    const [audios, setAudios] = useState([]);
+    const [images, setImages] = useState([]);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateTour,
+        setErrors
+    );
     useEffect(() => {
-        dispatch(formAction_init(initialValue));
-        return () => dispatch(formAction_initialize());
-    }, [dispatch]);
+        let audioMain = audios.filter((item) => item.mainaudioYN === "Y");
+        let audioSub = audios.filter((item) => item.mainaudioYN === "N");
+        let mainaudioYN = audioMain.length ? "Y" : "N";
+        let subaudioYN = audioSub.length ? "Y" : "N";
 
-    const handleChangeInputs = (e) => {
-        dispatch(formAction_changeValue(e));
+        setInputs((state) => ({
+            ...state,
+            mainaudioYN,
+            subaudioYN,
+        }));
+    }, [setInputs, audios]);
+
+    const handleChangeImageList = (newImgList) => {
+        setInputs((state) => ({
+            ...state,
+            imageList: newImgList,
+        }));
     };
 
-    const handleClickInsert = (e) => {
-        e.preventDefault();
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateTour);
+
         if (!images.length) {
             alert("관광지 사진을 추가해주세요.");
             return;
         }
-        const fileList = ["driver", "car", "license"];
-        dispatch(formAction_submit(inputs, fileList));
+
+        if (isValid) {
+            console.log("에러 없음");
+            dispatch(
+                boardAction_update(
+                    pageId,
+                    {
+                        ...inputs,
+                        inextroversion: Number(inputs.inextroversion),
+                        openclose: Number(inputs.openclose),
+                    },
+                    images,
+                    audios
+                )
+            );
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
+        }
     };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
-    // const pageId = match.url.split("/")[2];
-    // const dispatch = useDispatch();
-    // const [errors, setErrors] = useState({});
-    const [audios, setAudios] = useState([]);
-    const [images, setImages] = useState([]);
-    // const [inputs, setInputs, handleChangeInputs] = useInputs(
-    //     initialValue,
-    //     validateTour,
-    //     setErrors
-    // );
-    // useEffect(() => {
-    //     let audioMain = audios.filter((item) => item.mainaudioYN === "Y");
-    //     let audioSub = audios.filter((item) => item.mainaudioYN === "N");
-    //     let mainaudioYN = audioMain.length ? "Y" : "N";
-    //     let subaudioYN = audioSub.length ? "Y" : "N";
-
-    //     setInputs((state) => ({
-    //         ...state,
-    //         mainaudioYN,
-    //         subaudioYN,
-    //     }));
-    // }, [setInputs, audios]);
-
-    // const handleChangeImageList = (newImgList) => {
-    //     setInputs((state) => ({
-    //         ...state,
-    //         imageList: newImgList,
-    //     }));
-    // };
-
-    // const handleClickInsert = () => {
-    //     const { isValid, checkedErrors } = validateAll(inputs, validateTour);
-
-    //     if (!images.length) {
-    //         alert("관광지 사진을 추가해주세요.");
-    //         return;
-    //     }
-
-    //     if (isValid) {
-    //         console.log("에러 없음");
-    //         dispatch(
-    //             boardAction_update(
-    //                 pageId,
-    //                 {
-    //                     ...inputs,
-    //                     inextroversion: Number(inputs.inextroversion),
-    //                     openclose: Number(inputs.openclose),
-    //                 },
-    //                 images,
-    //                 audios
-    //             )
-    //         );
-    //         setInputs(initialValue);
-    //     } else {
-    //         setErrors(checkedErrors);
-    //     }
-    // };
 
     const handleChangeAudio = (audio) => {
         setAudios((state) => [audio, ...state]);
@@ -208,6 +184,7 @@ const PackageFormTour = ({ match }) => {
                     label="주소"
                     name="address"
                     value={inputs.address}
+                    setInputs={setInputs}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
@@ -236,7 +213,10 @@ const PackageFormTour = ({ match }) => {
             </FormSection>
             {/* 이미지 리스트 */}
             <FormSection>
-                <FormImageList images={images}>
+                <FormImageList
+                    images={images}
+                    handleChangeImageList={handleChangeImageList}
+                >
                     <TourModalImage
                         images={images}
                         handleChangeImage={handleChangeImage}
@@ -280,7 +260,7 @@ const PackageFormTour = ({ match }) => {
                 />
             </FormSection>
             <FormSection full>
-                {/* <RadioSingle
+                <RadioSingle
                     label="대표 오디오 가이드"
                     name="mainaudioYN"
                     value={inputs.mainaudioYN}
@@ -304,7 +284,7 @@ const PackageFormTour = ({ match }) => {
                         { value: "Y", title: "있음" },
                         { value: "N", title: "없음" },
                     ]}
-                /> */}
+                />
 
                 <FormAudioList
                     data={audios}

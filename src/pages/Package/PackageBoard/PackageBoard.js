@@ -4,7 +4,7 @@ import history from "../../../history";
 import PackageBoardTop from "./components/PackageBoardTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
 import {
-    ContentBtn,
+    ContentBoardBtn,
     ContentNav,
     ContentBody,
 } from "../../../components/Content/Content";
@@ -68,7 +68,7 @@ const PackageBoard = ({ match }) => {
     return (
         <React.Fragment>
             <ContentNav>
-                <ContentBtn
+                <ContentBoardBtn
                     handleClickInsert={() => handleClickEditCopy("insert")}
                     handleClickDelete={handleClickDelete}
                 >
@@ -90,7 +90,7 @@ const PackageBoard = ({ match }) => {
                             </button>
                         </React.Fragment>
                     )}
-                </ContentBtn>
+                </ContentBoardBtn>
             </ContentNav>
 
             <ContentBody>

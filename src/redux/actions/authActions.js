@@ -17,7 +17,7 @@ export const authAction_getMyInfo = () => async (dispatch) => {
             payload: user,
         });
     } catch (e) {
-        toast.error(e.response.data.error);
+        e.response && toast.error(e.response.data.error);
     }
 };
 

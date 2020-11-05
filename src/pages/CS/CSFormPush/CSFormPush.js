@@ -47,14 +47,10 @@ const CSFormPush = ({ match }) => {
     };
 
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type="form"
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection center title="푸쉬 관리">
                 <Input
                     label={`푸쉬제목 (${

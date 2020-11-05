@@ -3,7 +3,7 @@ import history from "../../../history";
 
 import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
 import {
-    ContentBtn,
+    ContentBoardBtn,
     ContentNav,
     ContentBody,
 } from "../../../components/Content/Content";
@@ -61,7 +61,7 @@ const MemberBoard = ({ match }) => {
     return (
         <React.Fragment>
             <ContentNav>
-                <ContentBtn
+                <ContentBoardBtn
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={handleClickDelete}
                 />

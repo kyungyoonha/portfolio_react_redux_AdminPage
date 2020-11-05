@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { boardAction_detail } from "../../../redux/actions";
 
 import useInputs from "../../../Hooks/useInputs";
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     Input,
     Select,
@@ -43,10 +42,10 @@ const CSFormQuestion = ({ match }) => {
         dispatch(boardAction_detail(pageId, id));
     }, [dispatch, pageId, id]);
 
-    useEffect(() => {
-        if (Object.keys(detail).length === 0) return;
-        setInputs(detail);
-    }, [setInputs, detail]);
+    // useEffect(() => {
+    //     if (Object.keys(detail).length === 0) return;
+    //     setInputs(detail);
+    // }, [setInputs, detail]);
 
     const handleClickInsert = () => {
         const { isValid, checkedErrors } = validateAll(inputs, validateService);
@@ -60,14 +59,10 @@ const CSFormQuestion = ({ match }) => {
     };
 
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type="form"
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+        <FormLayout
+            onClickSend={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection>
                 <Input
                     label="등록자"

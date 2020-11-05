@@ -3,7 +3,7 @@ import history from "../../../history";
 
 import { Board, BoardTop, BoardFooter } from "../../../components/Board/Board";
 import {
-    ContentBtn,
+    ContentBoardBtn,
     ContentNav,
     ContentBody,
 } from "../../../components/Content/Content";
@@ -63,13 +63,35 @@ const CSBoard = ({ match }) => {
         }));
     };
 
+    const handleClickEditCopy = (type) => {
+        if (!selectedId && type !== "insert") {
+            alert("행을 선택해주세요.");
+            return;
+        }
+
+        const id = type === "insert" ? "" : selectedId;
+        history.push(`/cs/${pageId}/form?type=${type}&id=${id}`);
+    };
+
     return (
         <React.Fragment>
             <ContentNav>
-                <ContentBtn
-                    handleClickInsert={handleClickInsert}
+                <ContentBoardBtn
+                    handleClickInsert={() => handleClickEditCopy("insert")}
                     handleClickDelete={handleClickDelete}
-                />
+                >
+                    {pageId !== "question" && (
+                        <React.Fragment>
+                            <button
+                                type="button"
+                                className="btn btn-outline-secondary"
+                                onClick={() => handleClickEditCopy("edit")}
+                            >
+                                수정하기
+                            </button>
+                        </React.Fragment>
+                    )}
+                </ContentBoardBtn>
             </ContentNav>
 
             <ContentBody>

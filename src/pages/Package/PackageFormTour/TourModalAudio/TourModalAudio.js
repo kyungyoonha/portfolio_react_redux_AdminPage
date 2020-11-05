@@ -9,7 +9,6 @@ import {
     Select,
     Input,
     FormSection,
-    FormLayout,
     Textarea,
 } from "../../../../components/Form/Form";
 
@@ -94,7 +93,7 @@ const TourModalAudio = ({ title, handleChangeAudio }) => {
                         </button>
                     </div>
                     <br />
-                    <FormLayout>
+                    <form>
                         <FormSection full title="오디오 추가">
                             <Input
                                 label="스크립트명"
@@ -154,7 +153,7 @@ const TourModalAudio = ({ title, handleChangeAudio }) => {
                                 ]}
                             />
                         </FormSection>
-                    </FormLayout>
+                    </form>
                 </div>
             </Modal>
         </div>

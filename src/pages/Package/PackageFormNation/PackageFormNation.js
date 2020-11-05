@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import history from "../../../history";
-import queryString from "query-string";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +11,6 @@ import {
 } from "../../../redux/actions/formActions";
 
 import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 
 const initialValue = {
     koreanname: "",
@@ -23,9 +21,8 @@ const initialValue = {
 
 //working ###
 const PackageFormNation = () => {
-    const type = queryString.parse(history.location.search).type;
     const dispatch = useDispatch();
-    const { inputs, errors } = useSelector((state) => state.form);
+    let { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
         dispatch(formAction_init(initialValue));
@@ -39,21 +36,18 @@ const PackageFormNation = () => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formAction_submit());
+        dispatch(formAction_submit(inputs));
     };
 
-    if (!Object.keys(inputs).length) return null;
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
 
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type={type}
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
-
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection center title="국가코드 관리">
                 <Input
                     label="국가한국이름"

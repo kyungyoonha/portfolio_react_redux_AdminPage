@@ -46,7 +46,7 @@ const initialValue = {
 //working ###
 const MemberFormUser = () => {
     const dispatch = useDispatch();
-    const { inputs, errors } = useSelector((state) => state.form);
+    let { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
         dispatch(formAction_init(initialValue));
@@ -63,20 +63,19 @@ const MemberFormUser = () => {
             alert("프로필 이미지를 추가해주세요.");
             return;
         }
-        dispatch(formAction_submit(["profile"]));
+        const fileList = ["profile"];
+        dispatch(formAction_submit(inputs, fileList));
     };
 
-    if (!Object.keys(inputs).length) return null;
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
 
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type="form"
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection>
                 <Input
                     label="이름"

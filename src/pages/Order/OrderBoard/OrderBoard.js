@@ -4,7 +4,7 @@ import history from "../../../history";
 import InfoTop from "./components/InfoTop";
 import { Board, BoardFooter } from "../../../components/Board/Board";
 import {
-    ContentBtn,
+    ContentBoardBtn,
     ContentNav,
     ContentBody,
 } from "../../../components/Content/Content";
@@ -63,7 +63,7 @@ const OrderBoard = ({ match }) => {
     return (
         <React.Fragment>
             <ContentNav>
-                <ContentBtn
+                <ContentBoardBtn
                     handleClickInsert={handleClickInsert}
                     handleClickDelete={handleClickDelete}
                 />

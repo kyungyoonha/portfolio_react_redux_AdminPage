@@ -1,6 +1,5 @@
 import React from 'react'
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import history from './history';
+import { Route, Switch, Redirect } from 'react-router-dom';
 // pages
 import Dashboard from "./pages/Dashboard/DashBoard";
 import PageNotFound from './pages/PageNotFound/PageNotFound';
@@ -55,13 +54,12 @@ const routes = [
     { path: "/cs/notice", exact: true, component: CSBoard },
     { path: "/cs/notice/form", exact: true, component: CSFormNotice },
     { path: "/cs/question", exact: true, component: CSBoard },
-    { path: "/cs/question/form/:id", component: CSFormQuestion },
+    { path: "/cs/question/form", component: CSFormQuestion },
     
 ];
 
 
 const Routes = () => (
-    <Router history={history}>
         <Switch>
             {routes.map((route, idx) => (
                 <Route
@@ -83,6 +81,5 @@ const Routes = () => (
             <Route path="/cs" exact render={() => <Redirect to="/cs/push" />}/>
             <Route component={PageNotFound} />
         </Switch>
-    </Router>
 )
 export default Routes;

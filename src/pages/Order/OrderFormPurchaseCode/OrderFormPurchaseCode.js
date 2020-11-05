@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import history from "../../../history";
-import { validateAll, validateCode } from "../../../util/validate";
-import useInputs from "../../../Hooks/useInputs";
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
-
+import randomKey from "../../../util/randomKey";
 // redux
-import { useDispatch } from "react-redux";
-import { boardAction_update } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    formAction_changeValue,
+    formAction_init,
+    formAction_initialize,
+    formAction_submit,
+} from "../../../redux/actions/formActions";
 
 import {
     Input,
@@ -18,43 +20,39 @@ import {
 const initialValue = {
     purchasedate: "",
     purchasetype: "",
-    codenumber: "",
+    codenumber: randomKey(6),
     price: "",
     purchaseuser: "",
 };
 
 //working
-const OrderFormPurchaseCode = ({ match }) => {
-    const pageId = match.url.split("/")[2];
+const OrderFormPurchaseCode = () => {
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
-        initialValue,
-        validateCode,
-        setErrors
-    );
+    let { inputs, errors } = useSelector((state) => state.form);
 
-    const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateCode);
+    useEffect(() => {
+        dispatch(formAction_init(initialValue));
+        return () => dispatch(formAction_initialize());
+    }, [dispatch]);
 
-        if (isValid) {
-            dispatch(boardAction_update(pageId, inputs));
-
-            setInputs(initialValue);
-        } else {
-            setErrors(checkedErrors);
-        }
+    const handleChangeInputs = (e) => {
+        dispatch(formAction_changeValue(e));
     };
 
+    const handleClickInsert = (e) => {
+        e.preventDefault();
+        dispatch(formAction_submit(inputs));
+    };
+
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
+
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type="form"
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection center full title="구매 코드">
                 <InputDate
                     label="생년월일"
@@ -80,6 +78,7 @@ const OrderFormPurchaseCode = ({ match }) => {
                     value={inputs.codenumber}
                     onChange={handleChangeInputs}
                     errors={errors}
+                    disabled={true}
                 />
                 <Input
                     label="가격"

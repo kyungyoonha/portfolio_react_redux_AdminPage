@@ -10,7 +10,6 @@ import {
     formAction_submit,
 } from "../../../redux/actions/formActions";
 
-import { ContentBtn, ContentNav } from "../../../components/Content/Content";
 import {
     FormLayout,
     FormSection,
@@ -41,7 +40,7 @@ const initialValue = {
 //working done ###
 const MemberFormAdmin = () => {
     const dispatch = useDispatch();
-    const { inputs, errors } = useSelector((state) => state.form);
+    let { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
         dispatch(formAction_init(initialValue));
@@ -54,20 +53,18 @@ const MemberFormAdmin = () => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formAction_submit());
+        dispatch(formAction_submit(inputs));
     };
 
-    if (!Object.keys(inputs).length) return null;
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
 
     return (
-        <FormLayout>
-            <ContentNav>
-                <ContentBtn
-                    type="form"
-                    handleClickInsert={handleClickInsert}
-                    handleClickDelete={() => history.goBack()}
-                />
-            </ContentNav>
+        <FormLayout
+            onClickInsert={handleClickInsert}
+            onClickBack={() => history.goBack()}
+        >
             <FormSection center title="매니저 추가">
                 <Input
                     label="이름"
