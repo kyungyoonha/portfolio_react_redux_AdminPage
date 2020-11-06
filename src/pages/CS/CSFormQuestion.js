@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import history from "../../../history";
-import api from "../../../services";
+import history from "../../history";
+import api from "../../services";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,8 @@ import {
     formAction_changeValue,
     formAction_init,
     formAction_initialize,
-} from "../../../redux/actions/formActions";
+    // formAction_submit,
+} from "../../redux/actions/formActions";
 
 import {
     Input,
@@ -17,8 +18,8 @@ import {
     FormSection,
     Textarea,
     InputFile,
-} from "../../../components/Form/Form";
-import { validate, validateAll222 } from "../../../util/validate";
+} from "../../components/Form/Form";
+import { validate, validateAll222 } from "../../util/validate";
 import { toast } from "react-toastify";
 
 const initialValue = {
@@ -39,7 +40,7 @@ const initialValueSender = {
     sendEmail: "",
     sendContent: "",
 };
-//working ### 이메일 처리
+//working
 const CSFormQuestion = () => {
     const dispatch = useDispatch();
     let { inputs } = useSelector((state) => state.form);
@@ -76,6 +77,9 @@ const CSFormQuestion = () => {
             [name]: files,
         }));
     };
+    // const handleClickInsert = (e) => {
+    //     dispatch(formAction_submit(inputs, ["file"]));
+    // };
     const handleSendEmail = async () => {
         const { isValid, checkedErrors } = validateAll222(
             "/uploaod/sendEmail",
@@ -146,6 +150,13 @@ const CSFormQuestion = () => {
                     rows={15}
                     disabled
                 />
+                {/* <tr>
+                    <td>
+                        <button type="button" onClick={handleClickInsert}>
+                            더미 데이터 저장
+                        </button>
+                    </td>
+                </tr> */}
             </FormSection>
 
             <FormSection title="이메일 발송">

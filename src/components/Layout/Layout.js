@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Layout.scss";
 
 // containers
-import Sidebar from "./Sidebar.js/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
 import Header from "./Header/Header";
 
 const Layout = ({ route, children }) => {

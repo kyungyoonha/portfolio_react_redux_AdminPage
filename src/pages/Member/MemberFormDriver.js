@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import history from "../../../history";
+import history from "../../history";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import {
     formAction_init,
     formAction_initialize,
     formAction_submit,
-} from "../../../redux/actions/formActions";
+} from "../../redux/actions/formActions";
 import {
     FormLayout,
     FormSection,
@@ -16,9 +16,9 @@ import {
     RadioSingle,
     Textarea,
     InputDate,
-    File222,
+    InputFileWithImage,
     SelectAPI,
-} from "../../../components/Form/Form";
+} from "../../components/Form/Form";
 
 const initialValue = {
     drivername: "",
@@ -198,21 +198,21 @@ const MemberFormDriver = () => {
                 />
             </FormSection>
             <FormSection>
-                <File222
+                <InputFileWithImage
                     label="기사 사진"
                     name="driver"
                     value={inputs.driver}
                     onChange={handleChangeInputs}
                     filetype="image"
                 />
-                <File222
+                <InputFileWithImage
                     label="면허증 사진"
                     name="license"
                     value={inputs.license}
                     onChange={handleChangeInputs}
                     filetype="image"
                 />
-                <File222
+                <InputFileWithImage
                     label="차량 사진"
                     name="car"
                     value={inputs.car}

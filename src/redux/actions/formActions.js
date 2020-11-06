@@ -1,8 +1,8 @@
 import {
     FORM_INIT,
     FORM_CHANGE,
-    BOARD_INSERT,
-    BOARD_UPDATE,
+    // BOARD_INSERT,
+    // BOARD_UPDATE,
     FORM_INITIALIZE,
     FORM_ERRORS,
 } from "../types";
@@ -89,19 +89,17 @@ export const formAction_submit = (
         // for (var key of sendData.entries()) {
         //     console.log(key[0] + ", " + key[1]);
         // }
-
-        //const query = queryString.parse(window.location.search).type;
-
         let res = !inputs.idx
             ? await api.boardAPI.insertData(apiurl, sendData)
             : await api.boardAPI.updateData(apiurl, sendData);
-
-        let type = !inputs.idx ? BOARD_INSERT : BOARD_UPDATE;
-
-        dispatch({ type, payload: res.data });
+        // let type = !inputs.idx ? BOARD_INSERT : BOARD_UPDATE;
+        // dispatch({ type, payload: res.data });
         history.goBack();
     } catch (e) {
-        toast.error(e.response.data.error);
+        console.log(e);
+        if (e.response) {
+            toast.error(e.response.data.error);
+        }
     }
 };
 

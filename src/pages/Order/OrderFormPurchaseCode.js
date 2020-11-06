@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import history from "../../../history";
-import randomKey from "../../../util/randomKey";
+import history from "../../history";
+import randomKey from "../../util/randomKey";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -8,7 +8,7 @@ import {
     formAction_init,
     formAction_initialize,
     formAction_submit,
-} from "../../../redux/actions/formActions";
+} from "../../redux/actions/formActions";
 
 import {
     Input,
@@ -16,7 +16,8 @@ import {
     FormLayout,
     FormSection,
     InputDate,
-} from "../../../components/Form/Form";
+} from "../../components/Form/Form";
+
 const initialValue = {
     purchasedate: "",
     purchasetype: "",

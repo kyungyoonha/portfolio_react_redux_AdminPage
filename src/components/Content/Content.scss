@@ -10,7 +10,8 @@
 
 .contentBody {
     @extend %styleCard;
-    height: 700px;
+    min-height: 700px;
+    height: auto;
     padding-top: 50px;
 }
 

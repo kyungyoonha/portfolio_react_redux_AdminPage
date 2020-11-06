@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import tableConfig from "../../siteConfig/tableConfig.json";
+import pageConfig from "../../siteConfig/pageConfig.json";
 import ReactSelect from "../Select/ReactSelect";
 import history from "../../history";
 
 export const Board = ({ data, selectedId, handleSelectedId }) => {
     const pageId = history.location.pathname.split("/")[2];
-    const headerList = tableConfig[pageId].headerList;
+    const headerList = pageConfig[pageId].headerList;
 
-    const makeRowData2 = (item) => {
+    const makeRowData = (item) => {
         return (
             <React.Fragment>
                 <td>
@@ -63,7 +63,7 @@ export const Board = ({ data, selectedId, handleSelectedId }) => {
             <tbody>
                 {data.map((item, idx) => (
                     <tr key={idx} onClick={() => handleSelectedId(item.idx)}>
-                        {makeRowData2(item)}
+                        {makeRowData(item)}
                     </tr>
                 ))}
             </tbody>

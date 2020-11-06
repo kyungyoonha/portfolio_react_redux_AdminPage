@@ -1,19 +1,22 @@
-import React, { useState } from "react";
-import history from "../../../history";
-import { validateAll, validatePush } from "../../../util/validate";
+import React, { useEffect } from "react";
+import history from "../../history";
 
 // redux
-import { useDispatch } from "react-redux";
-import { boardAction_update } from "../../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    formAction_changeValue,
+    formAction_init,
+    formAction_initialize,
+    formAction_submit,
+} from "../../redux/actions/formActions";
 
-import useInputs from "../../../Hooks/useInputs";
 import {
     FormLayout,
     FormSection,
     Input,
     RadioSingle,
     Textarea,
-} from "../../../components/Form/Form";
+} from "../../components/Form/Form";
 
 const initialValue = {
     title: "",
@@ -23,28 +26,28 @@ const initialValue = {
     messageYN: "N",
 };
 //working ###
-const CSFormPush = ({ match }) => {
-    const pageId = match.url.split("/")[2];
+const CSFormPush = () => {
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState({});
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
-        initialValue,
-        validatePush,
-        setErrors
-    );
+    let { inputs, errors } = useSelector((state) => state.form);
 
-    const handleClickInsert = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validatePush);
+    useEffect(() => {
+        dispatch(formAction_init(initialValue));
+        return () => dispatch(formAction_initialize());
+    }, [dispatch]);
 
-        if (isValid) {
-            console.log("에러 없음");
-            dispatch(boardAction_update(pageId, inputs));
-            setInputs(initialValue);
-        } else {
-            setErrors(checkedErrors);
-        }
+    const handleChangeInputs = (e) => {
+        dispatch(formAction_changeValue(e));
     };
 
+    const handleClickInsert = (e) => {
+        e.preventDefault();
+        dispatch(formAction_submit(inputs));
+    };
+
+    if (!Object.keys(inputs).length) {
+        inputs = initialValue;
+    }
+    console.log(errors);
     return (
         <FormLayout
             onClickInsert={handleClickInsert}
@@ -78,8 +81,8 @@ const CSFormPush = ({ match }) => {
                     label={`내용 (${
                         inputs.content ? inputs.content.length : 0
                     }/50)`}
-                    name="content"
-                    value={inputs.content}
+                    name="contents"
+                    value={inputs.contents}
                     onChange={handleChangeInputs}
                     rows={8}
                     errors={errors}

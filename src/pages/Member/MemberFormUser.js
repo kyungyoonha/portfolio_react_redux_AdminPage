@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import history from "../../../history";
+import history from "../../history";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -8,37 +8,40 @@ import {
     formAction_init,
     formAction_initialize,
     formAction_submit,
-} from "../../../redux/actions/formActions";
+} from "../../redux/actions/formActions";
 
 import {
     FormLayout,
     FormSection,
     Input,
-    Select,
-    InputAddress,
-    InputDate,
     RadioSingle,
     Textarea,
-} from "../../../components/Form/Form";
+    InputDate,
+    InputAddress,
+    InputFileWithImage,
+    RadioTypeCheck,
+    RadioMulti,
+} from "../../components/Form/Form";
 
 const initialValue = {
     username: "",
     id: "",
     pw: "",
-    level: "2",
     birthday: new Date("1990-01-01"),
     telnumber: "",
+    nickname: "",
     email: "",
-    englishname: "",
     address: "",
-    entryYear: "",
-    duty: "1",
-    department: "1",
+    emailagree: "N",
+    messageagree: "N",
+    pushagree: "N",
     etc: "",
+    profile: "",
+    inextroversion: "0",
+    tripTag: {},
 };
-
-//working done ###
-const MemberFormAdmin = () => {
+//working ###
+const MemberFormUser = () => {
     const dispatch = useDispatch();
     let { inputs, errors } = useSelector((state) => state.form);
 
@@ -53,7 +56,12 @@ const MemberFormAdmin = () => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formAction_submit(inputs));
+        if (!inputs.profile) {
+            alert("프로필 이미지를 추가해주세요.");
+            return;
+        }
+        const fileList = ["profile"];
+        dispatch(formAction_submit(inputs, fileList));
     };
 
     if (!Object.keys(inputs).length) {
@@ -65,7 +73,7 @@ const MemberFormAdmin = () => {
             onClickInsert={handleClickInsert}
             onClickBack={() => history.goBack()}
         >
-            <FormSection center title="매니저 추가">
+            <FormSection>
                 <Input
                     label="이름"
                     name="username"
@@ -74,7 +82,7 @@ const MemberFormAdmin = () => {
                     errors={errors}
                 />
                 <Input
-                    label="아이디"
+                    label="id"
                     name="id"
                     value={inputs.id}
                     onChange={handleChangeInputs}
@@ -82,22 +90,13 @@ const MemberFormAdmin = () => {
                 />
                 <Input
                     label="비밀번호"
+                    type="password"
                     name="pw"
                     value={inputs.pw}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                <RadioSingle
-                    label="등급"
-                    name="level"
-                    value={inputs.level}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    options={[
-                        { value: "1", title: "슈퍼 관리자" },
-                        { value: "2", title: "일반 관리자" },
-                    ]}
-                />
+
                 <InputDate
                     label="생년월일"
                     name="birthday"
@@ -113,17 +112,18 @@ const MemberFormAdmin = () => {
                     errors={errors}
                 />
                 <Input
+                    label="별명"
+                    name="nickname"
+                    value={inputs.nickname}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                />
+                <Input
                     label="이메일"
                     name="email"
                     value={inputs.email}
                     onChange={handleChangeInputs}
                     errors={errors}
-                />
-                <Input
-                    label="영어이름"
-                    name="englishname"
-                    value={inputs.englishname}
-                    onChange={handleChangeInputs}
                 />
                 <InputAddress
                     label="주소"
@@ -132,49 +132,77 @@ const MemberFormAdmin = () => {
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-
-                <Input
-                    label="입사년도"
-                    name="entryYear"
-                    value={inputs.entryYear}
+            </FormSection>
+            <FormSection>
+                <InputFileWithImage
+                    label="프로필"
+                    name="profile"
+                    value={inputs.profile}
                     onChange={handleChangeInputs}
+                    filetype="image"
                 />
-
-                <Select
-                    label="직무"
-                    name="duty"
-                    value={inputs.duty}
+                <RadioSingle
+                    label="이메일 수신"
+                    name="emailagree"
+                    value={inputs.emailagree}
                     onChange={handleChangeInputs}
-                    errors={errors}
                     options={[
-                        { value: "1", title: "팀원" },
-                        { value: "2", title: "매니저" },
-                        { value: "3", title: "팀장" },
-                        { value: "4", title: "부장" },
-                        { value: "5", title: "기타" },
+                        { value: "Y", title: "수신" },
+                        { value: "N", title: "미수신" },
                     ]}
                 />
 
-                <Select
-                    label="부서"
-                    name="department"
-                    value={inputs.department}
+                <RadioSingle
+                    label="문자 수신"
+                    name="messageagree"
+                    value={inputs.messageagree}
                     onChange={handleChangeInputs}
-                    errors={errors}
                     options={[
-                        { value: "1", title: "해외팀" },
-                        { value: "2", title: "영업" },
-                        { value: "3", title: "마케팅" },
-                        { value: "4", title: "개발" },
-                        { value: "5", title: "생산" },
-                        { value: "6", title: "기타" },
+                        { value: "Y", title: "수신" },
+                        { value: "N", title: "미수신" },
                     ]}
+                />
+
+                <RadioSingle
+                    label="문자 수신"
+                    name="pushagree"
+                    value={inputs.pushagree}
+                    onChange={handleChangeInputs}
+                    options={[
+                        { value: "Y", title: "수신" },
+                        { value: "N", title: "미수신" },
+                    ]}
+                />
+            </FormSection>
+            <FormSection full>
+                <RadioMulti
+                    label="관심사 태그"
+                    name="tripTag"
+                    value={inputs.tripTag}
+                    onChange={handleChangeInputs}
+                    max={3}
+                    options={[
+                        { key: "picture", title: "사진광" },
+                        { key: "sports", title: "스포츠 마니아" },
+                        { key: "shopping", title: "쇼핑왕" },
+                        { key: "enjoy", title: "흥폭발" },
+                        { key: "study", title: "학구파" },
+                        { key: "nature", title: "자연인" },
+                    ]}
+                />
+                <RadioTypeCheck
+                    label="내외향성"
+                    labelLeft="외향성"
+                    labelRight="내향성"
+                    name="inextroversion"
+                    value={inputs.inextroversion}
+                    onChange={handleChangeInputs}
                 />
 
                 <Textarea
                     label="기타"
                     name="etc"
-                    value={inputs.etc}
+                    value={inputs.ect}
                     onChange={handleChangeInputs}
                     rows={6}
                 />
@@ -183,4 +211,4 @@ const MemberFormAdmin = () => {
     );
 };
 
-export default MemberFormAdmin;
+export default MemberFormUser;

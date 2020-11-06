@@ -1,26 +1,27 @@
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, Router } from 'react-router-dom';
+import history from './history';
 // pages
 import Dashboard from "./pages/Dashboard/DashBoard";
 import PageNotFound from './pages/PageNotFound/PageNotFound';
-import MemberBoard from './pages/Member/MemberBoard/MemberBoard';
-import MemberFormUser from './pages/Member/MemberFormUser/MemberFormUser'
-import MemberFormDriver from './pages/Member/MemberFormDriver/MemberFormDriver';
-import MemberFormAdmin from './pages/Member/MemberFormAdmin/MemberFormAdmin';
+import MemberBoard from './pages/Member/MemberBoard';
+import MemberFormUser from './pages/Member/MemberFormUser'
+import MemberFormDriver from './pages/Member/MemberFormDriver';
+import MemberFormAdmin from './pages/Member/MemberFormAdmin';
 
 import PackageBoard from './pages/Package/PackageBoard/PackageBoard';
 import PackageFormTour from './pages/Package/PackageFormTour/PackageFormTour';
 import PackageFormNation from "./pages/Package/PackageFormNation/PackageFormNation";
 import PackageFormArea from "./pages/Package/PackageFormArea/PackageFormArea";
 
-import OrderBoard from './pages/Order/OrderBoard/OrderBoard';
-import OrderFormPurchase from './pages/Order/OrderFormPurchase/OrderFormPurchase';
-import OrderFormPurchaseCode from "./pages/Order/OrderFormPurchaseCode/OrderFormPurchaseCode";
+import OrderBoard from './pages/Order/OrderBoard';
+import OrderFormPurchase from './pages/Order/OrderFormPurchase';
+import OrderFormPurchaseCode from "./pages/Order/OrderFormPurchaseCode";
 
-import CSBoard from './pages/CS/CSBoard/CSBoard';
-import CSFormPush from './pages/CS/CSFormPush/CSFormPush';
-import CSFormNotice from './pages/CS/CSFormNotice/CSFormNotice';
-import CSFormQuestion from './pages/CS/CSFormQuestion/CSFormQuestion';
+import CSBoard from './pages/CS/CSBoard';
+import CSFormPush from './pages/CS/CSFormPush';
+import CSFormNotice from './pages/CS/CSFormNotice';
+import CSFormQuestion from './pages/CS/CSFormQuestion';
 
 import Layout from './components/Layout/Layout';
 import Login from './pages/Login/Login';
@@ -39,10 +40,8 @@ const routes = [
     { path: "/package/tour/form",  component: PackageFormTour},
     { path: "/package/nationcode", exact: true,  component: PackageBoard },
     { path: "/package/nationcode/form", component: PackageFormNation },
-    //{ path: "/package/nationcode/form/:id", component: PackageFormNation },
     { path: "/package/areacode", exact: true,  component: PackageBoard },
     { path: "/package/areacode/form", component: PackageFormArea },
-    //{ path: "/package/areacode/:id/form", component: PackageFormArea },
 
     { path: "/order/purchase", exact: true,  component: OrderBoard },
     { path: "/order/purchase/form", exact: true,  component: OrderFormPurchase },
@@ -60,6 +59,7 @@ const routes = [
 
 
 const Routes = () => (
+        <Router history={history}>
         <Switch>
             {routes.map((route, idx) => (
                 <Route
@@ -81,5 +81,6 @@ const Routes = () => (
             <Route path="/cs" exact render={() => <Redirect to="/cs/push" />}/>
             <Route component={PageNotFound} />
         </Switch>
+        </Router>
 )
 export default Routes;

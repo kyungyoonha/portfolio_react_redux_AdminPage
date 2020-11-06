@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import history from "../../../history";
+import history from "../../history";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +8,7 @@ import {
     formAction_init,
     formAction_initialize,
     formAction_submit,
-} from "../../../redux/actions/formActions";
+} from "../../redux/actions/formActions";
 
 import {
     FormLayout,
@@ -17,7 +17,7 @@ import {
     RadioSingle,
     Textarea,
     InputFile,
-} from "../../../components/Form/Form";
+} from "../../components/Form/Form";
 
 const initialValue = {
     title: "",

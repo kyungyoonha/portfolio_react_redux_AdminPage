@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import history from "../../../history";
-import { validateAll, validateInfo } from "../../../util/validate";
+import history from "../../history";
+import { validateAll, validateInfo } from "../../util/validate";
 
 // redux
 import { useDispatch } from "react-redux";
-import { boardAction_update } from "../../../redux/actions";
+import { boardAction_update } from "../../redux/actions";
 
-import useInputs from "../../../Hooks/useInputs";
-import ModalSearch from "../../../components/Modal/ModalSearch";
+import useInputs from "../../Hooks/useInputs";
+import ModalSearch from "../../components/Modal/ModalSearch";
 import {
     Input,
     RadioSingle,
@@ -16,9 +16,10 @@ import {
     InputNumRange,
     InputDate,
     InputTime,
-    Purchasetour,
-    Purchasecode,
-} from "../../../components/Form/Form";
+    PurchaseCode,
+    PurchaseTour,
+    FormList,
+} from "../../components/Form/Form";
 
 const initialValue = {
     tourtype: "",
@@ -151,22 +152,29 @@ const OrderFormPurchase = ({ match }) => {
             </FormSection>
 
             <FormSection>
-                <Purchasecode purchasecode={purchasecode}>
+                <PurchaseCode purchasecode={purchasecode}>
                     <ModalSearch
                         searchId="purchasecode"
                         label="구매코드검색"
                         onChangeData={handlePurchasecode}
                     />
-                </Purchasecode>
+                </PurchaseCode>
             </FormSection>
             <FormSection full>
-                <Purchasetour purchasetour={purchasetour}>
+                {/* <PurchaseTour purchasetour={purchasetour}>
                     <ModalSearch
                         searchId="tourpackage"
                         label="관광지 추가"
                         onChangeData={handlePurchasetour}
                     />
-                </Purchasetour>
+                </PurchaseTour> */}
+                <FormList data={[]} handleDeleteAudio={() => {}}>
+                    <ModalSearch
+                        searchId="tourpackage"
+                        label="관광지 추가"
+                        onChangeData={handlePurchasetour}
+                    />
+                </FormList>
             </FormSection>
         </FormLayout>
     );

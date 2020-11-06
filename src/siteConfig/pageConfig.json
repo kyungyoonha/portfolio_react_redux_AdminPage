@@ -2,7 +2,7 @@
     "user": {
         "title": "회원 정보",
         "navCtg": "member",
-        "validate": ["username" ],
+        "validate": ["username", "id", "pw", "birthday", "telnumber", "nickname"],
         "headerList": [
             { "key": "idx", "title": "인덱스" },
             { "key": "username", "title": "성명" },

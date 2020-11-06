@@ -2,21 +2,11 @@ import React from "react";
 import "./Sidebar.scss";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { authAction_logout } from "../../../redux/actions";
-
-const routes = [
-    { path: "/dashboard", title: "Dashboard", icon: "chart-pie" },
-    { path: "/member", title: "회원정보", icon: "user-cog" },
-    {
-        path: "/package",
-        title: "관광지 관리",
-        icon: "map-marked-alt",
-    },
-    { path: "/order", title: "구매 관리", icon: "route" },
-    { path: "/cs", title: "공지사항", icon: "bell" },
-];
+import { authAction_logout } from "../../redux/actions/authActions";
+import navConfig from "../../siteConfig/navConfig";
 
 const Sidebar = ({ isOpen, handleClickOpen }) => {
+    const navList = ["dashboard", "member", "package", "order", "cs"];
     const dispatch = useDispatch();
     const { email, username } = useSelector((state) => state.auth.user);
 
@@ -46,18 +36,17 @@ const Sidebar = ({ isOpen, handleClickOpen }) => {
                         로그아웃
                     </button>
                 </div>
-                {routes.map((route) => (
-                    <NavLink
-                        key={route.path}
-                        to={route.path}
-                        activeClassName="active"
-                    >
-                        <div className="sidebar__content">
-                            <i className={`fas fa-${route.icon}`}></i>
-                            {route.title}
-                        </div>
-                    </NavLink>
-                ))}
+                {navList.map((nav) => {
+                    let { path, title, icon } = navConfig[nav];
+                    return (
+                        <NavLink key={path} to={path} activeClassName="active">
+                            <div className="sidebar__content">
+                                <i className={`fas fa-${icon}`}></i>
+                                {title}
+                            </div>
+                        </NavLink>
+                    );
+                })}
             </div>
         </div>
     );

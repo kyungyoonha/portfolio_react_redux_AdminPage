@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import history from "../../../history";
+import history from "../../history";
 
-import InfoTop from "./components/InfoTop";
-import { Board, BoardFooter } from "../../../components/Board/Board";
-import { ContentBody, ContentNav } from "../../../components/Content/Content";
+import InfoTop from "./InfoTop";
+import { Board, BoardFooter } from "../../components/Board/Board";
+import { ContentBody, ContentNav } from "../../components/Content/Content";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
@@ -11,7 +11,7 @@ import {
     boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
-} from "../../../redux/actions";
+} from "../../redux/actions";
 
 // BBB
 const OrderBoard = ({ match }) => {

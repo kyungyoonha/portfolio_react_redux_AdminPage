@@ -20,32 +20,30 @@ export const FormLayout = ({ children, ...rest }) => {
 
 export const FormSection = ({ full, center, title, scroll, children }) => {
     return (
-        <React.Fragment>
-            <div
-                className={`formSection ${full && "full"} ${
-                    center && "center"
-                } ${scroll && "scroll"}`}
-            >
-                <table className="table">
-                    {title && (
-                        <thead style={{ textAlign: "center" }}>
-                            <tr>
-                                <th
-                                    colSpan="2"
-                                    style={{
-                                        background: "#343a40",
-                                        color: "white",
-                                    }}
-                                >
-                                    [{title}]
-                                </th>
-                            </tr>
-                        </thead>
-                    )}
-                    <tbody>{children}</tbody>
-                </table>
-            </div>
-        </React.Fragment>
+        <div
+            className={`formSection ${full && "full"} ${center && "center"} ${
+                scroll && "scroll"
+            }`}
+        >
+            <table className="table">
+                {title && (
+                    <thead style={{ textAlign: "center" }}>
+                        <tr>
+                            <th
+                                colSpan="2"
+                                style={{
+                                    background: "#343a40",
+                                    color: "white",
+                                }}
+                            >
+                                [{title}]
+                            </th>
+                        </tr>
+                    </thead>
+                )}
+                <tbody>{children}</tbody>
+            </table>
+        </div>
     );
 };
 
@@ -247,6 +245,7 @@ export const RadioSingle = ({
     );
 };
 
+// 내향성 외향성 체크
 export const RadioTypeCheck = ({
     label,
     labelLeft,
@@ -323,66 +322,8 @@ const filetypeObj = {
     video: "video/*",
     all: "/*",
 };
-export const File = ({
-    label,
-    name,
-    filename,
-    filepath,
-    handleChangeFile,
-    filetype,
-}) => {
-    const inputFileRef = useRef(null);
-    return (
-        <React.Fragment>
-            <tr>
-                <th
-                    rowSpan="2"
-                    style={{
-                        verticalAlign: "middle",
-                        borderBottom: "1px solid #dee2e6",
-                    }}
-                >
-                    <label>※ {label}</label>
-                </th>
-                <td className="text-center">
-                    <img
-                        src={filepath || noImg}
-                        alt={label}
-                        style={{
-                            height: "300px",
-                            width: "100%",
-                            objectFit: "contain",
-                        }}
-                    />
-                </td>
-            </tr>
 
-            <tr style={{ borderBottom: "1px solid #dee2e6" }}>
-                <td>
-                    <input
-                        ref={inputFileRef}
-                        name={name}
-                        type="file"
-                        hidden
-                        onChange={(e) => handleChangeFile(e, filetype)}
-                        accept={filetypeObj[filetype]}
-                    />
-
-                    <button
-                        type="button"
-                        className="btn btn-primary btn-md"
-                        onClick={() => inputFileRef.current.click()}
-                        style={{ marginRight: "15px" }}
-                    >
-                        이미지 찾기
-                    </button>
-                    {filename}
-                </td>
-            </tr>
-        </React.Fragment>
-    );
-};
-export const File222 = ({
+export const InputFileWithImage = ({
     label,
     name,
     value,
@@ -697,14 +638,17 @@ export const InputTimeRange = ({ value, onChange, errors = {}, disabled }) => {
     );
 };
 
-export const FormAudioList = ({ data, children, handleDeleteAudio }) => {
+export const FormList = ({ label, data, children, handleDeleteAudio }) => {
     return (
-        <tr className="formAudioList">
-            <th>※ 오디오 리스트 {children}</th>
+        <tr className="formList">
+            <th>
+                {" "}
+                {label && `※ ${label}`} {children}
+            </th>
             <td>
-                <div className="formAudioList__container">
+                <div className="formList__container">
                     {data.map((item, idx) => (
-                        <div key={idx} className="formAudioList__item">
+                        <div key={idx} className="formList__item">
                             {idx + 1 + " " + item.scripttitle}
                             <span className="badge badge-success ml-1 mr-1">
                                 {item.audiolanguage}
@@ -840,7 +784,7 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
 
 // 모달 검색 후 추가
 // 테이블 형태로 보여줌
-export const Purchasetour = ({ purchasetour, errors = {}, children }) => {
+export const PurchaseTour = ({ purchasetour, errors = {}, children }) => {
     return (
         <React.Fragment>
             {purchasetour.map((item, idx) => (
@@ -867,7 +811,7 @@ export const Purchasetour = ({ purchasetour, errors = {}, children }) => {
     );
 };
 
-export const Purchasecode = ({ purchasecode, errors = {}, children }) => {
+export const PurchaseCode = ({ purchasecode, errors = {}, children }) => {
     return (
         <React.Fragment>
             <tr>

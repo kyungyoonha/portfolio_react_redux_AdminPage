@@ -11,7 +11,7 @@ import {
 } from "../../../redux/actions/formActions";
 
 import {
-    File222,
+    InputFileWithImage,
     FormLayout,
     FormSection,
     Input,
@@ -108,7 +108,7 @@ const PackageFormArea = () => {
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                <File222
+                <InputFileWithImage
                     label="대표 사진"
                     name="mainpic"
                     value={inputs.mainpic}

@@ -125,8 +125,9 @@ const TourModalAudio = ({ title, handleChangeAudio }) => {
                             <InputFile
                                 label="오디오파일"
                                 name="audiofile"
+                                value={inputs.audiofile}
                                 filename={inputs.audiofilename}
-                                handleChangeFile={handleChangeFile}
+                                onChange={handleChangeFile}
                                 filetype="audio"
                             />
                             <Select

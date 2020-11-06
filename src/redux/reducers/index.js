@@ -1,6 +1,4 @@
 import { combineReducers } from "redux";
-import { connectRouter } from "connected-react-router";
-import history from "../../history";
 
 import authReducers from "./authReducers";
 import boardReducers from "./boardReducers";
@@ -12,5 +10,4 @@ export default combineReducers({
     file: fileReducers,
     board: boardReducers,
     form: formReducers,
-    router: connectRouter(history),
 });

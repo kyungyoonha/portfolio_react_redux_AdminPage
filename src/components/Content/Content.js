@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Content.scss";
-import tableConfig from "../../siteConfig/tableConfig.json";
+import pageConfig from "../../siteConfig/pageConfig.json";
 import navConfig from "../../siteConfig/navConfig";
 import queryString from "query-string";
 import history from "../../history";
@@ -16,8 +16,8 @@ export const ContentNav = ({
 }) => {
     const pageId = history.location.pathname.split("/")[2];
     const type = queryString.parse(history.location.search).type;
-    const { title, navCtg } = tableConfig[pageId];
-    const navList = navConfig[navCtg];
+    const { title, navCtg } = pageConfig[pageId];
+    const navList = navConfig[navCtg].navList;
 
     const Button = ({ onClick, children }) => {
         return (

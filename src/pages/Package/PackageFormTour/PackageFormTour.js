@@ -20,7 +20,7 @@ import {
     FormSection,
     InputAddress,
     InputTimeRange,
-    FormAudioList,
+    FormList,
     FormImageList,
     SelectAPI,
 } from "../../../components/Form/Form";
@@ -305,7 +305,8 @@ const PackageFormTour = ({ match }) => {
                     ]}
                 /> */}
 
-                <FormAudioList
+                <FormList
+                    label="오디오 추가"
                     data={audios}
                     handleDeleteAudio={handleDeleteAudio}
                 >
@@ -313,7 +314,7 @@ const PackageFormTour = ({ match }) => {
                         title="오디오 추가하기(+)"
                         handleChangeAudio={handleChangeAudio}
                     />
-                </FormAudioList>
+                </FormList>
             </FormSection>
         </FormLayout>
     );

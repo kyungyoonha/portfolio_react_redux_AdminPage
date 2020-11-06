@@ -1,40 +1,4 @@
-import tableConfig from "../siteConfig/tableConfig.json";
-
-export const validateAll = (inputs, checkFunc) => {
-    let isValid = false;
-    let checkedErrors = {};
-
-    Object.keys(inputs).forEach((key) => {
-        if (checkFunc(key, inputs[key])) {
-            checkedErrors[key] = checkFunc(key, inputs[key]);
-        }
-    });
-
-    if (Object.keys(checkedErrors).length === 0) {
-        isValid = true;
-    }
-
-    return { isValid, checkedErrors };
-};
-
-export const validateAll222 = (apiurl, inputs) => {
-    const pageId = apiurl.split("/")[2];
-    let isValid = false;
-    let checkedErrors = {};
-
-    Object.keys(inputs).forEach((key) => {
-        let errorMessage = validate(pageId, key, inputs[key]);
-        if (errorMessage) {
-            checkedErrors[key] = errorMessage;
-        }
-    });
-
-    if (Object.keys(checkedErrors).length === 0) {
-        isValid = true;
-    }
-
-    return { isValid, checkedErrors };
-};
+import pageConfig from "../siteConfig/pageConfig.json";
 
 const errorMessageObj = {
     username: "이름을 입력해주세요.",
@@ -76,8 +40,46 @@ const errorMessageObj = {
     sendEmail: "이메일을 입력해주세요.",
 };
 
+export const validateAll = (inputs, checkFunc) => {
+    let isValid = false;
+    let checkedErrors = {};
+
+    Object.keys(inputs).forEach((key) => {
+        if (checkFunc(key, inputs[key])) {
+            checkedErrors[key] = checkFunc(key, inputs[key]);
+        }
+    });
+
+    if (Object.keys(checkedErrors).length === 0) {
+        isValid = true;
+    }
+
+    return { isValid, checkedErrors };
+};
+
+export const validateAll222 = (apiurl, inputs) => {
+    const pageId = apiurl.split("/")[2];
+    let isValid = false;
+    let checkedErrors = {};
+
+    Object.keys(inputs).forEach((key) => {
+        let errorMessage = validate(pageId, key, inputs[key]);
+        if (errorMessage) {
+            checkedErrors[key] = errorMessage;
+        }
+    });
+
+    if (Object.keys(checkedErrors).length === 0) {
+        isValid = true;
+    }
+
+    return { isValid, checkedErrors };
+};
+
 export const validate = (pageId, name, value) => {
-    const checkList = tableConfig[pageId].validate;
+    if (pageId) return;
+
+    const checkList = pageConfig[pageId].validate;
 
     if (checkList.indexOf(name) > -1 && isEmpty(value)) {
         return errorMessageObj[name];
@@ -101,111 +103,13 @@ export const validate = (pageId, name, value) => {
         case "grade":
             return (value < 0 || value > 5) && "0 ~ 5까지만 입력 가능합니다.";
 
+        case "target":
         case "contactNumber":
         case "tourdays":
         case "price":
         case "admissionfee":
         case "telnumber":
             return checkNumber(value) && "숫자만 입력 가능합니다.";
-
-        default:
-            return;
-    }
-};
-
-export const validateUser = (name, value) => {
-    switch (name) {
-        case "username":
-            return isEmpty(value) && "이름을 입력해주세요.";
-
-        case "id":
-            return value.length < 4 && "5자 이상 입력해주세요";
-
-        case "pw":
-            return (
-                checkRegPassword(value) &&
-                "비밀번호는 8자이상이며 숫자, 영어, 특수문자가 포함되어야 합니다."
-            );
-        case "birthday":
-            return isEmpty(value) && "생년월일을 선택해주세요.";
-
-        case "telnumber":
-            if (isEmpty(value)) return "전화번호를 입력해주세요.";
-            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
-            return;
-
-        case "nickname":
-            return isEmpty(value) && "별명을 입력해주세요.";
-
-        case "email":
-            return checkEmail(value) && "이메일 형식에 맞게 작성해주세요.";
-
-        default:
-            return;
-    }
-};
-export const validateLogin = (name, value) => {
-    switch (name) {
-        case "id":
-            return value.length < 4 && "아이디는 5자 이상 입력해주세요";
-
-        // case "password":
-        //     return (
-        //         checkRegPassword(value) &&
-        //         "비밀번호는 8자이상이며 숫자, 영어, 특수문자가 포함되어야 합니다."
-        //     );
-        default:
-            return;
-    }
-};
-
-export const validateDriver = (name, value) => {
-    switch (name) {
-        case "drivername":
-            return isEmpty(value) && "이름을 입력해주세요.";
-
-        case "id":
-            return value.length < 4 && "5자 이상 입력해주세요";
-
-        case "pw":
-            return (
-                checkRegPassword(value) &&
-                "비밀번호는 8자이상이며 숫자, 영어, 특수문자가 포함되어야 합니다."
-            );
-
-        case "birthday":
-            return isEmpty(value) && "생년월일을 선택해주세요.";
-
-        case "telnumber":
-            if (isEmpty(value)) return "전화번호를 입력해주세요.";
-            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
-            return;
-
-        default:
-            return;
-    }
-};
-
-export const validateManager = (name, value) => {
-    switch (name) {
-        case "username":
-            return isEmpty(value) && "이름을 입력해주세요.";
-
-        case "id":
-            return value.length <= 4 && "5자 이상 입력해주세요";
-
-        case "pw":
-            return (
-                checkRegPassword(value) &&
-                "비밀번호는 8자이상이며 숫자, 영어, 특수문자가 포함되어야 합니다."
-            );
-        case "email":
-            if (isEmpty(value)) return "이메일을 입력해주세요.";
-            if (checkEmail(value)) return "이메일 형식에 맞게 작성해주세요.";
-            return;
-
-        case "level":
-            return isEmpty(value) && "등급을 선택해주세요.";
 
         default:
             return;
@@ -226,46 +130,11 @@ export const validateTour = (name, value) => {
         case "address":
             return isEmpty(value) && "주소를 입력해주세요.";
 
-        //////////////
         case "telnumber":
         case "admissionfee":
             if (isEmpty(value)) return "입력해주세요.";
             if (checkNumber(value)) return "숫자만 입력 가능합니다.";
             return;
-
-        default:
-            return;
-    }
-};
-
-export const validateNation = (name, value) => {
-    switch (name) {
-        case "koreanname":
-            return isEmpty(value) && "국가한국이름을 입력해주세요.";
-
-        case "englishname":
-            return isEmpty(value) && "국가영어이름을 입력해주세요.";
-
-        case "code3":
-            return isEmpty(value) && "국가코드 3자리를 입력해주세요.";
-
-        case "code2":
-            return isEmpty(value) && "국가코드 2자리를 입력해주세요.";
-        default:
-            return;
-    }
-};
-
-export const validateArea = (name, value) => {
-    switch (name) {
-        case "nationcodeidx":
-            return isEmpty(value) && "국가코드를 선택해주세요.";
-
-        case "sidocode":
-        case "sidoname":
-        case "areacode":
-        case "areaname":
-            return isEmpty(value) && "입력해주세요.";
 
         default:
             return;
@@ -287,76 +156,6 @@ export const validateInfo = (name, value) => {
 
         case "tourstartday":
             return isEmpty(value) && "투어 시작일을 입력해주세요.";
-        default:
-            return;
-    }
-};
-
-export const validateCode = (name, value) => {
-    switch (name) {
-        case "purchasedate":
-            if (isEmpty(value)) return "구매일자를 선택해주세요";
-            return;
-        case "purchasetype":
-            if (isEmpty(value)) return "구매방식을 선택해주세요";
-            return;
-        case "price":
-            if (isEmpty(value)) return "금액을 입력해주세요.";
-            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
-            return;
-        case "purchaseuser":
-            if (isEmpty(value)) return "구매자id를 입력해주세요";
-            return;
-
-        default:
-            return;
-    }
-};
-
-export const validatePush = (name, value) => {
-    switch (name) {
-        case "title":
-        case "contents":
-            if (isEmpty(value)) return "입력해주세요.";
-            if (value.length > 50) return "50자까지 입력 가능합니다.";
-            return;
-
-        default:
-            return;
-    }
-};
-
-export const validateNotice = (name, value) => {
-    switch (name) {
-        case "title":
-            return isEmpty(value) && "제목을 입력해주세요.";
-
-        case "contents":
-            return isEmpty(value) && "내용을 입력해주세요.";
-
-        default:
-            return;
-    }
-};
-
-export const validateService = (name, value) => {
-    switch (name) {
-        case "title":
-            return isEmpty(value) && "제목을 입력해주세요.";
-
-        case "contactNumber":
-            if (isEmpty(value)) return "전화번호를 입력해주세요.";
-            if (checkNumber(value)) return "숫자만 입력 가능합니다.";
-            return;
-
-        case "sendEmail":
-            if (isEmpty(value)) return "이메일을 입력해주세요.";
-            if (checkEmail(value)) return "이메일 형식에 맞게 작성해주세요.";
-            return;
-
-        case "sendContent":
-            return isEmpty(value) && "내용을 입력해주세요.";
-
         default:
             return;
     }
