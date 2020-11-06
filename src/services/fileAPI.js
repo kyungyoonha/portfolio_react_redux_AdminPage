@@ -59,9 +59,9 @@ export const fileAPI = Object.freeze({
             sendData = formData;
         }
 
-        // for (var key of sendData.entries()) {
-        //     console.log(key[0] + ", " + key[1]);
-        // }
+        for (var key of sendData.entries()) {
+            console.log(key[0] + ", " + key[1]);
+        }
 
         await axios.post("/cs/email", sendData);
     },

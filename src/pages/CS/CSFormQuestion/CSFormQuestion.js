@@ -76,7 +76,6 @@ const CSFormQuestion = () => {
             [name]: files,
         }));
     };
-
     const handleSendEmail = async () => {
         const { isValid, checkedErrors } = validateAll222(
             "/uploaod/sendEmail",
@@ -94,6 +93,11 @@ const CSFormQuestion = () => {
                 contents: sendInputs.sendContent,
                 file: sendInputs.file,
             });
+
+            await api.boardAPI.updateData("/cs/question", {
+                ...inputs,
+                replyYN: "Y",
+            });
         } catch (e) {
             e.response && toast.error(e.response.data.error);
         }
@@ -108,20 +112,20 @@ const CSFormQuestion = () => {
             onClickSend={handleSendEmail}
             onClickBack={() => history.goBack()}
         >
-            <FormSection>
+            <FormSection title="문의사항">
                 <Input
                     label="등록자"
                     name="useridx"
                     value={inputs.useridx}
                     onChange={handleChangeInputs}
-                    // disabled
+                    disabled
                 />
                 <Input
                     label="수신 이메일"
                     name="email"
                     value={inputs.email}
                     onChange={handleChangeInputs}
-                    // disabled
+                    disabled
                 />
 
                 <InputFile // Done
@@ -131,6 +135,7 @@ const CSFormQuestion = () => {
                     filename={inputs.filename}
                     onChange={handleChangeInputs}
                     filetype="raw"
+                    disabled
                 />
 
                 <Textarea
@@ -139,11 +144,11 @@ const CSFormQuestion = () => {
                     value={inputs.contents}
                     onChange={handleChangeInputs}
                     rows={15}
-                    // disabled
+                    disabled
                 />
             </FormSection>
 
-            <FormSection>
+            <FormSection title="이메일 발송">
                 <Input
                     label="제목"
                     name="title"
@@ -186,7 +191,7 @@ const CSFormQuestion = () => {
                     name="sendContent"
                     value={sendInputs.sendContent}
                     onChange={handleChangeSendInputs}
-                    rows={8}
+                    rows={12}
                     errors={errors}
                 />
             </FormSection>

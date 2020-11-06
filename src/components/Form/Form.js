@@ -456,6 +456,7 @@ export const InputFile = ({
     filename,
     onChange,
     filetype,
+    disabled,
 }) => {
     return (
         <tr>
@@ -470,6 +471,7 @@ export const InputFile = ({
                         className="custom-file-input"
                         onChange={(e) => onChange(e, filetype)}
                         accept={filetypeObj[filetype]}
+                        disabled={disabled}
                     />
                     <label className="custom-file-label" data-browse={label}>
                         {value ? value[0].name : filename ? filename : ""}
