@@ -1,6 +1,7 @@
 import history from "../../history";
 import api from "../../services/api";
 import { toast } from "react-toastify";
+import { changeObjToQuerystring } from "../../util/helperFunc";
 
 import {
     BOARD_FETCH,
@@ -13,11 +14,13 @@ import {
 } from "../types";
 import axios from "axios";
 
-export const boardAction_fetch222 = (apiurl) => async (dispatch) => {
+export const boardAction_fetch222 = (apiurl, queryObj) => async (dispatch) => {
     try {
-        const res = await api.get(apiurl);
+        const query = changeObjToQuerystring(queryObj);
+        const res = await api.get(apiurl + query);
+        console.log(res.data);
         dispatch({
-            type: "few",
+            type: BOARD_FETCH,
             payload: res.data,
         });
     } catch (e) {

@@ -1,3 +1,4 @@
+import api from "../services/api";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { changeInputToFormData } from "../util/helperFunc";
@@ -53,7 +54,6 @@ const fileAPI = Object.freeze({
         if (inputs.file) {
             sendData = changeInputToFormData(inputs, ["file"]);
         } else {
-            console.log(inputs);
             const formData = new FormData();
             formData.append("jsonData", JSON.stringify(inputs));
             sendData = formData;
@@ -63,7 +63,7 @@ const fileAPI = Object.freeze({
             console.log(key[0] + ", " + key[1]);
         }
 
-        await axios.post("/cs/email", sendData);
+        await api.post("/cs/email", sendData);
     },
 });
 

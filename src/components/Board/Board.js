@@ -71,6 +71,73 @@ export const Board = ({ data, selectedId, handleSelectedId }) => {
     );
 };
 
+export const Board222 = ({ data, selectedId, handleSelectedId }) => {
+    const pageId = history.location.pathname.split("/")[2];
+    const headerList = pageConfig[pageId].headerList;
+
+    const makeRowData = (item) => {
+        return (
+            <React.Fragment>
+                <td>
+                    <input
+                        type="checkbox"
+                        aria-label="Checkbox"
+                        checked={item.idx === selectedId}
+                        onChange={() => handleSelectedId(item.idx)}
+                    />
+                </td>
+                {headerList.map((col) => {
+                    if (
+                        col.key === "purchase" ||
+                        col.key === "question" ||
+                        col.key === "drivercomplain" ||
+                        col.key === "trabus"
+                    ) {
+                        return (
+                            <td key={col.key}>
+                                {item[col.key] ? item[col.key].length : 0}건
+                            </td>
+                        );
+                    }
+                    // area
+                    else if (
+                        col.key === "info" ||
+                        col.key === "description" ||
+                        col.key === "kr" ||
+                        col.key === "en"
+                    ) {
+                        return (
+                            <td key={col.key}>{item[col.key] ? "O" : "X"}</td>
+                        );
+                    }
+
+                    return <td key={col.key}>{item[col.key]}</td>;
+                })}
+            </React.Fragment>
+        );
+    };
+
+    return (
+        <table className="table table-hover table-bordered board">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    {headerList.map((item) => (
+                        <th key={item.key}>{item.title}</th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                {data.map((item, idx) => (
+                    <tr key={idx} onClick={() => handleSelectedId(item.idx)}>
+                        {makeRowData(item)}
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    );
+};
+
 export const BoardTop = ({ handleChangePageCtrl }) => {
     const [input, setInput] = useState("");
 

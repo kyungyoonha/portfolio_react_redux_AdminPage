@@ -15,3 +15,12 @@ export const changeInputToFormData = (inputs, fileList, multi) => {
     formData.append("jsonData", JSON.stringify(inputs));
     return formData;
 };
+
+export const changeObjToQuerystring = (object) => {
+    var result = [];
+    for (var p in object)
+        result.push(
+            encodeURIComponent(p) + "=" + encodeURIComponent(object[p])
+        );
+    return "?" + result.join("&");
+};

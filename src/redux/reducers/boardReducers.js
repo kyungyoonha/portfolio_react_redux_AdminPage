@@ -11,10 +11,13 @@ import randomKey from "../../util/randomKey";
 
 const INITIAL_STATE = {
     pageId: "",
+    totalPage: 5,
+
+    selectedId: "",
     data: [],
     detail: {},
-    selectedId: "",
-    totalPage: 5,
+    pageCount: 5,
+    pages: [],
     errors: "",
 };
 
@@ -23,9 +26,10 @@ export default (state = INITIAL_STATE, action) => {
         case BOARD_FETCH:
             return {
                 ...state,
-                pageId: action.payload.pageId,
-                data: action.payload.data,
-                totalPage: action.payload.totalPage,
+                ...action.payload,
+                // pageId: action.payload.pageId,
+                // data: action.payload.data,
+                // totalPage: action.payload.totalPage,
                 selectedId: "",
             };
 
