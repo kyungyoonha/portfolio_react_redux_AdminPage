@@ -11,14 +11,14 @@ import {
     BOARD_UPDATE,
     BOARD_DELETE,
     BOARD_ERRORS,
+    BOARD_INITIALIZE,
 } from "../types";
 import axios from "axios";
 
-export const boardAction_fetch222 = (apiurl, queryObj) => async (dispatch) => {
+export const boardAction_fetch222 = (apiurl) => async (dispatch) => {
     try {
-        const query = changeObjToQuerystring(queryObj);
-        const res = await api.get(apiurl + query);
-        console.log(res.data);
+        const res = await api.get(apiurl);
+
         dispatch({
             type: BOARD_FETCH,
             payload: res.data,
@@ -72,10 +72,10 @@ export const boardAction_detail = (pageId, id) => async (dispatch, state) => {
     }
 };
 
-export const boardAction_selected = (id) => {
+export const boardAction_selected = (idx) => {
     return {
         type: BOARD_SELECTED,
-        payload: id,
+        payload: idx,
     };
 };
 
@@ -124,5 +124,12 @@ export const boardAction_delete = (pageId, itemId) => async (dispatch) => {
 export const boardAction_errors = () => {
     return {
         type: BOARD_ERRORS,
+    };
+};
+
+export const boardAction_initialize = () => {
+    console.log("초기화");
+    return {
+        type: BOARD_INITIALIZE,
     };
 };

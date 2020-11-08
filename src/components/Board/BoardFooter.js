@@ -7,7 +7,7 @@ import { changeObjToQuerystring } from "../../util/helperFunc";
 const BoardFooter = ({ pageCount, pages }) => {
     const { search, pathname } = history.location;
     const query = queryString.parse(search);
-    const curPage = query.page || 1;
+    const curPage = query.page || "1";
 
     const prevUrl =
         curPage !== "1"
@@ -45,7 +45,7 @@ const BoardFooter = ({ pageCount, pages }) => {
                     <li className="page-item" key={item.number}>
                         <Link
                             className={`page-link ${
-                                query.page === String(item.number) &&
+                                curPage === String(item.number) &&
                                 "bg-primary text-white"
                             }`}
                             to={item.url}

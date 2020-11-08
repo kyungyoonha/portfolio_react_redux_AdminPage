@@ -1,23 +1,22 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect } from "react";
 import history from "../../history";
 import { Board222, BoardTop } from "../../components/Board/Board";
 import BoardFooter from "../../components/Board/BoardFooter";
 import { ContentBody, ContentNav } from "../../components/Content/Content";
-import { useParams } from "react-router-dom";
+import { getHeaderList } from "../../util/helperFunc";
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import {
-    //boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
     boardAction_fetch222,
+    boardAction_initialize,
 } from "../../redux/actions";
 
 // BBB
 const MemberBoard = () => {
     const { pathname, search } = history.location;
-    const apiurl = history.location.pathname;
-
+    const headers = getHeaderList(pathname);
     const dispatch = useDispatch();
     const { pageCount, pages, data, selectedId } = useSelector(
         (state) => state.board
@@ -25,30 +24,24 @@ const MemberBoard = () => {
 
     useEffect(() => {
         dispatch(boardAction_fetch222(pathname + search, {}));
+        return () => dispatch(boardAction_initialize());
     }, [dispatch, pathname, search]);
 
     const handleClickInsert = () => {
-        history.push(`${apiurl}/form`);
+        history.push(`${pathname}/form`);
     };
 
-    const handleSelectedId = (selectedId) => {
-        dispatch(boardAction_selected(selectedId));
+    const handleClickRow = (idx) => {
+        dispatch(boardAction_selected(idx));
     };
 
     const handleClickDelete = async () => {
         if (!selectedId) {
             alert("삭제할 행을 선택해주세요");
         } else {
-            dispatch(boardAction_delete(apiurl, selectedId));
+            dispatch(boardAction_delete(pathname, selectedId));
         }
     };
-
-    // const handleChangePageCtrl = (name, value) => {
-    //     setPageCtrl((state) => ({
-    //         ...state,
-    //         [name]: value,
-    //     }));
-    // };
 
     return (
         <React.Fragment>
@@ -59,11 +52,12 @@ const MemberBoard = () => {
 
             <ContentBody>
                 {/* <BoardTop handleChangePageCtrl={handleChangePageCtrl} /> */}
-                {/* {prevId === pageId && ( */}
+
                 <Board222
+                    headers={headers}
                     data={data}
                     selectedId={selectedId}
-                    handleSelectedId={handleSelectedId}
+                    onClickRow={handleClickRow}
                 />
                 <BoardFooter pageCount={pageCount} pages={pages} />
             </ContentBody>

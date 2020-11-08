@@ -6,6 +6,7 @@ import {
     BOARD_UPDATE,
     BOARD_DELETE,
     BOARD_ERRORS,
+    BOARD_INITIALIZE,
 } from "../types";
 import randomKey from "../../util/randomKey";
 
@@ -77,6 +78,9 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 errors: action.payload,
             };
+
+        case BOARD_INITIALIZE:
+            return INITIAL_STATE;
 
         default:
             return state;

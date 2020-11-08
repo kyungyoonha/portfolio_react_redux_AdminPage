@@ -10,6 +10,7 @@ export const BOARD_INSERT = "board/BOARD_INSERT";
 export const BOARD_UPDATE = "board/BOARD_UPDATE";
 export const BOARD_DELETE = "board/BOARD_DELETE";
 export const BOARD_ERRORS = "board/BOARD_ERROR";
+export const BOARD_INITIALIZE = "board/BOARD_INITIALIZE";
 
 export const FILE_IMAGE_FETCH = "file/FILE_IMAGE_FETCH";
 export const FILE_AUDIO_FETCH = "file/FILE_AUDIO_FETCH";

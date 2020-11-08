@@ -68,7 +68,7 @@ const PackageFormTour = ({ match }) => {
             alert("관광지 사진을 추가해주세요.");
             return;
         }
-        const fileList = ["driver", "car", "license"];
+        const fileList = ["driverpic", "car", "license"];
         dispatch(formAction_submit(inputs, fileList));
     };
 

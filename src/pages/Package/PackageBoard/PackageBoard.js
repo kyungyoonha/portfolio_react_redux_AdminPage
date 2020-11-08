@@ -1,98 +1,81 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import history from "../../../history";
 
-import PackageBoardTop from "./components/PackageBoardTop";
-import { Board, BoardFooter } from "../../../components/Board/Board";
+// import PackageBoardTop from "./components/PackageBoardTop";
+import { Board222 } from "../../../components/Board/Board";
+import BoardFooter from "../../../components/Board/BoardFooter";
 import { ContentBody, ContentNav } from "../../../components/Content/Content";
+import { getHeaderList } from "../../../util/helperFunc";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import {
-    boardAction_fetch,
+    boardAction_fetch222,
     boardAction_selected,
     boardAction_delete,
+    boardAction_initialize,
 } from "../../../redux/actions";
 
 // BBB
-const PackageBoard = ({ match }) => {
-    const pageId = match.url.split("/")[2];
+const PackageBoard = () => {
+    const { pathname, search } = history.location;
+    const headers = getHeaderList(pathname);
     const dispatch = useDispatch();
-    const { pageId: prevId, data, totalPage, selectedId } = useSelector(
+    const { pageCount, pages, data, selectedId } = useSelector(
         (state) => state.board
     );
-    const [pageCtrl, setPageCtrl] = useState({
-        pageSize: 4,
-        currentPage: 1,
-        countryCtg: "",
-        searchKeyword: "",
-        sort: "",
-    });
 
     useEffect(() => {
-        dispatch(boardAction_fetch(pageId));
-    }, [dispatch, pageId]);
+        dispatch(boardAction_fetch222(pathname + search, {}));
+        return () => dispatch(boardAction_initialize());
+    }, [dispatch, pathname, search]);
 
-    const handleSelectedId = (id) => {
-        dispatch(boardAction_selected(id));
+    const handleClickRow = (idx) => {
+        dispatch(boardAction_selected(idx));
     };
 
-    const handleClickDelete = () => {
+    const handleClickDelete = async () => {
         if (!selectedId) {
             alert("삭제할 행을 선택해주세요");
         } else {
-            dispatch(boardAction_delete(pageId, selectedId));
+            dispatch(boardAction_delete(pathname, selectedId));
         }
     };
-
-    const handleClickEditCopy = (type) => {
+    const handleClickButton = (type) => {
         if (!selectedId && type !== "insert") {
             alert("행을 선택해주세요.");
             return;
         }
 
         const id = type === "insert" ? "" : selectedId;
-        history.push(`/package/${pageId}/form?type=${type}&id=${id}`);
-    };
-
-    const handleChangePageCtrl = (name, value) => {
-        setPageCtrl((state) => ({
-            ...state,
-            [name]: value,
-        }));
+        history.push(`${pathname}/form?type=${type}&id=${id}`);
     };
 
     return (
         <React.Fragment>
-            {pageId === "tour" ? (
+            {pathname.indexOf("tour") > -1 ? (
                 <ContentNav
-                    onClickInsert={() => handleClickEditCopy("insert")}
+                    onClickInsert={() => handleClickButton("insert")}
                     onClickDelete={() => handleClickDelete}
                 />
             ) : (
                 <ContentNav
-                    onClickInsert={() => handleClickEditCopy("insert")}
-                    onClickEdit={() => handleClickEditCopy("edit")}
-                    onClickCopy={() => handleClickEditCopy("copy")}
+                    onClickInsert={() => handleClickButton("insert")}
+                    onClickEdit={() => handleClickButton("edit")}
+                    onClickCopy={() => handleClickButton("copy")}
                     onClickDelete={() => handleClickDelete}
                 />
             )}
 
             <ContentBody>
-                <PackageBoardTop handleChangePageCtrl={handleChangePageCtrl} />
-                {prevId === pageId && (
-                    <Board
-                        pageId={pageId}
-                        data={data}
-                        selectedId={selectedId}
-                        handleSelectedId={handleSelectedId}
-                    />
-                )}
-
-                <BoardFooter
-                    totalPage={totalPage}
-                    currentPage={pageCtrl.currentPage}
-                    handleChangePageCtrl={handleChangePageCtrl}
+                {/* <BoardTop handleChangePageCtrl={handleChangePageCtrl} /> */}
+                <Board222
+                    headers={headers}
+                    data={data}
+                    selectedId={selectedId}
+                    onClickRow={handleClickRow}
                 />
+                <BoardFooter pageCount={pageCount} pages={pages} />
             </ContentBody>
         </React.Fragment>
     );

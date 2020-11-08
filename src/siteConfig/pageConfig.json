@@ -4,7 +4,6 @@
         "navCtg": "member",
         "validate": ["username", "id", "pw", "birthday", "telnumber", "nickname"],
         "headerList": [
-            { "key": "idx", "title": "인덱스" },
             { "key": "username", "title": "성명" },
             { "key": "telnumber", "title": "전화번호" },
             { "key": "email", "title": "이메일" },
@@ -73,14 +72,12 @@
         "validate": ["nationcodeidx", "areacodeidx", "sidocode" , "sidoname", "areacode", "areaname"],
         "headerList": [
             { "key": "idx", "title": "인덱스" },
-            { "key": "nationidx", "title": "국가 코드" },
+            { "key": "nationcodeidx", "title": "국가 코드" },
             { "key": "sidocode", "title": "시도 코드" },
             { "key": "sidoname", "title": "시도명" },
             { "key": "areacode", "title": "지역 코드" },
             { "key": "areaname", "title": "지역명" },
             { "key": "mainpicYN", "title": "대표사진 유무" },
-            { "key": "mainpicfilename", "title": "대표사진 파일명" },
-            { "key": "mainpicpath", "title": "대표사진 파일경로" },
             { "key": "regdate", "title": "등록일" },
             { "key": "reguser", "title": "등록자" },
             { "key": "moddate", "title": "수정일" },

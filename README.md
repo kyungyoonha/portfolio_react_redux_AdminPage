@@ -62,3 +62,9 @@ REACT_APP_CLOUDINARY_PRESET=<YOUR_CLOUD_PRESET>
 https://jamong-icetea.tistory.com/243
 https://right-hot.tistory.com/entry/nodeJS-multer%EB%A5%BC-%EC%9D%B4%EB%AF%B8%EC%A7%80-%EC%97%85%EB%A1%9C%EB%93%9C
 https://okky.kr/article/580517
+
+## pagination
+
+-   limit, page (현재 위치), search값만 변경해주면된다.
+-   pageCount 전체 페이지 수는 서버에서 날라옴
+-   state로 관리해줄 필요없이 queryString으로 변경해준다.

@@ -37,7 +37,7 @@ const initialValue = {
     etc: "",
     businessname: "",
     // image
-    driver: "",
+    driverpic: "",
     license: "",
     car: "",
 };
@@ -62,7 +62,7 @@ const MemberFormDriver = () => {
             alert("면허증 이미지를 추가해주세요.");
             return;
         }
-        const fileList = ["driver", "car", "license"];
+        const fileList = ["driverpic", "car", "license"];
         dispatch(formAction_submit(inputs, fileList));
     };
 
@@ -200,8 +200,8 @@ const MemberFormDriver = () => {
             <FormSection>
                 <InputFileWithImage
                     label="기사 사진"
-                    name="driver"
-                    value={inputs.driver}
+                    name="driverpic"
+                    value={inputs.driverpic}
                     onChange={handleChangeInputs}
                     filetype="image"
                 />

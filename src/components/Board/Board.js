@@ -3,6 +3,7 @@ import ReactPaginate from "react-paginate";
 import pageConfig from "../../siteConfig/pageConfig.json";
 import ReactSelect from "../Select/ReactSelect";
 import history from "../../history";
+import { changeDataFormat } from "../../util/helperFunc";
 
 export const Board = ({ data, selectedId, handleSelectedId }) => {
     const pageId = history.location.pathname.split("/")[2];
@@ -19,33 +20,11 @@ export const Board = ({ data, selectedId, handleSelectedId }) => {
                         onChange={() => handleSelectedId(item.idx)}
                     />
                 </td>
-                {headerList.map((col) => {
-                    if (
-                        col.key === "purchase" ||
-                        col.key === "question" ||
-                        col.key === "drivercomplain" ||
-                        col.key === "trabus"
-                    ) {
-                        return (
-                            <td key={col.key}>
-                                {item[col.key] ? item[col.key].length : 0}건
-                            </td>
-                        );
-                    }
-                    // area
-                    else if (
-                        col.key === "info" ||
-                        col.key === "description" ||
-                        col.key === "kr" ||
-                        col.key === "en"
-                    ) {
-                        return (
-                            <td key={col.key}>{item[col.key] ? "O" : "X"}</td>
-                        );
-                    }
-
-                    return <td key={col.key}>{item[col.key]}</td>;
-                })}
+                {headerList.map((col) => (
+                    <td key={col.key}>
+                        {changeDataFormat(col.key, item[col.key])}
+                    </td>
+                ))}
             </React.Fragment>
         );
     };
@@ -71,10 +50,7 @@ export const Board = ({ data, selectedId, handleSelectedId }) => {
     );
 };
 
-export const Board222 = ({ data, selectedId, handleSelectedId }) => {
-    const pageId = history.location.pathname.split("/")[2];
-    const headerList = pageConfig[pageId].headerList;
-
+export const Board222 = ({ headers, data, selectedId, onClickRow }) => {
     const makeRowData = (item) => {
         return (
             <React.Fragment>
@@ -83,36 +59,14 @@ export const Board222 = ({ data, selectedId, handleSelectedId }) => {
                         type="checkbox"
                         aria-label="Checkbox"
                         checked={item.idx === selectedId}
-                        onChange={() => handleSelectedId(item.idx)}
+                        onChange={() => onClickRow(item.idx)}
                     />
                 </td>
-                {headerList.map((col) => {
-                    if (
-                        col.key === "purchase" ||
-                        col.key === "question" ||
-                        col.key === "drivercomplain" ||
-                        col.key === "trabus"
-                    ) {
-                        return (
-                            <td key={col.key}>
-                                {item[col.key] ? item[col.key].length : 0}건
-                            </td>
-                        );
-                    }
-                    // area
-                    else if (
-                        col.key === "info" ||
-                        col.key === "description" ||
-                        col.key === "kr" ||
-                        col.key === "en"
-                    ) {
-                        return (
-                            <td key={col.key}>{item[col.key] ? "O" : "X"}</td>
-                        );
-                    }
-
-                    return <td key={col.key}>{item[col.key]}</td>;
-                })}
+                {headers.map((col) => (
+                    <td key={col.key}>
+                        {changeDataFormat(col.key, item[col.key])}
+                    </td>
+                ))}
             </React.Fragment>
         );
     };
@@ -122,14 +76,14 @@ export const Board222 = ({ data, selectedId, handleSelectedId }) => {
             <thead>
                 <tr>
                     <th>#</th>
-                    {headerList.map((item) => (
+                    {headers.map((item) => (
                         <th key={item.key}>{item.title}</th>
                     ))}
                 </tr>
             </thead>
             <tbody>
                 {data.map((item, idx) => (
-                    <tr key={idx} onClick={() => handleSelectedId(item.idx)}>
+                    <tr key={idx} onClick={() => onClickRow(item.idx)}>
                         {makeRowData(item)}
                     </tr>
                 ))}
