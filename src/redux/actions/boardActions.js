@@ -1,5 +1,6 @@
 import history from "../../history";
-import api from "../../services";
+import api from "../../services/api";
+import { toast } from "react-toastify";
 
 import {
     BOARD_FETCH,
@@ -11,6 +12,19 @@ import {
     BOARD_ERRORS,
 } from "../types";
 import axios from "axios";
+
+export const boardAction_fetch222 = (apiurl) => async (dispatch) => {
+    try {
+        const res = await api.get(apiurl);
+        dispatch({
+            type: "few",
+            payload: res.data,
+        });
+    } catch (e) {
+        console.log(e);
+        e.response && toast.error(e.response.data.error);
+    }
+};
 
 export const boardAction_fetch = (pageId) => async (dispatch, getState) => {
     const prevPageId = getState().board.pageId;
@@ -76,21 +90,13 @@ export const boardAction_update = (pageId, newData, images, audios) => async (
     }
 };
 
-export const boardAction_update222 = (pageCtg, pageId, data) => async (
-    dispatch
-) => {
+export const boardAction_update222 = (apiurl, data) => async (dispatch) => {
     try {
-        let res, type;
-        if (!data.idx) {
-            res = await api.boardAPI.insertData(pageCtg, pageId, data);
-            type = BOARD_INSERT;
-        } else {
-            res = await api.boardAPI.updateData(pageCtg, pageId, data);
-            type = BOARD_UPDATE;
-        }
+        let pathadd = data.idx ? "update" : "insert";
+        let res = await api.post(`${apiurl}/${pathadd}`, data);
 
         dispatch({
-            type,
+            type: data.idx ? BOARD_UPDATE : BOARD_INSERT,
             payload: res.data,
         });
     } catch (e) {

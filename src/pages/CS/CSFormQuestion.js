@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import history from "../../history";
-import api from "../../services";
+import fileAPI from "../../services/fileAPI";
+import api from "../../services/api";
 
 // 리덕스
 import { useDispatch, useSelector } from "react-redux";
@@ -91,14 +92,14 @@ const CSFormQuestion = () => {
             return;
         }
         try {
-            await api.fileAPI.sendEmail({
+            await fileAPI.sendEmail({
                 to: inputs.email,
                 subject: sendInputs.title,
                 contents: sendInputs.sendContent,
                 file: sendInputs.file,
             });
 
-            await api.boardAPI.updateData("/cs/question", {
+            await api.post("/cs/question/update", {
                 ...inputs,
                 replyYN: "Y",
             });

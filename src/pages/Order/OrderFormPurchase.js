@@ -19,6 +19,7 @@ import {
     PurchaseCode,
     PurchaseTour,
     FormList,
+    FormList2,
 } from "../../components/Form/Form";
 
 const initialValue = {
@@ -151,7 +152,7 @@ const OrderFormPurchase = ({ match }) => {
                 />
             </FormSection>
 
-            <FormSection>
+            <FormSection title="구매코드 검색">
                 <PurchaseCode purchasecode={purchasecode}>
                     <ModalSearch
                         searchId="purchasecode"
@@ -161,20 +162,13 @@ const OrderFormPurchase = ({ match }) => {
                 </PurchaseCode>
             </FormSection>
             <FormSection full>
-                {/* <PurchaseTour purchasetour={purchasetour}>
+                <PurchaseTour purchasetour={purchasetour}>
                     <ModalSearch
                         searchId="tourpackage"
                         label="관광지 추가"
                         onChangeData={handlePurchasetour}
                     />
-                </PurchaseTour> */}
-                <FormList data={[]} handleDeleteAudio={() => {}}>
-                    <ModalSearch
-                        searchId="tourpackage"
-                        label="관광지 추가"
-                        onChangeData={handlePurchasetour}
-                    />
-                </FormList>
+                </PurchaseTour>
             </FormSection>
         </FormLayout>
     );

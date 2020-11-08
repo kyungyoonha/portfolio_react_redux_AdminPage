@@ -7,18 +7,13 @@ import reduxThunk from "redux-thunk";
 import reducers from "./redux/reducers";
 import { authAction_getMyInfo } from "./redux/actions";
 import history from "./history";
-import axios from "axios";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
 
 const store = createStore(reducers, applyMiddleware(reduxThunk));
-
-axios.defaults.baseURL = process.env.REACT_APP_BACKEND_URL;
-
 const token = JSON.parse(localStorage.getItem("token"));
 if (token) {
-    axios.defaults.headers.common["Authorization"] = token;
     store.dispatch(authAction_getMyInfo());
 } else {
     history.push("/login");

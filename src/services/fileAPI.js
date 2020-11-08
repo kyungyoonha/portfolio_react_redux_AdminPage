@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { changeInputToFormData } from "../util/helperFunc";
 
-export const fileAPI = Object.freeze({
+const fileAPI = Object.freeze({
     async upload(resourceType, file) {
         const formData = new FormData();
         formData.append(
@@ -66,3 +66,5 @@ export const fileAPI = Object.freeze({
         await axios.post("/cs/email", sendData);
     },
 });
+
+export default fileAPI;

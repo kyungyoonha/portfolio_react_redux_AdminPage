@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import api from "../../services";
+import api from "../../services/api";
 import AsyncSelect from "react-select/async";
 
 const ReactSelect = ({
@@ -25,9 +25,8 @@ const ReactSelect = ({
 
     // ###☆ nationcode 데이터로 변경
     const loadOptions = async (inputValue) => {
-        const data = await api.boardAPI.getData(`/package/${searchId}`);
-
-        const result = data.map((item) => {
+        const res = await api.get(`/package/${searchId}`);
+        const result = res.data.map((item) => {
             let label = "";
             searchItems.forEach((key) => {
                 label += item[key] + " | ";

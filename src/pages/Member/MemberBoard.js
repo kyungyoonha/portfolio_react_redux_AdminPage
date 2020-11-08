@@ -10,6 +10,7 @@ import {
     boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
+    boardAction_fetch222,
 } from "../../redux/actions";
 
 // BBB
@@ -29,6 +30,7 @@ const MemberBoard = ({ match }) => {
 
     useEffect(() => {
         dispatch(boardAction_fetch(pageId));
+        dispatch(boardAction_fetch222(`/member/user?limit=10&page=1`));
     }, [dispatch, pageId]);
 
     const handleClickInsert = () => {

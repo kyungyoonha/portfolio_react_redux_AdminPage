@@ -23,7 +23,7 @@ const modalStyle = {
     },
 };
 
-const ModalSearch = ({ searchId, label, onChangeData }) => {
+const ModalSearch = ({ searchId, label, onChangeData, block }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [keyword, setKeyword] = useState("");
     const [results, setResults] = useState([]);
@@ -77,7 +77,7 @@ const ModalSearch = ({ searchId, label, onChangeData }) => {
             <div>
                 <button
                     type="button"
-                    className="btn btn-primary"
+                    className={`btn btn-primary ${block && "btn-block"}`}
                     onClick={() => setModalOpen(true)}
                 >
                     {label + "  "}

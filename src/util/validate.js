@@ -77,7 +77,7 @@ export const validateAll222 = (apiurl, inputs) => {
 };
 
 export const validate = (pageId, name, value) => {
-    if (pageId) return;
+    if (!pageId) return;
 
     const checkList = pageConfig[pageId].validate;
 

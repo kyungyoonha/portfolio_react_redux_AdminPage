@@ -1,20 +1,19 @@
 import {
     AUTH_GET,
-    AUTH_SIGN_IN,
     AUTH_SIGN_OUT,
     AUTH_ERRORS,
     FORM_INITIALIZE,
 } from "../types";
-import api from "../../services";
 import history from "../../history";
 import { toast } from "react-toastify";
+import api from "../../services/api";
 
-export const authAction_getMyInfo = () => async (dispatch) => {
+export const authAction_getMyInfo = (config) => async (dispatch) => {
     try {
-        const user = await api.authAPI.getMyInfo();
+        const res = await api.get("/auth/me", config || {});
         dispatch({
             type: AUTH_GET,
-            payload: user,
+            payload: res.data.user,
         });
     } catch (e) {
         e.response && toast.error(e.response.data.error);
@@ -23,11 +22,16 @@ export const authAction_getMyInfo = () => async (dispatch) => {
 
 export const authAction_logIn = (data) => async (dispatch) => {
     try {
-        const user = (await api.authAPI.login(data)) || {};
-        dispatch({
-            type: AUTH_SIGN_IN,
-            payload: user,
-        });
+        const resToken = await api.post("/auth/login", data);
+        const token = resToken.data.token;
+        localStorage.setItem("token", JSON.stringify(token));
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        };
+        // 토큰 재설정
+        dispatch(authAction_getMyInfo(config));
         history.push("/");
     } catch (e) {
         toast.error(e.response.data.error);

@@ -782,11 +782,23 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
     );
 };
 
+export const FormList2 = () => {
+    const headers = [];
+    return (
+        <table>
+            <tr></tr>
+        </table>
+    );
+};
+
 // 모달 검색 후 추가
 // 테이블 형태로 보여줌
 export const PurchaseTour = ({ purchasetour, errors = {}, children }) => {
     return (
         <React.Fragment>
+            <tr>
+                <td colSpan="2">{children}</td>
+            </tr>
             {purchasetour.map((item, idx) => (
                 <Input
                     key={item.idx}
@@ -804,9 +816,14 @@ export const PurchaseTour = ({ purchasetour, errors = {}, children }) => {
                     disabled
                 />
             )} */}
-            <tr>
-                <td colSpan="2">{children}</td>
-            </tr>
+            {purchasetour.length < 3 &&
+                [...new Array(3 - purchasetour.length)].map((_, idx) => (
+                    <Input
+                        key={idx}
+                        label={`${purchasetour.length + idx + 1}번째 관광지명`}
+                        disabled
+                    />
+                ))}
         </React.Fragment>
     );
 };

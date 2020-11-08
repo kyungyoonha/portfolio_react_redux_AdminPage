@@ -7,7 +7,7 @@ import {
     FORM_ERRORS,
 } from "../types";
 import { validate, validateAll222 } from "../../util/validate";
-import api from "../../services";
+import api from "../../services/api";
 import history from "../../history";
 import { toast } from "react-toastify";
 import { changeInputToFormData } from "../../util/helperFunc";
@@ -20,8 +20,8 @@ export const formAction_init = (initialValue) => async (dispatch, getState) => {
 
         let inputs = { ...initialValue };
         if (id) {
-            const res = await api.boardAPI.getData(`${apiurl}/${id}`);
-            inputs = res;
+            const res = await api.get(`${apiurl}/${id}`);
+            inputs = res.data;
         }
 
         if (type === "copy") {
@@ -89,17 +89,18 @@ export const formAction_submit = (
         // for (var key of sendData.entries()) {
         //     console.log(key[0] + ", " + key[1]);
         // }
-        let res = !inputs.idx
-            ? await api.boardAPI.insertData(apiurl, sendData)
-            : await api.boardAPI.updateData(apiurl, sendData);
-        // let type = !inputs.idx ? BOARD_INSERT : BOARD_UPDATE;
-        // dispatch({ type, payload: res.data });
+
+        let pathadd = inputs.idx ? "update" : "insert";
+        let res = await api.post(`${apiurl}/${pathadd}`, sendData);
+
+        // dispatch({
+        //     type: inputs.idx ? BOARD_UPDATE : BOARD_INSERT,
+        //     payload: res.data,
+        // });
         history.goBack();
     } catch (e) {
         console.log(e);
-        if (e.response) {
-            toast.error(e.response.data.error);
-        }
+        e.response && toast.error(e.response.data.error);
     }
 };
 
