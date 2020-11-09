@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
 
 import "./TourModalImage.scss";
-import Slider from "../../../../components/Slider/Slider";
-import Modal from "../../../../components/Modal/Modal";
-import noImg from "../../../../img/no-img.jpg";
+import Slider from "../Slider/Slider";
+import Modal from "./Modal";
+import noImg from "../../img/no-img.jpg";
 
 // ### 제출시 파일도 한번에 업로드
 const TourModalImage = ({ handleChangeImage, images }) => {

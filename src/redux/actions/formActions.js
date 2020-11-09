@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { changeInputToFormData } from "../../util/helperFunc";
 import queryString from "query-string";
 
-export const formAction_init = (initialValue) => async (dispatch, getState) => {
+const init = (initialValue) => async (dispatch, getState) => {
     try {
         const { id, type } = queryString.parse(history.location.search);
         const apiurl = history.location.pathname.split("/form")[0];
@@ -41,7 +41,7 @@ export const formAction_init = (initialValue) => async (dispatch, getState) => {
     }
 };
 
-export const formAction_changeValue = (e) => async (dispatch, getState) => {
+const changeValue = (e) => async (dispatch, getState) => {
     let { apiurl, inputs } = getState().form;
     const pageId = apiurl.split("/")[2];
     const { name, value, type, checked, files } = e.target;
@@ -67,11 +67,10 @@ export const formAction_changeValue = (e) => async (dispatch, getState) => {
 };
 
 // 폼 제출시
-export const formAction_submit = (
-    inputs,
-    fileList = [],
-    multi = false
-) => async (dispatch, getState) => {
+const submit = (inputs, fileList = [], multi = false) => async (
+    dispatch,
+    getState
+) => {
     try {
         const { apiurl } = getState().form;
         const { isValid, checkedErrors } = validateAll222(apiurl, inputs);
@@ -104,15 +103,17 @@ export const formAction_submit = (
     }
 };
 
-export const formAction_initialize = () => {
+const initialize = () => {
     return {
         type: FORM_INITIALIZE,
     };
 };
 
-export const formAction_errors = (errors) => {
+const errors = (errors) => {
     return {
         type: FORM_ERRORS,
         payload: errors,
     };
 };
+
+export default { init, changeValue, submit, initialize, errors };

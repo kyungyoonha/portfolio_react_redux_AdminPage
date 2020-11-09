@@ -1,14 +1,9 @@
 import React, { useEffect } from "react";
-import history from "../../../history";
+import history from "../../history";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import {
-    formAction_changeValue,
-    formAction_init,
-    formAction_initialize,
-    formAction_submit,
-} from "../../../redux/actions/formActions";
+import formActions from "../../redux/actions/formActions";
 
 import {
     InputFileWithImage,
@@ -16,7 +11,7 @@ import {
     FormSection,
     Input,
     SelectAPI,
-} from "../../../components/Form/Form";
+} from "../../components/Form/Form";
 
 const initialValue = {
     nationcodeidx: "",
@@ -35,12 +30,12 @@ const PackageFormArea = () => {
     let { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
-        dispatch(formAction_init(initialValue));
-        return () => dispatch(formAction_initialize());
+        dispatch(formActions.init(initialValue));
+        return () => dispatch(formActions.initialize());
     }, [dispatch]);
 
     const handleChangeInputs = (e) => {
-        dispatch(formAction_changeValue(e));
+        dispatch(formActions.changeValue(e));
     };
 
     const handleClickInsert = (e) => {
@@ -52,7 +47,7 @@ const PackageFormArea = () => {
 
         const fileList = ["mainpic"];
         dispatch(
-            formAction_submit(
+            formActions.submit(
                 {
                     ...inputs,
                     mainpicYN: "Y",

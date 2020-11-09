@@ -4,7 +4,6 @@ export const AUTH_SIGN_OUT = "user/AUTH_SIGN_OUT";
 export const AUTH_ERRORS = "user/AUTH_ERRORS";
 
 export const BOARD_FETCH = "board/BOARD_FETCH";
-export const BOARD_DETAIL = "board/BOARD_DETAIL";
 export const BOARD_SELECTED = "board/BOARD_SELECTED";
 export const BOARD_INSERT = "board/BOARD_INSERT";
 export const BOARD_UPDATE = "board/BOARD_UPDATE";

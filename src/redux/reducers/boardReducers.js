@@ -1,6 +1,5 @@
 import {
     BOARD_FETCH,
-    BOARD_DETAIL,
     BOARD_SELECTED,
     BOARD_INSERT,
     BOARD_UPDATE,
@@ -16,7 +15,6 @@ const INITIAL_STATE = {
 
     selectedId: "",
     data: [],
-    detail: {},
     pageCount: 5,
     pages: [],
     errors: "",
@@ -32,12 +30,6 @@ export default (state = INITIAL_STATE, action) => {
                 // data: action.payload.data,
                 // totalPage: action.payload.totalPage,
                 selectedId: "",
-            };
-
-        case BOARD_DETAIL:
-            return {
-                ...state,
-                detail: action.payload,
             };
 
         case BOARD_SELECTED:

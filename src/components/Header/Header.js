@@ -2,7 +2,7 @@ import React from "react";
 import "./Header.scss";
 import { Link } from "react-router-dom";
 
-import Breadcrumb from "./Breadcrumb/Breadcrumb";
+import Breadcrumb from "../Breadcrumb/Breadcrumb";
 
 const Header = ({ handleClickOpen }) => {
     return (

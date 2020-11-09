@@ -1,7 +1,7 @@
 import React from "react";
 import "./Breadcrumb.scss";
 import { NavLink } from "react-router-dom";
-import history from "../../../../history";
+import history from "../../history";
 
 const BreadCrumMap = {
     Home: "홈",

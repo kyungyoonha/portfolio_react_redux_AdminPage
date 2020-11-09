@@ -1,0 +1,8 @@
+@import "../../styles/Common.scss";
+
+.boardLayout {
+    @extend %styleCard;
+    min-height: 700px;
+    height: auto;
+    padding-top: 50px;
+}

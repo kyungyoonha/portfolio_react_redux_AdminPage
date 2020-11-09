@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./Content.scss";
 import pageConfig from "../../siteConfig/pageConfig.json";
 import navConfig from "../../siteConfig/navConfig";
 import queryString from "query-string";
 import history from "../../history";
+import "./Navbar.scss";
 
-export const ContentNav = ({
+const Navbar = ({
     onClickInsert,
     onClickDelete,
     onClickBack,
@@ -31,19 +31,19 @@ export const ContentNav = ({
         );
     };
     return (
-        <div className="contentNav">
-            <div className="contentNav__title">
+        <div className="navBar">
+            <div className="navBar__title">
                 <i className="fas fa-user-cog"></i>
                 {title}
             </div>
-            <div className="contentNav__content">
+            <div className="navBar__content">
                 {navList.map((nav) => (
                     <NavLink key={nav.to} to={nav.to} activeClassName="active">
                         {nav.title}
                     </NavLink>
                 ))}
             </div>
-            <div className="contentButton">
+            <div className="navBar__buttons">
                 {onClickDelete && (
                     <Button onClick={onClickDelete}>삭제하기</Button>
                 )}
@@ -61,32 +61,4 @@ export const ContentNav = ({
     );
 };
 
-export const ContentBody = ({ children }) => {
-    return <div className="contentBody">{children}</div>;
-};
-
-export const ContentBoardBtn = ({
-    handleClickInsert,
-    handleClickDelete,
-    children,
-}) => {
-    return (
-        <div className="contentButton">
-            <button
-                type="button"
-                className="btn btn-outline-secondary"
-                onClick={handleClickDelete}
-            >
-                삭제하기
-            </button>
-            <button
-                type="button"
-                className="btn btn-outline-primary"
-                onClick={handleClickInsert}
-            >
-                추가하기
-            </button>
-            {children}
-        </div>
-    );
-};
+export default Navbar;

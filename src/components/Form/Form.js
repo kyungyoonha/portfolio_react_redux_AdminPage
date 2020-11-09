@@ -4,15 +4,15 @@ import noImg from "../../img/no-img.jpg";
 import ReactDatePicker from "react-datepicker";
 import Map from "../Google/Map";
 //import ReactModal from "react-modal";
-import TimePicker from "../TimePicker/TimePicker";
+import TimePicker from "../Timepicker/TimePicker";
 import ModalNumRange from "../Modal/ModalNumRange";
-import ReactSelect from "../Select/ReactSelect";
-import { ContentNav } from "../Content/Content";
+import ReactSelect from "./ReactSelect";
+import Navbar from "../Navbar/Navbar";
 
 export const FormLayout = ({ children, ...rest }) => {
     return (
         <form className="formLayout">
-            <ContentNav {...rest} />
+            <Navbar {...rest} />
             {children}
         </form>
     );
@@ -779,15 +779,6 @@ export const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
                 />
             </td>
         </tr>
-    );
-};
-
-export const FormList2 = () => {
-    const headers = [];
-    return (
-        <table>
-            <tr></tr>
-        </table>
     );
 };
 

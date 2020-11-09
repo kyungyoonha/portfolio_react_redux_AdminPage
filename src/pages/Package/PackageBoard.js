@@ -1,32 +1,30 @@
 import React, { useEffect } from "react";
-import history from "../../../history";
+import history from "../../history";
 
 // import PackageBoardTop from "./components/PackageBoardTop";
-import { Board222 } from "../../../components/Board/Board";
-import BoardFooter from "../../../components/Board/BoardFooter";
-import { ContentBody, ContentNav } from "../../../components/Content/Content";
-import { getHeaderList } from "../../../util/helperFunc";
+import { Board, BoardLayout } from "../../components/Board/Board";
+import BoardFooter from "../../components/Board/BoardFooter";
+import Navbar from "../../components/Navbar/Navbar";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import {
-    boardAction_fetch222,
+    boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
     boardAction_initialize,
-} from "../../../redux/actions";
+} from "../../redux/actions";
 
 // BBB
 const PackageBoard = () => {
     const { pathname, search } = history.location;
-    const headers = getHeaderList(pathname);
     const dispatch = useDispatch();
     const { pageCount, pages, data, selectedId } = useSelector(
         (state) => state.board
     );
 
     useEffect(() => {
-        dispatch(boardAction_fetch222(pathname + search, {}));
+        dispatch(boardAction_fetch(pathname + search, {}));
         return () => dispatch(boardAction_initialize());
     }, [dispatch, pathname, search]);
 
@@ -54,12 +52,12 @@ const PackageBoard = () => {
     return (
         <React.Fragment>
             {pathname.indexOf("tour") > -1 ? (
-                <ContentNav
+                <Navbar
                     onClickInsert={() => handleClickButton("insert")}
                     onClickDelete={() => handleClickDelete}
                 />
             ) : (
-                <ContentNav
+                <Navbar
                     onClickInsert={() => handleClickButton("insert")}
                     onClickEdit={() => handleClickButton("edit")}
                     onClickCopy={() => handleClickButton("copy")}
@@ -67,16 +65,16 @@ const PackageBoard = () => {
                 />
             )}
 
-            <ContentBody>
+            <BoardLayout>
                 {/* <BoardTop handleChangePageCtrl={handleChangePageCtrl} /> */}
-                <Board222
-                    headers={headers}
+                <Board
+                    pathname={pathname}
                     data={data}
                     selectedId={selectedId}
                     onClickRow={handleClickRow}
                 />
                 <BoardFooter pageCount={pageCount} pages={pages} />
-            </ContentBody>
+            </BoardLayout>
         </React.Fragment>
     );
 };

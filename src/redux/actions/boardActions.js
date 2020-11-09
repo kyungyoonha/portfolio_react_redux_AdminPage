@@ -1,11 +1,9 @@
 import history from "../../history";
 import api from "../../services/api";
 import { toast } from "react-toastify";
-import { changeObjToQuerystring } from "../../util/helperFunc";
 
 import {
     BOARD_FETCH,
-    BOARD_DETAIL,
     BOARD_SELECTED,
     BOARD_INSERT,
     BOARD_UPDATE,
@@ -13,9 +11,8 @@ import {
     BOARD_ERRORS,
     BOARD_INITIALIZE,
 } from "../types";
-import axios from "axios";
 
-export const boardAction_fetch222 = (apiurl) => async (dispatch) => {
+export const boardAction_fetch = (apiurl) => async (dispatch) => {
     try {
         const res = await api.get(apiurl);
 
@@ -26,49 +23,6 @@ export const boardAction_fetch222 = (apiurl) => async (dispatch) => {
     } catch (e) {
         console.log(e);
         e.response && toast.error(e.response.data.error);
-    }
-};
-
-export const boardAction_fetch = (pageId) => async (dispatch, getState) => {
-    const prevPageId = getState().board.pageId;
-    try {
-        if (prevPageId === pageId) {
-            return;
-        }
-        const res = await axios.get(
-            `http://localhost:3000/json/${pageId}.json`
-            //     ?pageSize=${pageCtrl.pageSize}
-            //     &currentPage=${pageCtrl.currentPage}
-            //     &countryCtg=${pageCtrl.countryCtg}
-            //     &searchKeyword=${pageCtrl.searchKeyword}
-            //     &sort=${pageCtrl.sort}
-        );
-
-        dispatch({
-            type: BOARD_FETCH,
-            payload: {
-                pageId: pageId,
-                data: res.data.data,
-                totalPage: res.data.totalPage,
-            },
-        });
-    } catch (err) {
-        console.error("boardAction_Fecth error: " + err);
-    }
-};
-
-export const boardAction_detail = (pageId, id) => async (dispatch, state) => {
-    try {
-        const res = await axios.get(
-            `http://localhost:3000/json/${pageId}.json`
-        );
-
-        dispatch({
-            type: BOARD_DETAIL,
-            payload: res.data.data.find((item) => item.idx === id),
-        });
-    } catch (e) {
-        console.error("boardAction_update Error", e);
     }
 };
 

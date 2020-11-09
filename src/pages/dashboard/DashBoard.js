@@ -1,10 +1,11 @@
 import React from "react";
 import "./DashBoard.scss";
-import ChartsRegion from "./components/ChartsRegion";
-import GoogleMap from "./components/GoogleMap";
-import ChartsWeekly from "./components/ChartsWeekly";
-import ChartsMonthly from "./components/ChartsMonthly";
-import CSTable from "./components/CSBoard";
+
+import GoogleMap from "../../components/Google/GoogleMap";
+import ChartsRegion from "../../components/Charts/ChartsRegion";
+import ChartsWeekly from "../../components/Charts/ChartsWeekly";
+import ChartsMonthly from "../../components/Charts/ChartsMonthly";
+import CSTable from "../../components/Board/CSBoard";
 
 const Dashboard = () => {
     return (

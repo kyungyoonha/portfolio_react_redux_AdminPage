@@ -18,8 +18,6 @@ import {
     InputTime,
     PurchaseCode,
     PurchaseTour,
-    FormList,
-    FormList2,
 } from "../../components/Form/Form";
 
 const initialValue = {
@@ -44,8 +42,10 @@ const initialValuePurchasecode = {
 };
 
 //working ###
+// ModalSearch
 const OrderFormPurchase = ({ match }) => {
     const pageId = match.url.split("/")[2];
+    const { pathname } = history.location;
     const dispatch = useDispatch();
     const [errors, setErrors] = useState({});
     const [purchasetour, setPurchasetour] = useState([]);
@@ -155,7 +155,7 @@ const OrderFormPurchase = ({ match }) => {
             <FormSection title="구매코드 검색">
                 <PurchaseCode purchasecode={purchasecode}>
                     <ModalSearch
-                        searchId="purchasecode"
+                        pathname={pathname}
                         label="구매코드검색"
                         onChangeData={handlePurchasecode}
                     />
@@ -164,7 +164,7 @@ const OrderFormPurchase = ({ match }) => {
             <FormSection full>
                 <PurchaseTour purchasetour={purchasetour}>
                     <ModalSearch
-                        searchId="tourpackage"
+                        pathname={pathname}
                         label="관광지 추가"
                         onChangeData={handlePurchasetour}
                     />

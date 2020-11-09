@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./TourModalAudio.scss";
-import { validateAll, validateAudio } from "../../../../util/validate";
-import Modal from "../../../../components/Modal/Modal";
-import useInputs from "../../../../Hooks/useInputs";
+import { validateAll, validateAudio } from "../../util/validate";
+import Modal from "./Modal";
+import useInputs from "../../Hooks/useInputs";
 import {
     InputFile,
     RadioSingle,
@@ -10,7 +10,7 @@ import {
     Input,
     FormSection,
     Textarea,
-} from "../../../../components/Form/Form";
+} from "../Form/Form";
 
 const initialValue = {
     idx: "",

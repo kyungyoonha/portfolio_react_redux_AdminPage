@@ -1,56 +1,15 @@
 import React, { useState } from "react";
 import ReactPaginate from "react-paginate";
-import pageConfig from "../../siteConfig/pageConfig.json";
-import ReactSelect from "../Select/ReactSelect";
-import history from "../../history";
-import { changeDataFormat } from "../../util/helperFunc";
+import ReactSelect from "../Form/ReactSelect";
+import { changeDataFormat, getHeaderList } from "../../util/helperFunc";
+import "./Board.scss";
 
-export const Board = ({ data, selectedId, handleSelectedId }) => {
-    const pageId = history.location.pathname.split("/")[2];
-    const headerList = pageConfig[pageId].headerList;
-
-    const makeRowData = (item) => {
-        return (
-            <React.Fragment>
-                <td>
-                    <input
-                        type="checkbox"
-                        aria-label="Checkbox"
-                        checked={item.idx === selectedId}
-                        onChange={() => handleSelectedId(item.idx)}
-                    />
-                </td>
-                {headerList.map((col) => (
-                    <td key={col.key}>
-                        {changeDataFormat(col.key, item[col.key])}
-                    </td>
-                ))}
-            </React.Fragment>
-        );
-    };
-
-    return (
-        <table className="table table-hover table-bordered board">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    {headerList.map((item) => (
-                        <th key={item.key}>{item.title}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {data.map((item, idx) => (
-                    <tr key={idx} onClick={() => handleSelectedId(item.idx)}>
-                        {makeRowData(item)}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
+export const BoardLayout = ({ children }) => {
+    return <div className="boardLayout">{children}</div>;
 };
 
-export const Board222 = ({ headers, data, selectedId, onClickRow }) => {
+export const Board = ({ pathname, data, selectedId, onClickRow }) => {
+    const headers = getHeaderList(pathname);
     const makeRowData = (item) => {
         return (
             <React.Fragment>
@@ -118,6 +77,7 @@ export const BoardTop = ({ handleChangePageCtrl }) => {
     const [nation, setNation] = useState("");
     const handleChange = (e) => {
         console.log(e);
+        setNation("");
     };
 
     return (
@@ -151,61 +111,6 @@ export const BoardTop = ({ handleChangePageCtrl }) => {
                         </span>
                     </div>
                 </div>
-            </div>
-        </div>
-    );
-};
-
-export const BoardFooter = ({
-    totalPage,
-    currentPage,
-    handleChangePageCtrl,
-}) => {
-    const onChangePageCtrl = (e) => {
-        const { name, value } = e.target;
-        handleChangePageCtrl(name, value);
-    };
-    return (
-        <div>
-            <div
-                className=" float-left mr-3"
-                style={{ width: "150px", marginBottom: "50px" }}
-            >
-                <select
-                    name="pageSize"
-                    className="custom-select"
-                    required
-                    onChange={onChangePageCtrl}
-                >
-                    <option value="10">10건 노출</option>
-                    <option value="15">15건 노출</option>
-                    <option value="20">20건 노출</option>
-                    <option value="30">30건 노출</option>
-                    <option value="50">50건 노출</option>
-                </select>
-            </div>
-            <div className="float-right">
-                <ReactPaginate
-                    initialPage={currentPage}
-                    previousLabel={"이전"}
-                    nextLabel={"다음"}
-                    pageCount={totalPage}
-                    marginPagesDisplayed={1}
-                    pageRangeDisplayed={5}
-                    onPageChange={({ selected }) =>
-                        handleChangePageCtrl("currentPage", selected)
-                    }
-                    containerClassName={"pagination"}
-                    breakClassName={"page-item"}
-                    breakLinkClassName={"page-link"}
-                    pageClassName={"page-item"}
-                    pageLinkClassName={"page-link"}
-                    previousClassName={"page-item"}
-                    previousLinkClassName={"page-link"}
-                    nextClassName={"page-item"}
-                    nextLinkClassName={"page-link"}
-                    activeClassName={"active"}
-                />
             </div>
         </div>
     );

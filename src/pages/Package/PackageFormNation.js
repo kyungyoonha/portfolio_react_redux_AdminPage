@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
-import history from "../../../history";
+import history from "../../history";
 
 // redux
 import { useDispatch, useSelector } from "react-redux";
-import {
-    formAction_changeValue,
-    formAction_init,
-    formAction_initialize,
-    formAction_submit,
-} from "../../../redux/actions/formActions";
+import formActions from "../../redux/actions/formActions";
 
-import { FormLayout, FormSection, Input } from "../../../components/Form/Form";
+import { FormLayout, FormSection, Input } from "../../components/Form/Form";
 
 const initialValue = {
     koreanname: "",
@@ -25,18 +20,18 @@ const PackageFormNation = () => {
     let { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
-        dispatch(formAction_init(initialValue));
+        dispatch(formActions.init(initialValue));
 
-        return () => dispatch(formAction_initialize());
+        return () => dispatch(formActions.initialize());
     }, [dispatch]);
 
     const handleChangeInputs = (e) => {
-        dispatch(formAction_changeValue(e));
+        dispatch(formActions.changeValue(e));
     };
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formAction_submit(inputs));
+        dispatch(formActions.submit(inputs));
     };
 
     if (!Object.keys(inputs).length) {

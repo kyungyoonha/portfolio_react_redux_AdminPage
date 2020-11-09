@@ -9,10 +9,10 @@ import MemberFormUser from './pages/Member/MemberFormUser'
 import MemberFormDriver from './pages/Member/MemberFormDriver';
 import MemberFormAdmin from './pages/Member/MemberFormAdmin';
 
-import PackageBoard from './pages/Package/PackageBoard/PackageBoard';
-import PackageFormTour from './pages/Package/PackageFormTour/PackageFormTour';
-import PackageFormNation from "./pages/Package/PackageFormNation/PackageFormNation";
-import PackageFormArea from "./pages/Package/PackageFormArea/PackageFormArea";
+import PackageBoard from './pages/Package/PackageBoard';
+import PackageFormTour from './pages/Package/PackageFormTour';
+import PackageFormNation from "./pages/Package/PackageFormNation";
+import PackageFormArea from "./pages/Package/PackageFormArea";
 
 import OrderBoard from './pages/Order/OrderBoard';
 import OrderFormPurchase from './pages/Order/OrderFormPurchase';
@@ -23,7 +23,7 @@ import CSFormPush from './pages/CS/CSFormPush';
 import CSFormNotice from './pages/CS/CSFormNotice';
 import CSFormQuestion from './pages/CS/CSFormQuestion';
 
-import Layout from './components/Layout/Layout';
+import Layout from './Layout/Layout';
 import Login from './pages/Login/Login';
 
 const routes = [

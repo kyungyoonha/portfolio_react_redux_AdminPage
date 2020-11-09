@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./Layout.scss";
 
 // containers
-import Sidebar from "../Sidebar/Sidebar";
-import Header from "./Header/Header";
+import Sidebar from "../components/Sidebar/Sidebar";
+import Header from "../components/Header/Header";
 
 const Layout = ({ route, children }) => {
     const [isOpen, setIsOpen] = useState(false);

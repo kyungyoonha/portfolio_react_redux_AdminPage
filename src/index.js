@@ -10,6 +10,7 @@ import history from "./history";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 const store = createStore(reducers, applyMiddleware(reduxThunk));
 const token = JSON.parse(localStorage.getItem("token"));

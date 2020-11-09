@@ -23,7 +23,7 @@ const modalStyle = {
     },
 };
 
-const ModalSearch = ({ searchId, label, onChangeData, block }) => {
+const ModalSearch = ({ pathname, label, onChangeData, block }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [keyword, setKeyword] = useState("");
     const [results, setResults] = useState([]);
@@ -42,16 +42,15 @@ const ModalSearch = ({ searchId, label, onChangeData, block }) => {
 
     const handleClickSearch = async () => {
         // if (!keyword) return;
-        const res = await axios.get(
-            `http://localhost:3000/json/${searchId}.json`
-        );
-
+        const pageId = pathname.split("/")[2];
+        const res = await axios.get(pathname);
+        console.log(res);
         const result = res.data.data.filter(
             (item) =>
-                item[searchMap[searchId].column[0]]
+                item[searchMap[pageId].column[0]]
                     .toLowerCase()
                     .indexOf(keyword) > -1 ||
-                item[searchMap[searchId].column[1]]
+                item[searchMap[pageId].column[1]]
                     .toLowerCase()
                     .indexOf(keyword) > -1
         );
@@ -59,7 +58,7 @@ const ModalSearch = ({ searchId, label, onChangeData, block }) => {
         setResults(result);
     };
 
-    const handleSelectedId = (idx) => {
+    const handleClickRow = (idx) => {
         setSelectedId(selectedId === idx ? "" : idx);
     };
 
@@ -72,6 +71,7 @@ const ModalSearch = ({ searchId, label, onChangeData, block }) => {
             setSelectedId("");
         }
     };
+
     return (
         <React.Fragment>
             <div>
@@ -138,10 +138,10 @@ const ModalSearch = ({ searchId, label, onChangeData, block }) => {
                         <br />
                         <div className="modalSearch__board">
                             <Board
-                                pageId={searchId}
+                                pathname={pathname}
                                 data={results}
                                 selectedId={selectedId}
-                                handleSelectedId={handleSelectedId}
+                                onClickRow={handleClickRow}
                             />
                         </div>
                     </div>

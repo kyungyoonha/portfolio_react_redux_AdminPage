@@ -1,31 +1,29 @@
 import React, { useEffect } from "react";
 import history from "../../history";
 
-import { Board222, BoardTop } from "../../components/Board/Board";
+import { Board, BoardLayout } from "../../components/Board/Board";
 import BoardFooter from "../../components/Board/BoardFooter";
-import { ContentBody, ContentNav } from "../../components/Content/Content";
-import { getHeaderList } from "../../util/helperFunc";
+import Navbar from "../../components/Navbar/Navbar";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import {
-    boardAction_fetch222,
+    boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
     boardAction_initialize,
 } from "../../redux/actions";
 
 // BBB
-const CSBoard = ({ match }) => {
+const CSBoard = () => {
     const { pathname, search } = history.location;
-    const headers = getHeaderList(pathname);
     const dispatch = useDispatch();
     const { pageCount, pages, data, selectedId } = useSelector(
         (state) => state.board
     );
 
     useEffect(() => {
-        dispatch(boardAction_fetch222(pathname + search, {}));
+        dispatch(boardAction_fetch(pathname + search, {}));
         return () => dispatch(boardAction_initialize());
     }, [dispatch, pathname, search]);
 
@@ -53,28 +51,28 @@ const CSBoard = ({ match }) => {
     return (
         <React.Fragment>
             {pathname.indexOf("question") > -1 ? (
-                <ContentNav
+                <Navbar
                     onClickSend={() => handleClickButton("edit")}
                     onClickDelete={() => handleClickDelete}
                 />
             ) : (
-                <ContentNav
+                <Navbar
                     onClickInsert={() => handleClickButton("insert")}
                     onClickEdit={() => handleClickButton("edit")}
                     onClickDelete={() => handleClickDelete}
                 />
             )}
 
-            <ContentBody>
+            <BoardLayout>
                 {/* <BoardTop handleChangePageCtrl={handleChangePageCtrl} /> */}
-                <Board222
-                    headers={headers}
+                <Board
+                    pathname={pathname}
                     data={data}
                     selectedId={selectedId}
                     onClickRow={handleClickRow}
                 />
                 <BoardFooter pageCount={pageCount} pages={pages} />
-            </ContentBody>
+            </BoardLayout>
         </React.Fragment>
     );
 };

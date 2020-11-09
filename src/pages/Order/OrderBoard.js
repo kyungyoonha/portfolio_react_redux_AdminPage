@@ -2,15 +2,14 @@ import React, { useEffect } from "react";
 import history from "../../history";
 
 // import InfoTop from "./InfoTop";
-import { Board222 } from "../../components/Board/Board";
+import { Board, BoardLayout } from "../../components/Board/Board";
 import BoardFooter from "../../components/Board/BoardFooter";
-import { ContentBody, ContentNav } from "../../components/Content/Content";
-import { getHeaderList } from "../../util/helperFunc";
+import Navbar from "../../components/Navbar/Navbar";
 
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import {
-    boardAction_fetch222,
+    boardAction_fetch,
     boardAction_selected,
     boardAction_delete,
     boardAction_initialize,
@@ -19,14 +18,13 @@ import {
 // BBB
 const OrderBoard = () => {
     const { pathname, search } = history.location;
-    const headers = getHeaderList(pathname);
     const dispatch = useDispatch();
     const { pageCount, pages, data, selectedId } = useSelector(
         (state) => state.board
     );
 
     useEffect(() => {
-        dispatch(boardAction_fetch222(pathname + search, {}));
+        dispatch(boardAction_fetch(pathname + search, {}));
         return () => dispatch(boardAction_initialize());
     }, [dispatch, pathname, search]);
 
@@ -48,21 +46,21 @@ const OrderBoard = () => {
 
     return (
         <React.Fragment>
-            <ContentNav
+            <Navbar
                 onClickInsert={handleClickInsert}
                 onClickDelete={handleClickDelete}
             />
 
-            <ContentBody>
+            <BoardLayout>
                 {/* <InfoTop handleChangePageCtrl={handleChangePageCtrl} /> */}
-                <Board222
-                    headers={headers}
+                <Board
+                    pathname={pathname}
                     data={data}
                     selectedId={selectedId}
                     onClickRow={handleClickRow}
                 />
                 <BoardFooter pageCount={pageCount} pages={pages} />
-            </ContentBody>
+            </BoardLayout>
         </React.Fragment>
     );
 };

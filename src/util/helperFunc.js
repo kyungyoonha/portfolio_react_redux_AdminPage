@@ -1,5 +1,4 @@
 import pageConfig from "../siteConfig/pageConfig.json";
-import moment from "moment";
 
 export const changeInputToFormData = (inputs, fileList, multi) => {
     const formData = new FormData();
