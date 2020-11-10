@@ -3,14 +3,14 @@ import "./TourModalAudio.scss";
 import { validateAll, validateAudio } from "../../util/validate";
 import Modal from "./Modal";
 import useInputs from "../../Hooks/useInputs";
-import {
-    InputFile,
-    RadioSingle,
-    Select,
-    Input,
-    FormSection,
-    Textarea,
-} from "../Form/Form";
+
+// components
+import FormSection from "../../components/Form/FormSection";
+import Input from "../../components/Form/Input";
+import Textarea from "../Form/Textarea";
+import Select from "../Form/Select";
+import InputFile from "../Form/InputFile";
+import RadioSingle from "../Form/RadioSingle";
 
 const initialValue = {
     idx: "",

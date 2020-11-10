@@ -12,7 +12,7 @@ import {
     BOARD_INITIALIZE,
 } from "../types";
 
-export const boardAction_fetch = (apiurl) => async (dispatch) => {
+const fetch = (apiurl) => async (dispatch) => {
     try {
         const res = await api.get(apiurl);
 
@@ -26,16 +26,14 @@ export const boardAction_fetch = (apiurl) => async (dispatch) => {
     }
 };
 
-export const boardAction_selected = (idx) => {
+const selected = (idx) => {
     return {
         type: BOARD_SELECTED,
         payload: idx,
     };
 };
 
-export const boardAction_update = (pageId, newData, images, audios) => async (
-    dispatch
-) => {
+const update = (pageId, newData, images, audios) => async (dispatch) => {
     try {
         dispatch({
             type: newData.idx ? BOARD_UPDATE : BOARD_INSERT,
@@ -43,11 +41,11 @@ export const boardAction_update = (pageId, newData, images, audios) => async (
         });
         history.goBack();
     } catch (e) {
-        console.error("boardAction_update Error", e);
+        console.error("update Error", e);
     }
 };
 
-export const boardAction_update222 = (apiurl, data) => async (dispatch) => {
+const update222 = (apiurl, data) => async (dispatch) => {
     try {
         let pathadd = data.idx ? "update" : "insert";
         let res = await api.post(`${apiurl}/${pathadd}`, data);
@@ -63,7 +61,7 @@ export const boardAction_update222 = (apiurl, data) => async (dispatch) => {
     }
 };
 
-export const boardAction_delete = (pageId, itemId) => async (dispatch) => {
+const deleteData = (pageId, itemId) => async (dispatch) => {
     try {
         // await axios.post(`http://localhost:8000/${pageId}/delete`, itemId);
         dispatch({
@@ -71,19 +69,29 @@ export const boardAction_delete = (pageId, itemId) => async (dispatch) => {
             payload: itemId,
         });
     } catch (e) {
-        console.error("boardAction_delete Error", e);
+        console.error("delete Error", e);
     }
 };
 
-export const boardAction_errors = () => {
+const errors = () => {
     return {
         type: BOARD_ERRORS,
     };
 };
 
-export const boardAction_initialize = () => {
+const initialize = () => {
     console.log("초기화");
     return {
         type: BOARD_INITIALIZE,
     };
+};
+
+export default {
+    fetch,
+    selected,
+    update,
+    update222,
+    deleteData,
+    errors,
+    initialize,
 };

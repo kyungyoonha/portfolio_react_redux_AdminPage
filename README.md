@@ -68,3 +68,16 @@ https://okky.kr/article/580517
 -   limit, page (현재 위치), search값만 변경해주면된다.
 -   pageCount 전체 페이지 수는 서버에서 날라옴
 -   state로 관리해줄 필요없이 queryString으로 변경해준다.
+
+## Contianers vs components
+
+### Components
+
+-   데이터를 가져오가나 변경하는 '방법'에 대해서는 관여할 필요가 없다.
+-   상태를 거의 가지고 있지 않다 (가지고 있다면 데이터가 아닌 UI관련)
+
+### Containers
+
+-   어떻게 동작하는지 관련
+-   divs를 제외하고는 DOM 마크업을 가지고 있지 않는다
+-   스타일 역시 가지고 있지 않는다.

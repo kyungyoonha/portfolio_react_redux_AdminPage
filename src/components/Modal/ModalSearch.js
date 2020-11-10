@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import "./ModalSearch.scss";
-import { FormSection } from "../Form/Form";
-import Modal from "./Modal";
 import axios from "axios";
-import { Board } from "../Board/Board";
+import "./ModalSearch.scss";
+
+// Components
+import Modal from "./Modal";
+import Board from "../../components/Board/Board";
+import FormSection from "../../components/Form/FormSection";
 
 const modalStyle = {
     content: {

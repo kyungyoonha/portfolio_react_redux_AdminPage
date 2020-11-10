@@ -1,7 +1,13 @@
 import React from "react";
 import "./App.scss";
-import Routes from "./routes";
 import { ToastContainer } from "react-toastify";
+import { Route, Switch, Router } from "react-router-dom";
+import history from "./history";
+
+// Pages
+import MainPage from "./pages/MainPage";
+import PageNotFound from "./pages/PageNotFound";
+import LoginPage from "./pages/LoginPage";
 
 const App = () => {
     return (
@@ -11,7 +17,13 @@ const App = () => {
                 position="top-right"
                 closeButton={false}
             />
-            <Routes />
+            <Router history={history}>
+                <Switch>
+                    <Route path="/login" exact component={LoginPage} />
+                    <Route path="/404" exact component={PageNotFound} />
+                    <Route path="/" component={MainPage} />
+                </Switch>
+            </Router>
         </div>
     );
 };

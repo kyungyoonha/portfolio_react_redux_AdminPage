@@ -1,0 +1,40 @@
+@import "../../styles/Common.scss";
+
+.formSection {
+    margin-bottom: 5px;
+    width: 49.8%;
+    height: auto;
+    background: white;
+    border: 1px solid $line;
+    border-radius: 0.25rem;
+
+    &.full {
+        width: 100%;
+    }
+
+    &.center {
+        display: flex;
+        justify-content: center;
+        padding: 60px 0;
+        width: 100%;
+        table {
+            width: 60%;
+            border-left: 1px solid $line;
+            border-right: 1px solid $line;
+            border-bottom: 1px solid $line;
+        }
+    }
+
+    &.scroll {
+        overflow-y: scroll;
+    }
+    table {
+        margin-bottom: 0 !important;
+        // border-bottom: 1px solid $line;
+
+        th {
+            background: #f8f8f8;
+            width: 180px;
+        }
+    }
+}
