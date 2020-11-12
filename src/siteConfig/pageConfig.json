@@ -3,24 +3,25 @@
         "title": "회원 정보",
         "navCtg": "member",
         "validate": ["username", "id", "pw", "birthday", "telnumber", "nickname"],
-        "headerList": [
-            { "key": "username", "title": "성명" },
-            { "key": "telnumber", "title": "전화번호" },
-            { "key": "email", "title": "이메일" },
+        "headers": [
+            { "key": "username", "title": "성명", "filter": true },
+            { "key": "telnumber", "title": "전화번호", "filter": true }, 
+            { "key": "email", "title": "이메일", "filter": true },
             { "key": "purchase", "title": "구매내역" },
             { "key": "question", "title": "문의사항" }
+            
         ]
     },
     "driver": {
         "title": "기사 정보",
         "navCtg": "member",
         "validate": ["drivername", "id", "pw", "birthday", "telnumber"],
-        "headerList": [
-            { "key": "drivername", "title": "기사 성명" },
-            { "key": "id", "title": "아이디" },
+        "headers": [
+            { "key": "drivername", "title": "기사 성명", "filter": true },
+            { "key": "id", "title": "아이디", "filter": true },
             { "key": "nationcodeidx", "title": "국가 코드" },
-            { "key": "areacodeidx", "title": "시도 코드" },
-            { "key": "telnumber", "title": "연락처" },
+            { "key": "areacodeidx", "title": "시도 코드"},
+            { "key": "telnumber", "title": "연락처" , "filter": true},
             { "key": "trabus", "title": "운행내역" },
             { "key": "drivercomplain", "title": "컴플레인" }
         ]
@@ -29,14 +30,14 @@
         "title": "매니저 정보",
         "navCtg": "member",
         "validate": ["username", "id", "pw", "level", "email"],
-        "headerList": [
-            { "key": "username", "title": "성명" },
+        "headers": [
+            { "key": "username", "title": "성명" , "filter": true},
             { "key": "id", "title": "아이디" },
             { "key": "level", "title": "등급" },
             { "key": "birthday", "title": "생년월일" },
-            { "key": "telnumber", "title": "전화번호" },
+            { "key": "telnumber", "title": "전화번호" , "filter": true},
             { "key": "englishname", "title": "영어 이름" },
-            { "key": "address", "title": "주소" },
+            { "key": "address", "title": "주소" , "filter": true},
             { "key": "entryYear", "title": "입사년도" }
         ]
     },
@@ -44,11 +45,11 @@
         "title": "관광지 코드 관리",
         "navCtg": "package",
         "validate": ["tourname", "nationcodeidx", "areacodeidx", "tourcode", "operatingtime", "address", "telnumber", "admissionfee"],
-        "headerList": [
-            { "key": "tourname", "title": "관광지명" },
-            { "key": "nationtype", "title": "국가분류" },
-            { "key": "nationcodeidx", "title": "국가코드" },
-            { "key": "areacodeidx", "title": "지역코드" },
+        "headers": [
+            { "key": "tourname", "title": "관광지명" , "filter": true},
+            { "key": "nationtype", "title": "국가분류" , "filter": true},
+            { "key": "nationcodeidx", "title": "국가코드" , "filter": true},
+            { "key": "areacodeidx", "title": "지역코드" , "filter": true},
             { "key": "tourcode", "title": "관광지코드" },
             { "key": "telnumber", "title": "전화번호" },
             { "key": "operatingtime", "title": "운영시간" }
@@ -58,25 +59,25 @@
         "title": "관광지 코드 관리",
         "navCtg": "package",
         "validate": ["koreanname", "englishname", "code3", "code2"],
-        "headerList": [
+        "headers": [
             { "key": "idx", "title": "idx" },
-            { "key": "koreanname", "title": "국가이름(한글)" },
-            { "key": "englishname", "title": "국가이름(영어)" },
-            { "key": "code3", "title": "국가코드(3자리)" },
-            { "key": "code2", "title": "국가코드(2자리)" }
+            { "key": "koreanname", "title": "국가이름(한글)" , "filter": true},
+            { "key": "englishname", "title": "국가이름(영어)" , "filter": true},
+            { "key": "code3", "title": "국가코드(3자리)" , "filter": true},
+            { "key": "code2", "title": "국가코드(2자리)" , "filter": true}
         ]
     },
     "areacode": {
         "title": "지역 코드 관리",
         "navCtg": "package",
         "validate": ["nationcodeidx", "areacodeidx", "sidocode" , "sidoname", "areacode", "areaname"],
-        "headerList": [
+        "headers": [
             { "key": "idx", "title": "인덱스" },
-            { "key": "nationcodeidx", "title": "국가 코드" },
-            { "key": "sidocode", "title": "시도 코드" },
-            { "key": "sidoname", "title": "시도명" },
-            { "key": "areacode", "title": "지역 코드" },
-            { "key": "areaname", "title": "지역명" },
+            { "key": "nationcodeidx", "title": "국가 코드" , "filter": true},
+            { "key": "sidocode", "title": "시도 코드" , "filter": true},
+            { "key": "sidoname", "title": "시도명" , "filter": true},
+            { "key": "areacode", "title": "지역 코드" , "filter": true},
+            { "key": "areaname", "title": "지역명" , "filter": true},
             { "key": "mainpicYN", "title": "대표사진 유무" },
             { "key": "regdate", "title": "등록일" },
             { "key": "reguser", "title": "등록자" },
@@ -88,30 +89,28 @@
         "title": "구매정보 관리",
         "navCtg": "order",
         "validate": ["tourtype", "touridx", "tourdays", "tourstartday"],
-        "headerList": [
-            { "key": "date", "title": "날짜/시간" },
-            { "key": "guestId", "title": "고객" },
-            { "key": "driver", "title": "담당기사" },
-            { "key": "region", "title": "지역" },
-            { "key": "totalNum", "title": "인원" },
-            { "key": "totalPrice", "title": "결제 금액" },
-            { "key": "hours", "title": "시간" },
-            { "key": "schedule", "title": "투어 일정" },
-            { "key": "done", "title": "완료" }
+        "headers": [
+            { "key": "tourtype", "title": "투어종류" , "filter": true},
+            { "key": "tourdays", "title": "투어일수" , "filter": true },
+            { "key": "tourstartday", "title": "투어시작일", "filter": true },
+            { "key": "tourendday", "title": "투어종료일","filter": true  },
+            { "key": "tourmember", "title": "투어인원" },
+            { "key": "price", "title": "가격" },
+            { "key": "tourstarttime", "title": "투어시작시간" }
         ]
     },
     "purchasecode": {
         "title": "구매코드 조회",
         "navCtg": "order",
         "validate": ["purchasedate", "purchasetype", "price", "purchaseuser"],
-        "headerList": [
+        "headers": [
             { "key": "idx", "title": "인덱스" },
-            { "key": "purchasedate", "title": "구매일자" },
+            { "key": "purchasedate", "title": "구매일자" ,"filter": true},
             { "key": "purchasetype", "title": "구매방식" },
             { "key": "codenumber", "title": "구매코드번호" },
             { "key": "price", "title": "가격" },
 
-            { "key": "purchaseuser", "title": "구매자id" },
+            { "key": "purchaseuser", "title": "구매자id" ,"filter": true},
             { "key": "regdate", "title": "등록일" },
             { "key": "reguser", "title": "등록자" },
             { "key": "moddate", "title": "수정일" },
@@ -122,12 +121,12 @@
         "title": "알림 관리",
         "navCtg": "cs",
         "validate": ["title", "contents"],
-        "headerList": [
+        "headers": [
             { "key": "idx", "title": "인덱스" },
-            { "key": "title", "title": "제목" },
+            { "key": "title", "title": "제목" ,"filter": true},
             { "key": "target", "title": "대상 코드" },
             { "key": "linkinfo", "title": "연결페이지" },
-            { "key": "contents", "title": "내용" },
+            { "key": "contents", "title": "내용" ,"filter": true},
             { "key": "messageYN", "title": "메시지 전송여부" },
             { "key": "regdate", "title": "등록일" },
             { "key": "reguser", "title": "등록자" },
@@ -139,10 +138,10 @@
         "title": "공지사항 관리",
         "navCtg": "cs",
         "validate": ["title", "contents"],
-        "headerList": [
+        "headers": [
             { "key": "id", "title": "id" },
-            { "key": "date", "title": "날짜" },
-            { "key": "title", "title": "제목" },
+            { "key": "date", "title": "날짜" ,"filter": true},
+            { "key": "title", "title": "제목" ,"filter": true},
             { "key": "views", "title": "조회수" },
             { "key": "target", "title": "노출 범위" },
             { "key": "topFix", "title": "상단 고정" },
@@ -153,13 +152,13 @@
         "title": "문의사항 관리",
         "navCtg": "cs",
         "validate": ["title", "contactNumber", "sendEmail", "sendContent"],
-        "headerList": [
+        "headers": [
             { "key": "idx", "title": "인덱스" },
-            { "key": "userid", "title": "등록자" },
-            { "key": "email", "title": "수신 이메일" },
+            { "key": "userid", "title": "등록자" ,"filter": true},
+            { "key": "email", "title": "수신 이메일" ,"filter": true},
             { "key": "filename", "title": "첨부파일" },
-            { "key": "replyYN", "title": "답변여부" },
-            { "key": "contents", "title": "내용" },
+            { "key": "replyYN", "title": "답변여부" ,"filter": true},
+            { "key": "contents", "title": "내용" ,"filter": true},
             { "key": "regdate", "title": "등록일" },
             { "key": "reguser", "title": "등록자" },
             { "key": "moddate", "title": "수정일" },

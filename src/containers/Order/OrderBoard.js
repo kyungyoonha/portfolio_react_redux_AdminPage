@@ -7,8 +7,6 @@ import boardActions from "../../redux/actions/boardActions";
 
 // Components
 import Board from "../../components/Board/Board";
-import BoardLayout from "../../components/Board/BoardLayout";
-import BoardFooter from "../../components/Board/BoardFooter";
 import Navbar from "../../components/Navbar/Navbar";
 // import InfoTop from "./InfoTop";
 
@@ -21,7 +19,7 @@ const OrderBoard = () => {
     );
 
     useEffect(() => {
-        dispatch(boardActions.fetch(pathname + search, {}));
+        dispatch(boardActions.fetch(pathname + search));
         return () => dispatch(boardActions.initialize());
     }, [dispatch, pathname, search]);
 
@@ -48,16 +46,14 @@ const OrderBoard = () => {
                 onClickDelete={handleClickDelete}
             />
 
-            <BoardLayout>
-                {/* <InfoTop handleChangePageCtrl={handleChangePageCtrl} /> */}
-                <Board
-                    pathname={pathname}
-                    data={data}
-                    selectedId={selectedId}
-                    onClickRow={handleClickRow}
-                />
-                <BoardFooter pageCount={pageCount} pages={pages} />
-            </BoardLayout>
+            <Board
+                pathname={pathname}
+                data={data}
+                selectedId={selectedId}
+                onClickRow={handleClickRow}
+                pages={pages}
+                pageCount={pageCount}
+            />
         </React.Fragment>
     );
 };

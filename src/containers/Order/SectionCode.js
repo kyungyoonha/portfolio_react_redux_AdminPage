@@ -3,6 +3,7 @@ import Input from "../../components/Form/Input";
 import Select from "../../components/Form/Select";
 
 const PurchaseCode = ({ purchasecode, errors = {}, children }) => {
+    console.log("?", purchasecode);
     return (
         <React.Fragment>
             <tr>

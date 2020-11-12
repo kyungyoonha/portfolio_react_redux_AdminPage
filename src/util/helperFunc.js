@@ -29,7 +29,8 @@ export const changeObjToQuerystring = (object) => {
 
 export const getHeaderList = (pathname) => {
     const pageId = pathname.split("/")[2];
-    return pageConfig[pageId].headerList;
+
+    return pageConfig[pageId].headers;
 };
 
 export const changeDataFormat = (key, value) => {
@@ -47,6 +48,7 @@ export const changeDataFormat = (key, value) => {
         case "en":
             return value ? "O" : "X";
 
+        case "purchasedate":
         case "birthday":
             const date = new Date(value);
             const year = date.getFullYear();

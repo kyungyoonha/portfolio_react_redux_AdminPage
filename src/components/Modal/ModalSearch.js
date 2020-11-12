@@ -1,154 +1,95 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./ModalSearch.scss";
-
+import history from "../../history";
+// 리덕스
+import { useSelector, useDispatch } from "react-redux";
+import boardActions from "../../redux/actions/boardActions";
 // Components
-import Modal from "./Modal";
+import Modal2 from "./Modal2";
 import Board from "../../components/Board/Board";
 import FormSection from "../../components/Form/FormSection";
+import FormSearch from "../Form/FormSearch";
+import { changeObjToQuerystring } from "../../util/helperFunc";
 
-const modalStyle = {
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        marginBottom: "50px",
-        transform: "translate(-50%, -50%)",
-        width: "800px",
-        height: "550px",
+const searchMap = {
+    purchasecode: {
+        column: ["codenumber", "purchaseuser"],
+        placeholder: "구매코드 번호 또는 구매자id를 입력해주세요.",
     },
-    overlay: {
-        background: "rgba(0, 0, 0, 0.5)",
-        zIndex: "5",
+    tourpackage: {
+        column: ["tourcode", "tourname"],
+        placeholder: "관광지코드 또는 관광지명을 입력해주세요",
     },
 };
 
-const ModalSearch = ({ pathname, label, onChangeData, block }) => {
+const ModalSearch = ({ searchPath, label, onChangeData, block }) => {
+    const dispatch = useDispatch();
     const [modalOpen, setModalOpen] = useState(false);
-    const [keyword, setKeyword] = useState("");
-    const [results, setResults] = useState([]);
-    const [selectedId, setSelectedId] = useState("");
+    const [search, setSearch] = useState("");
+    const { pageCount, pages, data, selectedId } = useSelector(
+        (state) => state.board
+    );
 
-    const searchMap = {
-        purchasecode: {
-            column: ["codenumber", "purchaseuser"],
-            placeholder: "구매코드 번호 또는 구매자id를 입력해주세요.",
-        },
-        tourpackage: {
-            column: ["tourcode", "tourname"],
-            placeholder: "관광지코드 또는 관광지명을 입력해주세요",
-        },
+    useEffect(() => {
+        console.log("useeffect");
+        dispatch(boardActions.fetch(searchPath));
+        return () => dispatch(boardActions.initialize());
+    }, [dispatch, searchPath]);
+
+    const handleClickRow = (idx) => {
+        dispatch(boardActions.selected(idx));
     };
 
     const handleClickSearch = async () => {
-        // if (!keyword) return;
-        const pageId = pathname.split("/")[2];
-        const res = await axios.get(pathname);
-        console.log(res);
-        const result = res.data.data.filter(
-            (item) =>
-                item[searchMap[pageId].column[0]]
-                    .toLowerCase()
-                    .indexOf(keyword) > -1 ||
-                item[searchMap[pageId].column[1]]
-                    .toLowerCase()
-                    .indexOf(keyword) > -1
-        );
-
-        setResults(result);
+        const query = changeObjToQuerystring({ search });
+        dispatch(boardActions.fetch(searchPath + query));
     };
-
-    const handleClickRow = (idx) => {
-        setSelectedId(selectedId === idx ? "" : idx);
-    };
-
     const handleClickSave = () => {
-        if (selectedId) {
-            onChangeData(results.find((item) => item.idx === selectedId));
-            setModalOpen(false);
-            setResults([]);
-            setKeyword("");
-            setSelectedId("");
-        }
+        // if (selectedId) {
+        //     onChangeData(results.find((item) => item.idx === selectedId));
+        //     setModalOpen(false);
+        //     setResults([]);
+        //     setKeyword("");
+        //     setSelectedId("");
+        // }
     };
-
+    const handleChange = (e) => setSearch(e.target.value);
+    console.log(search);
     return (
         <React.Fragment>
-            <div>
-                <button
-                    type="button"
-                    className={`btn btn-primary ${block && "btn-block"}`}
-                    onClick={() => setModalOpen(true)}
-                >
-                    {label + "  "}
-                    <i className="fas fa-search"></i>
-                </button>
-            </div>
-            <Modal
-                isModalOpen={modalOpen}
-                modalStyle={modalStyle}
-                handleModalClose={() => setModalOpen(false)}
+            <button
+                type="button"
+                className={`btn btn-primary ${block && "btn-block"}`}
+                onClick={() => setModalOpen(true)}
             >
-                <div className="modalSearch">
-                    <div className="modalSearch__title">
-                        <h4>{label}</h4>
-                        <button
-                            className="btn btn-primary"
-                            type="button"
-                            onClick={handleClickSave}
-                        >
-                            사용하기
-                        </button>
-                    </div>
-                    <div className="modalSearch__body">
-                        <FormSection full title={label}>
-                            {/* <Input
-                                label={label}
-                                value={keyword}
-                                onChange={(e) =>
-                                    setKeyword(e.target.value.toLowerCase())
-                                }
-                                placeholder={searchMap[searchId].placeholder}
-                            /> */}
-                            <tr>
-                                <td className="input-group">
-                                    <input
-                                        type="input"
-                                        value={keyword}
-                                        className="form-control"
-                                        onChange={(e) =>
-                                            setKeyword(e.target.value)
-                                        }
-                                    />
-                                    <div
-                                        className="input-group-append"
-                                        onClick={handleClickSearch}
-                                    >
-                                        <button
-                                            className="btn btn-outline-primary"
-                                            type="button"
-                                        >
-                                            검색{" "}
-                                            <i className="fas fa-map-search "></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        </FormSection>
-                        <br />
-                        <div className="modalSearch__board">
-                            <Board
-                                pathname={pathname}
-                                data={results}
-                                selectedId={selectedId}
-                                onClickRow={handleClickRow}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </Modal>
+                {label + "  "}
+                <i className="fas fa-search"></i>
+            </button>
+            <Modal2
+                title="구매코드 검색"
+                isModalOpen={modalOpen}
+                onClick={handleClickSave}
+                onClickClose={() => setModalOpen(false)}
+            >
+                <FormSection full title={label}>
+                    <FormSearch
+                        value={search}
+                        onChange={handleChange}
+                        onClick={handleClickSearch}
+                    />
+                </FormSection>
+                <br />
+                <Board
+                    noStyle
+                    pathname={searchPath}
+                    data={data}
+                    selectedId={selectedId}
+                    onClickRow={handleClickRow}
+                    pages={pages}
+                    pageCount={pageCount}
+                />
+            </Modal2>
         </React.Fragment>
     );
 };

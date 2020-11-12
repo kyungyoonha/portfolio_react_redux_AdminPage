@@ -1,9 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import history from "../../history";
+import { validateAll, validateInfo } from "../../util/validate";
 
 // redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
+import { useDispatch } from "react-redux";
+import boardActions from "../../redux/actions/boardActions";
+
+import useInputs from "../../Hooks/useInputs";
+
 // containers
 import SectionTour from "../../containers/Order/SectionTour";
 import SectionCode from "../../containers/Order/SectionCode";
@@ -16,7 +20,6 @@ import RadioSingle from "../../components/Form/RadioSingle";
 import ModalSearch from "../../components/Modal/ModalSearch";
 import InputNumRange from "../../components/Form/InputNumRange";
 import InputTime from "../../components/Form/InputTime";
-import ReactSelect from "../../components/Form/ReactSelect";
 
 const initialValue = {
     tourtype: "",
@@ -42,41 +45,32 @@ const initialValuePurchasecode = {
 //working ###
 // ModalSearch
 const OrderFormPurchase = ({ match }) => {
+    const pageId = match.url.split("/")[2];
+    const { pathname } = history.location;
     const dispatch = useDispatch();
-    const [purchCode, setPurchCode] = useState(initialValuePurchasecode);
-    const [purchTour, setPurchTour] = useState([]);
-    let { inputs, errors } = useSelector((state) => state.form);
+    const [errors, setErrors] = useState({});
+    const [purchasetour, setPurchasetour] = useState([]);
+    const [purchasecode, setPurchasecode] = useState(initialValuePurchasecode);
+    const [inputs, setInputs, handleChangeInputs] = useInputs(
+        initialValue,
+        validateInfo,
+        setErrors
+    );
 
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
+    const handlePurchasecode = (code) => setPurchasecode(code);
+    const handlePurchasetour = (tour) =>
+        setPurchasetour((state) => [...state, tour]);
+    const handleClickInsert = () => {
+        const { isValid, checkedErrors } = validateAll(inputs, validateInfo);
 
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
-    };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        if (!inputs.license) {
-            alert("면허증 이미지를 추가해주세요.");
-            return;
+        if (isValid) {
+            console.log("에러 없음");
+            dispatch(boardActions.update(pageId, inputs));
+            setInputs(initialValue);
+        } else {
+            setErrors(checkedErrors);
         }
-        const fileList = ["driverpic", "car", "license"];
-        dispatch(formActions.submit(inputs, fileList));
     };
-
-    const handleChangePurchCode = (e) => {
-        setPurchCode(e.target.idx);
-    };
-
-    const handleChangePurchTour = (data) => {
-        setPurchTour((state) => [...state, data]);
-    };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
 
     return (
         <FormLayout
@@ -160,19 +154,19 @@ const OrderFormPurchase = ({ match }) => {
             </FormSection>
 
             <FormSection>
-                <SectionCode purchasecode={purchCode}>
+                <SectionCode purchasecode={purchasecode}>
                     <ModalSearch
                         searchPath="/order/purchasecode"
                         label="구매코드검색"
-                        onChangeData={handleChangePurchCode}
+                        onChangeData={handlePurchasecode}
                     />
                 </SectionCode>
 
-                <SectionTour purchasetour={purchTour}>
+                <SectionTour purchasetour={purchasetour}>
                     <ModalSearch
                         searchPath="/package/tour"
                         label="관광지 추가"
-                        onChangeData={handleChangePurchTour}
+                        onChangeData={handlePurchasetour}
                     />
                 </SectionTour>
             </FormSection>
