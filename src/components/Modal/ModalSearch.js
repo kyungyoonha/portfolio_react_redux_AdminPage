@@ -1,38 +1,20 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./ModalSearch.scss";
-import history from "../../history";
+import React, { useEffect } from "react";
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import boardActions from "../../redux/actions/boardActions";
 // Components
-import Modal2 from "./Modal2";
+import Modal from "./Modal";
 import Board from "../../components/Board/Board";
-import FormSection from "../../components/Form/FormSection";
-import FormSearch from "../Form/FormSearch";
-import { changeObjToQuerystring } from "../../util/helperFunc";
+import useOpen from "../../Hooks/useOpen";
 
-const searchMap = {
-    purchasecode: {
-        column: ["codenumber", "purchaseuser"],
-        placeholder: "구매코드 번호 또는 구매자id를 입력해주세요.",
-    },
-    tourpackage: {
-        column: ["tourcode", "tourname"],
-        placeholder: "관광지코드 또는 관광지명을 입력해주세요",
-    },
-};
-
-const ModalSearch = ({ searchPath, label, onChangeData, block }) => {
+const ModalSearch = ({ searchPath, label, onChange }) => {
     const dispatch = useDispatch();
-    const [modalOpen, setModalOpen] = useState(false);
-    const [search, setSearch] = useState("");
+    const [isOpen, onClickOpen, onClickClose] = useOpen();
     const { pageCount, pages, data, selectedId } = useSelector(
         (state) => state.board
     );
 
     useEffect(() => {
-        console.log("useeffect");
         dispatch(boardActions.fetch(searchPath));
         return () => dispatch(boardActions.initialize());
     }, [dispatch, searchPath]);
@@ -41,55 +23,46 @@ const ModalSearch = ({ searchPath, label, onChangeData, block }) => {
         dispatch(boardActions.selected(idx));
     };
 
-    const handleClickSearch = async () => {
-        const query = changeObjToQuerystring({ search });
+    const handleClickSearch = (query) => {
         dispatch(boardActions.fetch(searchPath + query));
     };
     const handleClickSave = () => {
-        // if (selectedId) {
-        //     onChangeData(results.find((item) => item.idx === selectedId));
-        //     setModalOpen(false);
-        //     setResults([]);
-        //     setKeyword("");
-        //     setSelectedId("");
-        // }
+        if (!selectedId) {
+            alert("사용할 행을 선택해주세요");
+            return;
+        }
+
+        onChange(data.find((item) => item.idx === selectedId));
+        onClickClose();
+        dispatch(boardActions.initialize());
     };
-    const handleChange = (e) => setSearch(e.target.value);
-    console.log(search);
+
     return (
         <React.Fragment>
             <button
                 type="button"
-                className={`btn btn-primary ${block && "btn-block"}`}
-                onClick={() => setModalOpen(true)}
+                className="btn btn-primary"
+                onClick={onClickOpen}
             >
                 {label + "  "}
                 <i className="fas fa-search"></i>
             </button>
-            <Modal2
+            <Modal
                 title="구매코드 검색"
-                isModalOpen={modalOpen}
+                isOpen={isOpen}
                 onClick={handleClickSave}
-                onClickClose={() => setModalOpen(false)}
+                onClickClose={onClickClose}
             >
-                <FormSection full title={label}>
-                    <FormSearch
-                        value={search}
-                        onChange={handleChange}
-                        onClick={handleClickSearch}
-                    />
-                </FormSection>
-                <br />
                 <Board
-                    noStyle
-                    pathname={searchPath}
                     data={data}
-                    selectedId={selectedId}
-                    onClickRow={handleClickRow}
                     pages={pages}
                     pageCount={pageCount}
+                    pathname={searchPath}
+                    selectedId={selectedId}
+                    onClickRow={handleClickRow}
+                    onClickSearch={handleClickSearch}
                 />
-            </Modal2>
+            </Modal>
         </React.Fragment>
     );
 };

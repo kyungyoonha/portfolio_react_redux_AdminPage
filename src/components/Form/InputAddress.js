@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import useOpen from "../../Hooks/useOpen";
 import Map from "../Google/Map";
 
 const InputAddress = ({
@@ -10,7 +11,7 @@ const InputAddress = ({
     errors = {},
     disabled,
 }) => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [isOpen, onClickOpen, onClickClose] = useOpen();
     const handleChangeInput = (address) => {
         const { addr, lat, lng } = address;
         onChange({ target: { name: "address", value: addr } });
@@ -19,8 +20,8 @@ const InputAddress = ({
     };
 
     const handleClickOpen = () => {
-        setModalOpen(true);
         handleChangeInput({ addr: "", lat: "", lng: "" });
+        onClickOpen();
     };
 
     return (
@@ -60,8 +61,8 @@ const InputAddress = ({
 
                 <Map
                     id="myMap"
-                    modalOpen={modalOpen}
-                    handleCloseModal={() => setModalOpen(false)}
+                    isOpen={isOpen}
+                    onClickClose={onClickClose}
                     onChange={handleChangeInput}
                     options={{
                         center: {

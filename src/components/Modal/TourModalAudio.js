@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./TourModalAudio.scss";
-import { validateAll, validateAudio } from "../../util/validate";
+import { validate, validateAll222 } from "../../util/validate";
 import Modal from "./Modal";
-import useInputs from "../../Hooks/useInputs";
+import useOpen from "../../Hooks/useOpen";
 
 // components
 import FormSection from "../../components/Form/FormSection";
@@ -28,39 +28,36 @@ const initialValue = {
     moduser: "",
 };
 
-const TourModalAudio = ({ title, handleChangeAudio }) => {
-    const [openModal, setOpenModal] = useState(false);
+const TourModalAudio = ({ title, onChange }) => {
+    const [isOpen, onClickOpen, onClickClose] = useOpen();
+    const [inputs, setInputs] = useState(initialValue);
     const [errors, setErrors] = useState({});
 
-    const [inputs, setInputs, handleChangeInputs] = useInputs(
-        initialValue,
-        validateAudio,
-        setErrors
-    );
+    const handleChangeInputs = (e) => {
+        const { name, value, type, files } = e.target;
+        const error = validate("audios", name, value);
 
-    const handleModalOpen = () => setOpenModal(true);
-    const handleModalClose = () => setOpenModal(false);
+        setErrors((state) => ({
+            ...state,
+            [name]: error,
+        }));
+
+        type === "file"
+            ? setInputs((state) => ({ ...state, [name]: files }))
+            : setInputs((state) => ({ ...state, [name]: value }));
+    };
     const handleClickSave = () => {
-        const { isValid, checkedErrors } = validateAll(inputs, validateAudio);
-
+        const { isValid, checkedErrors } = validateAll222(
+            "/modal/audios",
+            inputs
+        );
         if (isValid) {
-            console.log("에러 없음");
-
-            handleChangeAudio(inputs);
+            onChange(inputs);
             setInputs(initialValue);
-            handleModalClose();
+            onClickClose();
         } else {
             setErrors(checkedErrors);
         }
-    };
-
-    const handleChangeFile = (e) => {
-        const file = e.target.files[0];
-        setInputs((state) => ({
-            ...state,
-            audiofilename: file.name,
-            audiofilepath: file,
-        }));
     };
 
     return (
@@ -68,94 +65,80 @@ const TourModalAudio = ({ title, handleChangeAudio }) => {
             <button
                 type="button"
                 className="btn btn-primary btn-sm mt-2"
-                onClick={handleModalOpen}
+                onClick={onClickOpen}
             >
                 {title}
             </button>
 
-            <Modal isModalOpen={openModal} handleModalClose={handleModalClose}>
-                <h4>오디오 가이드 추가하기</h4>
-                <div className="tourModalAudio">
-                    <div className="tourModalAudio__buttonContainer">
-                        <button
-                            type="button"
-                            className="btn btn-outline-primary"
-                            onClick={handleClickSave}
-                        >
-                            저장
-                        </button>
-                        <button
-                            type="button"
-                            className="btn btn-outline-secondary"
-                            onClick={handleModalClose}
-                        >
-                            닫기
-                        </button>
-                    </div>
-                    <br />
-                    <form>
-                        <FormSection full title="오디오 추가">
-                            <Input
-                                label="스크립트명"
-                                name="scripttitle"
-                                value={inputs.scripttitle}
-                                onChange={handleChangeInputs}
-                                errors={errors}
-                            />
-                            <Textarea
-                                label="스크립트 내용"
-                                name="scriptcontents"
-                                value={inputs.scriptcontents}
-                                onChange={handleChangeInputs}
-                                rows={8}
-                            />
-                            <Select
-                                label="스크립트 언어"
-                                name="scriptlanguage"
-                                value={inputs.scriptlanguage}
-                                onChange={handleChangeInputs}
-                                errors={errors}
-                                options={[
-                                    { value: "한글", title: "한글" },
-                                    { value: "영어", title: "영어" },
-                                    { value: "일본어", title: "일본어" },
-                                    { value: "중국어", title: "중국어" },
-                                ]}
-                            />
-                            <InputFile
-                                label="오디오파일"
-                                name="audiofile"
-                                value={inputs.audiofile}
-                                filename={inputs.audiofilename}
-                                onChange={handleChangeFile}
-                                filetype="audio"
-                            />
-                            <Select
-                                label="오디오파일 언어"
-                                name="audiolanguage"
-                                value={inputs.audiolanguage}
-                                onChange={handleChangeInputs}
-                                errors={errors}
-                                options={[
-                                    { value: "한글", title: "한글" },
-                                    { value: "영어", title: "영어" },
-                                    { value: "일본어", title: "일본어" },
-                                    { value: "중국어", title: "중국어" },
-                                ]}
-                            />
-                            <RadioSingle
-                                label="대표오디오 여부"
-                                name="mainaudioYN"
-                                value={inputs.mainaudioYN}
-                                onChange={handleChangeInputs}
-                                options={[
-                                    { value: "Y", title: "Y" },
-                                    { value: "N", title: "N" },
-                                ]}
-                            />
-                        </FormSection>
-                    </form>
-                </div>
+            <Modal
+                title="구매코드 검색"
+                isOpen={isOpen}
+                onClick={handleClickSave}
+                onClickClose={onClickClose}
+            >
+                <form>
+                    <FormSection full title="오디오 추가">
+                        <Input
+                            label="스크립트명"
+                            name="scripttitle"
+                            value={inputs.scripttitle}
+                            onChange={handleChangeInputs}
+                            errors={errors}
+                        />
+                        <Textarea
+                            label="스크립트 내용"
+                            name="scriptcontents"
+                            value={inputs.scriptcontents}
+                            onChange={handleChangeInputs}
+                            errors={errors}
+                            rows={8}
+                        />
+                        <Select
+                            label="스크립트 언어"
+                            name="scriptlanguage"
+                            value={inputs.scriptlanguage}
+                            onChange={handleChangeInputs}
+                            errors={errors}
+                            options={[
+                                { value: "한글", title: "한글" },
+                                { value: "영어", title: "영어" },
+                                { value: "일본어", title: "일본어" },
+                                { value: "중국어", title: "중국어" },
+                            ]}
+                        />
+                        <InputFile // Done
+                            label="오디오 파일"
+                            name="audiofile"
+                            value={inputs.audiofile}
+                            // filename={inputs.audiofilename}
+                            onChange={handleChangeInputs}
+                            filetype="audio"
+                        />
+                        <Select
+                            label="오디오파일 언어"
+                            name="audiolanguage"
+                            value={inputs.audiolanguage}
+                            onChange={handleChangeInputs}
+                            errors={errors}
+                            options={[
+                                { value: "한글", title: "한글" },
+                                { value: "영어", title: "영어" },
+                                { value: "일본어", title: "일본어" },
+                                { value: "중국어", title: "중국어" },
+                            ]}
+                        />
+                        <RadioSingle
+                            label="대표오디오 여부"
+                            name="mainaudioYN"
+                            value={inputs.mainaudioYN}
+                            onChange={handleChangeInputs}
+                            options={[
+                                { value: "Y", title: "Y" },
+                                { value: "N", title: "N" },
+                            ]}
+                        />
+                    </FormSection>
+                </form>
             </Modal>
         </div>
     );

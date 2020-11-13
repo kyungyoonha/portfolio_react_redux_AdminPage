@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import history from "../../history";
-
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import formActions from "../../redux/actions/formActions";
@@ -13,10 +12,8 @@ import FormSection from "../../components/Form/FormSection";
 import Input from "../../components/Form/Input";
 import InputDate from "../../components/Form/InputDate";
 import RadioSingle from "../../components/Form/RadioSingle";
-import ModalSearch from "../../components/Modal/ModalSearch";
 import InputNumRange from "../../components/Form/InputNumRange";
 import InputTime from "../../components/Form/InputTime";
-import ReactSelect from "../../components/Form/ReactSelect";
 
 const initialValue = {
     tourtype: "",
@@ -28,22 +25,22 @@ const initialValue = {
     price: "",
     tourstarttime: "",
     userid: "",
-    purchasecode: "",
+    purchasecodeidx: "",
 };
 
-const initialValuePurchasecode = {
+const initialPurchCode = {
+    idx: "",
     purchasedate: "",
     purchasetype: "",
     codenumber: "",
     price: "",
     purchaseuser: "",
 };
-
 //working ###
 // ModalSearch
-const OrderFormPurchase = ({ match }) => {
+const OrderFormPurchase = () => {
     const dispatch = useDispatch();
-    const [purchCode, setPurchCode] = useState(initialValuePurchasecode);
+    const [purchCode, setPurchCode] = useState(initialPurchCode);
     const [purchTour, setPurchTour] = useState([]);
     let { inputs, errors } = useSelector((state) => state.form);
 
@@ -62,12 +59,24 @@ const OrderFormPurchase = ({ match }) => {
             alert("면허증 이미지를 추가해주세요.");
             return;
         }
-        const fileList = ["driverpic", "car", "license"];
-        dispatch(formActions.submit(inputs, fileList));
+        dispatch(
+            formActions.submit({
+                inputs,
+                fileList: ["driverpic", "car", "license"],
+            })
+        );
     };
 
-    const handleChangePurchCode = (e) => {
-        setPurchCode(e.target.idx);
+    const handleChangePurchCode = (data) => {
+        setPurchCode(data);
+        dispatch(
+            formActions.changeValue({
+                target: {
+                    name: "purchasecodeidx",
+                    value: data.idx,
+                },
+            })
+        );
     };
 
     const handleChangePurchTour = (data) => {
@@ -77,7 +86,6 @@ const OrderFormPurchase = ({ match }) => {
     if (!Object.keys(inputs).length) {
         inputs = initialValue;
     }
-
     return (
         <FormLayout
             onClickInsert={handleClickInsert}
@@ -153,28 +161,26 @@ const OrderFormPurchase = ({ match }) => {
                 <Input
                     label="구매 코드"
                     name="purchasecode"
-                    value={inputs.purchasecode}
+                    value={inputs.purchasecodeidx}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
             </FormSection>
 
             <FormSection>
-                <SectionCode purchasecode={purchCode}>
-                    <ModalSearch
-                        searchPath="/order/purchasecode"
-                        label="구매코드검색"
-                        onChangeData={handleChangePurchCode}
-                    />
-                </SectionCode>
+                <SectionCode
+                    label="구매코드검색"
+                    searchPath="/order/purchasecode"
+                    data={purchCode}
+                    onChange={handleChangePurchCode}
+                />
 
-                <SectionTour purchasetour={purchTour}>
-                    <ModalSearch
-                        searchPath="/package/tour"
-                        label="관광지 추가"
-                        onChangeData={handleChangePurchTour}
-                    />
-                </SectionTour>
+                <SectionTour
+                    label="관광지 추가"
+                    searchPath="/package/tour"
+                    onChange={handleChangePurchTour}
+                    data={purchTour}
+                />
             </FormSection>
         </FormLayout>
     );

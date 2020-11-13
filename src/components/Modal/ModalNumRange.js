@@ -24,7 +24,7 @@ const modalStyle = {
     },
 };
 
-const ModalNumRange = ({ modalOpen, onChange, handleCloseModal }) => {
+const ModalNumRange = ({ isOpen, onChange, onClickClose }) => {
     const [error, setError] = useState("시간을 선택해주세요.");
     const [minNum, setMinNum] = useState("1");
     const [maxNum, setMaxNum] = useState("1");
@@ -42,7 +42,7 @@ const ModalNumRange = ({ modalOpen, onChange, handleCloseModal }) => {
     const handleClickSave = () => {
         if (!error) {
             onChange(minNum + "명 ~ " + maxNum + "명");
-            handleCloseModal();
+            onClickClose();
         } else {
             setError("시간을 다시 선택해주세요.");
         }
@@ -50,10 +50,10 @@ const ModalNumRange = ({ modalOpen, onChange, handleCloseModal }) => {
 
     return (
         <ReactModal
-            isOpen={modalOpen}
+            isOpen={isOpen}
             contentLabel="Minimal Modal Example"
             style={modalStyle}
-            onRequestClose={handleCloseModal}
+            onRequestClose={onClickClose}
         >
             <div className="modalNumRange">
                 <div className="modalNumRange__title">
@@ -100,7 +100,7 @@ const ModalNumRange = ({ modalOpen, onChange, handleCloseModal }) => {
                 <button
                     type="button"
                     className="btn btn-secondary float-right"
-                    onClick={handleCloseModal}
+                    onClick={onClickClose}
                 >
                     닫기
                 </button>

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { authAction_logout } from "../../redux/actions/authActions";
 import navConfig from "../../siteConfig/navConfig";
 
-const Sidebar = ({ isOpen, handleClickOpen }) => {
+const Sidebar = ({ isOpen, onClick }) => {
     const navList = ["dashboard", "member", "package", "order", "cs"];
     const dispatch = useDispatch();
     const { email, username } = useSelector((state) => state.auth.user);
@@ -18,7 +18,7 @@ const Sidebar = ({ isOpen, handleClickOpen }) => {
             <div className="sidebar__menu">
                 <i
                     className="sidebar__close fas fa-times "
-                    onClick={() => handleClickOpen()}
+                    onClick={onClick}
                 ></i>
 
                 <div className="sidebar__user">

@@ -34,13 +34,12 @@ const CSFormPush = () => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formActions.submit(inputs));
+        dispatch(formActions.submit({ inputs }));
     };
 
     if (!Object.keys(inputs).length) {
         inputs = initialValue;
     }
-    console.log(errors);
     return (
         <FormLayout
             onClickInsert={handleClickInsert}

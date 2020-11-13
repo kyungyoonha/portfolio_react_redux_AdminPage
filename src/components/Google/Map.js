@@ -1,24 +1,6 @@
 import React, { useState, useCallback } from "react";
-import ReactModal from "react-modal";
+import Modal from "../Modal/Modal";
 import "./Map.scss";
-
-const modalStyle = {
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        marginBottom: "50px",
-        transform: "translate(-50%, -50%)",
-        width: "400px",
-        height: "550px",
-    },
-    overlay: {
-        background: "rgba(0, 0, 0, 0.5)",
-        zIndex: "5",
-    },
-};
 
 const initialValue = {
     addr: "",
@@ -26,7 +8,7 @@ const initialValue = {
     lng: "",
 };
 
-const Map = ({ id, options, modalOpen, handleCloseModal, onChange }) => {
+const Map = ({ id, options, isOpen, onClickClose, onChange }) => {
     const inputId = "map_input";
     const [address, setAddress] = useState(initialValue);
 
@@ -124,28 +106,18 @@ const Map = ({ id, options, modalOpen, handleCloseModal, onChange }) => {
             ? alert("장소를 선택해주세요.")
             : onChange(address);
 
-        handleCloseModal();
+        onClickClose();
     };
 
     return (
-        <ReactModal
-            isOpen={modalOpen}
-            contentLabel="Minimal Modal Example"
-            style={modalStyle}
-            onRequestClose={handleCloseModal}
+        <Modal
+            title="주소 검색"
+            isOpen={isOpen}
+            onClick={handleClickSave}
+            onClickClose={onClickClose}
             onAfterOpen={initGooglMapAPI}
         >
             <div className="map">
-                <div className="map__title">
-                    <h4>주소 검색</h4>
-                    <button
-                        className="btn btn-secondary"
-                        type="button"
-                        onClick={handleClickSave}
-                    >
-                        사용하기
-                    </button>
-                </div>
                 <div className="map__searchBox">
                     <input
                         id={inputId}
@@ -162,19 +134,13 @@ const Map = ({ id, options, modalOpen, handleCloseModal, onChange }) => {
                     />
                     <i
                         className="fas fa-times"
-                        onClick={() =>
-                            setAddress({
-                                addr: "",
-                                lat: "",
-                                lng: "",
-                            })
-                        }
+                        onClick={() => setAddress(initialValue)}
                     ></i>
                     <i className="fas fa-search"></i>
                 </div>
                 <div id={id} className="map__display" />
             </div>
-        </ReactModal>
+        </Modal>
     );
 };
 

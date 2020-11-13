@@ -1,10 +1,10 @@
 .formImageList__mainImg {
     position: relative;
     img {
-        min-height: 350px;
+        min-height: 300px;
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        height: 300px;
+        object-fit: contain;
     }
 
     .formImageList__title {
@@ -13,9 +13,12 @@
     }
 
     .formImageList__label {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+        position: relative;
+        h3 {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     }
 }
 
@@ -30,6 +33,6 @@
     img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
     }
 }

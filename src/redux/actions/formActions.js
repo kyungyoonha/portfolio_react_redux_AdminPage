@@ -67,14 +67,15 @@ const changeValue = (e) => async (dispatch, getState) => {
 };
 
 // 폼 제출시
-const submit = (inputs, fileList = [], multi = false) => async (
-    dispatch,
-    getState
-) => {
+const submit = ({
+    inputs,
+    fileList = [],
+    multi = false,
+    goBack = true,
+}) => async (dispatch, getState) => {
     try {
         const { apiurl } = getState().form;
         const { isValid, checkedErrors } = validateAll222(apiurl, inputs);
-
         if (!isValid) {
             dispatch({ type: FORM_ERRORS, payload: checkedErrors });
             return;
@@ -84,19 +85,20 @@ const submit = (inputs, fileList = [], multi = false) => async (
         const sendData = fileList.length
             ? changeInputToFormData(inputs, fileList, multi)
             : inputs;
-
         // for (var key of sendData.entries()) {
         //     console.log(key[0] + ", " + key[1]);
         // }
-
         let pathadd = inputs.idx ? "update" : "insert";
         let res = await api.post(`${apiurl}/${pathadd}`, sendData);
-
         // dispatch({
         //     type: inputs.idx ? BOARD_UPDATE : BOARD_INSERT,
         //     payload: res.data,
         // });
-        history.goBack();
+        if (goBack) {
+            history.goBack();
+        }
+
+        return res;
     } catch (e) {
         console.log(e);
         e.response && toast.error(e.response.data.error);

@@ -22,7 +22,7 @@ const modalStyle = {
     },
 };
 
-const TimePicker = ({ modalOpen, onChange, handleCloseModal }) => {
+const TimePicker = ({ isOpen, onChange, onClickClose }) => {
     const [error, setError] = useState("시간을 선택해주세요.");
 
     const [startTime, setStartTime] = useState("");
@@ -44,7 +44,7 @@ const TimePicker = ({ modalOpen, onChange, handleCloseModal }) => {
                     " - " +
                     moment(endTime).format("h:mm a")
             );
-            handleCloseModal();
+            onClickClose();
         } else {
             setError("시간을 다시 선택해주세요.");
         }
@@ -52,10 +52,10 @@ const TimePicker = ({ modalOpen, onChange, handleCloseModal }) => {
 
     return (
         <ReactModal
-            isOpen={modalOpen}
+            isOpen={isOpen}
             contentLabel="Minimal Modal Example"
             style={modalStyle}
-            onRequestClose={handleCloseModal}
+            onRequestClose={onClickClose}
         >
             <div className="timePicker">
                 <div className="timePicker__title">
@@ -109,7 +109,7 @@ const TimePicker = ({ modalOpen, onChange, handleCloseModal }) => {
                 <button
                     type="button"
                     className="btn btn-secondary float-right"
-                    onClick={handleCloseModal}
+                    onClick={onClickClose}
                 >
                     닫기
                 </button>

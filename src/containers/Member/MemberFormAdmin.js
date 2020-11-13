@@ -47,7 +47,7 @@ const MemberFormAdmin = () => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formActions.submit(inputs));
+        dispatch(formActions.submit({ inputs }));
     };
 
     if (!Object.keys(inputs).length) {

@@ -4,19 +4,16 @@ import "./Layout.scss";
 // containers
 import Sidebar from "../components/Sidebar/Sidebar";
 import Header from "../components/Header/Header";
+import useOpen from "../Hooks/useOpen";
 
-const Layout = ({ route, children }) => {
-    const [isOpen, setIsOpen] = useState(false);
-
-    const handleClickOpen = () => {
-        setIsOpen((state) => !state);
-    };
+const Layout = ({ children }) => {
+    const [isOpen, onClickOpen] = useOpen();
 
     return (
         <div className="layout">
-            <Header handleClickOpen={handleClickOpen} />
+            <Header onClick={onClickOpen} />
             <div className="layout__body">
-                <Sidebar isOpen={isOpen} handleClickOpen={handleClickOpen} />
+                <Sidebar isOpen={isOpen} onClick={onClickOpen} />
                 <div className="layout__content">{children}</div>
             </div>
         </div>

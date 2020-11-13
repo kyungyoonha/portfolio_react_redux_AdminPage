@@ -24,7 +24,6 @@ const initialValue = {
 const CSFormNotice = () => {
     const dispatch = useDispatch();
     let { inputs, errors } = useSelector((state) => state.form);
-
     useEffect(() => {
         dispatch(formActions.init(initialValue));
         return () => dispatch(formActions.initialize());
@@ -36,7 +35,12 @@ const CSFormNotice = () => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(formActions.submit(inputs, ["file"]));
+        dispatch(
+            formActions.submit({
+                inputs,
+                fileList: ["file"],
+            })
+        );
     };
 
     if (!Object.keys(inputs).length) {

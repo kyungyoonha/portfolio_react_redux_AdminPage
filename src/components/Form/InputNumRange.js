@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
+import useOpen from "../../Hooks/useOpen";
 import ModalNumRange from "../Modal/ModalNumRange";
 
 const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
-    const [modalOpen, setModalOpen] = useState(false);
+    const [isOpen, onClickOpen, onClickClose] = useOpen();
     const handleChangeInput = (value) => {
         onChange({
             target: {
@@ -13,8 +14,8 @@ const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
     };
 
     const handleClickOpen = () => {
-        setModalOpen(true);
         handleChangeInput("");
+        onClickOpen();
     };
 
     return (
@@ -55,8 +56,8 @@ const InputNumRange = ({ value, onChange, errors = {}, disabled }) => {
                 </div>
 
                 <ModalNumRange
-                    modalOpen={modalOpen}
-                    handleCloseModal={() => setModalOpen(false)}
+                    isOpen={isOpen}
+                    onClickClose={onClickClose}
                     onChange={handleChangeInput}
                 />
             </td>

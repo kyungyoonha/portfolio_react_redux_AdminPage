@@ -18,7 +18,6 @@ const MemberBoard = () => {
     );
 
     useEffect(() => {
-        console.log(pathname, search);
         dispatch(boardActions.fetch(pathname + search));
         return () => dispatch(boardActions.initialize());
     }, [dispatch, pathname, search]);
@@ -39,6 +38,10 @@ const MemberBoard = () => {
         }
     };
 
+    const handleClickSearch = (query) => {
+        history.push(pathname + query);
+    };
+
     return (
         <React.Fragment>
             <Navbar
@@ -47,12 +50,13 @@ const MemberBoard = () => {
             />
 
             <Board
-                pathname={pathname}
                 data={data}
-                selectedId={selectedId}
-                onClickRow={handleClickRow}
                 pages={pages}
                 pageCount={pageCount}
+                pathname={pathname}
+                selectedId={selectedId}
+                onClickRow={handleClickRow}
+                onClickSearch={handleClickSearch}
             />
         </React.Fragment>
     );

@@ -1,33 +1,36 @@
 import React from "react";
 import Input from "../../components/Form/Input";
 import Select from "../../components/Form/Select";
+import ModalSearch from "../../components/Modal/ModalSearch";
 
-const PurchaseCode = ({ purchasecode, errors = {}, children }) => {
-    console.log("?", purchasecode);
+const PurchaseCode = ({ label, searchPath, data, onChange }) => {
     return (
         <React.Fragment>
             <tr>
-                <td colSpan="2">{children}</td>
+                <td colSpan="2">
+                    <ModalSearch
+                        label={label}
+                        searchPath={searchPath}
+                        onChange={onChange}
+                    />
+                </td>
             </tr>
             <Input
                 label="구매코드"
                 name="idx"
-                value={purchasecode.idx}
-                errors={errors}
+                value={data.idx}
                 disabled={true}
             />
             <Input
                 label="구매일자"
                 name="purchasedate"
-                value={purchasecode.purchasedate}
-                errors={errors}
+                value={data.purchasedate}
                 disabled={true}
             />
             <Select
                 label="구매방식"
                 name="purchasetype"
-                value={purchasecode.purchasetype}
-                errors={errors}
+                value={data.purchasetype}
                 disabled={true}
                 options={[
                     { value: "1", title: "직접구매" },
@@ -37,22 +40,19 @@ const PurchaseCode = ({ purchasecode, errors = {}, children }) => {
             <Input
                 label="구매코드번호"
                 name="codenumber"
-                value={purchasecode.codenumber}
-                errors={errors}
+                value={data.codenumber}
                 disabled={true}
             />
             <Input
                 label="가격"
                 name="price"
-                value={purchasecode.price}
-                errors={errors}
+                value={data.price}
                 disabled={true}
             />
             <Input
                 label="구매자id"
                 name="purchaseuser"
-                value={purchasecode.purchaseuser}
-                errors={errors}
+                value={data.purchaseuser}
                 disabled={true}
             />
         </React.Fragment>

@@ -170,5 +170,8 @@
     },
     "sendEmail": {
         "validate": ["title", "hiddenStatus", "sendEmail", "sendContent"]
+    },
+    "audios": {
+        "validate": ["scripttitle", "scriptcontents"]
     }
 }

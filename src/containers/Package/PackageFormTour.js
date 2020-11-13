@@ -4,26 +4,24 @@ import history from "../../history";
 import { useDispatch, useSelector } from "react-redux";
 import formActions from "../../redux/actions/formActions";
 // Components
-import TourModalAudio from "../../components/Modal/TourModalAudio";
-import TourModalImage from "../../components/Modal/TourModalImage";
 import FormLayout from "../../components/Form/FormLayout";
 import FormSection from "../../components/Form/FormSection";
 import Input from "../../components/Form/Input";
 import RadioSingle from "../../components/Form/RadioSingle";
 import SelectAPI from "../../components/Form/SelectAPI";
 import InputAddress from "../../components/Form/InputAddress";
-import InputTimeRange from "../../components/Form/InputTimeRange";
 import FormImageList from "../../components/Form/FormImageList";
 import RadioMulti from "../../components/Form/RatioMulti";
 import RadioTypeCheck from "../../components/Form/RadioTypeCheck";
-import FormList from "../../components/Form/FormList";
+import InputTimeRange from "../../components/Form/InputTimeRange";
+import FormAudioList from "../../components/Form/FormAudioList";
 
 const initialValue = {
     tourname: "",
     nationtype: "1",
-    nationcode: "KOREA",
+    nationcodeidx: "1",
     sidocode: "",
-    areacode: "",
+    areacodeidx: "",
     tourcode: "",
     address: "",
     lat: "",
@@ -38,12 +36,10 @@ const initialValue = {
     mainaudioYN: "N",
 };
 
-// working ###
-// mainaudioYN, subaudioYN 삭제
-
-// 관광지 코드는 어디다가 쓰는건지? 중복체크 해줘야하나
 const PackageFormTour = ({ match }) => {
     const dispatch = useDispatch();
+    const [audios, setAudios] = useState([]);
+    const [images, setImages] = useState([]);
     let { inputs, errors } = useSelector((state) => state.form);
 
     useEffect(() => {
@@ -55,76 +51,25 @@ const PackageFormTour = ({ match }) => {
         dispatch(formActions.changeValue(e));
     };
 
-    const handleClickInsert = (e) => {
+    const handleClickInsert = async (e) => {
         e.preventDefault();
         if (!images.length) {
             alert("관광지 사진을 추가해주세요.");
             return;
         }
-        const fileList = ["driverpic", "car", "license"];
-        dispatch(formActions.submit(inputs, fileList));
+
+        const idx = await dispatch(
+            formActions.submit({
+                inputs,
+                goBack: false,
+            })
+        );
+        console.log(idx);
     };
 
     if (!Object.keys(inputs).length) {
         inputs = initialValue;
     }
-    // const pageId = match.url.split("/")[2];
-    // const dispatch = useDispatch();
-    // const [errors, setErrors] = useState({});
-    const [audios, setAudios] = useState([]);
-    const [images, setImages] = useState([]);
-    // const [inputs, setInputs, handleChangeInputs] = useInputs(
-    //     initialValue,
-    //     validateTour,
-    //     setErrors
-    // );
-    // useEffect(() => {
-    //     let audioMain = audios.filter((item) => item.mainaudioYN === "Y");
-    //     let audioSub = audios.filter((item) => item.mainaudioYN === "N");
-    //     let mainaudioYN = audioMain.length ? "Y" : "N";
-    //     let subaudioYN = audioSub.length ? "Y" : "N";
-
-    //     setInputs((state) => ({
-    //         ...state,
-    //         mainaudioYN,
-    //         subaudioYN,
-    //     }));
-    // }, [setInputs, audios]);
-
-    // const handleChangeImageList = (newImgList) => {
-    //     setInputs((state) => ({
-    //         ...state,
-    //         imageList: newImgList,
-    //     }));
-    // };
-
-    // const handleClickInsert = () => {
-    //     const { isValid, checkedErrors } = validateAll(inputs, validateTour);
-
-    //     if (!images.length) {
-    //         alert("관광지 사진을 추가해주세요.");
-    //         return;
-    //     }
-
-    //     if (isValid) {
-    //         console.log("에러 없음");
-    //         dispatch(
-    //             boardAction_update(
-    //                 pageId,
-    //                 {
-    //                     ...inputs,
-    //                     inextroversion: Number(inputs.inextroversion),
-    //                     openclose: Number(inputs.openclose),
-    //                 },
-    //                 images,
-    //                 audios
-    //             )
-    //         );
-    //         setInputs(initialValue);
-    //     } else {
-    //         setErrors(checkedErrors);
-    //     }
-    // };
 
     const handleChangeAudio = (audio) => {
         setAudios((state) => [audio, ...state]);
@@ -137,6 +82,7 @@ const PackageFormTour = ({ match }) => {
     const handleChangeImage = (images) => {
         setImages(images);
     };
+    console.log(errors);
     return (
         <FormLayout
             onClickInsert={handleClickInsert}
@@ -169,7 +115,6 @@ const PackageFormTour = ({ match }) => {
                     disabled={inputs.nationtype === "1"}
                     error={errors["nationcodeidx"]}
                 />
-
                 <SelectAPI
                     label="시도 코드"
                     searchId="areacode"
@@ -221,21 +166,17 @@ const PackageFormTour = ({ match }) => {
                 />
 
                 <InputTimeRange
+                    label="운영시간"
                     value={inputs.operatingtime}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
             </FormSection>
-            {/* 이미지 리스트 */}
+
             <FormSection>
-                <FormImageList images={images}>
-                    <TourModalImage
-                        images={images}
-                        handleChangeImage={handleChangeImage}
-                    />
-                </FormImageList>
+                <FormImageList images={images} onChange={handleChangeImage} />
             </FormSection>
-            {/* 오디오 리스트 */}
+
             <FormSection full>
                 <RadioMulti
                     label="관심사 태그"
@@ -272,42 +213,12 @@ const PackageFormTour = ({ match }) => {
                 />
             </FormSection>
             <FormSection full>
-                {/* <RadioSingle
-                    label="대표 오디오 가이드"
-                    name="mainaudioYN"
-                    value={inputs.mainaudioYN}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    disabled={true}
-                    options={[
-                        { value: "Y", title: "있음" },
-                        { value: "N", title: "없음" },
-                    ]}
-                />
-
-                <RadioSingle
-                    label="세부 오디오 가이드"
-                    name="subaudioYN"
-                    value={inputs.subaudioYN}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                    disabled={true}
-                    options={[
-                        { value: "Y", title: "있음" },
-                        { value: "N", title: "없음" },
-                    ]}
-                /> */}
-
-                <FormList
+                <FormAudioList
                     label="오디오 추가"
                     data={audios}
+                    onChange={handleChangeAudio}
                     handleDeleteAudio={handleDeleteAudio}
-                >
-                    <TourModalAudio
-                        title="오디오 추가하기(+)"
-                        handleChangeAudio={handleChangeAudio}
-                    />
-                </FormList>
+                />
             </FormSection>
         </FormLayout>
     );

@@ -27,13 +27,6 @@ export default (initialValue, validateFunc, setErrors) => {
                         nationcodeidx: value === "1" ? "1" : "",
                     }));
                 }
-                // 소속
-                // else if (name === "businesstype") {
-                //     setInputs((state) => ({
-                //         ...state,
-                //         companyName: "",
-                //     }));
-                // }
 
                 // 오디오 세부 유/무
                 else if (name === "subaudioYN" && value === "N") {

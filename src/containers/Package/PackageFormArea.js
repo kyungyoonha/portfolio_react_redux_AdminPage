@@ -43,15 +43,14 @@ const PackageFormArea = () => {
             return;
         }
 
-        const fileList = ["mainpic"];
         dispatch(
-            formActions.submit(
-                {
+            formActions.submit({
+                inputs: {
                     ...inputs,
                     mainpicYN: "Y",
                 },
-                fileList
-            )
+                fileList: ["mainpic"],
+            })
         );
     };
 

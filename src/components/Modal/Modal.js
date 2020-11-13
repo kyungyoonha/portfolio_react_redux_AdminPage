@@ -1,5 +1,6 @@
 import React from "react";
 import ReactModal from "react-modal";
+import "./Modal.scss";
 
 const defaultStyle = {
     content: {
@@ -10,8 +11,8 @@ const defaultStyle = {
         marginRight: "-50%",
         marginBottom: "50px",
         transform: "translate(-50%, -50%)",
-        width: "65%",
-        height: "800px",
+        width: "1000px",
+        height: "700px",
         overflowY: "scroll",
     },
     overlay: {
@@ -23,18 +24,41 @@ const defaultStyle = {
 ReactModal.setAppElement("#root");
 
 const Modal = ({
-    isModalOpen,
+    title,
+    isOpen,
     modalStyle = defaultStyle,
-    handleModalClose,
+    onClick,
+    onClickClose,
+    onAfterOpen,
     children,
 }) => {
     return (
         <ReactModal
-            isOpen={isModalOpen}
+            isOpen={isOpen}
             contentLabel="Minimal Modal Example"
             style={modalStyle}
-            onRequestClose={handleModalClose}
+            onRequestClose={onClickClose}
+            onAfterOpen={onAfterOpen}
         >
+            <div className="modal__title">
+                <h4>{title}</h4>
+                <div>
+                    <button
+                        className="btn btn-secondary mr-1"
+                        type="button"
+                        onClick={onClickClose}
+                    >
+                        닫기
+                    </button>
+                    <button
+                        className="btn btn-primary"
+                        type="button"
+                        onClick={onClick}
+                    >
+                        사용하기
+                    </button>
+                </div>
+            </div>
             {children}
         </ReactModal>
     );

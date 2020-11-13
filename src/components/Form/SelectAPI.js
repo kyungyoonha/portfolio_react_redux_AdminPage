@@ -7,7 +7,7 @@ const SelectAPI = ({
     value,
     searchItems,
     onChange,
-    errors = {},
+    error,
     disabled,
 }) => {
     return (
@@ -25,10 +25,9 @@ const SelectAPI = ({
                     onChange={onChange}
                     placeholder={label}
                     disabled={disabled}
+                    error={error}
                 />
-                {errors[searchId] && (
-                    <div className="errorMessage">{errors[searchId]}</div>
-                )}
+                {error && <div className="errorMessage">{error}</div>}
             </td>
         </tr>
     );

@@ -1,18 +1,18 @@
 import React from "react";
 import { changeDataFormat, getHeaderList } from "../../util/helperFunc";
-import BoardTop222 from "./BoardTop222";
+import BoardTop from "./BoardTop";
 import BoardFooter from "./BoardFooter";
 import "./Board.scss";
-import InfoTop from "./InfoTop";
 
 const Board = ({
-    pathname,
+    searchOnly,
     data,
-    selectedId,
-    onClickRow,
     pages,
     pageCount,
-    noStyle,
+    pathname,
+    selectedId,
+    onClickRow,
+    onClickSearch,
 }) => {
     const headers = getHeaderList(pathname);
     const filters = headers.filter((item) => item.filter);
@@ -23,8 +23,14 @@ const Board = ({
     };
 
     return (
-        <div className={`boardLayout ${noStyle && "noStyle"}`}>
-            <BoardTop222 pathname={pathname} filters={filters} />
+        <div className={`boardLayout ${searchOnly && "noStyle"}`}>
+            {!searchOnly && (
+                <BoardTop
+                    pathname={pathname}
+                    filters={filters}
+                    onClick={onClickSearch}
+                />
+            )}
             <table className="table table-hover table-bordered board">
                 <thead>
                     <tr>

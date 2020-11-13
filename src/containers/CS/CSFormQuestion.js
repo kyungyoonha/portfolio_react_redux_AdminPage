@@ -72,9 +72,7 @@ const CSFormQuestion = () => {
             [name]: files,
         }));
     };
-    // const handleClickInsert = (e) => {
-    //     dispatch(formActions.submit(inputs, ["file"]));
-    // };
+
     const handleSendEmail = async () => {
         const { isValid, checkedErrors } = validateAll222(
             "/uploaod/sendEmail",
@@ -145,13 +143,6 @@ const CSFormQuestion = () => {
                     rows={15}
                     disabled
                 />
-                {/* <tr>
-                    <td>
-                        <button type="button" onClick={handleClickInsert}>
-                            더미 데이터 저장
-                        </button>
-                    </td>
-                </tr> */}
             </FormSection>
 
             <FormSection title="이메일 발송">

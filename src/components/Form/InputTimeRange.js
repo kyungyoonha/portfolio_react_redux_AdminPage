@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
+import useOpen from "../../Hooks/useOpen";
 import TimePicker from "../Timepicker/TimePicker";
 import "./inputTimeRange.scss";
 
-const InputTimeRange = ({ value, onChange, errors = {}, disabled }) => {
-    const [modalOpen, setModalOpen] = useState(false);
+const InputTimeRange = ({ label, value, onChange, errors = {}, disabled }) => {
+    const [isOpen, onClickOpen, onClickClose] = useOpen();
     const handleChangeInput = (value) => {
         onChange({
             target: {
@@ -14,14 +15,14 @@ const InputTimeRange = ({ value, onChange, errors = {}, disabled }) => {
     };
 
     const handleClickOpen = () => {
-        setModalOpen(true);
         handleChangeInput("");
+        onClickOpen();
     };
 
     return (
         <tr>
             <th>
-                <label className="col-form-label">※ 운영시간</label>
+                <label className="col-form-label">※ {label}</label>
             </th>
             <td>
                 <div className="input-group">
@@ -56,9 +57,9 @@ const InputTimeRange = ({ value, onChange, errors = {}, disabled }) => {
                 </div>
 
                 <TimePicker
-                    modalOpen={modalOpen}
-                    handleCloseModal={() => setModalOpen(false)}
+                    isOpen={isOpen}
                     onChange={handleChangeInput}
+                    onClickClose={onClickClose}
                 />
             </td>
         </tr>

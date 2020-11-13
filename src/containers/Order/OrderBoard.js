@@ -39,6 +39,10 @@ const OrderBoard = () => {
         }
     };
 
+    const handleClickSearch = (query) => {
+        history.push(pathname + query);
+    };
+
     return (
         <React.Fragment>
             <Navbar
@@ -47,12 +51,13 @@ const OrderBoard = () => {
             />
 
             <Board
-                pathname={pathname}
                 data={data}
-                selectedId={selectedId}
-                onClickRow={handleClickRow}
                 pages={pages}
                 pageCount={pageCount}
+                pathname={pathname}
+                selectedId={selectedId}
+                onClickRow={handleClickRow}
+                onClickSearch={handleClickSearch}
             />
         </React.Fragment>
     );

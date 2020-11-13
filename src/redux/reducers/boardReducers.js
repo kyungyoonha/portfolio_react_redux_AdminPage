@@ -12,7 +12,6 @@ import randomKey from "../../util/randomKey";
 const INITIAL_STATE = {
     pageId: "",
     totalPage: 5,
-
     selectedId: "",
     data: [],
     pageCount: 5,
@@ -26,9 +25,6 @@ export default (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 ...action.payload,
-                // pageId: action.payload.pageId,
-                // data: action.payload.data,
-                // totalPage: action.payload.totalPage,
                 selectedId: "",
             };
 

@@ -9,6 +9,7 @@ const ReactSelect = ({
     onChange,
     placeholder,
     disabled,
+    error,
 }) => {
     const [options, setOptions] = useState([]);
     // 필터
@@ -26,7 +27,8 @@ const ReactSelect = ({
     // ###☆ nationcode 데이터로 변경
     const loadOptions = async (inputValue) => {
         const res = await api.get(`/package/${searchId}`);
-        const result = res.data.map((item) => {
+
+        const result = res.data.data.map((item) => {
             let label = "";
             searchItems.forEach((key) => {
                 label += item[key] + " | ";
@@ -35,7 +37,6 @@ const ReactSelect = ({
             return {
                 value: String(item.idx),
                 label,
-                //label: `${item[searchItems[0]]} (${item[searchItems[1]]})`,
                 name: searchId + "idx",
             };
         });
@@ -48,6 +49,12 @@ const ReactSelect = ({
         <div>
             <AsyncSelect
                 cacheOptions
+                styles={{
+                    control: (provided, state) => ({
+                        ...provided,
+                        borderColor: error ? "#dc3545" : provided.borderColor,
+                    }),
+                }}
                 loadOptions={loadOptions}
                 defaultOptions
                 placeholder={placeholder + " 검색해주세요."}

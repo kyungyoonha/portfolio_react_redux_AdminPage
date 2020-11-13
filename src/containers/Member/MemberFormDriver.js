@@ -56,8 +56,13 @@ const MemberFormDriver = () => {
             alert("면허증 이미지를 추가해주세요.");
             return;
         }
-        const fileList = ["driverpic", "car", "license"];
-        dispatch(formActions.submit(inputs, fileList));
+
+        dispatch(
+            formActions.submit({
+                inputs,
+                fileList: ["driverpic", "car", "license"],
+            })
+        );
     };
 
     if (!Object.keys(inputs).length) {
