@@ -53,8 +53,8 @@ const MemberFormUser = () => {
             alert("프로필 이미지를 추가해주세요.");
             return;
         }
-
-        dispatch(formActions.submit({ inputs, fileList: ["profile"] }));
+        const fileList = ["profile"];
+        dispatch(formActions.submit(inputs, fileList));
     };
 
     if (!Object.keys(inputs).length) {

@@ -12,16 +12,16 @@ import FormSection from "../../components/Form/FormSection";
 import Input from "../../components/Form/Input";
 import InputDate from "../../components/Form/InputDate";
 import RadioSingle from "../../components/Form/RadioSingle";
-import InputNumRange from "../../components/Form/InputNumRange";
+//import InputNumRange from "../../components/Form/InputNumRange";
 import InputTime from "../../components/Form/InputTime";
 
 const initialValue = {
-    tourtype: "",
+    tourtype: "E",
     touridx: "",
     tourdays: "",
     tourstartday: "",
     tourendday: "",
-    tourmember: "",
+    tourmember: "1",
     price: "",
     tourstarttime: "",
     userid: "",
@@ -53,20 +53,6 @@ const OrderFormPurchase = () => {
         dispatch(formActions.changeValue(e));
     };
 
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        if (!inputs.license) {
-            alert("면허증 이미지를 추가해주세요.");
-            return;
-        }
-        dispatch(
-            formActions.submit({
-                inputs,
-                fileList: ["driverpic", "car", "license"],
-            })
-        );
-    };
-
     const handleChangePurchCode = (data) => {
         setPurchCode(data);
         dispatch(
@@ -83,9 +69,22 @@ const OrderFormPurchase = () => {
         setPurchTour((state) => [...state, data]);
     };
 
+    const handleClickInsert = async (e) => {
+        e.preventDefault();
+
+        const resPurchase = await dispatch(formActions.submit(inputs));
+        if (resPurchase?.data) {
+            console.log("???", resPurchase.data);
+            const purchaseidx = resPurchase.data.idx;
+
+            formActions.submitPurchaseTour(purchaseidx, purchTour);
+        }
+    };
+
     if (!Object.keys(inputs).length) {
         inputs = initialValue;
     }
+    console.log(purchTour);
     return (
         <FormLayout
             onClickInsert={handleClickInsert}
@@ -102,6 +101,7 @@ const OrderFormPurchase = () => {
                         { value: "T", title: "택시 투어" },
                         { value: "E", title: "기타 투어" },
                     ]}
+                    errors={errors}
                 />
                 <Input
                     label="관광지 코드"
@@ -131,11 +131,18 @@ const OrderFormPurchase = () => {
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
-                <InputNumRange
+                <Input
+                    label="투어 인원수"
+                    name="tourmember"
                     value={inputs.tourmember}
                     onChange={handleChangeInputs}
                     errors={errors}
                 />
+                {/* <InputNumRange
+                    value={inputs.tourmember}
+                    onChange={handleChangeInputs}
+                    errors={errors}
+                /> */}
                 <Input
                     label="가격"
                     name="price"

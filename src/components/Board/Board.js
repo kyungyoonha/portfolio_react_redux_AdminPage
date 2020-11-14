@@ -56,7 +56,7 @@ const Board = ({
                     ))}
                 </tbody>
             </table>
-            <BoardFooter pageCount={pageCount} pages={pages} />
+            {searchOnly && <BoardFooter pageCount={pageCount} pages={pages} />}
         </div>
     );
 };

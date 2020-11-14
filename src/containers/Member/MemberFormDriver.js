@@ -57,12 +57,8 @@ const MemberFormDriver = () => {
             return;
         }
 
-        dispatch(
-            formActions.submit({
-                inputs,
-                fileList: ["driverpic", "car", "license"],
-            })
-        );
+        const fileList = ["driverpic", "car", "license"];
+        dispatch(formActions.submit(inputs, fileList));
     };
 
     if (!Object.keys(inputs).length) {

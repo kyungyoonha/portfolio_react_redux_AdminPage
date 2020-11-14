@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./TourModalAudio.scss";
-import { validate, validateAll222 } from "../../util/validate";
+import { validate, validateAll } from "../../util/validate";
 import Modal from "./Modal";
 import useOpen from "../../Hooks/useOpen";
 
@@ -22,10 +22,6 @@ const initialValue = {
     audiofilepath: "",
     audiolanguage: "한글",
     mainaudioYN: "N",
-    regdate: "",
-    reguser: "",
-    moddate: "",
-    moduser: "",
 };
 
 const TourModalAudio = ({ title, onChange }) => {
@@ -47,10 +43,7 @@ const TourModalAudio = ({ title, onChange }) => {
             : setInputs((state) => ({ ...state, [name]: value }));
     };
     const handleClickSave = () => {
-        const { isValid, checkedErrors } = validateAll222(
-            "/modal/audios",
-            inputs
-        );
+        const { isValid, checkedErrors } = validateAll("/modal/audios", inputs);
         if (isValid) {
             onChange(inputs);
             setInputs(initialValue);
@@ -110,7 +103,7 @@ const TourModalAudio = ({ title, onChange }) => {
                             label="오디오 파일"
                             name="audiofile"
                             value={inputs.audiofile}
-                            // filename={inputs.audiofilename}
+                            filename={inputs.audiofilename}
                             onChange={handleChangeInputs}
                             filetype="audio"
                         />

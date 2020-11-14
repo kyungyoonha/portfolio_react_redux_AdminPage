@@ -1,7 +1,7 @@
 import pageConfig from "../siteConfig/pageConfig.json";
 import errorMessageObj from "../siteConfig/errorMessageObj";
 
-export const validateAll222 = (apiurl, inputs) => {
+export const validateAll = (apiurl, inputs) => {
     const pageId = apiurl.split("/")[2];
     let isValid = false;
     let checkedErrors = {};
@@ -47,6 +47,7 @@ export const validate = (pageId, name, value) => {
         case "grade":
             return (value < 0 || value > 5) && "0 ~ 5까지만 입력 가능합니다.";
 
+        case "tourmember":
         case "target":
         case "contactNumber":
         case "tourdays":

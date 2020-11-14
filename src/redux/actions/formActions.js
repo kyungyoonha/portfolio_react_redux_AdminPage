@@ -6,7 +6,7 @@ import {
     FORM_INITIALIZE,
     FORM_ERRORS,
 } from "../types";
-import { validate, validateAll222 } from "../../util/validate";
+import { validate, validateAll } from "../../util/validate";
 import api from "../../services/api";
 import history from "../../history";
 import { toast } from "react-toastify";
@@ -67,15 +67,13 @@ const changeValue = (e) => async (dispatch, getState) => {
 };
 
 // 폼 제출시
-const submit = ({
-    inputs,
-    fileList = [],
-    multi = false,
-    goBack = true,
-}) => async (dispatch, getState) => {
+const submit = (data, fileList = [], goBack = true) => async (
+    dispatch,
+    getState
+) => {
     try {
         const { apiurl } = getState().form;
-        const { isValid, checkedErrors } = validateAll222(apiurl, inputs);
+        const { isValid, checkedErrors } = validateAll(apiurl, data);
         if (!isValid) {
             dispatch({ type: FORM_ERRORS, payload: checkedErrors });
             return;
@@ -83,25 +81,56 @@ const submit = ({
 
         // image or audio file
         const sendData = fileList.length
-            ? changeInputToFormData(inputs, fileList, multi)
-            : inputs;
+            ? changeInputToFormData(data, fileList)
+            : data;
         // for (var key of sendData.entries()) {
         //     console.log(key[0] + ", " + key[1]);
         // }
-        let pathadd = inputs.idx ? "update" : "insert";
+        console.log({ sendData });
+        let pathadd = data.idx ? "update" : "insert";
         let res = await api.post(`${apiurl}/${pathadd}`, sendData);
         // dispatch({
         //     type: inputs.idx ? BOARD_UPDATE : BOARD_INSERT,
         //     payload: res.data,
         // });
-        if (goBack) {
-            history.goBack();
-        }
+        // history.goBack();
 
         return res;
     } catch (e) {
         console.log(e);
         e.response && toast.error(e.response.data.error);
+        return;
+    }
+};
+
+const submitAddData = (touridx, dataList, pathname, fileList) => {
+    try {
+        dataList.forEach(async (data) => {
+            data.touridx = touridx;
+            let sendData = changeInputToFormData(data, fileList);
+            let pathadd = data.idx ? "update" : "insert";
+            await api.post(`/package${pathname}/${pathadd}`, sendData);
+        });
+        return;
+    } catch (e) {
+        console.log(e);
+        e.response && toast.error(e.response.data.error);
+        return;
+    }
+};
+
+const submitPurchaseTour = (purchaseidx, dataList) => {
+    try {
+        dataList.forEach(async (data, idx) => {
+            data.purchaseidx = purchaseidx;
+            data.touridx = data.idx;
+            data.tourstep = idx;
+            await api.post("order/purchasetour/insert", data);
+        });
+    } catch (e) {
+        console.log(e);
+        e.response && toast.error(e.response.data.error);
+        return;
     }
 };
 
@@ -118,4 +147,12 @@ const errors = (errors) => {
     };
 };
 
-export default { init, changeValue, submit, initialize, errors };
+export default {
+    init,
+    changeValue,
+    submit,
+    submitAddData,
+    submitPurchaseTour,
+    initialize,
+    errors,
+};

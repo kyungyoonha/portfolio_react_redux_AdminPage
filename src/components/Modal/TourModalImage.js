@@ -32,14 +32,11 @@ const TourModalImage = ({ onChange, images }) => {
             return {
                 idx: "",
                 touridx: "",
-                mainpicYN: "",
+                mainpicYN: "N",
                 seq: { i },
+                file: files,
                 filename: files[i].name,
                 filepath: files[i],
-                regdate: "",
-                reguser: "",
-                moddate: "",
-                moduser: "",
             };
         });
         const newImageList = [...imageList].concat(filesList);

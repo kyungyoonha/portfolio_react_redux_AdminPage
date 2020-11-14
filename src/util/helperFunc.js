@@ -1,29 +1,38 @@
 import pageConfig from "../siteConfig/pageConfig.json";
 
-export const changeInputToFormData = (inputs, fileList, multi) => {
+export const changeInputToFormData = (inputs, fileList) => {
     const formData = new FormData();
-
     for (let fileKey of fileList) {
-        if (!multi) {
-            formData.append(fileKey, inputs[fileKey][0]);
-        } else {
-            for (let i = 0; i < inputs[fileKey].length; i++) {
-                formData.append(fileKey, inputs[fileKey][i]);
-            }
-        }
+        formData.append(fileKey, inputs[fileKey][0]);
+        // if (!multi) {
+        //     formData.append(fileKey, inputs[fileKey][0]);
+        // } else {
+        //     for (let i = 0; i < inputs[fileKey].length; i++) {
+        //         formData.append(fileKey, inputs[fileKey][i]);
+        //     }
+        // }
         delete inputs.fileKey;
     }
-
     formData.append("jsonData", JSON.stringify(inputs));
     return formData;
 };
 
 export const changeObjToQuerystring = (object) => {
-    var result = [];
-    for (var p in object)
-        result.push(
-            encodeURIComponent(p) + "=" + encodeURIComponent(object[p])
-        );
+    let result = [];
+    let value;
+    let exceptDate = ["tourstartday", "tourendday", "purchasedate"];
+    for (let key in object) {
+        value = object[key];
+
+        if (exceptDate.indexOf(key) > -1) {
+            value = object[key].getTime();
+        }
+
+        result.push(encodeURIComponent(key) + "=" + encodeURIComponent(value));
+    }
+
+    if (!result.length) return "";
+
     return "?" + result.join("&");
 };
 
@@ -33,14 +42,24 @@ export const getHeaderList = (pathname) => {
     return pageConfig[pageId].headers;
 };
 
+export const changeDateFormat = (value) => {
+    if (!value) return "";
+    const date = new Date(value);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+
+    return `${year}-${month}-${day}`;
+};
+
 export const changeDataFormat = (key, value) => {
+    let date;
     switch (key) {
         case "purchase":
         case "question":
         case "drivercomplain":
         case "trabus":
             return value ? value.length + "건" : "0건";
-        //return value;
 
         case "info":
         case "description":
@@ -48,15 +67,19 @@ export const changeDataFormat = (key, value) => {
         case "en":
             return value ? "O" : "X";
 
+        case "tourstartday":
+        case "tourendday":
         case "purchasedate":
         case "birthday":
-            const date = new Date(value);
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
+            return changeDateFormat(value);
 
-            return `${year}-${month}-${day}`;
+        case "tourstarttime":
+            if (!value) return "";
+            date = new Date(value);
+            let hours = date.getHours();
+            let mins = date.getMinutes();
 
+            return `${hours}시 ${mins}분`;
         case "nationtype":
             return value === "1" ? "국내" : "국외";
         default:

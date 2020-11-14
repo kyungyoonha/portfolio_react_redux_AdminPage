@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import useOpen from "../../Hooks/useOpen";
-import Map from "../Google/Map";
+import GoogleMapSearch from "../Google/GoogleMapSearch";
 
 const InputAddress = ({
     label,
@@ -59,8 +59,7 @@ const InputAddress = ({
                     )}
                 </div>
 
-                <Map
-                    id="myMap"
+                <GoogleMapSearch
                     isOpen={isOpen}
                     onClickClose={onClickClose}
                     onChange={handleChangeInput}

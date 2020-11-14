@@ -81,3 +81,7 @@ https://okky.kr/article/580517
 -   어떻게 동작하는지 관련
 -   divs를 제외하고는 DOM 마크업을 가지고 있지 않는다
 -   스타일 역시 가지고 있지 않는다.
+
+## 구글맵 Clusterer
+
+-   https://developers.google.com/maps/documentation/javascript/marker-clustering

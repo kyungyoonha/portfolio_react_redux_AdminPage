@@ -4,7 +4,8 @@ import noImg from "../../img/no-img.jpg";
 import TourModalImage from "../Modal/TourModalImage";
 
 const FormImageList = ({ images, onChange }) => {
-    const src = images[0] ? URL.createObjectURL(images[0].filepath) : noImg;
+    const mainSrc = images[0] ? URL.createObjectURL(images[0].filepath) : noImg;
+
     return (
         <React.Fragment>
             <tr className="formImageList__mainImg">
@@ -13,24 +14,20 @@ const FormImageList = ({ images, onChange }) => {
                         <h3>
                             <span className="badge badge-danger">대표사진</span>
                         </h3>
-                        <img src={src} alt="대표사진" />
+                        <img src={mainSrc} alt="대표사진" />
                     </div>
                 </td>
             </tr>
             <tr className="formImageList__subImg">
                 {[...new Array(4)].map((_, idx) => {
+                    let image = images[idx];
+                    let subSrc = image
+                        ? URL.createObjectURL(image.filepath)
+                        : noImg;
+
                     return idx === 0 ? null : (
                         <td key={idx}>
-                            <img
-                                src={
-                                    images[idx]
-                                        ? URL.createObjectURL(
-                                              images[idx].filepath
-                                          )
-                                        : noImg
-                                }
-                                alt="대표사진"
-                            />
+                            <img src={subSrc} alt="대표사진" />
                         </td>
                     );
                 })}

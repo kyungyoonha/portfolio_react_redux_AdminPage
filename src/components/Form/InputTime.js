@@ -1,5 +1,7 @@
 import React from "react";
-import ReactDatePicker from "react-datepicker";
+import ReactDatePicker, { registerLocale } from "react-datepicker";
+import ko from "date-fns/locale/ko";
+registerLocale("ko", ko);
 
 const InputTime = ({ label, name, value, onChange, errors }) => {
     const handleChangeDate = (date) => {

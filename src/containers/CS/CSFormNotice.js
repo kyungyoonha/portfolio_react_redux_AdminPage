@@ -35,12 +35,8 @@ const CSFormNotice = () => {
 
     const handleClickInsert = (e) => {
         e.preventDefault();
-        dispatch(
-            formActions.submit({
-                inputs,
-                fileList: ["file"],
-            })
-        );
+        const fileList = ["file"];
+        dispatch(formActions.submit(inputs, fileList));
     };
 
     if (!Object.keys(inputs).length) {

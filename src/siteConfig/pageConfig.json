@@ -88,7 +88,7 @@
     "purchase": {
         "title": "구매정보 관리",
         "navCtg": "order",
-        "validate": ["tourtype", "touridx", "tourdays", "tourstartday"],
+        "validate": ["tourtype", "touridx", "tourdays", "tourstartday", "tourmember","price"],
         "headers": [
             { "key": "tourtype", "title": "투어종류" , "filter": true},
             { "key": "tourdays", "title": "투어일수" , "filter": true },

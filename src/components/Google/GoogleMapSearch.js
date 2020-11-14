@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import Modal from "../Modal/Modal";
-import "./Map.scss";
+import "./GoogleMapSearch.scss";
 
 const initialValue = {
     addr: "",
@@ -8,7 +8,8 @@ const initialValue = {
     lng: "",
 };
 
-const Map = ({ id, options, isOpen, onClickClose, onChange }) => {
+const GoogleMapSearch = ({ options, isOpen, onClickClose, onChange }) => {
+    const mapId = "myMap";
     const inputId = "map_input";
     const [address, setAddress] = useState(initialValue);
 
@@ -73,7 +74,7 @@ const Map = ({ id, options, isOpen, onClickClose, onChange }) => {
     // 맵 생성
     const initMap = useCallback(() => {
         let map = new window.google.maps.Map(
-            document.getElementById(id),
+            document.getElementById(mapId),
             options
         );
         let marker = new window.google.maps.Marker({
@@ -83,21 +84,13 @@ const Map = ({ id, options, isOpen, onClickClose, onChange }) => {
 
         onEventClickMap(map, marker);
         onEventSearchBox(map, marker);
-    }, [id, options, onEventSearchBox]);
+    }, [mapId, options, onEventSearchBox]);
 
     const initGooglMapAPI = () => {
-        let newScript, topScript;
-        if (!document.getElementById("script_insert")) {
-            newScript = document.createElement("script");
-            newScript.type = "text/javascript";
-            newScript.id = "script_insert";
-            newScript.src = `https://maps.google.com/maps/api/js?key=${process.env.REACT_APP_API_KEY}&libraries=places`;
-            topScript = document.getElementsByTagName("script")[0]; // 첫번째 스크립트
-            topScript.parentNode.insertBefore(newScript, topScript);
-            // script.parentNode.removeChild(script);
-        }
+        let script = document.getElementById("script_insert");
+
         !window.google
-            ? newScript.addEventListener("load", (e) => initMap())
+            ? script.addEventListener("load", (e) => initMap())
             : initMap();
     };
 
@@ -138,10 +131,10 @@ const Map = ({ id, options, isOpen, onClickClose, onChange }) => {
                     ></i>
                     <i className="fas fa-search"></i>
                 </div>
-                <div id={id} className="map__display" />
+                <div id={mapId} className="map__display" />
             </div>
         </Modal>
     );
 };
 
-export default Map;
+export default GoogleMapSearch;

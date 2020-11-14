@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 // 리덕스
 import { useSelector, useDispatch } from "react-redux";
 import boardActions from "../../redux/actions/boardActions";
@@ -14,16 +14,13 @@ const ModalSearch = ({ searchPath, label, onChange }) => {
         (state) => state.board
     );
 
-    useEffect(() => {
-        dispatch(boardActions.fetch(searchPath));
-        return () => dispatch(boardActions.initialize());
-    }, [dispatch, searchPath]);
-
     const handleClickRow = (idx) => {
         dispatch(boardActions.selected(idx));
     };
 
     const handleClickSearch = (query) => {
+        query = query ? query + "&limit=100" : "?limit=100";
+
         dispatch(boardActions.fetch(searchPath + query));
     };
     const handleClickSave = () => {

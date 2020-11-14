@@ -16,6 +16,7 @@ import RadioTypeCheck from "../../components/Form/RadioTypeCheck";
 import InputTimeRange from "../../components/Form/InputTimeRange";
 import FormAudioList from "../../components/Form/FormAudioList";
 
+// "validate": ["tourname", "nationcodeidx", "areacodeidx", "tourcode", "operatingtime", "address", "telnumber", "admissionfee"],
 const initialValue = {
     tourname: "",
     nationtype: "1",
@@ -36,7 +37,7 @@ const initialValue = {
     mainaudioYN: "N",
 };
 
-const PackageFormTour = ({ match }) => {
+const PackageFormTour = () => {
     const dispatch = useDispatch();
     const [audios, setAudios] = useState([]);
     const [images, setImages] = useState([]);
@@ -58,13 +59,19 @@ const PackageFormTour = ({ match }) => {
             return;
         }
 
-        const idx = await dispatch(
-            formActions.submit({
-                inputs,
-                goBack: false,
-            })
-        );
-        console.log(idx);
+        let interesttag = Object.keys(inputs.interesttag);
+        interesttag.filter((key) => inputs.interesttag[key]);
+        inputs.interesttag = interesttag.join(", ");
+
+        const resTour = await dispatch(formActions.submit(inputs));
+
+        if (resTour?.data) {
+            const touridx = resTour.data.idx;
+            formActions.submitAddData(touridx, images, "/tourimage", ["file"]);
+            formActions.submitAddData(touridx, audios, "/touraudio", [
+                "audiofile",
+            ]);
+        }
     };
 
     if (!Object.keys(inputs).length) {
@@ -82,7 +89,7 @@ const PackageFormTour = ({ match }) => {
     const handleChangeImage = (images) => {
         setImages(images);
     };
-    console.log(errors);
+
     return (
         <FormLayout
             onClickInsert={handleClickInsert}

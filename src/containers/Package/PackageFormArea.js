@@ -17,7 +17,7 @@ const initialValue = {
     sidoname: "",
     areacode: "",
     areaname: "",
-    mainpic: "",
+    mainpic: "Y",
     mainpicname: "",
     mainpicpath: "",
 };
@@ -43,15 +43,8 @@ const PackageFormArea = () => {
             return;
         }
 
-        dispatch(
-            formActions.submit({
-                inputs: {
-                    ...inputs,
-                    mainpicYN: "Y",
-                },
-                fileList: ["mainpic"],
-            })
-        );
+        const fileList = ["mainpic"];
+        dispatch(formActions.submit(inputs, fileList));
     };
 
     if (!Object.keys(inputs).length) {

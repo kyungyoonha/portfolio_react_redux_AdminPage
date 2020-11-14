@@ -14,7 +14,7 @@ import InputFile from "../../components/Form/InputFile";
 import Select from "../../components/Form/Select";
 import Textarea from "../../components/Form/Textarea";
 
-import { validate, validateAll222 } from "../../util/validate";
+import { validate, validateAll } from "../../util/validate";
 import { toast } from "react-toastify";
 
 const initialValue = {
@@ -74,7 +74,7 @@ const CSFormQuestion = () => {
     };
 
     const handleSendEmail = async () => {
-        const { isValid, checkedErrors } = validateAll222(
+        const { isValid, checkedErrors } = validateAll(
             "/uploaod/sendEmail",
             sendInputs
         );
