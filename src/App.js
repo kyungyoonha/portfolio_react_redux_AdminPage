@@ -1,13 +1,13 @@
 import React from "react";
 import "./App.scss";
 import { ToastContainer } from "react-toastify";
-import { Route, Switch, Router } from "react-router-dom";
+import { Route, Switch, Router, Redirect } from "react-router-dom";
 import history from "./history";
+import routes from "./routes";
 
-// Pages
-import MainPage from "./pages/MainPage";
-import PageNotFound from "./pages/PageNotFound";
-import LoginPage from "./pages/LoginPage";
+import Layout from "./Layout/Layout";
+import Login from "./pages/Login/Login";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 
 const App = () => {
     return (
@@ -19,9 +19,26 @@ const App = () => {
             />
             <Router history={history}>
                 <Switch>
-                    <Route path="/login" exact component={LoginPage} />
+                    <Route path="/login" exact component={Login} />
                     <Route path="/404" exact component={PageNotFound} />
-                    <Route path="/" component={MainPage} />
+                    {routes.map((route, idx) => (
+                        <Route
+                            key={idx}
+                            path={route.path}
+                            exact={route.exact}
+                            title={route.title}
+                            render={(props) => (
+                                <Layout>
+                                    <route.component {...props} />
+                                </Layout>
+                            )}
+                        />
+                    ))}
+                    <Redirect from="/member" to="/member/user" />
+                    <Redirect from="/package" to="/package/tour" />
+                    <Redirect from="/order" to="/order/purchase" />
+                    <Redirect from="/cs" to="/cs/push" />
+                    <Redirect from="/" to="/dashboard" />
                 </Switch>
             </Router>
         </div>

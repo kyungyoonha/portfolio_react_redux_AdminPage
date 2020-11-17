@@ -33,7 +33,7 @@ REACT_APP_CLOUDINARY_PRESET=<YOUR_CLOUD_PRESET>
 
 #
 
-#### Front-End
+<!-- #### Front-End
 
 -   Custom CSS for styling
 -   API (Movie list)
@@ -55,7 +55,7 @@ REACT_APP_CLOUDINARY_PRESET=<YOUR_CLOUD_PRESET>
 
 -   styled-components
 -   fullpage scroll
--   MySQL
+-   MySQL -->
 
 ### 파일 업로드
 
@@ -85,3 +85,22 @@ https://okky.kr/article/580517
 ## 구글맵 Clusterer
 
 -   https://developers.google.com/maps/documentation/javascript/marker-clustering
+
+## ORM
+
+https://stackoverflow.com/questions/40866083/is-there-a-way-to-save-multiple-embedded-models-in-db-at-once-using-sequelize
+
+### setState(state => ({
+
+    ...state,
+    [name]: value
+
+}))
+https://medium.com/wasd/setstate-%ED%8C%8C%ED%97%A4%EC%B9%98%EA%B8%B0-28b207fc81df
+
+## 정리
+
+-   cludinary
+-   hooks
+-   redux - validation
+-   기능별 설명

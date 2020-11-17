@@ -1,23 +1,23 @@
 // pages
-import Dashboard from "./containers/Dashboard/DashBoard";
-import MemberBoard from './containers/Member/MemberBoard';
-import MemberFormUser from './containers/Member/MemberFormUser'
-import MemberFormDriver from './containers/Member/MemberFormDriver';
-import MemberFormAdmin from './containers/Member/MemberFormAdmin';
+import Dashboard from "./pages/Dashboard/DashBoard";
+import MemberBoard from './pages/Member/MemberBoard';
+import MemberFormUser from './pages/Member/MemberFormUser'
+import MemberFormDriver from './pages/Member/MemberFormDriver';
+import MemberFormAdmin from './pages/Member/MemberFormAdmin';
 
-import PackageBoard from './containers/Package/PackageBoard';
-import PackageFormTour from './containers/Package/PackageFormTour';
-import PackageFormNation from "./containers/Package/PackageFormNation";
-import PackageFormArea from "./containers/Package/PackageFormArea";
+import PackageBoard from './pages/Package/PackageBoard';
+import PackageFormTour from './pages/Package/PackageFormTour';
+import PackageFormNation from "./pages/Package/PackageFormNation";
+import PackageFormArea from "./pages/Package/PackageFormArea";
 
-import OrderBoard from './containers/Order/OrderBoard';
-import OrderFormPurchase from './containers/Order/OrderFormPurchase';
-import OrderFormPurchaseCode from "./containers/Order/OrderFormPurchaseCode";
+import OrderBoard from './pages/Order/OrderBoard';
+import OrderFormPurchase from './pages/Order/OrderFormPurchase';
+import OrderFormPurchaseCode from "./pages/Order/OrderFormPurchaseCode";
 
-import CSBoard from './containers/CS/CSBoard';
-import CSFormPush from './containers/CS/CSFormPush';
-import CSFormNotice from './containers/CS/CSFormNotice';
-import CSFormQuestion from './containers/CS/CSFormQuestion';
+import CSBoard from './pages/CS/CSBoard';
+import CSFormPush from './pages/CS/CSFormPush';
+import CSFormNotice from './pages/CS/CSFormNotice';
+import CSFormQuestion from './pages/CS/CSFormQuestion';
 
 const routes = [
     { path: "/", exact: true, component: Dashboard },

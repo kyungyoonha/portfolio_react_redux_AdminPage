@@ -3,7 +3,7 @@ import ReactModal from "react-modal";
 import "./ModalNumRange.scss";
 // Components
 import FormSection from "../../components/Form/FormSection";
-import Input from "../../components/Form/Input";
+import Input from "../Input/Input";
 import { checkNumber } from "../../util/validate";
 
 const modalStyle = {
