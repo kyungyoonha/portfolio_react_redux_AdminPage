@@ -42,14 +42,17 @@ export const getHeaderList = (pathname) => {
     return pageConfig[pageId].headers;
 };
 
-export const changeDateFormat = (value) => {
+export const changeDateFormat = (value, full = false) => {
     if (!value) return "";
+
     const date = new Date(value);
     let year = date.getFullYear();
     let month = date.getMonth() + 1;
     let day = date.getDate();
+    let hours = date.getHours();
+    let mins = date.getMinutes();
 
-    return `${year}-${month}-${day}`;
+    return `${year}-${month}-${day} ${full && hours + "시" + mins + "분"}`;
 };
 
 export const changeDataFormat = (key, value) => {
@@ -71,6 +74,7 @@ export const changeDataFormat = (key, value) => {
         case "tourendday":
         case "purchasedate":
         case "birthday":
+        case "createdAt":
             return changeDateFormat(value);
 
         case "tourstarttime":
