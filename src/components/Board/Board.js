@@ -21,7 +21,6 @@ const Board = ({
             <td key={col.key}>{changeDataFormat(col.key, item[col.key])}</td>
         ));
     };
-    console.log(data);
     return (
         <div className={`boardLayout ${searchOnly && "noStyle"}`}>
             {!searchOnly && (

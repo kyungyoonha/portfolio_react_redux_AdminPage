@@ -86,7 +86,6 @@ const submit = (data, fileList = [], goBack = true) => async (
         // for (var key of sendData.entries()) {
         //     console.log(key[0] + ", " + key[1]);
         // }
-        console.log({ sendData });
         let pathadd = data.idx ? "update" : "insert";
         let res = await api.post(`${apiurl}/${pathadd}`, sendData);
         // dispatch({

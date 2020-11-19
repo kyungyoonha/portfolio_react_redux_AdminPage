@@ -25,7 +25,7 @@ export const changeObjToQuerystring = (object) => {
         value = object[key];
 
         if (exceptDate.indexOf(key) > -1) {
-            value = object[key].getTime();
+            value = changeDateFormat(object[key]);
         }
 
         result.push(encodeURIComponent(key) + "=" + encodeURIComponent(value));
@@ -52,7 +52,9 @@ export const changeDateFormat = (value, full = false) => {
     let hours = date.getHours();
     let mins = date.getMinutes();
 
-    return `${year}-${month}-${day} ${full && hours + "시" + mins + "분"}`;
+    return `${year}-${month}-${day}${
+        full ? " " + hours + "시" + mins + "분" : ""
+    }`;
 };
 
 export const changeDataFormat = (key, value) => {
