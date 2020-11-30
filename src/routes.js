@@ -20,7 +20,6 @@ import CSFormNotice from './pages/CS/CSFormNotice';
 import CSFormQuestion from './pages/CS/CSFormQuestion';
 
 const routes = [
-    { path: "/", exact: true, component: Dashboard },
     { path: "/dashboard", exact: true, component: Dashboard },
     { path: "/member/user", exact: true, component: MemberBoard}, 
     { path: "/member/user/form",  component: MemberFormUser },

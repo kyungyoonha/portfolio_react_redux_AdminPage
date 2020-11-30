@@ -1,0 +1,13 @@
+@import "../../styles/Common.scss";
+
+.formSectionAudio {
+    .formSectionAudio__container {
+        height: 200px;
+    }
+
+    .formSectionAudio__item {
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid $line;
+    }
+}

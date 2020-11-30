@@ -1,0 +1,49 @@
+@import "../../styles/Common.scss";
+
+.modalmodalTimePicker {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .modalTimePicker__title {
+        display: flex;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        border-bottom: 1px solid $line;
+    }
+    .modalTimePicker__body {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 180px;
+
+        .modalTimePicker__inputbox {
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+
+        .modalTimePicker__timeSelect {
+            width: 100%;
+            border: 1px solid red;
+        }
+    }
+
+    .modalTimePicker__footer {
+        margin-bottom: 10px;
+        width: 100%;
+        height: 180px;
+        line-height: 180px;
+        text-align: center;
+        background: $line;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .modalTimePicker__error {
+        color: red;
+        font-size: 0.9rem;
+    }
+}

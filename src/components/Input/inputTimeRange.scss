@@ -1,0 +1,13 @@
+.inputTimeRange {
+    td {
+        display: flex;
+        justify-content: space-between;
+    }
+    .react-datepicker-wrapper {
+        width: 200px;
+
+        input {
+            width: 200px;
+        }
+    }
+}

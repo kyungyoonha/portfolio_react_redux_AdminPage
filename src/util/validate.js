@@ -62,22 +62,20 @@ export const validate = (pageId, name, value) => {
 };
 
 export const isEmpty = (input) => {
-    if (String(input).trim() === "") return true;
-    else return false;
+    return String(input).trim() === "" ? true : false;
 };
 
 export const checkNumber = (input) => {
     const regexp = /^[0-9]*$/;
-    if (!regexp.test(input)) return true;
-    else return false;
+    return !regexp.test(input) ? true : false;
 };
 
 // true 일때 에러 / false
 export const checkEmail = (input) => {
     if (!input) return false;
     const regexp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-    if (!regexp.test(input)) return true;
-    else return false;
+
+    return !regexp.test(input) ? true : false;
 };
 
 export const checkRegPassword = (password) => {
@@ -85,15 +83,22 @@ export const checkRegPassword = (password) => {
     const spellings = /[a-zA-Z]/;
     const specialCharacters = /[~!@#$%&*]/;
 
-    if (
-        !numbers.test(password) ||
+    return !numbers.test(password) ||
         !spellings.test(password) ||
         !specialCharacters.test(password) ||
         password.length < 8 ||
         password.length > 16
-    ) {
-        return true;
-    } else {
-        return false;
-    }
+        ? true
+        : false;
+    // if (
+    //     !numbers.test(password) ||
+    //     !spellings.test(password) ||
+    //     !specialCharacters.test(password) ||
+    //     password.length < 8 ||
+    //     password.length > 16
+    // ) {
+    //     return true;
+    // } else {
+    //     return false;
+    // }
 };

@@ -11,11 +11,13 @@ import api from "../../services/api";
 export const authAction_getMyInfo = (config) => async (dispatch) => {
     try {
         const res = await api.get("/auth/me", config || {});
+        console.log(res);
         dispatch({
             type: AUTH_GET,
             payload: res.data.user,
         });
     } catch (e) {
+        dispatch(authAction_logout());
         e.response && toast.error(e.response.data.error);
     }
 };
