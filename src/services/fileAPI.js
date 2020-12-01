@@ -1,7 +1,7 @@
 import api from "../services/api";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { changeInputToFormData } from "../util/helperFunc";
+import { changeInputToFormData } from "../utils/helperFunc";
 
 const fileAPI = Object.freeze({
     async upload(resourceType, file) {

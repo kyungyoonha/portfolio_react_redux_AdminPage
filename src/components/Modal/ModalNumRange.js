@@ -4,7 +4,7 @@ import "./ModalNumRange.scss";
 // Components
 import FormSection from "../../components/Form/FormSection";
 import Input from "../Input/Input";
-import { checkNumber } from "../../util/validate";
+import { checkNumber } from "../../utils/validate";
 
 const modalStyle = {
     content: {

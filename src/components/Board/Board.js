@@ -1,5 +1,5 @@
 import React from "react";
-import { changeDataFormat, getHeaderList } from "../../util/helperFunc";
+import { changeDataFormat, getHeaderList } from "../../utils/helperFunc";
 import BoardTop from "./BoardTop";
 import BoardFooter from "./BoardFooter";
 import "./Board.scss";

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import history from "../../history";
-import randomKey from "../../util/randomKey";
+import randomKey from "../../utils/randomKey";
 // redux
 import { useDispatch, useSelector } from "react-redux";
 import formActions from "../../redux/actions/formActions";

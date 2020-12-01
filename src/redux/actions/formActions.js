@@ -6,11 +6,11 @@ import {
     FORM_INITIALIZE,
     FORM_ERRORS,
 } from "../types";
-import { validate, validateAll } from "../../util/validate";
+import { validate, validateAll } from "../../utils/validate";
 import api from "../../services/api";
 import history from "../../history";
 import { toast } from "react-toastify";
-import { changeInputToFormData } from "../../util/helperFunc";
+import { changeInputToFormData } from "../../utils/helperFunc";
 import queryString from "query-string";
 
 const init = (initialValue) => async (dispatch, getState) => {
@@ -73,7 +73,9 @@ const submit = (data, fileList = [], goBack = true) => async (
 ) => {
     try {
         const { apiurl } = getState().form;
-        const { isValid, checkedErrors } = validateAll(apiurl, data);
+        const pageId = apiurl.split("/")[2];
+        console.log(pageId);
+        const { isValid, checkedErrors } = validateAll(pageId, data);
         if (!isValid) {
             dispatch({ type: FORM_ERRORS, payload: checkedErrors });
             return;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { validate, validateAll } from "../../util/validate";
+import { validate, validateAll } from "../../utils/validate";
 import Modal from "./Modal";
 import useOpen from "../../Hooks/useOpen";
 
@@ -12,13 +12,15 @@ import InputFile from "../Input/InputFile";
 import InputRadioSingle from "../Input/InputRadioSingle";
 
 const initialValue = {
+    file: "",
+    filename: "",
+    filepath: "",
+
     idx: "",
     touridx: "",
     scripttitle: "",
     scriptcontents: "",
     scriptlanguage: "한글",
-    audiofilename: "",
-    audiofilepath: "",
     audiolanguage: "한글",
     mainaudioYN: "N",
 };
@@ -38,11 +40,11 @@ const ModalButtonAudio = ({ title, onChange }) => {
         }));
 
         type === "file"
-            ? setInputs((state) => ({ ...state, [name]: files }))
+            ? setInputs((state) => ({ ...state, [name]: files[0] }))
             : setInputs((state) => ({ ...state, [name]: value }));
     };
     const handleClickSave = () => {
-        const { isValid, checkedErrors } = validateAll("/modal/audios", inputs);
+        const { isValid, checkedErrors } = validateAll("audios", inputs);
         if (isValid) {
             onChange(inputs);
             setInputs(initialValue);
@@ -90,11 +92,11 @@ const ModalButtonAudio = ({ title, onChange }) => {
                                 { value: "중국어", title: "중국어" },
                             ]}
                         />
-                        <InputFile // Done
+                        <InputFile
                             label="오디오 파일"
-                            name="audiofile"
-                            value={inputs.audiofile}
-                            filename={inputs.audiofilename}
+                            name="file"
+                            value={inputs.file}
+                            filename={inputs.filename}
                             onChange={handleChangeInputs}
                             filetype="audio"
                         />

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { changeObjToQuerystring } from "../../util/helperFunc";
+import { changeObjToQuerystring } from "../../utils/helperFunc";
 import ReactDatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 registerLocale("ko", ko);

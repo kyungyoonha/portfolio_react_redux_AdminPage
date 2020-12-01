@@ -16,7 +16,7 @@ import {
     InputTextarea,
 } from "../../components";
 
-import { validate, validateAll } from "../../util/validate";
+import { validate, validateAll } from "../../utils/validate";
 import { toast } from "react-toastify";
 
 const initialValue = {

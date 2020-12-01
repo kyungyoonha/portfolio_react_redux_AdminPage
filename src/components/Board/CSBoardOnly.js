@@ -7,7 +7,7 @@ import boardActions from "../../redux/actions/boardActions";
 import {
     changeObjToQuerystring,
     changeDateFormat,
-} from "../../util/helperFunc";
+} from "../../utils/helperFunc";
 
 const CSBoardOnly = ({ full }) => {
     const pathname = "/cs/question";

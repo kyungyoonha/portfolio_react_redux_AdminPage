@@ -7,7 +7,7 @@ import {
     BOARD_ERRORS,
     BOARD_INITIALIZE,
 } from "../types";
-import randomKey from "../../util/randomKey";
+import randomKey from "../../utils/randomKey";
 
 const INITIAL_STATE = {
     pageId: "",

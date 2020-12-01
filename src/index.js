@@ -7,7 +7,6 @@ import reduxThunk from "redux-thunk";
 import reducers from "./redux/reducers";
 import { authAction_getMyInfo, authAction_logout } from "./redux/actions";
 import history from "./history";
-import api from "./services/api";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";

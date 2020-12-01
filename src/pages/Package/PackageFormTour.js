@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import history from "../../history";
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
-// Components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -37,64 +34,47 @@ const initialValue = {
     openclose: "0",
     subaudioYN: "N",
     mainaudioYN: "N",
+    audios: [],
+    images: [],
 };
 
+const URL_SUBMIT = "/package/tour";
+
 const PackageFormTour = () => {
-    const dispatch = useDispatch();
-    const [audios, setAudios] = useState([]);
-    const [images, setImages] = useState([]);
-    let { inputs, errors } = useSelector((state) => state.form);
-
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
-    };
-
-    const handleClickInsert = async (e) => {
-        e.preventDefault();
-        if (!images.length) {
-            alert("관광지 사진을 추가해주세요.");
-            return;
-        }
-
-        let interesttag = Object.keys(inputs.interesttag);
-        interesttag.filter((key) => inputs.interesttag[key]);
-        inputs.interesttag = interesttag.join(", ");
-
-        const resTour = await dispatch(formActions.submit(inputs));
-
-        if (resTour?.data) {
-            const touridx = resTour.data.idx;
-            formActions.submitAddData(touridx, images, "/tourimage", ["file"]);
-            formActions.submitAddData(touridx, audios, "/touraudio", [
-                "audiofile",
-            ]);
-        }
-    };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
+    const { inputs, setInputs, errors, onChange, onSubmit } = useInput222(
+        URL_SUBMIT,
+        initialValue
+    );
 
     const handleChangeAudio = (audio) => {
-        setAudios((state) => [audio, ...state]);
+        setInputs((state) => ({
+            ...state,
+            audios: [audio, ...state.audios],
+        }));
     };
 
     const handleDeleteAudio = (idx) => {
-        setAudios((state) => state.filter((_, i) => i !== idx));
+        setInputs((state) => ({
+            ...state,
+            audios: state.audios.filter((_, i) => i !== idx),
+        }));
     };
 
     const handleChangeImage = (images) => {
-        setImages(images);
+        setInputs((state) => ({
+            ...state,
+            images,
+        }));
+    };
+
+    const handleSubmit = () => {
+        const fileList = ["audios", "images"];
+        onSubmit(inputs, fileList);
     };
 
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection>
@@ -102,14 +82,14 @@ const PackageFormTour = () => {
                     label="관광지명"
                     name="tourname"
                     value={inputs.tourname}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
                 <InputRadioSingle
                     label="국가 분류"
                     name="nationtype"
                     value={inputs.nationtype || "1"}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "1", title: "국내" },
                         { value: "2", title: "국외" },
@@ -120,7 +100,7 @@ const PackageFormTour = () => {
                     searchId="nationcode"
                     value={inputs.nationcodeidx}
                     searchItems={["koreanname", "code2"]}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     disabled={inputs.nationtype === "1"}
                     error={errors["nationcodeidx"]}
                 />
@@ -134,7 +114,7 @@ const PackageFormTour = () => {
                         "areaname",
                         "areacode",
                     ]}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     error={errors["areacodeidx"]}
                 />
 
@@ -142,7 +122,7 @@ const PackageFormTour = () => {
                     label="관광지 코드"
                     name="tourcode"
                     value={inputs.tourcode}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 >
                     <button className="btn btn-outline-primary" type="button">
@@ -154,7 +134,7 @@ const PackageFormTour = () => {
                     label="주소"
                     name="address"
                     value={inputs.address}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
 
@@ -162,7 +142,7 @@ const PackageFormTour = () => {
                     label="전화번호"
                     name="telnumber"
                     value={inputs.telnumber}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
 
@@ -170,26 +150,29 @@ const PackageFormTour = () => {
                     label="입장료"
                     name="admissionfee"
                     value={inputs.admissionfee}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
 
                 <InputTimeRange
                     label="운영시간"
                     value={inputs.operatingtime}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
             </FormSection>
 
-            <FormSectionImage images={images} onChange={handleChangeImage} />
+            <FormSectionImage
+                images={inputs.images}
+                onChange={handleChangeImage}
+            />
 
             <FormSection full>
                 <InputRatioMulti
                     label="관심사 태그"
                     name="interesttag"
                     value={inputs.interesttag}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     max={3}
                     options={[
                         { key: "picture", title: "사진광" },
@@ -207,7 +190,7 @@ const PackageFormTour = () => {
                     labelRight="내향성"
                     name="inextroversion"
                     value={inputs.inextroversion}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                 />
 
                 <InputRadioCheck
@@ -216,13 +199,13 @@ const PackageFormTour = () => {
                     labelRight="폐쇄성"
                     name="openclose"
                     value={inputs.openclose}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                 />
             </FormSection>
 
             <FormSectionAudio
                 label="오디오 추가"
-                data={audios}
+                values={inputs.audios}
                 onChange={handleChangeAudio}
                 handleDeleteAudio={handleDeleteAudio}
             />

@@ -4,7 +4,7 @@ import "./FormSectionAudio.scss";
 import FormSection from "./FormSection";
 import ModalButtonAudio from "../Modal/ModalButtonAudio";
 
-const FormSectionAudio = ({ label, data, onChange, handleDeleteAudio }) => {
+const FormSectionAudio = ({ label, values, onChange, handleDeleteAudio }) => {
     return (
         <FormSection full>
             <tr className="formSectionAudio">
@@ -18,7 +18,7 @@ const FormSectionAudio = ({ label, data, onChange, handleDeleteAudio }) => {
                 </th>
                 <td>
                     <div className="formSectionAudio__container">
-                        {data.map((item, idx) => (
+                        {values.map((item, idx) => (
                             <div key={idx} className="formSectionAudio__item">
                                 {idx + 1 + " " + item.scripttitle}
                                 <span className="badge badge-success ml-1 mr-1">

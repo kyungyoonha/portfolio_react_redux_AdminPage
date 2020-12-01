@@ -34,7 +34,7 @@ const ModalButtonImage = ({ onChange, images }) => {
                 touridx: "",
                 mainpicYN: "N",
                 seq: { i },
-                file: files,
+                file: files[i],
                 filename: files[i].name,
                 filepath: files[i],
             };
@@ -154,6 +154,7 @@ const ModalButtonImage = ({ onChange, images }) => {
                             type="file"
                             hidden
                             onChange={handleInsertImg}
+                            accept="image/*"
                             multiple
                         />
                         <button

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { validate } from "../../util/validate";
+import { validate } from "../../utils/validate";
 import { useDispatch, useSelector } from "react-redux";
 import "./Login.scss";
 import { authAction_errors, authAction_logIn } from "../../redux/actions";

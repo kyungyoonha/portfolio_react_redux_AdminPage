@@ -25,7 +25,7 @@ const InputFile = ({
                         disabled={disabled}
                     />
                     <label className="custom-file-label" data-browse={label}>
-                        {value ? value[0].name : filename ? filename : ""}
+                        {value ? value.name : filename ? filename : ""}
                     </label>
                 </div>
             </td>

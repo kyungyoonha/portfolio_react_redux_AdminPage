@@ -2,7 +2,7 @@ import React from "react";
 import history from "../../history";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
-import { changeObjToQuerystring } from "../../util/helperFunc";
+import { changeObjToQuerystring } from "../../utils/helperFunc";
 
 const BoardFooter = ({ pageCount, pages }) => {
     const { search, pathname } = history.location;
