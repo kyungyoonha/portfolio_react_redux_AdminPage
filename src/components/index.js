@@ -13,9 +13,7 @@ export { default as ChartsWeekly } from "./Charts/ChartsWeekly";
 // Form
 export { default as FormSection } from "./Form/FormSection";
 export { default as FormSectionAudio } from "./Form/FormSectionAudio";
-export { default as FormSectionCode } from "./Form/FormSectionCode";
 export { default as FormSectionImage } from "./Form/FormSectionImage";
-export { default as FormSectionTour } from "./Form/FormSectionTour";
 // Header
 export { default as Header } from "./Header/Header";
 // Form

@@ -52,14 +52,18 @@ const ModalButtonSearch = ({ searchPath, label, onChange }) => {
                     onClickSearch={handleClickSearch}
                 />
             </Modal>
-            <button
-                type="button"
-                className="btn btn-primary"
-                onClick={onClickOpen}
-            >
-                {label + "  "}
-                <i className="fas fa-search"></i>
-            </button>
+            <tr>
+                <td colSpan="2">
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={onClickOpen}
+                    >
+                        {label + "  "}
+                        <i className="fas fa-search"></i>
+                    </button>
+                </td>
+            </tr>
         </>
     );
 };

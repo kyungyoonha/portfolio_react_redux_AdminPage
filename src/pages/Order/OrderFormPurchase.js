@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import history from "../../history";
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
 // components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
-    FormSectionTour,
-    FormSectionCode,
     Input,
     InputRadioSingle,
     InputDate,
     InputTime,
+    InputSelect,
+    ModalButtonSearch,
 } from "../../components";
 
 const initialValue = {
@@ -26,66 +24,43 @@ const initialValue = {
     tourstarttime: "",
     userid: "",
     purchasecodeidx: "",
+    purchCode: {},
+    purchTour: [],
 };
 
-const initialPurchCode = {
-    idx: "",
-    purchasedate: "",
-    purchasetype: "",
-    codenumber: "",
-    price: "",
-    purchaseuser: "",
-};
+const URL_SUBMIT = "/order/purchase";
+const URL_SEARCH_CODE = "/order/purchasecode";
+const URL_SEARCH_TOUR = "/package/tour";
+
 //working ###
-// ModalSearch
 const OrderFormPurchase = () => {
-    const dispatch = useDispatch();
-    const [purchCode, setPurchCode] = useState(initialPurchCode);
-    const [purchTour, setPurchTour] = useState([]);
-    let { inputs, errors } = useSelector((state) => state.form);
-
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
-    };
+    const { inputs, setInputs, errors, onChange, onSubmit } = useInput222(
+        URL_SUBMIT,
+        initialValue
+    );
 
     const handleChangePurchCode = (data) => {
-        setPurchCode(data);
-        dispatch(
-            formActions.changeValue({
-                target: {
-                    name: "purchasecodeidx",
-                    value: data.idx,
-                },
-            })
-        );
+        const { idx, ...rest } = data;
+        setInputs((state) => ({
+            ...state,
+            purchasecodeidx: idx,
+            purchCode: rest,
+        }));
     };
 
     const handleChangePurchTour = (data) => {
-        setPurchTour((state) => [...state, data]);
+        setInputs((state) => ({
+            ...state,
+            purchTour: [...state.purchTour, data],
+        }));
     };
 
-    const handleClickInsert = async (e) => {
-        e.preventDefault();
-
-        const resPurchase = await dispatch(formActions.submit(inputs));
-        if (resPurchase?.data) {
-            const purchaseidx = resPurchase.data.idx;
-
-            formActions.submitPurchaseTour(purchaseidx, purchTour);
-        }
+    const handleSubmit = () => {
+        onSubmit(inputs);
     };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection>
@@ -93,7 +68,7 @@ const OrderFormPurchase = () => {
                     label="투어 종류"
                     name="tourtype"
                     value={inputs.tourtype}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "A", title: "모든 투어" },
                         { value: "T", title: "택시 투어" },
@@ -105,54 +80,50 @@ const OrderFormPurchase = () => {
                     label="관광지 코드"
                     name="touridx"
                     value={inputs.touridx}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
                 <Input
                     label="투어 일수"
                     name="tourdays"
                     value={inputs.tourdays}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
                 <InputDate
                     label="투어 시작일"
                     name="tourstartday"
                     value={inputs.tourstartday}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
                 <InputDate
                     label="투어 종료일"
                     name="tourendday"
                     value={inputs.tourendday}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
                 <Input
                     label="투어 인원수"
                     name="tourmember"
                     value={inputs.tourmember}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
-                {/* <InputNumRange
-                    value={inputs.tourmember}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                /> */}
+
                 <Input
                     label="가격"
                     name="price"
                     value={inputs.price}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
                 <InputTime
                     label="투어 시작시간"
                     name="tourstarttime"
                     value={inputs.tourstarttime}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
 
@@ -160,32 +131,86 @@ const OrderFormPurchase = () => {
                     label="투어 구매자"
                     name="userid"
                     value={inputs.userid}
-                    onChange={handleChangeInputs}
-                    errors={errors}
-                />
-                <Input
-                    label="구매 코드"
-                    name="purchasecode"
-                    value={inputs.purchasecodeidx}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     errors={errors}
                 />
             </FormSection>
 
             <FormSection>
-                <FormSectionCode
+                <ModalButtonSearch
                     label="구매코드검색"
-                    searchPath="/order/purchasecode"
-                    data={purchCode}
+                    searchPath={URL_SEARCH_CODE}
                     onChange={handleChangePurchCode}
                 />
-
-                <FormSectionTour
-                    label="관광지 추가"
-                    searchPath="/package/tour"
-                    onChange={handleChangePurchTour}
-                    data={purchTour}
+                <Input
+                    label="구매코드"
+                    name="idx"
+                    value={inputs.purchasecodeidx || ""}
+                    disabled={true}
                 />
+                <Input
+                    label="구매일자"
+                    name="purchasedate"
+                    value={inputs.purchCode.purchasedate || ""}
+                    disabled={true}
+                />
+                <InputSelect
+                    label="구매방식"
+                    name="purchasetype"
+                    value={inputs.purchCode.purchasetype || ""}
+                    disabled={true}
+                    options={[
+                        { value: "1", title: "직접구매" },
+                        { value: "3", title: "관광지 구매" },
+                    ]}
+                />
+                <Input
+                    label="구매코드번호"
+                    name="codenumber"
+                    value={inputs.purchCode.codenumber || ""}
+                    disabled={true}
+                />
+                <Input
+                    label="가격"
+                    name="price"
+                    value={inputs.purchCode.price || ""}
+                    disabled={true}
+                />
+                <Input
+                    label="구매자id"
+                    name="purchaseuser"
+                    value={inputs.purchCode.purchaseuser || ""}
+                    disabled={true}
+                />
+
+                <ModalButtonSearch
+                    label="관광지 추가"
+                    searchPath={URL_SEARCH_TOUR}
+                    onChange={handleChangePurchTour}
+                />
+
+                {inputs.purchTour.map((item, idx) => (
+                    <Input
+                        key={item.idx}
+                        label={`${idx + 1}번째 관광지명`}
+                        name="tourname"
+                        value={item.tourname}
+                        onChange={() => {}}
+                    />
+                ))}
+
+                {inputs.purchTour.length < 3 &&
+                    [
+                        ...new Array(3 - inputs.purchTour.length),
+                    ].map((_, idx) => (
+                        <Input
+                            key={idx}
+                            label={`${
+                                inputs.purchTour.length + idx + 1
+                            }번째 관광지명`}
+                            disabled
+                        />
+                    ))}
             </FormSection>
         </FormLayout>
     );

@@ -5,15 +5,11 @@ import ModalButtonSearch from "../../components/Modal/ModalButtonSearch";
 const FormSectionTour = ({ label, searchPath, data, onChange }) => {
     return (
         <React.Fragment>
-            <tr>
-                <td colSpan="2">
-                    <ModalButtonSearch
-                        label={label}
-                        searchPath={searchPath}
-                        onChange={onChange}
-                    />
-                </td>
-            </tr>
+            <ModalButtonSearch
+                label={label}
+                searchPath={searchPath}
+                onChange={onChange}
+            />
             {data.map((item, idx) => (
                 <Input
                     key={item.idx}
