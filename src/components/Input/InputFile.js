@@ -33,4 +33,4 @@ const InputFile = ({
     );
 };
 
-export default InputFile;
+export default React.memo(InputFile);

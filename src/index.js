@@ -7,6 +7,7 @@ import reduxThunk from "redux-thunk";
 import reducers from "./redux/reducers";
 import { authAction_getMyInfo, authAction_logout } from "./redux/actions";
 import history from "./history";
+import api from "./services/api";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -16,9 +17,10 @@ const store = createStore(reducers, applyMiddleware(reduxThunk));
 
 const token = JSON.parse(localStorage.getItem("token"));
 if (token) {
+    api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     store.dispatch(authAction_getMyInfo());
 } else {
-    store.dispathc(authAction_logout());
+    store.dispatch(authAction_logout());
     history.push("/login");
 }
 

@@ -3,7 +3,7 @@ import ReactDatePicker, { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
 registerLocale("ko", ko);
 
-const InputTime = ({ label, name, value, onChange, errors }) => {
+const InputTime = ({ label, name, value, onChange, error = "" }) => {
     const handleChangeDate = (date) => {
         onChange({
             target: { name, value: date },
@@ -18,13 +18,11 @@ const InputTime = ({ label, name, value, onChange, errors }) => {
             </th>
 
             <td className="">
-                <div className={`input-group ${errors[name] && "is-invalid"}`}>
+                <div className={`input-group ${error && "is-invalid"}`}>
                     <ReactDatePicker
                         locale="ko"
                         selected={value}
-                        className={`custom-select ${
-                            errors[name] && "is-invalid"
-                        }`}
+                        className={`custom-select ${error && "is-invalid"}`}
                         onChange={handleChangeDate}
                         dateFormat="h:mm aa"
                         showTimeSelect
@@ -33,12 +31,10 @@ const InputTime = ({ label, name, value, onChange, errors }) => {
                         timeCaption="Time"
                     />
                 </div>
-                {errors[name] && (
-                    <div className="invalid-feedback">{errors[name]}</div>
-                )}
+                {error && <div className="invalid-feedback">{error}</div>}
             </td>
         </tr>
     );
 };
 
-export default InputTime;
+export default React.memo(InputTime);

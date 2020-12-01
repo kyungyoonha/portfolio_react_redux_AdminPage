@@ -8,7 +8,7 @@ const InputAddress = ({
     value,
     type = "text",
     onChange,
-    errors = {},
+    error = "",
     disabled,
 }) => {
     const [isOpen, onClickOpen, onClickClose] = useOpen();
@@ -35,9 +35,7 @@ const InputAddress = ({
                         name={name}
                         type={type}
                         value={value}
-                        className={`form-control ${
-                            errors[name] && "is-invalid"
-                        }`}
+                        className={`form-control ${error && "is-invalid"}`}
                         onChange={onChange}
                         autoComplete="off"
                         disabled={disabled}
@@ -54,9 +52,7 @@ const InputAddress = ({
                             <i className="fas fa-map-marked-alt "></i>
                         </button>
                     </div>
-                    {errors[name] && (
-                        <div className="invalid-feedback">{errors[name]}</div>
-                    )}
+                    {error && <div className="invalid-feedback">{error}</div>}
                 </div>
 
                 <ModalGoogleMap
@@ -77,4 +73,4 @@ const InputAddress = ({
     );
 };
 
-export default InputAddress;
+export default React.memo(InputAddress);

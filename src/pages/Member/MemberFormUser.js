@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import history from "../../history";
-
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
-// components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -31,41 +27,22 @@ const initialValue = {
     messageagree: "N",
     pushagree: "N",
     etc: "",
-    profile: "",
+    profile: [],
     inextroversion: "0",
     tripTag: {},
 };
 //working ###
 const MemberFormUser = () => {
-    const dispatch = useDispatch();
-    let { inputs, errors } = useSelector((state) => state.form);
+    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
 
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
-    };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        if (!inputs.profile) {
-            alert("프로필 이미지를 추가해주세요.");
-            return;
-        }
+    const handleSubmit = () => {
         const fileList = ["profile"];
-        dispatch(formActions.submit(inputs, fileList));
+        onSubmit(inputs, fileList);
     };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
 
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection>
@@ -73,74 +50,74 @@ const MemberFormUser = () => {
                     label="이름"
                     name="username"
                     value={inputs.username}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.username}
                 />
                 <Input
                     label="id"
                     name="id"
                     value={inputs.id}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.id}
                 />
                 <Input
                     label="비밀번호"
                     type="password"
                     name="pw"
                     value={inputs.pw}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.pw}
                 />
 
                 <InputDate
                     label="생년월일"
                     name="birthday"
                     value={inputs.birthday}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.birthday}
                 />
                 <Input
                     label="전화번호"
                     name="telnumber"
                     value={inputs.telnumber}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.telnumber}
                 />
                 <Input
                     label="별명"
                     name="nickname"
                     value={inputs.nickname}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.nickname}
                 />
                 <Input
                     label="이메일"
                     name="email"
                     value={inputs.email}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.email}
                 />
                 <InputAddress
                     label="주소"
                     name="address"
                     value={inputs.address}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.address}
                 />
             </FormSection>
             <FormSection>
                 <InputFileWithImage
                     label="프로필"
                     name="profile"
-                    value={inputs.profile}
-                    onChange={handleChangeInputs}
+                    value={inputs.profile.length ? inputs.profile[0].file : ""}
+                    onChange={onChange}
                     filetype="image"
                 />
                 <InputRadioSingle
                     label="이메일 수신"
                     name="emailagree"
                     value={inputs.emailagree}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "Y", title: "수신" },
                         { value: "N", title: "미수신" },
@@ -151,7 +128,7 @@ const MemberFormUser = () => {
                     label="문자 수신"
                     name="messageagree"
                     value={inputs.messageagree}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "Y", title: "수신" },
                         { value: "N", title: "미수신" },
@@ -162,7 +139,7 @@ const MemberFormUser = () => {
                     label="문자 수신"
                     name="pushagree"
                     value={inputs.pushagree}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "Y", title: "수신" },
                         { value: "N", title: "미수신" },
@@ -174,7 +151,7 @@ const MemberFormUser = () => {
                     label="관심사 태그"
                     name="tripTag"
                     value={inputs.tripTag}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     max={3}
                     options={[
                         { key: "picture", title: "사진광" },
@@ -191,14 +168,14 @@ const MemberFormUser = () => {
                     labelRight="내향성"
                     name="inextroversion"
                     value={inputs.inextroversion}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                 />
 
                 <InputTextarea
                     label="기타"
                     name="etc"
                     value={inputs.ect}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     rows={6}
                 />
             </FormSection>

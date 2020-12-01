@@ -7,7 +7,7 @@ const InputTextarea = ({
     rows,
     onChange,
     disabled,
-    errors = {},
+    error = "",
 }) => {
     return (
         <tr>
@@ -16,7 +16,7 @@ const InputTextarea = ({
             </th>
             <td>
                 <textarea
-                    className={`form-control ${errors[name] && "is-invalid"}`}
+                    className={`form-control ${error && "is-invalid"}`}
                     rows={rows}
                     name={name}
                     value={value}
@@ -24,11 +24,9 @@ const InputTextarea = ({
                     autoComplete="off"
                     disabled={disabled}
                 ></textarea>
-                {errors[name] && (
-                    <div className="invalid-feedback">{errors[name]}</div>
-                )}
+                {error && <div className="invalid-feedback">{error}</div>}
             </td>
         </tr>
     );
 };
-export default InputTextarea;
+export default React.memo(InputTextarea);

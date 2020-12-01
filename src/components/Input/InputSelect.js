@@ -4,7 +4,7 @@ const InputSelect = ({
     name,
     value,
     onChange,
-    errors = {},
+    error = "",
     disabled,
     options,
 }) => {
@@ -20,7 +20,7 @@ const InputSelect = ({
                     name={name}
                     value={value}
                     onChange={onChange}
-                    className={`custom-select ${errors[name] && "is-invalid"}`}
+                    className={`custom-select ${error && "is-invalid"}`}
                     disabled={disabled}
                 >
                     {options.map((item) => (
@@ -29,11 +29,9 @@ const InputSelect = ({
                         </option>
                     ))}
                 </select>
-                {errors[name] && (
-                    <div className="invalid-feedback">{errors[name]}</div>
-                )}
+                {error && <div className="invalid-feedback">{error}</div>}
             </td>
         </tr>
     );
 };
-export default InputSelect;
+export default React.memo(InputSelect);

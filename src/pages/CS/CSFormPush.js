@@ -1,10 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import history from "../../history";
 
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
 // components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -22,29 +20,14 @@ const initialValue = {
 };
 //working ###
 const CSFormPush = () => {
-    const dispatch = useDispatch();
-    let { inputs, errors } = useSelector((state) => state.form);
+    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
 
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
+    const handleSubmit = () => {
+        onSubmit(inputs);
     };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        dispatch(formActions.submit(inputs));
-    };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection center title="푸쉬 관리">
@@ -54,38 +37,38 @@ const CSFormPush = () => {
                     }/50)`}
                     name="title"
                     value={inputs.title}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.title}
                 />
                 <Input
                     label="푸쉬 대상"
                     name="target"
                     value={inputs.target}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.target}
                 />
                 <Input
                     label="연결페이지"
                     name="linkinfo"
                     value={inputs.linkinfo}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.linkinfo}
                 />
                 <InputTextarea
                     label={`내용 (${
-                        inputs.content ? inputs.content.length : 0
+                        inputs.contents ? inputs.contents.length : 0
                     }/50)`}
                     name="contents"
                     value={inputs.contents}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     rows={8}
-                    errors={errors}
+                    error={errors.contents}
                 />
                 <InputRadioSingle
                     label="메시지 전송여부"
                     name="messageYN"
                     value={inputs.messageYN}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "Y", title: "전송" },
                         { value: "N", title: "거절" },

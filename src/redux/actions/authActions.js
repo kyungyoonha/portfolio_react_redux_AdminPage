@@ -8,9 +8,9 @@ import history from "../../history";
 import { toast } from "react-toastify";
 import api from "../../services/api";
 
-export const authAction_getMyInfo = (config) => async (dispatch) => {
+export const authAction_getMyInfo = () => async (dispatch) => {
     try {
-        const res = await api.get("/auth/me", config || {});
+        const res = await api.get("/auth/me");
         console.log(res);
         dispatch({
             type: AUTH_GET,
@@ -27,13 +27,10 @@ export const authAction_logIn = (data) => async (dispatch) => {
         const resToken = await api.post("/auth/login", data);
         const token = resToken.data.token;
         localStorage.setItem("token", JSON.stringify(token));
-        const config = {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        };
+        api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
         // 토큰 재설정
-        dispatch(authAction_getMyInfo(config));
+        dispatch(authAction_getMyInfo());
         history.push("/");
     } catch (e) {
         toast.error(e.response.data.error);

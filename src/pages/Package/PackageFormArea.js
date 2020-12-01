@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import history from "../../history";
-
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
-// components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -19,42 +15,24 @@ const initialValue = {
     sidoname: "",
     areacode: "",
     areaname: "",
-    mainpic: "Y",
+    mainpicYN: "Y",
+    mainpic: "",
     mainpicname: "",
     mainpicpath: "",
 };
 
 //working ###
 const PackageFormArea = () => {
-    const dispatch = useDispatch();
-    let { inputs, errors } = useSelector((state) => state.form);
+    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
 
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
-    };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        if (!inputs.mainpic) {
-            alert("프로필 이미지를 추가해주세요.");
-            return;
-        }
-
+    const handleSubmit = () => {
         const fileList = ["mainpic"];
-        dispatch(formActions.submit(inputs, fileList));
+        onSubmit(inputs, fileList);
     };
 
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection center title="지역코드 추가">
@@ -63,7 +41,7 @@ const PackageFormArea = () => {
                     searchId="nationcode"
                     value={inputs.nationcodeidx}
                     searchItems={["koreanname", "code2"]}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     disabled={inputs.nationtype === "1"}
                     error={errors["nationcodeidx"]}
                 />
@@ -71,37 +49,37 @@ const PackageFormArea = () => {
                     label="시도 코드"
                     name="sidocode"
                     value={inputs.sidocode}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.sidocode}
                 />
                 <Input
                     label="시도명"
                     name="sidoname"
                     value={inputs.sidoname}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.sidoname}
                 />
                 <Input
                     label="지역 코드"
                     name="areacode"
                     value={inputs.areacode}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.areacode}
                 />
                 <Input
                     label="지역명"
                     name="areaname"
                     value={inputs.areaname}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.areaname}
                 />
                 <InputFileWithImage
                     label="대표 사진"
                     name="mainpic"
-                    value={inputs.mainpic}
+                    value={inputs.mainpic.length ? inputs.mainpic[0].file : ""}
                     filename={inputs.mainpicname}
                     filepath={inputs.mainpicpath}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     filetype="image"
                 />
             </FormSection>

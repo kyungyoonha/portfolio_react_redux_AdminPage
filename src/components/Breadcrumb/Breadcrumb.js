@@ -9,7 +9,7 @@ const BreadCrumMap = {
     user: "회원 정보",
     member: "일반 회원",
     driver: "기사 회원",
-    manager: "관리자",
+    admin: "관리자",
     tour: "관광지 관리",
     package: "관광지",
     nationcode: "국가 코드 관리",

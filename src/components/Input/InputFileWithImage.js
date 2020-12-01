@@ -18,8 +18,9 @@ const InputFileWithImage = ({
     filetype,
 }) => {
     const inputFileRef = useRef(null);
-    const imageUrl = value[0]
-        ? window.URL.createObjectURL(value[0])
+
+    const imageUrl = value
+        ? window.URL.createObjectURL(value)
         : filepath
         ? process.env.REACT_APP_BACKEND_URL + filepath
         : noImg;
@@ -68,11 +69,11 @@ const InputFileWithImage = ({
                     >
                         이미지 찾기
                     </button>
-                    {value ? value[0].name : filename ? filename : ""}
+                    {value ? value.name : filename ? filename : ""}
                 </td>
             </tr>
         </React.Fragment>
     );
 };
 
-export default InputFileWithImage;
+export default React.memo(InputFileWithImage);

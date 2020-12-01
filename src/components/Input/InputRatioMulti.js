@@ -41,4 +41,4 @@ const InputRatioMulti = ({ label, name, value, onChange, max, options }) => {
     );
 };
 
-export default InputRatioMulti;
+export default React.memo(InputRatioMulti);

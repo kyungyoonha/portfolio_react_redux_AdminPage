@@ -1,11 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import history from "../../history";
-
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
-
-// components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -20,35 +15,21 @@ const initialValue = {
     showYN: "N",
     topYN: "N",
     contents: "",
-    file: "",
+    file: [],
 };
 
 //working ###
 const CSFormNotice = () => {
-    const dispatch = useDispatch();
-    let { inputs, errors } = useSelector((state) => state.form);
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
+    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
 
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
-    };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
+    const handleSubmit = () => {
         const fileList = ["file"];
-        dispatch(formActions.submit(inputs, fileList));
+        onSubmit(inputs, fileList);
     };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
 
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection center title="공지 추가">
@@ -56,15 +37,14 @@ const CSFormNotice = () => {
                     label="제목"
                     name="title"
                     value={inputs.title}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.title}
                 />
                 <InputRadioSingle
                     label="공개여부"
                     name="showYN"
                     value={inputs.showYN}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
                     options={[
                         { value: "Y", title: "공개" },
                         { value: "N", title: "비공개" },
@@ -73,17 +53,16 @@ const CSFormNotice = () => {
                 <InputFile
                     label="첨부파일"
                     name="file"
-                    value={inputs.file}
+                    value={inputs.file.length ? inputs.file[0].file : ""}
                     filename={inputs.filename}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     filetype="raw"
                 />
                 <InputRadioSingle
                     label="상단노출"
                     name="topYN"
                     value={inputs.topYN}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
                     options={[
                         { value: "Y", title: "상단노출" },
                         { value: "N", title: "비공개" },
@@ -93,9 +72,9 @@ const CSFormNotice = () => {
                     label="내용"
                     name="contents"
                     value={inputs.contents}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     rows={8}
-                    errors={errors}
+                    error={errors.contents}
                 />
             </FormSection>
         </FormLayout>

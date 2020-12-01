@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import history from "../../history";
-
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
-
+import useInput222 from "../../Hooks/useInput222";
 // components
 import FormLayout from "../../Layout/FormLayout";
 import {
@@ -35,30 +31,15 @@ const initialValue = {
 
 //working done ###
 const MemberFormAdmin = () => {
-    const dispatch = useDispatch();
-    let { inputs, errors } = useSelector((state) => state.form);
+    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
 
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
+    const handleSubmit = () => {
+        onSubmit(inputs);
     };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        dispatch(formActions.submit(inputs));
-    };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
 
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection center title="매니저 추가">
@@ -66,29 +47,28 @@ const MemberFormAdmin = () => {
                     label="이름"
                     name="username"
                     value={inputs.username}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.username}
                 />
                 <Input
                     label="아이디"
                     name="id"
                     value={inputs.id}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.id}
                 />
                 <Input
                     label="비밀번호"
                     name="pw"
                     value={inputs.pw}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.pw}
                 />
                 <InputRadioSingle
                     label="등급"
                     name="level"
                     value={inputs.level}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
                     options={[
                         { value: "1", title: "슈퍼 관리자" },
                         { value: "2", title: "일반 관리자" },
@@ -98,50 +78,50 @@ const MemberFormAdmin = () => {
                     label="생년월일"
                     name="birthday"
                     value={inputs.birthday}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.birthday}
                 />
                 <Input
                     label="전화번호"
                     name="telnumber"
                     value={inputs.telnumber}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.telnumber}
                 />
                 <Input
                     label="이메일"
                     name="email"
                     value={inputs.email}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.email}
                 />
                 <Input
                     label="영어이름"
                     name="englishname"
                     value={inputs.englishname}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                 />
                 <InputAddress
                     label="주소"
                     name="address"
                     value={inputs.address}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.address}
                 />
 
                 <Input
                     label="입사년도"
                     name="entryYear"
                     value={inputs.entryYear}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                 />
 
                 <InputSelect
                     label="직무"
                     name="duty"
                     value={inputs.duty}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.duty}
                     options={[
                         { value: "1", title: "팀원" },
                         { value: "2", title: "매니저" },
@@ -155,8 +135,8 @@ const MemberFormAdmin = () => {
                     label="부서"
                     name="department"
                     value={inputs.department}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.department}
                     options={[
                         { value: "1", title: "해외팀" },
                         { value: "2", title: "영업" },
@@ -171,7 +151,7 @@ const MemberFormAdmin = () => {
                     label="기타"
                     name="etc"
                     value={inputs.etc}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     rows={6}
                 />
             </FormSection>

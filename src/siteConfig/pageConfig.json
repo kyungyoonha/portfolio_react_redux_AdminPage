@@ -151,7 +151,7 @@
     "question": {
         "title": "문의사항 관리",
         "navCtg": "cs",
-        "validate": ["title", "contactNumber", "sendEmail", "sendContent"],
+        "validate": ["title", "hiddenStatus", "sendEmail", "sendContent"],
         "headers": [
             { "key": "idx", "title": "인덱스" },
             { "key": "userid", "title": "등록자" ,"filter": true},

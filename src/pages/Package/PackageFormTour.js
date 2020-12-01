@@ -15,7 +15,6 @@ import {
     InputTimeRange,
 } from "../../components";
 
-// "validate": ["tourname", "nationcodeidx", "areacodeidx", "tourcode", "operatingtime", "address", "telnumber", "admissionfee"],
 const initialValue = {
     tourname: "",
     nationtype: "1",
@@ -38,11 +37,8 @@ const initialValue = {
     images: [],
 };
 
-const URL_SUBMIT = "/package/tour";
-
 const PackageFormTour = () => {
     const { inputs, setInputs, errors, onChange, onSubmit } = useInput222(
-        URL_SUBMIT,
         initialValue
     );
 
@@ -83,7 +79,7 @@ const PackageFormTour = () => {
                     name="tourname"
                     value={inputs.tourname}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.tourname}
                 />
                 <InputRadioSingle
                     label="국가 분류"
@@ -123,7 +119,7 @@ const PackageFormTour = () => {
                     name="tourcode"
                     value={inputs.tourcode}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.tourcode}
                 >
                     <button className="btn btn-outline-primary" type="button">
                         중복확인
@@ -135,7 +131,7 @@ const PackageFormTour = () => {
                     name="address"
                     value={inputs.address}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.address}
                 />
 
                 <Input
@@ -143,7 +139,7 @@ const PackageFormTour = () => {
                     name="telnumber"
                     value={inputs.telnumber}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.telnumber}
                 />
 
                 <Input
@@ -151,14 +147,15 @@ const PackageFormTour = () => {
                     name="admissionfee"
                     value={inputs.admissionfee}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.admissionfee}
                 />
 
                 <InputTimeRange
                     label="운영시간"
+                    name="operatingtime"
                     value={inputs.operatingtime}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.operatingtime}
                 />
             </FormSection>
 

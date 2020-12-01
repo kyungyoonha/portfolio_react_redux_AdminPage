@@ -39,4 +39,4 @@ const InputRadioCheck = ({
     );
 };
 
-export default InputRadioCheck;
+export default React.memo(InputRadioCheck);

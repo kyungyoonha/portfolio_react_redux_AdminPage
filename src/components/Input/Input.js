@@ -6,7 +6,7 @@ const Input = ({
     value,
     type = "text",
     onChange,
-    errors = {},
+    error = "",
     placeholder = "",
     disabled,
     children,
@@ -22,22 +22,18 @@ const Input = ({
                         name={name}
                         type={type}
                         value={value}
-                        className={`form-control ${
-                            errors[name] && "is-invalid"
-                        }`}
+                        className={`form-control ${error && "is-invalid"}`}
                         onChange={onChange}
                         placeholder={placeholder}
                         autoComplete="off"
                         disabled={disabled}
                     />
                     <div className="input-group-append">{children}</div>
-                    {errors[name] && (
-                        <div className="invalid-feedback">{errors[name]}</div>
-                    )}
+                    {error && <div className="invalid-feedback">{error}</div>}
                 </div>
             </td>
         </tr>
     );
 };
 
-export default Input;
+export default React.memo(Input);

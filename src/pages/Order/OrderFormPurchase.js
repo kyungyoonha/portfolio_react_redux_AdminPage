@@ -28,14 +28,12 @@ const initialValue = {
     purchTour: [],
 };
 
-const URL_SUBMIT = "/order/purchase";
 const URL_SEARCH_CODE = "/order/purchasecode";
 const URL_SEARCH_TOUR = "/package/tour";
 
 //working ###
 const OrderFormPurchase = () => {
     const { inputs, setInputs, errors, onChange, onSubmit } = useInput222(
-        URL_SUBMIT,
         initialValue
     );
 
@@ -74,42 +72,41 @@ const OrderFormPurchase = () => {
                         { value: "T", title: "택시 투어" },
                         { value: "E", title: "기타 투어" },
                     ]}
-                    errors={errors}
                 />
                 <Input
                     label="관광지 코드"
                     name="touridx"
                     value={inputs.touridx}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.touridx}
                 />
                 <Input
                     label="투어 일수"
                     name="tourdays"
                     value={inputs.tourdays}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.tourdays}
                 />
                 <InputDate
                     label="투어 시작일"
                     name="tourstartday"
                     value={inputs.tourstartday}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.tourstartday}
                 />
                 <InputDate
                     label="투어 종료일"
                     name="tourendday"
                     value={inputs.tourendday}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.tourendday}
                 />
                 <Input
                     label="투어 인원수"
                     name="tourmember"
                     value={inputs.tourmember}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.tourmember}
                 />
 
                 <Input
@@ -117,14 +114,14 @@ const OrderFormPurchase = () => {
                     name="price"
                     value={inputs.price}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.price}
                 />
                 <InputTime
                     label="투어 시작시간"
                     name="tourstarttime"
                     value={inputs.tourstarttime}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.tourstarttime}
                 />
 
                 <Input
@@ -132,7 +129,7 @@ const OrderFormPurchase = () => {
                     name="userid"
                     value={inputs.userid}
                     onChange={onChange}
-                    errors={errors}
+                    error={errors.userid}
                 />
             </FormSection>
 

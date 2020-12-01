@@ -45,4 +45,4 @@ export const InputRadioSingle = ({
     );
 };
 
-export default InputRadioSingle;
+export default React.memo(InputRadioSingle);

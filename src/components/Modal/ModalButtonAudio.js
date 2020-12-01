@@ -69,14 +69,14 @@ const ModalButtonAudio = ({ title, onChange }) => {
                             name="scripttitle"
                             value={inputs.scripttitle}
                             onChange={handleChangeInputs}
-                            errors={errors}
+                            error={errors.scripttitle}
                         />
                         <InputTextarea
                             label="스크립트 내용"
                             name="scriptcontents"
                             value={inputs.scriptcontents}
                             onChange={handleChangeInputs}
-                            errors={errors}
+                            error={errors.scriptcontents}
                             rows={8}
                         />
                         <InputSelect
@@ -84,7 +84,7 @@ const ModalButtonAudio = ({ title, onChange }) => {
                             name="scriptlanguage"
                             value={inputs.scriptlanguage}
                             onChange={handleChangeInputs}
-                            errors={errors}
+                            error={errors.scriptlanguage}
                             options={[
                                 { value: "한글", title: "한글" },
                                 { value: "영어", title: "영어" },
@@ -105,7 +105,7 @@ const ModalButtonAudio = ({ title, onChange }) => {
                             name="audiolanguage"
                             value={inputs.audiolanguage}
                             onChange={handleChangeInputs}
-                            errors={errors}
+                            error={errors.audiolanguage}
                             options={[
                                 { value: "한글", title: "한글" },
                                 { value: "영어", title: "영어" },

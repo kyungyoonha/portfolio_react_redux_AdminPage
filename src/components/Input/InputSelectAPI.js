@@ -7,7 +7,7 @@ const InputSelectAPI = ({
     value,
     searchItems,
     onChange,
-    error,
+    error = "",
     disabled,
 }) => {
     return (
@@ -33,4 +33,4 @@ const InputSelectAPI = ({
     );
 };
 
-export default InputSelectAPI;
+export default React.memo(InputSelectAPI);

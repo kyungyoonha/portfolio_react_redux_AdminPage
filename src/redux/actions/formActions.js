@@ -95,7 +95,7 @@ const submit = (data, fileList = [], goBack = true) => async (
         //     payload: res.data,
         // });
         // history.goBack();
-
+        console.log(res);
         return res;
     } catch (e) {
         console.log(e);

@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import history from "../../history";
 import fileAPI from "../../services/fileAPI";
 import api from "../../services/api";
-
-// 리덕스
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
-// components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -24,7 +20,7 @@ const initialValue = {
     email: "",
     replyYN: "N",
     contents: "",
-    file: "",
+    file: [],
     filename: "",
     filepath: "",
 };
@@ -39,47 +35,36 @@ const initialValueSender = {
 };
 //working
 const CSFormQuestion = () => {
-    const dispatch = useDispatch();
-    let { inputs } = useSelector((state) => state.form);
-    let [sendInputs, setSendInputs] = useState(initialValueSender);
-    let [errors, setErrors] = useState({});
+    const question = useInput222(initialValue);
+    const [inputs, setInputs] = useState(initialValueSender);
+    const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
-    };
-
-    const handleChangeSendInputs = (e) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
-        const errorMessage = validate("sendEmail", name, value);
-        setErrors((state) => ({
-            ...state,
-            [name]: errorMessage,
-        }));
 
-        setSendInputs((state) => ({
+        setInputs((state) => ({
             ...state,
             [name]: value,
+        }));
+
+        const error = validate("sendEmail", name, value);
+
+        setErrors((state) => ({
+            ...state,
+            [name]: error,
         }));
     };
 
     const handleChangeFile = (e) => {
-        const { name, files } = e.target;
-        setSendInputs((state) => ({
+        const file = e.target.files;
+        setInputs((state) => ({
             ...state,
-            [name]: files,
+            file,
         }));
     };
 
     const handleSendEmail = async () => {
-        const { isValid, checkedErrors } = validateAll(
-            "/uploaod/sendEmail",
-            sendInputs
-        );
+        const { isValid, checkedErrors } = validateAll("sendEmail", inputs);
 
         if (!isValid) {
             setErrors(checkedErrors);
@@ -87,24 +72,21 @@ const CSFormQuestion = () => {
         }
         try {
             await fileAPI.sendEmail({
-                to: inputs.email,
-                subject: sendInputs.title,
-                contents: sendInputs.sendContent,
-                file: sendInputs.file,
+                to: question.inputs.email,
+                subject: inputs.title,
+                contents: inputs.sendContent,
+                file: inputs.file,
             });
 
             await api.post("/cs/question/update", {
-                ...inputs,
+                ...question.inputs,
                 replyYN: "Y",
             });
         } catch (e) {
+            console.log(e);
             e.response && toast.error(e.response.data.error);
         }
     };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
 
     return (
         <FormLayout
@@ -115,15 +97,15 @@ const CSFormQuestion = () => {
                 <Input
                     label="등록자"
                     name="useridx"
-                    value={inputs.useridx}
-                    onChange={handleChangeInputs}
+                    value={question.inputs.useridx}
+                    onChange={() => {}}
                     disabled
                 />
                 <Input
                     label="수신 이메일"
                     name="email"
-                    value={inputs.email}
-                    onChange={handleChangeInputs}
+                    value={question.inputs.email}
+                    onChange={() => {}}
                     disabled
                 />
 
@@ -131,8 +113,8 @@ const CSFormQuestion = () => {
                     label="첨부파일"
                     name="file"
                     value={inputs.file}
-                    filename={inputs.filename}
-                    onChange={handleChangeInputs}
+                    filename={question.inputs.filename}
+                    onChange={() => {}}
                     filetype="raw"
                     disabled
                 />
@@ -140,8 +122,8 @@ const CSFormQuestion = () => {
                 <InputTextarea
                     label="내용"
                     name="contents"
-                    value={inputs.contents}
-                    onChange={handleChangeInputs}
+                    value={question.inputs.contents}
+                    onChange={() => {}}
                     rows={15}
                     disabled
                 />
@@ -151,17 +133,17 @@ const CSFormQuestion = () => {
                 <Input
                     label="제목"
                     name="title"
-                    value={sendInputs.title}
-                    onChange={handleChangeSendInputs}
-                    errors={errors}
+                    value={inputs.title}
+                    onChange={handleChange}
+                    error={errors.title}
                 />
 
                 <InputSelect
                     label="공개 여부"
                     name="hiddenStatus"
-                    value={sendInputs.hiddenStatus}
-                    onChange={handleChangeSendInputs}
-                    errors={errors}
+                    value={inputs.hiddenStatus}
+                    onChange={handleChange}
+                    error={errors.hiddenStatus}
                     options={[
                         { value: "visible", title: "공개" },
                         { value: "hidden", title: "비공개" },
@@ -171,8 +153,8 @@ const CSFormQuestion = () => {
                 <InputFile // Done
                     label="첨부파일"
                     name="file"
-                    value={sendInputs.file}
-                    filename={sendInputs.filename}
+                    value={inputs.file[0]}
+                    filename={inputs.filename}
                     onChange={handleChangeFile}
                     filetype="raw"
                 />
@@ -180,18 +162,18 @@ const CSFormQuestion = () => {
                 <Input
                     label="발신 이메일"
                     name="sendEmail"
-                    value={sendInputs.sendEmail}
-                    onChange={handleChangeSendInputs}
-                    errors={errors}
+                    value={inputs.sendEmail}
+                    onChange={handleChange}
+                    error={errors.sendEmail}
                 />
 
                 <InputTextarea
                     label="내용"
                     name="sendContent"
-                    value={sendInputs.sendContent}
-                    onChange={handleChangeSendInputs}
+                    value={inputs.sendContent}
+                    onChange={handleChange}
                     rows={12}
-                    errors={errors}
+                    error={errors.sendContent}
                 />
             </FormSection>
         </FormLayout>

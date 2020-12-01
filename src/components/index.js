@@ -22,7 +22,6 @@ export { default as InputAddress } from "./Input/InputAddress";
 export { default as InputDate } from "./Input/InputDate";
 export { default as InputFile } from "./Input/InputFile";
 export { default as InputFileWithImage } from "./Input/InputFileWithImage";
-export { default as InputNumRange } from "./Input/InputNumRange";
 export { default as InputRadioCheck } from "./Input/InputRadioCheck";
 export { default as InputRadioSingle } from "./Input/InputRadioSingle";
 export { default as InputRatioMulti } from "./Input/InputRatioMulti";

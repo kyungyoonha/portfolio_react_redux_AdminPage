@@ -3,13 +3,20 @@ import useOpen from "../../Hooks/useOpen";
 import ModalTimePicker from "../Modal/ModalTimePicker";
 import "./inputTimeRange.scss";
 
-const InputTimeRange = ({ label, value, onChange, errors = {}, disabled }) => {
+const InputTimeRange = ({
+    label,
+    name,
+    value,
+    onChange,
+    error = "",
+    disabled,
+}) => {
     const [isOpen, onClickOpen, onClickClose] = useOpen();
-    const handleChangeInput = (value) => {
+    const handleChangeInput = (newValue) => {
         onChange({
             target: {
                 name: "operatingtime",
-                value,
+                value: newValue,
             },
         });
     };
@@ -27,12 +34,10 @@ const InputTimeRange = ({ label, value, onChange, errors = {}, disabled }) => {
             <td>
                 <div className="input-group">
                     <input
-                        name="operatingtime"
+                        name={name}
                         type="text"
                         value={value}
-                        className={`form-control ${
-                            errors["operatingtime"] && "is-invalid"
-                        }`}
+                        className={`form-control ${error && "is-invalid"}`}
                         onChange={onChange}
                         autoComplete="off"
                         disabled={disabled}
@@ -49,11 +54,7 @@ const InputTimeRange = ({ label, value, onChange, errors = {}, disabled }) => {
                             <i className="fas fa-clock "></i>
                         </button>
                     </div>
-                    {errors["operatingtime"] && (
-                        <div className="invalid-feedback">
-                            {errors["operatingtime"]}
-                        </div>
-                    )}
+                    {error && <div className="invalid-feedback">{error}</div>}
                 </div>
 
                 <ModalTimePicker
@@ -66,4 +67,4 @@ const InputTimeRange = ({ label, value, onChange, errors = {}, disabled }) => {
     );
 };
 
-export default InputTimeRange;
+export default React.memo(InputTimeRange);

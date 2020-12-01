@@ -1,10 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import history from "../../history";
-
-// redux
-import { useDispatch, useSelector } from "react-redux";
-import formActions from "../../redux/actions/formActions";
-// components
+import useInput222 from "../../Hooks/useInput222";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -33,43 +29,23 @@ const initialValue = {
     etc: "",
     businessname: "",
     // image
-    driverpic: "",
-    license: "",
-    car: "",
+    driver: [],
+    license: [],
+    car: [],
 };
 
 //working ###
 const MemberFormDriver = () => {
-    const dispatch = useDispatch();
-    let { inputs, errors } = useSelector((state) => state.form);
+    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
 
-    useEffect(() => {
-        dispatch(formActions.init(initialValue));
-        return () => dispatch(formActions.initialize());
-    }, [dispatch]);
-
-    const handleChangeInputs = (e) => {
-        dispatch(formActions.changeValue(e));
+    const handleSubmit = () => {
+        const fileList = ["driver", "car", "license"];
+        onSubmit(inputs, fileList);
     };
-
-    const handleClickInsert = (e) => {
-        e.preventDefault();
-        if (!inputs.license) {
-            alert("면허증 이미지를 추가해주세요.");
-            return;
-        }
-
-        const fileList = ["driverpic", "car", "license"];
-        dispatch(formActions.submit(inputs, fileList));
-    };
-
-    if (!Object.keys(inputs).length) {
-        inputs = initialValue;
-    }
 
     return (
         <FormLayout
-            onClickInsert={handleClickInsert}
+            onClickInsert={handleSubmit}
             onClickBack={() => history.goBack()}
         >
             <FormSection>
@@ -77,29 +53,29 @@ const MemberFormDriver = () => {
                     label="이름"
                     name="drivername"
                     value={inputs.drivername}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.drivername}
                 />
                 <Input
                     label="아이디"
                     name="id"
                     value={inputs.id}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.id}
                 />
                 <Input
                     label="비밀번호"
                     type="password"
                     name="pw"
                     value={inputs.pw}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.pw}
                 />
                 <InputRadioSingle
                     label="국가 분류"
                     name="nationtype"
                     value={inputs.nationtype || "1"}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "1", title: "국내" },
                         { value: "2", title: "국외" },
@@ -110,7 +86,7 @@ const MemberFormDriver = () => {
                     searchId="nationcode"
                     value={inputs.nationcodeidx}
                     searchItems={["koreanname", "code2"]}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     disabled={inputs.nationtype === "1"}
                     error={errors["nationcodeidx"]}
                 />
@@ -125,47 +101,47 @@ const MemberFormDriver = () => {
                         "areaname",
                         "areacode",
                     ]}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     error={errors["areacodeidx"]}
                 />
                 <InputDate
                     label="생년월일"
                     name="birthday"
                     value={inputs.birthday}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.birthday}
                 />
                 <Input
                     label="전화번호"
                     name="telnumber"
                     value={inputs.telnumber}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.telnumber}
                 />
                 <Input
                     label="차종"
                     name="cartype"
                     value={inputs.cartype}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                 />
                 <Input
                     label="차량번호"
                     name="carnumber"
                     value={inputs.carnumber}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                 />
                 <Input
                     label="면허증 번호"
                     name="carlicense"
                     value={inputs.carlicense}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.carlicense}
                 />
                 <InputRadioSingle
                     label="소속"
                     name="businesstype"
                     value={inputs.businesstype}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     options={[
                         { value: "1", title: "개인" },
                         { value: "2", title: "사업자" },
@@ -175,45 +151,45 @@ const MemberFormDriver = () => {
                     label="회사명"
                     name="businessname"
                     value={inputs.businessname}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.businessname}
                 />
 
                 <Input
                     label="평점"
                     name="grade"
                     value={inputs.grade}
-                    onChange={handleChangeInputs}
-                    errors={errors}
+                    onChange={onChange}
+                    error={errors.grade}
                 />
                 <InputTextarea
                     label="기타"
                     name="etc"
                     value={inputs.etc}
-                    onChange={handleChangeInputs}
+                    onChange={onChange}
                     rows={6}
                 />
             </FormSection>
             <FormSection>
                 <InputFileWithImage
                     label="기사 사진"
-                    name="driverpic"
-                    value={inputs.driverpic}
-                    onChange={handleChangeInputs}
+                    name="driver"
+                    value={inputs.driver.length ? inputs.driver[0].file : ""}
+                    onChange={onChange}
                     filetype="image"
                 />
                 <InputFileWithImage
                     label="면허증 사진"
                     name="license"
-                    value={inputs.license}
-                    onChange={handleChangeInputs}
+                    value={inputs.license.length ? inputs.license[0].file : ""}
+                    onChange={onChange}
                     filetype="image"
                 />
                 <InputFileWithImage
                     label="차량 사진"
                     name="car"
-                    value={inputs.car}
-                    onChange={handleChangeInputs}
+                    value={inputs.car.length ? inputs.car[0].file : ""}
+                    onChange={onChange}
                     filetype="image"
                 />
             </FormSection>
