@@ -2,7 +2,7 @@ import React from "react";
 import history from "../../history";
 
 // components
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -20,7 +20,7 @@ const initialValue = {
 };
 //working ###
 const CSFormPush = () => {
-    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
+    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
         onSubmit(inputs);
@@ -65,7 +65,7 @@ const CSFormPush = () => {
                     error={errors.contents}
                 />
                 <InputRadioSingle
-                    label="메시지 전송여부"
+                    label="메시지 동의"
                     name="messageYN"
                     value={inputs.messageYN}
                     onChange={onChange}

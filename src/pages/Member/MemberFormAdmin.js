@@ -1,6 +1,6 @@
 import React from "react";
 import history from "../../history";
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 // components
 import FormLayout from "../../Layout/FormLayout";
 import {
@@ -31,7 +31,7 @@ const initialValue = {
 
 //working done ###
 const MemberFormAdmin = () => {
-    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
+    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
         onSubmit(inputs);

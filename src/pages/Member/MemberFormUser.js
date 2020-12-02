@@ -1,6 +1,6 @@
 import React from "react";
 import history from "../../history";
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -33,7 +33,7 @@ const initialValue = {
 };
 //working ###
 const MemberFormUser = () => {
-    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
+    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
         const fileList = ["profile"];
@@ -162,6 +162,7 @@ const MemberFormUser = () => {
                         { key: "nature", title: "자연인" },
                     ]}
                 />
+
                 <InputRadioCheck
                     label="내외향성"
                     labelLeft="외향성"

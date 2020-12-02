@@ -1,87 +1,89 @@
-import { useCallback, useState } from "react";
-import fileAPI from "../services/fileAPI";
+import { useState, useEffect } from "react";
+import { validate, validateAll } from "../utils/validate";
+import { changeInputToFormData222 } from "../utils/helperFunc";
+import { toast } from "react-toastify";
+import history from "../history";
+import api from "../services/api";
+import queryString from "query-string";
 
-export default (initialValue, validateFunc, setErrors) => {
+export default (initialValue) => {
     const [inputs, setInputs] = useState(initialValue);
+    const [errors, setErrors] = useState({});
 
-    const handleChangeInputs = useCallback(
-        (e) => {
-            const { name, value, type, checked } = e.target;
-            const error = validateFunc(name, value);
+    const pathname = history.location.pathname;
+    const pageCtg = pathname.split("/")[1];
+    const pageId = pathname.split("/")[2];
+    const { id, type: queryType } = queryString.parse(history.location.search);
 
-            if (type === "checkbox") {
-                setInputs((state) => ({
-                    ...state,
-                    [name]: {
-                        ...state[name],
-                        [value]: checked,
-                    },
-                }));
-            } else {
-                setInputs((state) => ({ ...state, [name]: value }));
-                setErrors((state) => ({ ...state, [name]: error }));
+    if (id) {
+        useEffect(() => {
+            const getData = async () => {
+                const res = await api.get(`/${pageCtg}/${pageId}/${id}`);
+                setInputs(res.data);
+            };
+            getData();
+        }, [pageCtg, pageId, id]);
+    }
 
-                if (name === "nationtype") {
-                    setInputs((state) => ({
-                        ...state,
-                        nationcodeidx: value === "1" ? "1" : "",
-                    }));
-                }
+    if (queryType === "copy") {
+        delete inputs.idx;
+    }
 
-                // 오디오 세부 유/무
-                else if (name === "subaudioYN" && value === "N") {
-                    setInputs((state) => ({
-                        ...state,
-                        audioList: [],
-                    }));
-                }
+    const onChange = (e) => {
+        const { name, value, type, checked, files } = e.target;
 
-                // 오디오 메인 유/무
-                else if (name === "mainaudioYN" && value === "N") {
-                    setInputs((state) => ({
-                        ...state,
-                        audioMain: {
-                            korea: { title: "", script: "", files: [] },
-                            english: { title: "", script: "", files: [] },
-                            japan: { title: "", script: "", files: [] },
-                            china: { title: "", script: "", files: [] },
-                        },
-                    }));
-                }
-                // 투어 일수 당일 / 기간 설정
-                else if (name === "tourDayCntCheck") {
-                    setInputs((state) => ({
-                        ...state,
-                        tourDayCnt: value === "one" ? "1" : "",
-                    }));
-                }
-            }
-        },
-        [setErrors, validateFunc]
-    );
-
-    const handleChangeFile = useCallback(async (e, type) => {
-        const { name, files } = e.target;
-        setInputs((state) => ({
-            ...state,
-            [name + "name"]: "",
-            [name + "path"]: "",
-        }));
-        const file = e.target.files[0];
-        try {
-            const res = await fileAPI.upload(
-                type === "audio" ? "video" : type,
-                file
-            );
+        if (type === "checkbox") {
+            console.log({ name, value, type, checked });
             setInputs((state) => ({
                 ...state,
-                [name + "name"]: files[0].name,
-                [name + "path"]: res,
+                [name]: {
+                    ...state[name],
+                    [value]: checked,
+                },
             }));
-        } catch (e) {
-            console.error(e);
-        }
-    }, []);
+        } else if (type === "file") {
+            setInputs((state) => ({ ...state, [name]: [{ file: files[0] }] }));
+        } else {
+            setInputs((state) => ({ ...state, [name]: value }));
 
-    return [inputs, setInputs, handleChangeInputs, handleChangeFile];
+            if (name === "nationtype") {
+                inputs.nationcodeidx = value === "1" ? "1" : "";
+            } else if (name === "tourDayCntCheck") {
+                inputs.tourDayCnt = value === "one" ? "1" : "";
+            }
+        }
+
+        const error = validate(pageId, name, value);
+        setErrors((state) => ({ ...state, [name]: error }));
+    };
+
+    const onSubmit = async (data, fileList = []) => {
+        try {
+            const { isValid, checkedErrors } = validateAll(pageId, data);
+
+            if (!isValid) {
+                return setErrors(checkedErrors);
+            }
+
+            const sendData = fileList.length
+                ? changeInputToFormData222(data, fileList)
+                : data;
+
+            let pathadd = data.idx ? "update" : "insert";
+            const res = await api.post(
+                `/${pageCtg}/${pageId}/${pathadd}`,
+                sendData
+            );
+            if (res.status === 200) {
+                toast.success("저장 성공");
+                history.goBack();
+            }
+        } catch (e) {
+            console.log(e);
+            e.response && toast.error(e.response.data.error);
+            return;
+        }
+    };
+
+    return { inputs, setInputs, errors, setErrors, onChange, onSubmit };
 };

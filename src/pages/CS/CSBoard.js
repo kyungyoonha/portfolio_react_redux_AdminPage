@@ -25,6 +25,7 @@ const CSBoard = () => {
     };
 
     const handleClickDelete = async () => {
+        console.log("??");
         if (!selectedId) {
             alert("삭제할 행을 선택해주세요");
         } else {
@@ -50,13 +51,13 @@ const CSBoard = () => {
             {pathname.indexOf("question") > -1 ? (
                 <Navbar
                     onClickSend={() => handleClickButton("edit")}
-                    onClickDelete={() => handleClickDelete}
+                    onClickDelete={handleClickDelete}
                 />
             ) : (
                 <Navbar
                     onClickInsert={() => handleClickButton("insert")}
                     onClickEdit={() => handleClickButton("edit")}
-                    onClickDelete={() => handleClickDelete}
+                    onClickDelete={handleClickDelete}
                 />
             )}
 

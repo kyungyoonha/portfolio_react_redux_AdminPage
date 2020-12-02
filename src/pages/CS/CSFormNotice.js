@@ -1,6 +1,6 @@
 import React from "react";
 import history from "../../history";
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -20,13 +20,12 @@ const initialValue = {
 
 //working ###
 const CSFormNotice = () => {
-    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
+    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
         const fileList = ["file"];
         onSubmit(inputs, fileList);
     };
-
     return (
         <FormLayout
             onClickInsert={handleSubmit}

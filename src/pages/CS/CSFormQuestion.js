@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import history from "../../history";
 import fileAPI from "../../services/fileAPI";
 import api from "../../services/api";
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -35,7 +35,7 @@ const initialValueSender = {
 };
 //working
 const CSFormQuestion = () => {
-    const question = useInput222(initialValue);
+    const question = useInputs(initialValue);
     const [inputs, setInputs] = useState(initialValueSender);
     const [errors, setErrors] = useState({});
 

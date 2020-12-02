@@ -16,11 +16,13 @@ const Board = ({
 }) => {
     const headers = getHeaderList(pathname);
     const filters = headers.filter((item) => item.filter);
+
     const makeRowData = (item) => {
         return headers.map((col) => (
             <td key={col.key}>{changeDataFormat(col.key, item[col.key])}</td>
         ));
     };
+
     return (
         <div className={`boardLayout ${searchOnly && "noStyle"}`}>
             {!searchOnly && (

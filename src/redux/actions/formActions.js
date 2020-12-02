@@ -74,7 +74,6 @@ const submit = (data, fileList = [], goBack = true) => async (
     try {
         const { apiurl } = getState().form;
         const pageId = apiurl.split("/")[2];
-        console.log(pageId);
         const { isValid, checkedErrors } = validateAll(pageId, data);
         if (!isValid) {
             dispatch({ type: FORM_ERRORS, payload: checkedErrors });

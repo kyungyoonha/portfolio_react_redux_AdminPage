@@ -1,6 +1,6 @@
 import React from "react";
 import history from "../../history";
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -38,7 +38,7 @@ const initialValue = {
 };
 
 const PackageFormTour = () => {
-    const { inputs, setInputs, errors, onChange, onSubmit } = useInput222(
+    const { inputs, setInputs, errors, onChange, onSubmit } = useInputs(
         initialValue
     );
 

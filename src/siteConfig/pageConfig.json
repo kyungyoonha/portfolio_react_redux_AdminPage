@@ -127,7 +127,7 @@
             { "key": "target", "title": "대상 코드" },
             { "key": "linkinfo", "title": "연결페이지" },
             { "key": "contents", "title": "내용" ,"filter": true},
-            { "key": "messageYN", "title": "메시지 전송여부" },
+            { "key": "messageYN", "title": "메시지 동의" },
             { "key": "regdate", "title": "등록일" },
             { "key": "reguser", "title": "등록자" },
             { "key": "moddate", "title": "수정일" },
@@ -139,13 +139,13 @@
         "navCtg": "cs",
         "validate": ["title", "contents"],
         "headers": [
-            { "key": "id", "title": "id" },
-            { "key": "date", "title": "날짜" ,"filter": true},
+            { "key": "idx", "title": "인덱스" },
+            { "key": "regdate", "title": "날짜" ,"filter": true},
             { "key": "title", "title": "제목" ,"filter": true},
             { "key": "views", "title": "조회수" },
             { "key": "target", "title": "노출 범위" },
-            { "key": "topFix", "title": "상단 고정" },
-            { "key": "hiddenStatus", "title": "숨김 여부" }
+            { "key": "topYN", "title": "상단노출" },
+            { "key": "showYN", "title": "공개여부" }
         ]
     },
     "question": {

@@ -11,7 +11,6 @@ import api from "../../services/api";
 export const authAction_getMyInfo = () => async (dispatch) => {
     try {
         const res = await api.get("/auth/me");
-        console.log(res);
         dispatch({
             type: AUTH_GET,
             payload: res.data.user,

@@ -1,6 +1,6 @@
 import React from "react";
 import history from "../../history";
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 import FormLayout from "../../Layout/FormLayout";
 import { FormSection, Input } from "../../components";
 
@@ -13,7 +13,7 @@ const initialValue = {
 
 //working ###
 const PackageFormNation = () => {
-    const { inputs, errors, onChange, onSubmit } = useInput222(initialValue);
+    const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
         onSubmit(inputs);

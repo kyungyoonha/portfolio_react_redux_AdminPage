@@ -26,7 +26,12 @@ const BoardTop = ({ filters, onClick }) => {
             [name]: value,
         }));
     };
-    const exceptDate = ["tourstartday", "tourendday", "purchasedate"];
+    const exceptDate = [
+        "tourstartday",
+        "tourendday",
+        "purchasedate",
+        "regdate",
+    ];
     const makeInputField = (key) => {
         if (exceptDate.indexOf(key) > -1) {
             return (

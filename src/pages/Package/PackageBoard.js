@@ -28,9 +28,10 @@ const PackageBoard = () => {
         if (!selectedId) {
             alert("삭제할 행을 선택해주세요");
         } else {
-            dispatch(boardActions.delete(pathname, selectedId));
+            dispatch(boardActions.deleteData(pathname, selectedId));
         }
     };
+
     const handleClickButton = (type) => {
         if (!selectedId && type !== "insert") {
             alert("행을 선택해주세요.");
@@ -50,14 +51,14 @@ const PackageBoard = () => {
             {pathname.indexOf("tour") > -1 ? (
                 <Navbar
                     onClickInsert={() => handleClickButton("insert")}
-                    onClickDelete={() => handleClickDelete}
+                    onClickDelete={handleClickDelete}
                 />
             ) : (
                 <Navbar
                     onClickInsert={() => handleClickButton("insert")}
                     onClickEdit={() => handleClickButton("edit")}
                     onClickCopy={() => handleClickButton("copy")}
-                    onClickDelete={() => handleClickDelete}
+                    onClickDelete={handleClickDelete}
                 />
             )}
 

@@ -1,7 +1,7 @@
 import React from "react";
 import history from "../../history";
 // components
-import useInput222 from "../../Hooks/useInput222";
+import useInputs from "../../Hooks/useInputs";
 import FormLayout from "../../Layout/FormLayout";
 import {
     FormSection,
@@ -33,7 +33,7 @@ const URL_SEARCH_TOUR = "/package/tour";
 
 //working ###
 const OrderFormPurchase = () => {
-    const { inputs, setInputs, errors, onChange, onSubmit } = useInput222(
+    const { inputs, setInputs, errors, onChange, onSubmit } = useInputs(
         initialValue
     );
 

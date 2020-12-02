@@ -24,7 +24,6 @@ const ReactSelect = ({
         });
     };
 
-    // ###☆ nationcode 데이터로 변경
     const loadOptions = async (inputValue) => {
         const res = await api.get(`/package/${searchId}`);
 

@@ -61,15 +61,21 @@ const update222 = (apiurl, data) => async (dispatch) => {
     }
 };
 
-const deleteData = (pageId, itemId) => async (dispatch) => {
+const deleteData = (pathname, idx) => async (dispatch) => {
     try {
-        // await axios.post(`http://localhost:8000/${pageId}/delete`, itemId);
-        dispatch({
-            type: BOARD_DELETE,
-            payload: itemId,
-        });
+        let res = await api.post(pathname + "/delete", { idx: idx });
+        console.log(res);
+        if (res.status === 200) {
+            toast.success(res.data.message);
+
+            dispatch({
+                type: BOARD_DELETE,
+                payload: idx,
+            });
+        }
     } catch (e) {
-        console.error("delete Error", e);
+        console.log(e);
+        e.response && toast.error(e.response.data.error);
     }
 };
 
@@ -80,7 +86,6 @@ const errors = () => {
 };
 
 const initialize = () => {
-    console.log("초기화");
     return {
         type: BOARD_INITIALIZE,
     };
