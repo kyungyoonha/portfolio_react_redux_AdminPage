@@ -48,6 +48,7 @@ const ReactSelect = ({
         <AsyncSelect
             cacheOptions
             styles={{
+                menu: (provided) => ({ ...provided, zIndex: 10 }),
                 control: (provided, state) => ({
                     ...provided,
                     borderColor: error ? "#dc3545" : provided.borderColor,

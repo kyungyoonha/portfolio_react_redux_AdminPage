@@ -19,7 +19,7 @@ const PackageBoard = () => {
         dispatch(boardActions.fetch(pathname + search));
         return () => dispatch(boardActions.initialize());
     }, [dispatch, pathname, search]);
-
+    console.log(data);
     const handleClickRow = (idx) => {
         dispatch(boardActions.selected(idx));
     };

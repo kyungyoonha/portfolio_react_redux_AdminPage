@@ -16,6 +16,7 @@ import "react-datepicker/dist/react-datepicker.css";
 const store = createStore(reducers, applyMiddleware(reduxThunk));
 
 const token = JSON.parse(localStorage.getItem("token"));
+
 if (token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     store.dispatch(authAction_getMyInfo());

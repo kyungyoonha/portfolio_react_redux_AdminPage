@@ -48,8 +48,8 @@
         "headers": [
             { "key": "tourname", "title": "관광지명" , "filter": true},
             { "key": "nationtype", "title": "국가분류" , "filter": true},
-            { "key": "nationcodeidx", "title": "국가코드" , "filter": true},
-            { "key": "areacodeidx", "title": "지역코드" , "filter": true},
+            { "key": "nationcodeObj", "title": "국가코드" , "filter": true},
+            { "key": "areacodeObj", "title": "지역코드" , "filter": true},
             { "key": "tourcode", "title": "관광지코드" },
             { "key": "telnumber", "title": "전화번호" },
             { "key": "operatingtime", "title": "운영시간" }

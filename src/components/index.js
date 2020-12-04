@@ -20,6 +20,7 @@ export { default as Header } from "./Header/Header";
 export { default as Input } from "./Input/Input";
 export { default as InputAddress } from "./Input/InputAddress";
 export { default as InputDate } from "./Input/InputDate";
+export { default as InputDateYear } from "./Input/InputDateYear";
 export { default as InputFile } from "./Input/InputFile";
 export { default as InputFileWithImage } from "./Input/InputFileWithImage";
 export { default as InputRadioCheck } from "./Input/InputRadioCheck";

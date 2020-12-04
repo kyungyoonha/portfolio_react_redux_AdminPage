@@ -16,6 +16,7 @@ const initialValue = {
     drivername: "",
     id: "",
     pw: "",
+    pwCheck: "",
     nationtype: "1",
     nationcodeidx: "1",
     areacodeidx: "",
@@ -29,7 +30,7 @@ const initialValue = {
     etc: "",
     businessname: "",
     // image
-    driver: [],
+    driverpic: [],
     license: [],
     car: [],
 };
@@ -39,7 +40,7 @@ const MemberFormDriver = () => {
     const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
-        const fileList = ["driver", "car", "license"];
+        const fileList = ["driverpic", "car", "license"];
         onSubmit(inputs, fileList);
     };
 
@@ -70,6 +71,14 @@ const MemberFormDriver = () => {
                     value={inputs.pw}
                     onChange={onChange}
                     error={errors.pw}
+                />
+                <Input
+                    label="비밀번호 체크"
+                    name="pwCheck"
+                    type="password"
+                    value={inputs.pwCheck}
+                    onChange={onChange}
+                    error={errors.pwCheck}
                 />
                 <InputRadioSingle
                     label="국가 분류"
@@ -173,8 +182,10 @@ const MemberFormDriver = () => {
             <FormSection>
                 <InputFileWithImage
                     label="기사 사진"
-                    name="driver"
-                    value={inputs.driver.length ? inputs.driver[0].file : ""}
+                    name="driverpic"
+                    value={
+                        inputs.driverpic.length ? inputs.driverpic[0].file : ""
+                    }
                     onChange={onChange}
                     filetype="image"
                 />

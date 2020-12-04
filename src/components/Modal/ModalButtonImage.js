@@ -6,7 +6,6 @@ import Modal from "./Modal";
 import noImg from "../../img/no-img.jpg";
 import useOpen from "../../Hooks/useOpen";
 
-// ### 제출시 파일도 한번에 업로드
 const ModalButtonImage = ({ onChange, images }) => {
     const inputFileRef = useRef(null);
     const [isOpen, onClickOpen, onClickClose] = useOpen();

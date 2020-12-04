@@ -18,6 +18,7 @@ const initialValue = {
     username: "",
     id: "",
     pw: "",
+    pwCheck: "",
     birthday: new Date("1990-01-01"),
     telnumber: "",
     nickname: "",
@@ -28,8 +29,8 @@ const initialValue = {
     pushagree: "N",
     etc: "",
     profile: [],
+    interesttag: {},
     inextroversion: "0",
-    tripTag: {},
 };
 //working ###
 const MemberFormUser = () => {
@@ -37,6 +38,11 @@ const MemberFormUser = () => {
 
     const handleSubmit = () => {
         const fileList = ["profile"];
+        let interesttag = [];
+        Object.keys(inputs.interesttag).forEach((key) => {
+            inputs.interesttag[key] && interesttag.push(key);
+        });
+        inputs.interesttag = interesttag.join(",");
         onSubmit(inputs, fileList);
     };
 
@@ -67,6 +73,14 @@ const MemberFormUser = () => {
                     value={inputs.pw}
                     onChange={onChange}
                     error={errors.pw}
+                />
+                <Input
+                    label="비밀번호 체크"
+                    name="pwCheck"
+                    type="password"
+                    value={inputs.pwCheck}
+                    onChange={onChange}
+                    error={errors.pwCheck}
                 />
 
                 <InputDate
@@ -149,8 +163,8 @@ const MemberFormUser = () => {
             <FormSection full>
                 <InputRatioMulti
                     label="관심사 태그"
-                    name="tripTag"
-                    value={inputs.tripTag}
+                    name="interesttag"
+                    value={inputs.interesttag}
                     onChange={onChange}
                     max={3}
                     options={[

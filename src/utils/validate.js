@@ -6,6 +6,12 @@ export const validateAll = (pageId, inputs) => {
     let checkedErrors = {};
 
     Object.keys(inputs).forEach((key) => {
+        if (key === "pwCheck") {
+            if (inputs.pw !== inputs.pwCheck) {
+                checkedErrors["pwCheck"] = "비밀번호가 일치하지 않습니다.";
+            }
+        }
+
         let errorMessage = validate(pageId, key, inputs[key]);
         if (errorMessage) {
             checkedErrors[key] = errorMessage;
@@ -45,7 +51,22 @@ export const validate = (pageId, name, value) => {
             return value.length > 50 && "50자까지 입력 가능합니다.";
 
         case "grade":
-            return (value < 0 || value > 5) && "0 ~ 5까지만 입력 가능합니다.";
+            if (checkNumber(value)) {
+                return "숫자만 입력 가능합니다.";
+            } else if (value < 0 || value > 5) {
+                return "0 ~ 5까지만 입력 가능합니다.";
+            } else {
+                return;
+            }
+        case "telnumber":
+        case "contactNumber":
+            if (checkNumber(value)) {
+                return "숫자만 입력 가능합니다.";
+            } else if (value.length < 10) {
+                return "10자 이상입력해주세요";
+            } else {
+                return;
+            }
 
         case "code3":
             return value.length >= 4 && "3자리까지 입력 가능합니다.";
@@ -54,11 +75,9 @@ export const validate = (pageId, name, value) => {
         case "touridx":
         case "tourmember":
         case "target":
-        case "contactNumber":
         case "tourdays":
         case "price":
         case "admissionfee":
-        case "telnumber":
             return checkNumber(value) && "숫자만 입력 가능합니다.";
 
         default:

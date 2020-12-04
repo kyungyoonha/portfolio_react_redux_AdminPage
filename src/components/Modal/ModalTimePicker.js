@@ -57,7 +57,7 @@ const ModalTimePicker = ({ isOpen, onChange, onClickClose }) => {
             style={modalStyle}
             onRequestClose={onClickClose}
         >
-            <div className="modalTimePicker">
+            <div className="modalmodalTimePicker">
                 <div className="modalTimePicker__title">
                     <h4>운영 시간</h4>
                     <button

@@ -70,6 +70,7 @@ export default (initialValue) => {
                 : data;
 
             let pathadd = data.idx ? "update" : "insert";
+            console.log(pathadd, pageCtg, pageId);
             const res = await api.post(
                 `/${pageCtg}/${pageId}/${pathadd}`,
                 sendData

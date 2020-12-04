@@ -74,6 +74,9 @@ export const changeDataFormat = (key, value) => {
         case "question":
         case "drivercomplain":
         case "trabus":
+            if (key === "purchase") {
+                console.log(value);
+            }
             return value ? value.length + "건" : "0건";
 
         case "info":
@@ -109,8 +112,18 @@ export const changeDataFormat = (key, value) => {
         case "purchasetype":
             return value === "1" ? "직접구매" : "관광지구매";
 
+        case "level":
+            return value === 1 ? "슈퍼 관리자" : "일반 관리자";
+
         case "price":
-            return value.toLocaleString("en") + "원";
+            return value && value.toLocaleString("en") + "원";
+
+        case "nationcodeObj":
+            return value.code3;
+
+        case "areacodeObj":
+            console.log(value);
+            return value.areacode;
         default:
             return value;
     }

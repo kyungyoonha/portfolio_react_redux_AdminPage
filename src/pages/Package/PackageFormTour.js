@@ -64,7 +64,12 @@ const PackageFormTour = () => {
     };
 
     const handleSubmit = () => {
-        const fileList = ["audios", "images"];
+        let fileList = ["audios", "images"];
+        let interesttag = [];
+        Object.keys(inputs.interesttag).forEach((key) => {
+            inputs.interesttag[key] && interesttag.push(key);
+        });
+        inputs.interesttag = interesttag.join(",");
         onSubmit(inputs, fileList);
     };
 

@@ -11,19 +11,21 @@ import {
     InputAddress,
     InputSelect,
     InputTextarea,
+    InputDateYear,
 } from "../../components";
 
 const initialValue = {
     username: "",
     id: "",
     pw: "",
+    pwCheck: "",
     level: "2",
     birthday: new Date("1990-01-01"),
     telnumber: "",
     email: "",
     englishname: "",
     address: "",
-    entryYear: "",
+    entryYear: new Date("2015-01-01"),
     duty: "1",
     department: "1",
     etc: "",
@@ -34,6 +36,7 @@ const MemberFormAdmin = () => {
     const { inputs, errors, onChange, onSubmit } = useInputs(initialValue);
 
     const handleSubmit = () => {
+        inputs.entryYear = inputs.entryYear.getFullYear();
         onSubmit(inputs);
     };
 
@@ -60,9 +63,18 @@ const MemberFormAdmin = () => {
                 <Input
                     label="비밀번호"
                     name="pw"
+                    type="password"
                     value={inputs.pw}
                     onChange={onChange}
                     error={errors.pw}
+                />
+                <Input
+                    label="비밀번호 체크"
+                    name="pwCheck"
+                    type="password"
+                    value={inputs.pwCheck}
+                    onChange={onChange}
+                    error={errors.pwCheck}
                 />
                 <InputRadioSingle
                     label="등급"
@@ -109,11 +121,12 @@ const MemberFormAdmin = () => {
                     error={errors.address}
                 />
 
-                <Input
+                <InputDateYear
                     label="입사년도"
                     name="entryYear"
                     value={inputs.entryYear}
                     onChange={onChange}
+                    error={errors.entryYear}
                 />
 
                 <InputSelect
